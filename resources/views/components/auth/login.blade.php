@@ -5,16 +5,30 @@
             <div class="col-md-8 col-lg-6 col-xxl-3">
                 <div class="card mb-0">
                     <div class="card-body">
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        
                         <a href="{{ route('home') }}" class="text-nowrap logo-img d-block w-100 py-3 text-center">
                             <x-application-logo :width="200" />
                         </a>
                         <p class="mb-3 text-center">Sign in to use our platforms</p>
-                        <form>
+                        <form action="{{ route('signin') }}" method="POST">
+                            @csrf
                             <div class="mb-3">
-                                <x-input-form-label :label="__('Email address')" :name="'email'" :type="'email'" />
+                                <x-input-form-label :label="__('Email address')" :name="'email'" :type="'email'"
+                                    :value="'email'" :placeholder="'Your email'" />
                             </div>
                             <div class="mb-4">
-                                <x-input-form-label :label="__('Password')" :name="'password'" :type="'password'" />
+                                <x-input-form-label :label="__('Password')" :name="'password'" :type="'password'"
+                                    :value="'password'" :placeholder="'Your password'" />
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <div class="form-check">
@@ -27,7 +41,7 @@
                                 <a class="text-primary fw-bold" href="./index.html">Forgot Password ?</a>
                             </div>
                             <div class="mb-4">
-                                <x-button :type="'button'" :variant="'bg-blue-500'">Sign In</x-button>
+                                <x-button :type="'submit'" :variant="'bg-blue-500'">Sign In</x-button>
                             </div>
                             <div class="d-flex align-items-center justify-content-center">
                                 <p class="fs-4 fw-bold mb-0">Don't have account?</p>

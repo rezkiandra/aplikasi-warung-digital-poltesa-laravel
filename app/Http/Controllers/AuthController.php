@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\SigninRequest;
+use App\Http\Requests\SignupRequest;
+use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthController extends Controller
 {
@@ -11,23 +17,45 @@ class AuthController extends Controller
     return view('pages.auth.login');
   }
 
-  public function signin(Request $request)
+  public function register()
   {
     return view('pages.auth.register');
   }
 
-  public function register()
+  public function signin(SigninRequest $request)
   {
-    return view('pages.auth.login');
+    $credentials = $request->validate([
+      'email' => ['required', 'email'],
+      'password' => ['required'],
+    ]);
+
+    if (Auth::attempt($credentials)) {
+      $request->session()->regenerate();
+
+      return redirect()->route('home');
+    }
   }
 
-  public function signup(Request $request)
+  public function signup(SignupRequest $request)
   {
-    return view('pages.auth.login');
+    User::create([
+      'name' => $request->name,
+      'email' => $request->email,
+      'level_id' => 3,
+      'password' => $request->password,
+    ]);
+
+    Alert::success('Success Title', 'Success Message');
+    return redirect()->route('login');
   }
 
-  public function logout()
+  public function logout(Request $request)
   {
-    return view('pages.auth.login');
+    Auth::logout();
+
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect('/');
   }
 }

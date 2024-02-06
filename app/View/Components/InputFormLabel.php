@@ -8,18 +8,22 @@ use Illuminate\View\Component;
 
 class InputFormLabel extends Component
 {
-  public $label;
-  public $type;
-  public $name;
+  public string $label;
+  public string $type;
+  public string $name;
+  public string $placeholder;
+  public string $value;
 
   /**
    * Create a new component instance.
    */
-  public function __construct($label, $name, $type)
+  public function __construct($label, $name, $type, $placeholder = "", $value)
   {
     $this->label = $label;
     $this->name = $name;
     $this->type = $type;
+    $this->placeholder = $placeholder;
+    $this->value = $value;
   }
 
   /**

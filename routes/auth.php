@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+
 
 Route::controller(AuthController::class)->prefix('auth')->group(function () {
   Route::get('/login', 'login')->name('login');
-  Route::get('/register', 'signin')->name('register');
+  Route::get('/register', 'register')->name('register');
+  Route::get('/logout', 'logout')->name('logout');
 
-  Route::post('/login', 'register')->name('signin');
+  Route::post('/login', 'signin')->name('signin');
   Route::post('/register', 'signup')->name('signup');
-  Route::post('/logout', 'logout')->name('logout');
 });
