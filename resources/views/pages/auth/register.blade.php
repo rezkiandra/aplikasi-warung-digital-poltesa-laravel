@@ -3,5 +3,5 @@
 @section('title', 'Register')
 
 @section('content')
-    @include('components.auth.register')
+  @include('components.auth.register')
 @endsection
