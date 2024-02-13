@@ -1,0 +1,1 @@
+<button class="btn btn-{{ $variant }} d-grid w-100" type="{{ $type }}">{{ $label }}</button>

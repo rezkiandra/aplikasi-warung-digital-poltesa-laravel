@@ -26,6 +26,7 @@ class SignupRequest extends FormRequest
       'email' => 'required|email|unique:users',
       'password' => 'required|min:6',
       'konfirmasi' => 'required|same:password',
+      'terms' => 'required',
     ];
   }
 
@@ -44,6 +45,8 @@ class SignupRequest extends FormRequest
 
       'konfirmasi.required' => 'Konfirmasi password diperlukan',
       'konfirmasi.same' => 'Konfirmasi password tidak sama',
+
+      'terms.required' => 'Setujui syarat dan ketentuan',
     ];
   }
 
@@ -54,6 +57,7 @@ class SignupRequest extends FormRequest
       'email' => 'Email Address',
       'password' => 'Password',
       'konfirmasi' => 'Konfirmasi Password',
+      'terms' => 'Syarat dan Ketentuan',
     ];
   }
 }

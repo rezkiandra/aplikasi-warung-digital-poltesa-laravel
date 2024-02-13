@@ -1,47 +1,65 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free" class="light-style layout-menu-fixed layout-compact" dir="ltr">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="shortcut icon" type="image/png" href="{{ asset('modernize/src/assets/images/logos/favicon.png') }}" />
-    <link rel="stylesheet" href="{{ asset('/modernize/src/assets/css/styles.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('modernize/src/assets/css/icons/tabler-icons/tabler-icons.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&ampdisplay=swap" rel="stylesheet" />
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <title>@yield('title') - Warung Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="icon" type="image/x-icon" href="{{ asset('materio/assets/img/favicon/favicon.ico') }}" />
+  <link rel="stylesheet" href="{{ asset('materio/assets/vendor/fonts/materialdesignicons.css') }}" />
+  <link rel="stylesheet" href="{{ asset('materio/assets/vendor/libs/node-waves/node-waves.css') }}" />
+  <link rel="stylesheet" href="{{ asset('{{ asset('materio/assets/vendor/css/core.css') }}') }}" class="template-customizer-core-css" />
+  <link rel="stylesheet" href="{{ asset('materio/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+  <link rel="stylesheet" href="{{ asset('materio/assets/css/demo.css') }}" />
+  <link rel="stylesheet" href="{{ asset('materio/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+  <link rel="stylesheet" href="{{ asset('materio/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
+
+  <script src="{{ asset('materio/js/helpers.js') }}"></script>
+  <script src="{{ asset('materio/assets/js/config.js') }}"></script>
+
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
+  <title>@yield('title') - Warung Digital</title>
 </head>
 
 <body>
-    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-        data-sidebar-position="fixed" data-header-position="fixed">
+  {{-- Layout wrapper --}}
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
 
-        {{-- sidebar --}}
-        @include('components.sidebar')
-        {{-- sidebar end --}}
+      {{-- Sidebar --}}
+      @include('components.sidebar')
 
-        {{-- header --}}
-        @include('components.header')
-        {{-- end header --}}
+      {{-- Layout container --}}
+      <div class="layout-page">
 
-        <div class="container-fluid">
-            {{-- content --}}
-            {{ $slot }}
-            {{-- end content --}}
+        {{-- Navbar --}}
+        @include('components.navbar')
 
-            {{-- footer --}}
-            @include('components.footer')
-            {{-- end footer --}}
+        {{-- Content --}}
+        <div class="content-wrapper">
+          <div class="container-xxl flex-grow-1 container-p-y">
+            @yield('content')
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 
-    <script src="{{ asset('modernize/src/assets/libs/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('modernize/src/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('modernize/src/assets/js/sidebarmenu.js') }}"></script>
-    <script src="{{ asset('modernize/src/assets/js/app.min.js') }}"></script>
-    <script src="{{ asset('modernize/src/assets/libs/simplebar/dist/simplebar.js') }}"></script>
+  <script src="{{ asset('materio/assets/vendor/libs/jquery/jquery.js') }}"></script>
+  <script src="{{ asset('materio/assets/vendor/libs/popper/popper.js') }}"></script>
+  <script src="{{ asset('materio/assets/vendor/js/bootstrap.js') }}"></script>
+  <script src="{{ asset('materio/assets/vendor/libs/node-waves/node-waves.js') }}"></script>
+  <script src="{{ asset('materio/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+  <script src="{{ asset('materio/assets/vendor/js/menu.js') }}"></script>
+  <script src="{{ asset('materio/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+  <script src="{{ asset('materio/assets/js/main.js') }}"></script>
+  <script src="{{ asset('materio/assets/js/dashboards-analytics.js') }}"></script>
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 
 </html>
