@@ -26,6 +26,7 @@
 </head>
 
 <body>
+	@include('sweetalert::alert')
   {{-- Content --}}
   <div class="position-relative">
     <div class="authentication-wrapper authentication-basic container-p-y">

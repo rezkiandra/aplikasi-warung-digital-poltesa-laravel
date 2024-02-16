@@ -11,6 +11,7 @@
 </head>
 
 <body>
+	@include('sweetalert::alert')
   @yield('content')
 	
   <script src="{{ mix('js/app.js') }}" defer></script>

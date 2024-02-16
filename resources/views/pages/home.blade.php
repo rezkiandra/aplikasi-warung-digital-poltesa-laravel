@@ -3,7 +3,7 @@
 @section('title', 'Beranda')
 
 @section('content')
-  <h1>hello</h1>
+  <h1 class="text-3xl text-red-500">bagaimana menjadi seorang backend developer</h1>
   @auth
     <p>{{ Auth::user()->email }}</p>
     <a href="{{ route('logout') }}">Logout</a>

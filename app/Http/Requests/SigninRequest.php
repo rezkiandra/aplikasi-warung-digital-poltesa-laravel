@@ -14,15 +14,10 @@ class SigninRequest extends FormRequest
 		return true;
 	}
 
-	/**
-	 * Get the validation rules that apply to the request.
-	 *
-	 * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-	 */
 	public function rules(): array
 	{
 		return [
-			'email' => 'required|email',
+			'email' => 'required|email|exists:users,email',
 			'password' => 'required',
 		];
 	}
@@ -32,6 +27,7 @@ class SigninRequest extends FormRequest
 		return [
 			'email.required' => 'Email diperlukan',
 			'email.email' => 'Email tidak valid',
+			'email.exists' => 'Email tidak terdaftar',
 
 			'password.required' => 'Password diperlukan',
 		];
