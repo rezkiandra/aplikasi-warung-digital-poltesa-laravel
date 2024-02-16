@@ -30,6 +30,7 @@ Route::middleware(['auth', 'verified'])
 				Route::get('/levels', 'levels')->name('admin.levels');
 				Route::get('/product-category', 'product_category')->name('admin.product_category');
 				Route::get('/bank-account', 'bank_account')->name('admin.bank_account');
+				Route::get('/settings', 'settings')->name('admin.settings');
 			});
 
 		Route::controller(SellerController::class)

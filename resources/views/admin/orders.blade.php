@@ -1,3 +1,7 @@
-<div>
-    <!-- Be present above all else. - Naval Ravikant -->
-</div>
+@extends('layouts.authenticated')
+
+@section('title', 'Orders')
+
+@section('content')
+<h4>Orders</h4>
+@endsection

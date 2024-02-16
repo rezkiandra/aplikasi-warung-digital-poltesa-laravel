@@ -2,13 +2,13 @@
   <x-application-logo :route="route('home')" />
 
   <div class="card-body mt-2">
-		<h4 class="mb-2">Welcome to Warung Digital! 👋</h4>
+    <h4 class="mb-2">Welcome to Warung Digital! 👋</h4>
     <p class="mb-4">Please sign-in to your account and start purchase</p>
 
     <form id="formAuthentication" class="mb-3" action="{{ route('signin') }}" method="POST">
       @csrf
       <x-input-form-label :class="'mb-3'" :label="'Email'" :name="'email'" :type="'text'" :placeholder="'Your email'" :value="'email'" />
-			<x-input-form-label :class="'mb-3'" :label="'Password'" :name="'password'" :type="'password'" :placeholder="'Your password'" :value="'password'" />
+      <x-input-form-label :class="'mb-3'" :label="'Password'" :name="'password'" :type="'password'" :placeholder="'Your password'" :value="'password'" />
 
       <div class="mb-3 d-flex justify-content-between">
         <div class="form-check">

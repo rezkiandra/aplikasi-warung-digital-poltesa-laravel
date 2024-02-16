@@ -1,3 +1,7 @@
-<div>
-    <!-- The only way to do great work is to love what you do. - Steve Jobs -->
-</div>
+@extends('layouts.authenticated')
+
+@section('title', 'Bank Account')
+
+@section('content')
+  <h4>Bank Account</h4>
+@endsection

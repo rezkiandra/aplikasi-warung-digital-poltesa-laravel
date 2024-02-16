@@ -1,3 +1,7 @@
-<div>
-    <!-- Walk as if you are kissing the Earth with your feet. - Thich Nhat Hanh -->
-</div>
+@extends('layouts.authenticated')
+
+@section('title', 'Dashboard')
+
+@section('content')
+  <h4>Dashboard</h4>
+@endsection

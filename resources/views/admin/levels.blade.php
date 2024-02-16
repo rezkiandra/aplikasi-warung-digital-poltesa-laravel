@@ -1,3 +1,7 @@
-<div>
-    <!-- Simplicity is the consequence of refined emotions. - Jean D'Alembert -->
-</div>
+@extends('layouts.authenticated')
+
+@section('title', 'Levels')
+
+@section('content')
+<h4>Levels</h4>
+@endsection

@@ -1,7 +1,7 @@
 @extends('layouts.authenticated')
 
-@section('title', 'Products')
+@section('title', 'Settings')
 
 @section('content')
-<h4>Products</h4>
+<h4>Settings</h4>
 @endsection

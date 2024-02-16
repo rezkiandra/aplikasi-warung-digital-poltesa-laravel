@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free" class="light-style layout-menu-fixed layout-compact" dir="ltr">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="theme-default" data-assets-path="{{ asset('materio/assets') }}" data-template="vertical-menu-template-free" class="light-style layout-menu-fixed layout-compact" dir="ltr">
 
 <head>
   <meta charset="utf-8">
@@ -13,21 +13,20 @@
   <link rel="icon" type="image/x-icon" href="{{ asset('materio/assets/img/favicon/favicon.ico') }}" />
   <link rel="stylesheet" href="{{ asset('materio/assets/vendor/fonts/materialdesignicons.css') }}" />
   <link rel="stylesheet" href="{{ asset('materio/assets/vendor/libs/node-waves/node-waves.css') }}" />
-  <link rel="stylesheet" href="{{ asset('{{ asset('materio/assets/vendor/css/core.css') }}') }}" class="template-customizer-core-css" />
+  <link rel="stylesheet" href="{{ asset('materio/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
   <link rel="stylesheet" href="{{ asset('materio/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
   <link rel="stylesheet" href="{{ asset('materio/assets/css/demo.css') }}" />
   <link rel="stylesheet" href="{{ asset('materio/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
   <link rel="stylesheet" href="{{ asset('materio/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
 
-  <script src="{{ asset('materio/js/helpers.js') }}"></script>
+  <script src="{{ asset('materio/assets/vendor/js/helpers.js') }}"></script>
   <script src="{{ asset('materio/assets/js/config.js') }}"></script>
 
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
   <title>@yield('title') - Warung Digital</title>
 </head>
 
 <body>
-	@include('sweetalert::alert')
+  @include('sweetalert::alert')
   {{-- Layout wrapper --}}
   <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
@@ -46,9 +45,12 @@
           <div class="container-xxl flex-grow-1 container-p-y">
             @yield('content')
           </div>
+          @include('components.footer')
+          <div class="content-backdrop fade"></div>
         </div>
       </div>
     </div>
+    <div class="layout-overlay layout-menu-toggle"></div>
   </div>
 
   <script src="{{ asset('materio/assets/vendor/libs/jquery/jquery.js') }}"></script>
