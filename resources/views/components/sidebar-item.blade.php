@@ -1,4 +1,4 @@
-<li class="menu-item">
+<li class="menu-item {{ $active ? 'active' : '' }}">
   <a href="{{ $route }}" class="menu-link">
     <i class="menu-icon tf-icons mdi mdi-{{ $icon }}"></i>
     <div data-i18n="{{ $datai18n }}">{{ $label }}</div>

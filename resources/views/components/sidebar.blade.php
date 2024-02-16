@@ -13,10 +13,10 @@
   <div class="menu-inner-shadow"></div>
 
   <ul class="menu-inner py-1">
-    <x-sidebar-item :label="'Dashboard'" :route="route('admin.dashboard')" :icon="'view-dashboard-outline'" :datai18n="'Basic'" :active="request()->routeIs('admin.dashboard')" />
+    <x-sidebar-item :label="'Dashboard'" :route="route('admin.dashboard')" :icon="'view-dashboard-outline'" :datai18n="'Dashboard'" :active="request()->routeIs('admin.dashboard')" />
 
     <x-divider :label="'User Management'" />
-    <x-sidebar-item :label="'Sellers'" :route="route('admin.sellers')" :icon="'account-multiple-outline'" :data-i18n="'Sellers'" :active="request()->routeIs('admin.sellers')" />
+    <x-sidebar-item :label="'Sellers'" :route="route('admin.sellers')" :icon="'account-multiple-outline'" :datai18n="'Sellers'" :active="request()->routeIs('admin.sellers')" />
     <x-sidebar-item :label="'Customers'" :route="route('admin.customers')" :icon="'account-group-outline'" :datai18n="'Customers'" :active="request()->routeIs('admin.customers')" />
 
     <x-divider :label="'Data Management'" />
