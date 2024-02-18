@@ -4,30 +4,34 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class SubmitButton extends Component
+class BasicButton extends Component
 {
 	public $label;
 	public $type;
-	public $variant;
-	public $class;
 	public $icon;
+	public $class;
+	public $href;
 	/**
 	 * Create a new component instance.
+	 *
+	 * @return void
 	 */
-	public function __construct($label, $type, $variant, $class = '', $icon)
+	public function __construct($label, $type = '', $icon, $class = '', $href = '')
 	{
 		$this->label = $label;
 		$this->type = $type;
-		$this->variant = $variant;
-		$this->class = $class;
 		$this->icon = $icon;
+		$this->class = $class;
+		$this->href = $href;
 	}
 
 	/**
 	 * Get the view / contents that represent the component.
+	 *
+	 * @return \Illuminate\Contracts\View\View|\Closure|string
 	 */
 	public function render()
 	{
-		return view('components.submit-button');
+		return view('components.basic-button');
 	}
 }

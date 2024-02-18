@@ -26,7 +26,7 @@
 </head>
 
 <body>
-	@include('sweetalert::alert')
+  @include('sweetalert::alert')
   {{-- Content --}}
   <div class="position-relative">
     <div class="authentication-wrapper authentication-basic container-p-y">
@@ -35,6 +35,9 @@
         @yield('content')
         {{-- End card --}}
       </div>
+			<img src="{{ asset('materio/assets/img/illustrations/tree-3.png') }}" alt="auth-tree" class="authentication-image-object-left d-none d-lg-block" />
+			<img src="{{ asset('materio/assets/img/illustrations/auth-basic-mask-light.png') }}" class="authentication-image d-none d-lg-block" alt="triangle-bg" data-app-light-img="illustrations/auth-basic-mask-light.png" data-app-dark-img="illustrations/auth-basic-mask-dark.png" />
+			<img src="{{ asset('materio/assets/img/illustrations/tree.png') }}" alt="auth-tree" class="authentication-image-object-right d-none d-lg-block" />
     </div>
   </div>
   {{-- End content --}}

@@ -4,36 +4,34 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class CardForm extends Component
+class EditForm extends Component
 {
-	public $title;
 	public $label;
+	public $title;
 	public $name;
-	public $action;
+	public $class;
 	public $type;
 	public $placeholder;
+	public $datas;
 	/**
 	 * Create a new component instance.
-	 *
-	 * @return void
 	 */
-	public function __construct($title, $label, $name, $action = '', $type, $placeholder = '')
+	public function __construct($label, $title, $name, $class = "", $type, $placeholder = "", $datas)
 	{
-		$this->title = $title;
 		$this->label = $label;
+		$this->title = $title;
 		$this->name = $name;
-		$this->action = $action;
+		$this->class = $class;
 		$this->type = $type;
 		$this->placeholder = $placeholder;
+		$this->datas = $datas;
 	}
 
 	/**
 	 * Get the view / contents that represent the component.
-	 *
-	 * @return \Illuminate\Contracts\View\View|\Closure|string
 	 */
 	public function render()
 	{
-		return view('components.card-form');
+		return view('components.edit-form');
 	}
 }

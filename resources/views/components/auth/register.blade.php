@@ -7,14 +7,14 @@
 
     <form id="formAuthentication" class="mb-3" action="{{ route('signup') }}" method="POST">
       @csrf
-      <x-input-form-label :class="'mb-3'" :label="'Username'" :name="'name'" :type="'text'" :placeholder="'Your name'" :value="'name'" />
-      <x-input-form-label :class="'mb-3'" :label="'Email'" :name="'email'" :type="'text'" :placeholder="'Your email'" :value="'email'" />
-      <x-input-form-label :class="'mb-3'" :label="'Password'" :name="'password'" :type="'password'" :placeholder="'Your password'" :value="'password'" />
-      <x-input-form-label :class="'mb-3'" :label="'Confirm Password'" :name="'konfirmasi'" :type="'password'" :placeholder="'Confirm password'" :value="'konfirmasi'" />
-      <x-form-check :class="'mb-3'" :label="'I aggree to our terms and conditions'" :name="'terms'" :type="'checkbox'" :value="'terms'" />
+      <x-input-form-label :class="'mb-3'" :label="'Username'" :name="'name'" :type="'text'" :placeholder="'Your name'" :value="old('name')" />
+      <x-input-form-label :class="'mb-3'" :label="'Email'" :name="'email'" :type="'text'" :placeholder="'Your email'" :value="old('email')" />
+      <x-input-form-label :class="'mb-3'" :label="'Password'" :name="'password'" :type="'password'" :placeholder="'Your password'" :value="old('password')" />
+      <x-input-form-label :class="'mb-3'" :label="'Confirm Password'" :name="'konfirmasi'" :type="'password'" :placeholder="'Confirm password'" :value="old('konfirmasi')" />
+      <x-form-check :class="'mb-3'" :label="'I aggree to our terms and conditions'" :name="'terms'" :type="'checkbox'" :value="old('terms')" />
 
       <div class="mb-3">
-        <x-submit-button :label="'Sign Up'" :type="'submit'" :variant="'primary'" />
+        <x-submit-button :label="'Sign Up'" :type="'submit'" :variant="'primary'" :icon="'account-plus-outline'" :class="'w-100'" />
       </div>
     </form>
 
@@ -25,8 +25,4 @@
       </a>
     </p>
   </div>
-</div>
-<img src="{{ asset('materio/assets/img/illustrations/tree-3.png') }}" alt="auth-tree" class="authentication-image-object-left d-none d-lg-block" />
-<img src="{{ asset('materio/assets/img/illustrations/auth-basic-mask-light.png') }}" class="authentication-image d-none d-lg-block" alt="triangle-bg" data-app-light-img="illustrations/auth-basic-mask-light.png" data-app-dark-img="illustrations/auth-basic-mask-dark.png" />
-<img src="{{ asset('materio/assets/img/illustrations/tree.png') }}" alt="auth-tree" class="authentication-image-object-right d-none d-lg-block" />
 </div>

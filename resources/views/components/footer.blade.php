@@ -5,18 +5,28 @@
         ©
         <script>
           document.write(new Date().getFullYear());
-
-        </script>2024
-        , made with <span class="text-danger"><i class="tf-icons mdi mdi-heart"></i></span> by
-        <a href="https://themeselection.com" target="_blank" class="footer-link fw-medium">ThemeSelection</a>
+        </script>
+        Copyrights - All Rights Reserved.
+        <i class="tf-icons mdi mdi-laravel text-danger"></i>
+        <i class="tf-icons mdi mdi-tailwind text-info"></i>
+        Developed and Design by
+        <a href="https://themeselection.com" class="footer-link fw-medium text-decoration-underline">Kyy Studio</a>
       </div>
+
       <div class="d-none d-lg-inline-block">
-        <a href="https://themeselection.com/license/" class="footer-link me-3" target="_blank">License</a>
-        <a href="https://themeselection.com/" target="_blank" class="footer-link me-3">More Themes</a>
+        <a href="https://github.com/rezkiandra" class="footer-link me-3">
+          <i class="tf-icons mdi mdi-github text-dark"></i>
+        </a>
+        <a href="https://linkedin.com/in/rezkiandra" class="footer-link me-3">
+          <i class="tf-icons mdi mdi-linkedin text-info"></i>
+        </a>
+        <a href="https://wa.me/+6289693890856" class="footer-link me-3">
+          <i class="tf-icons mdi mdi-whatsapp text-success"></i>
+        </a>
 
-        <a href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/documentation/" target="_blank" class="footer-link me-3">Documentation</a>
-
-        <a href="https://github.com/themeselection/materio-bootstrap-html-admin-template-free/issues" target="_blank" class="footer-link">Support</a>
+        <a href="https://facebook.com/kyyzfe" class="footer-link">
+          <i class="tf-icons mdi mdi-facebook text-info"></i>
+        </a>
       </div>
     </div>
   </div>

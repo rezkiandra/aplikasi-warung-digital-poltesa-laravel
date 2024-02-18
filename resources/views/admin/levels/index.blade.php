@@ -3,6 +3,6 @@
 @section('title', 'Levels')
 
 @section('content')
-  <h4>Levels</h4>
+  <x-basic-button :label="'Add new level'" :icon="'plus'" :class="'w-0 text-capitalize mb-4'" :href="route('admin.create.level')" />
   <x-basic-table :fields="['No', 'Level Name', 'Created at', 'Updated at', 'Actions']" :datas="$levels" />
 @endsection

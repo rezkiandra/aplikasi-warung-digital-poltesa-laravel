@@ -10,7 +10,13 @@
   <div class="card-body">
     <form action="{{ route('admin.store.level') }}" method="POST">
       @csrf
-      <x-input-form-label :label="'Level Name'" :name="'level_name'" :type="'text'" :value="old('level_name')" :placeholder="'Ex: Admin, Superadmin, Editor, etc'" />
+      <div class="form-floating form-floating-outline {{ $class }}">
+        <input type="{{ $type }}" class="form-control" id="{{ $name }}" name="{{ $name }}"
+          placeholder="{{ $placeholder }}" value="{{ $datas }}" />
+        <label for="{{ $name }}">{{ $label }}</label>
+        <x-validation-error :name="$name" />
+      </div>
+
       <x-submit-button :label="'Submit'" :type="'submit'" :variant="'primary'" :icon="'check-circle-outline'" />
     </form>
   </div>

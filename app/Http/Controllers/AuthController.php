@@ -59,12 +59,11 @@ class AuthController extends Controller
 		Auth::user()->level_id == 2
 			? redirect()->route('seller.dashboard')
 			: redirect()->route('customer.dashboard');
-
 	}
 
 	public function logout(Request $request)
 	{
-		Auth::logout();
+		confirmDelete('Warning', 'Are you sure to logout?');
 
 		$request->session()->invalidate();
 		$request->session()->regenerateToken();

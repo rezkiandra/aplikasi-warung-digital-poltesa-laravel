@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\AdminShowController;
-use App\Http\Controllers\AdminStoreController;
+use App\Http\Controllers\LevelController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
@@ -30,20 +29,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
 			Route::get('/orders', 'orders')->name('admin.orders');
 			Route::get('/levels', 'levels')->name('admin.levels');
 			Route::get('/product-category', 'product_category')->name('admin.product_category');
-			Route::get('/bank-account', 'bank_account')->name('admin.bank_account');
+			Route::get('/bank-accounts', 'bank_account')->name('admin.bank_accounts');
 			Route::get('/settings', 'settings')->name('admin.settings');
 		});
 
-	Route::controller(AdminShowController::class)
+	Route::controller(LevelController::class)
 		->prefix('admin')
 		->group(function () {
-			Route::get('/level/{level}', 'show_level')->name('admin.show.level');
-		});
-
-	Route::controller(AdminStoreController::class)
-		->prefix('admin')
-		->group(function () {
-			Route::post('/level', 'store_level')->name('admin.store.level');
+			Route::get('/level/create', 'create')->name('admin.create.level');
+			Route::post('level/store', 'store')->name('admin.store.level');
+			Route::get('/level/edit/{level}', 'edit')->name('admin.edit.level');
+			Route::get('/level/detail/{level}', 'show')->name('admin.detail.level');
+			Route::put('/level/update/{level}', 'update')->name('admin.update.level');
+			Route::delete('/level/destroy/{level}', 'destroy')->name('admin.destroy.level');
 		});
 
 	Route::controller(SellerController::class)
