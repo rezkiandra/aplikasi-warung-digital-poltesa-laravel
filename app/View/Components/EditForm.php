@@ -12,11 +12,12 @@ class EditForm extends Component
 	public $class;
 	public $type;
 	public $placeholder;
-	public $datas;
+	public $route;
+	public $value;
 	/**
 	 * Create a new component instance.
 	 */
-	public function __construct($label, $title, $name, $class = "", $type, $placeholder = "", $datas)
+	public function __construct($label, $title, $name, $class = "", $type, $placeholder = "", $route, $value)
 	{
 		$this->label = $label;
 		$this->title = $title;
@@ -24,7 +25,8 @@ class EditForm extends Component
 		$this->class = $class;
 		$this->type = $type;
 		$this->placeholder = $placeholder;
-		$this->datas = $datas;
+		$this->route = $route;
+		$this->value = $value;
 	}
 
 	/**

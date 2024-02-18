@@ -63,8 +63,6 @@ class AuthController extends Controller
 
 	public function logout(Request $request)
 	{
-		confirmDelete('Warning', 'Are you sure to logout?');
-
 		$request->session()->invalidate();
 		$request->session()->regenerateToken();
 

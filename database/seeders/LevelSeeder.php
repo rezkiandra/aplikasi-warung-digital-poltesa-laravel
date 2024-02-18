@@ -15,14 +15,17 @@ class LevelSeeder extends Seeder
   {
     Level::create([
       'level_name' => 'Admin',
+			'slug' => 'admin'
     ]);
 
     Level::create([
       'level_name' => 'Seller',
+			'slug' => 'seller'
     ]);
 
     Level::create([
       'level_name' => 'Customer',
+			'slug' => 'customer'
     ]);
   }
 }

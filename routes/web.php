@@ -38,10 +38,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		->group(function () {
 			Route::get('/level/create', 'create')->name('admin.create.level');
 			Route::post('level/store', 'store')->name('admin.store.level');
-			Route::get('/level/edit/{level}', 'edit')->name('admin.edit.level');
-			Route::get('/level/detail/{level}', 'show')->name('admin.detail.level');
-			Route::put('/level/update/{level}', 'update')->name('admin.update.level');
-			Route::delete('/level/destroy/{level}', 'destroy')->name('admin.destroy.level');
+			Route::get('/level/{level}/edit', 'edit')->name('admin.edit.level');
+			Route::get('/level/{level}/detail', 'show')->name('admin.detail.level');
+			Route::put('/level/{level}/update', 'update')->name('admin.update.level');
+			Route::delete('/level/{level}/destroy', 'destroy')->name('admin.destroy.level');
 		});
 
 	Route::controller(SellerController::class)

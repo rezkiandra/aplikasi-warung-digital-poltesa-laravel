@@ -6,23 +6,24 @@ use Illuminate\View\Component;
 
 class DeleteButton extends Component
 {
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+	public $label;
+	/**
+	 * Create a new component instance.
+	 *
+	 * @return void
+	 */
+	public function __construct($label = '')
+	{
+		$this->label = $label;
+	}
 
-    /**
-     * Get the view / contents that represent the component.
-     *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
-     */
-    public function render()
-    {
-        return view('components.delete-button');
-    }
+	/**
+	 * Get the view / contents that represent the component.
+	 *
+	 * @return \Illuminate\Contracts\View\View|\Closure|string
+	 */
+	public function render()
+	{
+		return view('components.delete-button');
+	}
 }

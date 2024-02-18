@@ -14,7 +14,7 @@ class LevelRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'level_name' => 'required|unique:levels,level_name',
+			'level_name' => 'required|unique:levels,level_name|max:20',
 		];
 	}
 
@@ -23,6 +23,7 @@ class LevelRequest extends FormRequest
 		return [
 			'level_name.required' => 'Level diperlukan',
 			'level_name.unique' => 'Level sudah ada',
+			'level_name.max' => 'Level maksimal 20 karakter',
 		];
 	}
 

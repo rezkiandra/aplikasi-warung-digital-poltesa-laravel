@@ -8,11 +8,12 @@
     </div>
   </h5>
   <div class="card-body">
-    <form action="{{ route('admin.store.level') }}" method="POST">
+    <form action="{{ $route }}" method="POST">
       @csrf
+			@method('PUT')
       <div class="form-floating form-floating-outline {{ $class }}">
         <input type="{{ $type }}" class="form-control" id="{{ $name }}" name="{{ $name }}"
-          placeholder="{{ $placeholder }}" value="{{ $datas }}" />
+          placeholder="{{ $placeholder }}" value="{{ $value }}" />
         <label for="{{ $name }}">{{ $label }}</label>
         <x-validation-error :name="$name" />
       </div>

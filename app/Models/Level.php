@@ -10,6 +10,7 @@ class Level extends Model
   use HasFactory;
 
   protected $fillable = [
-    'level_name'
+    'level_name',
+    'slug'
   ];
 }
