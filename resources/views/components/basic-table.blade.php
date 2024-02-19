@@ -1,7 +1,7 @@
 <div class="card">
   <h5 class="card-header">List of Levels</h5>
-  <div class="table-responsive text-nowrap container">
-    <table class="table table-hover" id="myTable">
+  <div class="table-responsive text-nowrap">
+    <table class="table table-hover">
       <thead>
         @foreach ($fields as $field)
           <th>{{ $field }}</th>
@@ -18,10 +18,14 @@
                 <i class="mdi mdi-store-outline mdi-20px text-info me-3"></i>
               @elseif($data->level_name == 'Customer')
                 <i class="mdi mdi-account-outline mdi-20px text-warning me-3"></i>
-              @elseif($data->level_name == 'Superadmin')
-                <i class="mdi mdi-shield-crown-outline mdi-20px text-success me-3"></i>
+              @elseif($data->level_name == 'Super Admin')
+                <i class="mdi mdi-shield-crown-outline mdi-20px text-primary me-3"></i>
+              @elseif($data->level_name == 'Maintainer')
+                <i class="mdi mdi-bug-check-outline mdi-20px text-success me-3"></i>
+              @elseif($data->level_name == 'Developer')
+                <i class="mdi mdi-code-block-tags mdi-20px text-dark me-3"></i>
               @else
-                <i class="mdi mdi-face-agent mdi-20px text-primary me-3"></i>
+                <i class="mdi mdi-chart-donut mdi-20px text-secondary me-3"></i>
               @endif
               <span class="fw-medium">{{ $data->level_name }}</span>
             </td>
@@ -43,8 +47,12 @@
 							</li>
 						</ul>
 					</td> --}}
-            <td><span class="badge rounded-pill bg-label-success me-2">{{ $data->created_at }}</span></td>
-            <td><span class="badge rounded-pill bg-label-info me-2">{{ $data->updated_at }}</span></td>
+            <td><span
+                class="badge rounded-pill bg-label-success me-2">{{ date('d F Y, H:i:s', strtotime($data->created_at)) }}</span>
+            </td>
+            <td><span
+                class="badge rounded-pill bg-label-info me-2">{{ date('d F Y, H:i:s', strtotime($data->updated_at)) }}</span>
+            </td>
             <td>
               {{-- <x-action-button :icon="'pencil-outline'" :route="route('admin.edit.level', $data->slug)" :variant="'warning'" />
               <x-action-button :icon="'eye-outline'" :route="route('admin.detail.level', $data->slug)" :variant="'secondary'" />
@@ -75,41 +83,3 @@
     </table>
   </div>
 </div>
-
-@push('styles')
-  <link rel="stylesheet" href="{{ asset('materio/assets/vendor/libs/datatables/datatables.css') }}">
-  <link rel="stylesheet" href="{{ asset('materio/assets/vendor/libs/datatables/Buttons-3.0.0/css/buttons.dataTables.min.css') }}">
-  {{-- <link rel="stylesheet" href="{{ asset('materio/assets/vendor/libs/datatables/ColReorder-2.0.0/css/colReorder.bootstrap5.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('materio/assets/vendor/libs/datatables/Responsive-3.0.0/css/responsive.bootstrap5.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('materio/assets/vendor/libs/datatables/FixedHeader-4.0.0/css/fixedHeader.bootstrap5.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('materio/assets/vendor/libs/datatables/FixedColumns-5.0.0/css/fixedColumns.bootstrap5.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('materio/assets/vendor/libs/datatables/SearchPanes-2.3.0/css/searchPanes.bootstrap5.min.css') }}"> --}}
-@endpush
-
-@push('scripts')
-  <script src="{{ asset('materio/assets/vendor/libs/datatables/datatables.js') }}"></script>
-  <script src="{{ asset('materio/assets/vendor/libs/datatables/Buttons-3.0.0/js/dataTables.buttons.min.js') }}"></script>
-  <script src="{{ asset('materio/assets/vendor/libs/datatables/Buttons-3.0.0/js/buttons.print.min.js') }}"></script>
-  <script src="{{ asset('materio/assets/vendor/libs/datatables/Buttons-3.0.0/js/buttons.html5.min.js') }}"></script>
-  <script src="{{ asset('materio/assets/vendor/libs/datatables/Buttons-3.0.0/js/buttons.colVis.min.js') }}"></script>
-  <script src="{{ asset('materio/assets/vendor/libs/datatables/JSZip-3.10.1/jszip.min.js') }}"></script>
-  <script src="{{ asset('materio/assets/vendor/libs/datatables/pdfmake-0.2.7/pdfmake.min.js') }}"></script>
-  {{-- <script src="{{ asset('materio/assets/vendor/libs/datatables/ColReorder-2.0.0/js/dataTables.colReorder.min.js') }}"></script>
-  <script src="{{ asset('materio/assets/vendor/libs/datatables/Responsive-3.0.0/js/responsive.bootstrap5.min.js') }}"></script>
-	<script src="{{ asset('materio/assets/vendor/libs/datatables/FixedHeader-4.0.0/js/fixedHeader.bootstrap5.min.js') }}"></script>
-	<script src="{{ asset('materio/assets/vendor/libs/datatables/FixedColumns-5.0.0/js/fixedColumns.bootstrap5.min.js') }}"></script>
-	<script src="{{ asset('materio/assets/vendor/libs/datatables/SearchPanes-2.3.0/js/dataTables.searchPanes.min.js') }}"></script> --}}
-
-  <script>
-    $(document).ready(function() {
-      $('#myTable').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-          'copy', 'csv', 'excel', 'pdf', 'print', 'colvis'
-        ],
-        ordering: true,
-				info: false,
-      });
-    })
-  </script>
-@endpush

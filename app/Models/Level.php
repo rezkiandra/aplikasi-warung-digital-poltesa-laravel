@@ -13,4 +13,9 @@ class Level extends Model
     'level_name',
     'slug'
   ];
+
+	public function user()
+	{
+		return $this->belongsTo(User::class);
+	}
 }

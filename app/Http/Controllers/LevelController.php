@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Level;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -30,9 +31,12 @@ class LevelController extends Controller
 	/**
 	 * Display the specified resource.
 	 */
-	public function show(string $id)
+	public function show(string $slug)
 	{
-		//
+		$level = Level::where('slug', $slug)->firstOrFail();
+
+		$level_user_count = User::where('id', $level->id)->count();
+		return view('admin.levels.detail', compact('level', 'level_user_count'));
 	}
 
 	/**

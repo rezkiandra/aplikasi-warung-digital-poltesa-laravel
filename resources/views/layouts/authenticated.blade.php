@@ -44,7 +44,7 @@
       <div class="layout-page">
 
         {{-- Navbar --}}
-        {{-- @include('components.navbar') --}}
+        @include('components.navbar')
 
         {{-- Content --}}
         <div class="content-wrapper">
