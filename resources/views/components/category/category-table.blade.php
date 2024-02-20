@@ -1,5 +1,5 @@
 <div class="card">
-  <h5 class="card-header">List of Levels</h5>
+  <h5 class="card-header">{{ $title }}</h5>
   <div class="table-responsive text-nowrap">
     <table class="table table-hover">
       <thead>
@@ -12,22 +12,14 @@
           <tr>
             <td>{{ $loop->iteration }}</td>
             <td>
-              @if ($data->level_name == 'Admin')
-                <i class="mdi mdi-laptop mdi-20px text-danger me-3"></i>
-              @elseif($data->level_name == 'Seller')
-                <i class="mdi mdi-store-outline mdi-20px text-info me-3"></i>
-              @elseif($data->level_name == 'Customer')
-                <i class="mdi mdi-account-outline mdi-20px text-warning me-3"></i>
-              @elseif($data->level_name == 'Super Admin')
-                <i class="mdi mdi-shield-crown-outline mdi-20px text-primary me-3"></i>
-              @elseif($data->level_name == 'Maintainer')
-                <i class="mdi mdi-bug-check-outline mdi-20px text-success me-3"></i>
-              @elseif($data->level_name == 'Developer')
-                <i class="mdi mdi-code-block-tags mdi-20px text-dark me-3"></i>
-              @else
-                <i class="mdi mdi-chart-donut mdi-20px text-secondary me-3"></i>
+              @if ($data->name == 'Food')
+                <i class="mdi mdi-food-outline mdi-20px text-danger me-3"></i>
+              @elseif($data->name == 'Fashion')
+                <i class="mdi mdi-tshirt-crew-outline mdi-20px text-info me-3"></i>
+              @elseif($data->name == 'Electronic')
+                <i class="mdi mdi-lightning-bolt-outline mdi-20px text-warning me-3"></i>
               @endif
-              <span class="fw-medium">{{ $data->level_name }}</span>
+              <span class="fw-medium">{{ $data->name }}</span>
             </td>
             {{-- <td>
 						<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">

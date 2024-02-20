@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\LevelController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\GuestController;
+use App\Http\Controllers\LevelController;
 use App\Http\Controllers\SellerController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductCategoryController;
 
 Route::redirect('/', '/guest');
 
@@ -42,6 +43,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
 			Route::get('/level/{level}/detail', 'show')->name('admin.detail.level');
 			Route::put('/level/{level}/update', 'update')->name('admin.update.level');
 			Route::delete('/level/{level}/destroy', 'destroy')->name('admin.destroy.level');
+		});
+
+	Route::controller(ProductCategoryController::class)
+		->prefix('admin')
+		->group(function () {
+			Route::get('/category/create', 'create')->name('admin.create.category');
+			Route::post('category/store', 'store')->name('admin.store.category');
+			Route::get('/category/{category}/edit', 'edit')->name('admin.edit.category');
+			Route::get('/category/{category}/detail', 'show')->name('admin.detail.category');
+			Route::put('/category/{category}/update', 'update')->name('admin.update.category');
+			Route::delete('/category/{category}/destroy', 'destroy')->name('admin.destroy.category');
 		});
 
 	Route::controller(SellerController::class)

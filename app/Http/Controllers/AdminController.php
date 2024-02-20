@@ -51,8 +51,8 @@ class AdminController extends Controller
 
 	public function product_category()
 	{
-		$product_category = ProductCategory::all();
-		return view('admin.product_category.index', compact('product_category'));
+		$category = ProductCategory::all();
+		return view('admin.product_category.index', compact('category'));
 	}
 
 	public function bank_account()

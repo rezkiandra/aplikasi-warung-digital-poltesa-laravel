@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class EditForm extends Component
+class EditLevel extends Component
 {
 	public $label;
 	public $title;
@@ -34,6 +34,6 @@ class EditForm extends Component
 	 */
 	public function render()
 	{
-		return view('components.edit-form');
+		return view('components.level.edit-level');
 	}
 }

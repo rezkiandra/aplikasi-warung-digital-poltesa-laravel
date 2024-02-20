@@ -2,64 +2,68 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductCategory;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\ProductCategory;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductCategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+	/**
+	 * Show the form for creating a new resource.
+	 */
+	public function create()
+	{
+		return view('admin.product_category.create');
+	}
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+	/**
+	 * Store a newly created resource in storage.
+	 */
+	public function store(CategoryRequest $request)
+	{
+		ProductCategory::create([
+			'name' => $request->name,
+			'slug' => Str::slug($request->name)
+		]);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+		Alert::toast('Successfully created new category', 'success');
+		return redirect()->route('admin.product_category');
+	}
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(ProductCategory $productCategory)
-    {
-        //
-    }
+	/**
+	 * Display the specified resource.
+	 */
+	public function show(string $slug)
+	{
+		$category = ProductCategory::where('slug', $slug)->firstOrFail();
+		return view('admin.product_category.detail', compact('category'));
+	}
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ProductCategory $productCategory)
-    {
-        //
-    }
+	/**
+	 * Show the form for editing the specified resource.
+	 */
+	public function edit(string $slug)
+	{
+		$category = ProductCategory::where('slug', $slug)->firstOrFail();
+		return view('admin.product_category.edit', compact('category'));
+	}
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, ProductCategory $productCategory)
-    {
-        //
-    }
+	/**
+	 * Update the specified resource in storage.
+	 */
+	public function update(Request $request, ProductCategory $productCategory)
+	{
+		//
+	}
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ProductCategory $productCategory)
-    {
-        //
-    }
+	/**
+	 * Remove the specified resource from storage.
+	 */
+	public function destroy(ProductCategory $productCategory)
+	{
+		//
+	}
 }

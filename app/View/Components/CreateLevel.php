@@ -4,27 +4,27 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class CreateForm extends Component
+class CreateLevel extends Component
 {
-	public $title;
-	public $label;
-	public $name;
-	public $action;
-	public $type;
-	public $placeholder;
+	public $title, $label, $name, $action, $route, $type, $placeholder, $class, $value, $variant, $icon;
 	/**
 	 * Create a new component instance.
 	 *
 	 * @return void
 	 */
-	public function __construct($title, $label, $name, $action = '', $type, $placeholder = '')
+	public function __construct($title, $label, $name, $route, $type, $action, $placeholder = '', $class ='', $value, $variant, $icon)
 	{
 		$this->title = $title;
 		$this->label = $label;
 		$this->name = $name;
+		$this->route = $route;
 		$this->action = $action;
 		$this->type = $type;
 		$this->placeholder = $placeholder;
+		$this->class = $class;
+		$this->value = $value;
+		$this->variant = $variant;
+		$this->icon = $icon;
 	}
 
 	/**
@@ -34,6 +34,6 @@ class CreateForm extends Component
 	 */
 	public function render()
 	{
-		return view('components.create-form');
+		return view('components.level.create-level');
 	}
 }

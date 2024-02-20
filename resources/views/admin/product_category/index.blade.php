@@ -1,8 +1,8 @@
 @extends('layouts.authenticated')
 
-@section('title', 'Product Category')
+@section('title', 'Product Categories')
 
 @section('content')
-  <x-basic-button :label="'Add new category'" :icon="'plus'" :class="'w-0 text-capitalize mb-4'" :href="route('admin.create.level')" />
-  <x-basic-table :fields="['No', 'Level Name', 'Created at', 'Updated at', 'Actions']" :datas="$levels" />
+  <x-basic-button :label="'Add new category'" :icon="'plus'" :class="'w-0 text-uppercase mb-4'" :variant="'primary'" :href="route('admin.create.category')" />
+  <x-category-table :title="'List of categories'" :fields="['No', 'Category Name', 'Created at', 'Updated at', 'Actions']" :datas="$category" />
 @endsection
