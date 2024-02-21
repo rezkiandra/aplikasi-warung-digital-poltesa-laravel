@@ -54,9 +54,9 @@
                   <i class="mdi mdi-dots-vertical"></i>
                 </button>
                 <div class="dropdown-menu">
-                  <x-dropdown-item :label="'Edit'" :variant="'warning'" :icon="'pencil-outline'" :route="route('admin.edit.level', $data->slug)" />
-                  <x-dropdown-item :label="'Detail'" :variant="'secondary'" :icon="'eye-outline'" :route="route('admin.detail.level', $data->slug)" />
-                  <form action="{{ route('admin.destroy.level', $data->slug) }}" method="POST">
+                  <x-dropdown-item :label="'Edit'" :variant="'warning'" :icon="'pencil-outline'" :route="route('admin.edit.category', $data->slug)" />
+                  <x-dropdown-item :label="'Detail'" :variant="'secondary'" :icon="'eye-outline'" :route="route('admin.detail.category', $data->slug)" />
+                  <form action="{{ route('admin.destroy.category', $data->slug) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <x-delete-button />

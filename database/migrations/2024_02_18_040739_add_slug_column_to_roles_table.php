@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeLevelNameColumnToLevelsTable extends Migration
+class AddSlugColumnToRolesTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,8 +13,8 @@ class ChangeLevelNameColumnToLevelsTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::table('levels', function (Blueprint $table) {
-			$table->string('level_name', 20)->change();
+		Schema::table('roles', function (Blueprint $table) {
+			$table->string('slug')->nullable()->after('role_name');
 		});
 	}
 
@@ -25,8 +25,8 @@ class ChangeLevelNameColumnToLevelsTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::table('levels', function (Blueprint $table) {
-			$table->string('level_name', 10)->change();
+		Schema::table('roles', function (Blueprint $table) {
+			$table->dropColumn('slug');
 		});
 	}
 }

@@ -33,11 +33,11 @@ class AuthController extends Controller
 			$request->session()->regenerate();
 			Alert::toast('Signin successfully!', 'success');
 
-			if (Auth::user()->level_id === 1) {
+			if (Auth::user()->role_id === 1) {
 				return redirect()->route('admin.dashboard');
-			} elseif (Auth::user()->level_id === 2) {
+			} elseif (Auth::user()->role_id === 2) {
 				return redirect()->route('seller.dashboard');
-			} elseif (Auth::user()->level_id === 3) {
+			} elseif (Auth::user()->role_id === 3) {
 				return redirect()->route('customer.dashboard');
 			}
 		} elseif ($request->password !== User::where('password')) {
@@ -51,12 +51,12 @@ class AuthController extends Controller
 		User::create([
 			'name' => $request->name,
 			'email' => $request->email,
-			'level_id' => 3,
+			'role_id' => 3,
 			'password' => $request->password,
 		]);
 
 		Alert::toast('Signup successfully!', 'success');
-		Auth::user()->level_id == 2
+		Auth::user()->role_id == 2
 			? redirect()->route('seller.dashboard')
 			: redirect()->route('customer.dashboard');
 	}

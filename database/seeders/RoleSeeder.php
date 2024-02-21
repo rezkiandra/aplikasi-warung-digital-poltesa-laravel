@@ -2,29 +2,29 @@
 
 namespace Database\Seeders;
 
-use App\Models\Level;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class LevelSeeder extends Seeder
+class RoleSeeder extends Seeder
 {
   /**
    * Run the database seeds.
    */
   public function run(): void
   {
-    Level::create([
-      'level_name' => 'Admin',
+    Role::create([
+      'role_name' => 'Admin',
 			'slug' => 'admin'
     ]);
 
-    Level::create([
-      'level_name' => 'Seller',
+    Role::create([
+      'role_name' => 'Seller',
 			'slug' => 'seller'
     ]);
 
-    Level::create([
-      'level_name' => 'Customer',
+    Role::create([
+      'role_name' => 'Customer',
 			'slug' => 'customer'
     ]);
   }

@@ -11,9 +11,9 @@ return new class extends Migration
    */
   public function up(): void
   {
-    Schema::table('levels', function (Blueprint $table) {
+    Schema::table('roles', function (Blueprint $table) {
       // change enum to string
-      $table->string('level_name', 10)->change();
+      $table->string('role_name', 10)->change();
     });
   }
 
@@ -22,7 +22,7 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::table('levels', function (Blueprint $table) {
+    Schema::table('roles', function (Blueprint $table) {
     });
   }
 };

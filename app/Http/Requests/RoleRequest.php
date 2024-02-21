@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Role;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LevelRequest extends FormRequest
+class RoleRequest extends FormRequest
 {
 	public function authorize(): bool
 	{
@@ -14,23 +15,23 @@ class LevelRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'level_name' => 'required|unique:levels,level_name|max:20',
+			'role_name' => 'required|unique:roles,role_name|max:20',
 		];
 	}
 
 	public function messages(): array
 	{
 		return [
-			'level_name.required' => 'Level diperlukan',
-			'level_name.unique' => 'Level sudah ada',
-			'level_name.max' => 'Level maksimal 20 karakter',
+			'role_name.required' => 'Role diperlukan',
+			'role_name.unique' => 'Role sudah ada',
+			'role_name.max' => 'Role maksimal 20 karakter',
 		];
 	}
 
 	public function attributes(): array
 	{
 		return [
-			'level_name' => 'Level',
+			'role_name' => 'Role',
 		];
 	}
 }

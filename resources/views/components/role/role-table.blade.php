@@ -12,22 +12,22 @@
           <tr>
             <td>{{ $loop->iteration }}</td>
             <td>
-              @if ($data->level_name == 'Admin')
+              @if ($data->role_name == 'Admin')
                 <i class="mdi mdi-laptop mdi-20px text-danger me-3"></i>
-              @elseif($data->level_name == 'Seller')
+              @elseif($data->role_name == 'Seller')
                 <i class="mdi mdi-store-outline mdi-20px text-info me-3"></i>
-              @elseif($data->level_name == 'Customer')
+              @elseif($data->role_name == 'Customer')
                 <i class="mdi mdi-account-outline mdi-20px text-warning me-3"></i>
-              @elseif($data->level_name == 'Super Admin')
+              @elseif($data->role_name == 'Super Admin')
                 <i class="mdi mdi-shield-crown-outline mdi-20px text-primary me-3"></i>
-              @elseif($data->level_name == 'Maintainer')
+              @elseif($data->role_name == 'Maintainer')
                 <i class="mdi mdi-bug-check-outline mdi-20px text-success me-3"></i>
-              @elseif($data->level_name == 'Developer')
+              @elseif($data->role_name == 'Developer')
                 <i class="mdi mdi-code-block-tags mdi-20px text-dark me-3"></i>
               @else
                 <i class="mdi mdi-chart-donut mdi-20px text-secondary me-3"></i>
               @endif
-              <span class="fw-medium">{{ $data->level_name }}</span>
+              <span class="fw-medium">{{ $data->role_name }}</span>
             </td>
             {{-- <td>
 						<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
@@ -54,17 +54,17 @@
                 class="badge rounded-pill bg-label-info me-2">{{ date('d F Y, H:i:s', strtotime($data->updated_at)) }}</span>
             </td>
             <td>
-              {{-- <x-action-button :icon="'pencil-outline'" :route="route('admin.edit.level', $data->slug)" :variant="'warning'" />
-              <x-action-button :icon="'eye-outline'" :route="route('admin.detail.level', $data->slug)" :variant="'secondary'" />
+              {{-- <x-action-button :icon="'pencil-outline'" :route="route('admin.edit.role', $data->slug)" :variant="'warning'" />
+              <x-action-button :icon="'eye-outline'" :route="route('admin.detail.role', $data->slug)" :variant="'secondary'" />
               <x-delete-button /> --}}
               <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                   <i class="mdi mdi-dots-vertical"></i>
                 </button>
                 <div class="dropdown-menu">
-                  <x-dropdown-item :label="'Edit'" :variant="'warning'" :icon="'pencil-outline'" :route="route('admin.edit.level', $data->slug)" />
-                  <x-dropdown-item :label="'Detail'" :variant="'secondary'" :icon="'eye-outline'" :route="route('admin.detail.level', $data->slug)" />
-                  <form action="{{ route('admin.destroy.level', $data->slug) }}" method="POST">
+                  <x-dropdown-item :label="'Edit'" :variant="'warning'" :icon="'pencil-outline'" :route="route('admin.edit.role', $data->slug)" />
+                  <x-dropdown-item :label="'Detail'" :variant="'secondary'" :icon="'eye-outline'" :route="route('admin.detail.role', $data->slug)" />
+                  <form action="{{ route('admin.destroy.role', $data->slug) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <x-delete-button />

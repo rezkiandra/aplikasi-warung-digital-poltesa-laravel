@@ -11,9 +11,9 @@ return new class extends Migration
    */
   public function up(): void
   {
-    Schema::create('levels', function (Blueprint $table) {
+    Schema::create('roles', function (Blueprint $table) {
       $table->id();
-      $table->enum('level_name', ['admin', 'seller', 'customer']);
+      $table->enum('role_name', ['admin', 'seller', 'customer']);
       $table->timestamps();
     });
   }
@@ -23,6 +23,6 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::dropIfExists('levels');
+    Schema::dropIfExists('roles');
   }
 };

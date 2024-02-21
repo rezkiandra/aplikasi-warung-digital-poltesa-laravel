@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class EditLevel extends Component
+class EditCategory extends Component
 {
 	public $label;
 	public $title;
@@ -34,6 +34,6 @@ class EditLevel extends Component
 	 */
 	public function render()
 	{
-		return view('components.level.edit-level');
+		return view('components.category.edit-category');
 	}
 }

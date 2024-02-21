@@ -24,7 +24,7 @@
     <x-sidebar-item :label="'Orders'" :route="route('admin.orders')" :icon="'hand-coin-outline'" :datai18n="'Orders'" :active="request()->routeIs('admin.orders', 'admin.*.order')" />
 
     <x-divider :label="'Data Master'" />
-    <x-sidebar-item :label="'Levels'" :route="route('admin.levels')" :icon="'format-list-checkbox'" :datai18n="'Levels'" :active="request()->routeIs('admin.levels', 'admin.*.level')" />
+    <x-sidebar-item :label="'Roles'" :route="route('admin.roles')" :icon="'format-list-checkbox'" :datai18n="'roles'" :active="request()->routeIs('admin.roles', 'admin.*.role')" />
     <x-sidebar-item :label="'Product Category'" :route="route('admin.product_category')" :icon="'filter-outline'" :datai18n="'Category'" :active="request()->routeIs('admin.product_category', 'admin.*.category')" />
     <x-sidebar-item :label="'Bank Account'" :route="route('admin.bank_accounts')" :icon="'bank-outline'" :datai18n="'Bank'" :active="request()->routeIs('admin.bank_accounts', 'admin.*.bank_account')" />
 

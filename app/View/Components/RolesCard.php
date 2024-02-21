@@ -4,20 +4,16 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class LevelTable extends Component
+class RolesCard extends Component
 {
-	public $title;
-	public $fields;
 	public $datas;
 	/**
 	 * Create a new component instance.
 	 *
 	 * @return void
 	 */
-	public function __construct($title, $fields, $datas)
+	public function __construct($datas)
 	{
-		$this->title = $title;
-		$this->fields = $fields;
 		$this->datas = $datas;
 	}
 
@@ -28,6 +24,6 @@ class LevelTable extends Component
 	 */
 	public function render()
 	{
-		return view('components.level.level-table');
+		return view('components.roles-card');
 	}
 }

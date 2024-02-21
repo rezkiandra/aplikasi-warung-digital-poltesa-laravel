@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class CreateLevel extends Component
+class CreateCategory extends Component
 {
 	public $title, $label, $name, $action, $route, $type, $placeholder, $class, $value, $variant, $icon;
 	/**
@@ -34,6 +34,6 @@ class CreateLevel extends Component
 	 */
 	public function render()
 	{
-		return view('components.level.create-level');
+		return view('components.category.create-category');
 	}
 }

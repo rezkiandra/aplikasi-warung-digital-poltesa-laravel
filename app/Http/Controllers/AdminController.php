@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Level;
+use App\Models\Role;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Seller;
 use App\Models\Customer;
 use App\Models\Products;
 use App\Models\BankAccount;
-use Illuminate\Http\Request;
 use App\Models\ProductCategory;
 use App\Http\Controllers\Controller;
 
@@ -43,10 +43,11 @@ class AdminController extends Controller
 		return view('admin.orders.index', compact('orders'));
 	}
 
-	public function levels()
+	public function roles()
 	{
-		$levels = Level::all();
-		return view('admin.levels.index', compact('levels'));
+		$roles = Role::all();
+		$user_level = User::where('role_id', 1)->get('name');
+		return view('admin.roles.index', compact('roles', 'user_level'));
 	}
 
 	public function product_category()

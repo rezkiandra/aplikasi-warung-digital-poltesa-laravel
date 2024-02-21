@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GuestController;
-use App\Http\Controllers\LevelController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductCategoryController;
@@ -28,21 +28,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
 			Route::get('/customers', 'customers')->name('admin.customers');
 			Route::get('/products', 'products')->name('admin.products');
 			Route::get('/orders', 'orders')->name('admin.orders');
-			Route::get('/levels', 'levels')->name('admin.levels');
+			Route::get('/roles', 'roles')->name('admin.roles');
 			Route::get('/product-category', 'product_category')->name('admin.product_category');
 			Route::get('/bank-accounts', 'bank_account')->name('admin.bank_accounts');
 			Route::get('/settings', 'settings')->name('admin.settings');
 		});
 
-	Route::controller(LevelController::class)
+	Route::controller(RoleController::class)
 		->prefix('admin')
 		->group(function () {
-			Route::get('/level/create', 'create')->name('admin.create.level');
-			Route::post('level/store', 'store')->name('admin.store.level');
-			Route::get('/level/{level}/edit', 'edit')->name('admin.edit.level');
-			Route::get('/level/{level}/detail', 'show')->name('admin.detail.level');
-			Route::put('/level/{level}/update', 'update')->name('admin.update.level');
-			Route::delete('/level/{level}/destroy', 'destroy')->name('admin.destroy.level');
+			Route::get('/role/create', 'create')->name('admin.create.role');
+			Route::post('role/store', 'store')->name('admin.store.role');
+			Route::get('/role/{role}/edit', 'edit')->name('admin.edit.role');
+			Route::get('/role/{role}/detail', 'show')->name('admin.detail.role');
+			Route::put('/role/{role}/update', 'update')->name('admin.update.role');
+			Route::delete('/role/{role}/destroy', 'destroy')->name('admin.destroy.role');
 		});
 
 	Route::controller(ProductCategoryController::class)

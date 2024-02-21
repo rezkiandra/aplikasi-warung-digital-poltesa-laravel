@@ -54,9 +54,16 @@ class ProductCategoryController extends Controller
 	/**
 	 * Update the specified resource in storage.
 	 */
-	public function update(Request $request, ProductCategory $productCategory)
+	public function update(CategoryRequest $request, string $slug)
 	{
-		//
+		$category = ProductCategory::where('slug', $slug)->firstOrFail();
+		$category->update([
+			'name' => $request->name,
+			'slug' => Str::slug($request->name),
+		]);
+
+		Alert::toast('Successfully updated category', 'success');
+		return redirect()->route('admin.product_category');
 	}
 
 	/**
