@@ -6,6 +6,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\ProductCategoryController;
 
 Route::redirect('/', '/guest');
@@ -56,6 +58,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
 			Route::delete('/category/{category}/destroy', 'destroy')->name('admin.destroy.category');
 		});
 
+	Route::controller(BankAccountController::class)
+		->prefix('admin')
+		->group(function () {
+			Route::get('/bank/create', 'create')->name('admin.create.bank');
+			Route::post('bank/store', 'store')->name('admin.store.bank');
+			Route::get('/bank/{bank}/edit', 'edit')->name('admin.edit.bank');
+			Route::get('/bank/{bank}/detail', 'show')->name('admin.detail.bank');
+			Route::put('/bank/{bank}/update', 'update')->name('admin.update.bank');
+			Route::delete('/bank/{bank}/destroy', 'destroy')->name('admin.destroy.bank');
+		});
+
 	Route::controller(SellerController::class)
 		->prefix('seller')
 		->group(function () {
@@ -72,6 +85,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
 			Route::get('/product-cart', 'product_cart')->name('customer.product_cart');
 			Route::get('/orders', 'orders')->name('customer.orders');
 			Route::get('/bank-account', 'bank_account')->name('customer.bank_account');
+		});
+
+		Route::controller(ProductsController::class)
+		->prefix('admin')
+		->group(function () {
+			Route::get('/product/create', 'create')->name('admin.create.product');
+			Route::post('product/store', 'store')->name('admin.store.product');
+			Route::get('/product/{product}/edit', 'edit')->name('admin.edit.product');
+			Route::get('/product/{product}/detail', 'show')->name('admin.detail.product');
+			Route::put('/product/{product}/update', 'update')->name('admin.update.product');
+			Route::delete('/product/{product}/destroy', 'destroy')->name('admin.destroy.product');
 		});
 });
 

@@ -1,5 +1,5 @@
 <a href="{{ $route }}" class="waves-effect waves-light">
-  <span class="badge rounded-pill bg-label-{{ $variant }} me-2">
+  <span class="hide-arrow p-1 {{ $variant }}">
     <i class="mdi mdi-{{ $icon }}"></i>
   </span>
 </a>

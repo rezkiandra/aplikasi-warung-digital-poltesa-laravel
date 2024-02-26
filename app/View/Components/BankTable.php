@@ -4,16 +4,20 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class RolesCard extends Component
+class BankTable extends Component
 {
+	public $title;
+	public $fields;
 	public $datas;
 	/**
 	 * Create a new component instance.
 	 *
 	 * @return void
 	 */
-	public function __construct($datas)
+	public function __construct($title,$fields, $datas)
 	{
+		$this->title = $title;
+		$this->fields = $fields;
 		$this->datas = $datas;
 	}
 
@@ -24,6 +28,6 @@ class RolesCard extends Component
 	 */
 	public function render()
 	{
-		return view('components.role.roles-card');
+		return view('components.bank.bank-table');
 	}
 }

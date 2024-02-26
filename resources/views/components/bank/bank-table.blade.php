@@ -12,13 +12,10 @@
           <tr>
             <td>{{ $loop->iteration }}</td>
             <td>
-              <span class="fw-medium">{{ $data->name }}</span>
+              <span class="fw-medium">{{ $data->bank_name }}</span>
             </td>
             <td>
-              <span class="fw-medium">{{ \App\Models\ProductCategory::where('id', $data->parent_id)->count() }}</span>
-            </td>
-            <td>
-              <span class="fw-medium">{{ \App\Models\Order::where('id', $data->parent_id)->count() }}</span>
+              <span class="fw-medium">{{ \App\Models\Seller::where('id', $data->parent_id)->count() }}</span>
             </td>
             <td><span
                 class="badge rounded-pill bg-label-success me-2">{{ date('d F Y, H:i:s', strtotime($data->created_at)) }}
@@ -35,9 +32,9 @@
                   <i class="mdi mdi-dots-vertical"></i>
                 </button>
                 <div class="dropdown-menu">
-                  <x-dropdown-item :label="'Edit'" :variant="'warning'" :icon="'pencil-outline'" :route="route('admin.edit.category', $data->slug)" />
-                  <x-dropdown-item :label="'Detail'" :variant="'secondary'" :icon="'eye-outline'" :route="route('admin.detail.category', $data->slug)" />
-                  <form action="{{ route('admin.destroy.category', $data->slug) }}" method="POST">
+                  <x-dropdown-item :label="'Edit'" :variant="'warning'" :icon="'pencil-outline'" :route="route('admin.edit.bank', $data->slug)" />
+                  <x-dropdown-item :label="'Detail'" :variant="'secondary'" :icon="'eye-outline'" :route="route('admin.detail.bank', $data->slug)" />
+                  <form action="{{ route('admin.destroy.bank', $data->slug) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <x-delete-button />

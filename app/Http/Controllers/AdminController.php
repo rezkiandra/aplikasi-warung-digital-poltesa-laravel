@@ -58,8 +58,8 @@ class AdminController extends Controller
 
 	public function bank_account()
 	{
-		$bank_account = BankAccount::all();
-		return view('admin.bank_account.index', compact('bank_account'));
+		$banks = BankAccount::all();
+		return view('admin.bank_account.index', compact('banks'));
 	}
 
 	public function settings()
