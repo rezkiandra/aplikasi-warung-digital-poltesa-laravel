@@ -11,13 +11,7 @@
     <form action="{{ $route }}" method="POST">
       @csrf
       @method('PUT')
-      <div class="form-floating form-floating-outline {{ $class }}">
-        <input type="{{ $type }}" class="form-control" id="{{ $name }}" name="{{ $name }} autofocus"
-          placeholder="{{ $placeholder }}" value="{{ $value }}" />
-        <label for="{{ $name }}">{{ $label }}</label>
-        <x-validation-error :name="$name" />
-      </div>
-
+      @include('components.input-form-label')
       <x-submit-button :label="'Submit'" :type="'submit'" :variant="'primary'" :icon="'check-circle-outline'" />
     </form>
   </div>

@@ -14,15 +14,15 @@ class BankAccountRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'bank_name' => 'required|unique:bank_accounts,bank_name|max:20',
+			'bank_name' => 'unique:bank_accounts,bank_name|required',
 		];
 	}
 
 	public function messages(): array
 	{
 		return [
-			'bank_name.required' => 'Nama bank diperlukan',
 			'bank_name.unique' => 'Nama bank sudah ada',
+			'bank_name.required' => 'Nama bank diperlukan',
 			'bank_name.max' => 'Nama bank maksimal 20 karakter',
 		];
 	}
