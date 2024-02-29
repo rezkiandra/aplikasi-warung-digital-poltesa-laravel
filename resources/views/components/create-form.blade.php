@@ -8,10 +8,8 @@
     </div>
   </h5>
   <div class="card-body">
-    <form action="{{ $action }}" method="POST">
+    <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
       @csrf
-      @method('PUT')
-
       {{ $slot }}
     </form>
   </div>

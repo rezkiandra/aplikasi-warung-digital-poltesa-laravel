@@ -4,19 +4,19 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class CreateForm extends Component
+class UserTable extends Component
 {
-	public $title, $action, $route;
+	public $title, $datas, $fields;
 	/**
 	 * Create a new component instance.
 	 *
 	 * @return void
 	 */
-	public function __construct($title, $route, $action)
+	public function __construct($fields, $datas, $title)
 	{
+		$this->fields = $fields;
 		$this->title = $title;
-		$this->route = $route;
-		$this->action = $action;
+		$this->datas = $datas;
 	}
 
 	/**
@@ -26,6 +26,6 @@ class CreateForm extends Component
 	 */
 	public function render()
 	{
-		return view('components.category.create-category');
+		return view('components.user.user-table');
 	}
 }

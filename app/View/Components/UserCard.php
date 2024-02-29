@@ -4,19 +4,20 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class CreateForm extends Component
+class UserCard extends Component
 {
-	public $title, $action, $route;
+	public $datas, $label, $icon, $variant;
 	/**
 	 * Create a new component instance.
 	 *
 	 * @return void
 	 */
-	public function __construct($title, $route, $action)
+	public function __construct($datas, $label, $icon, $variant)
 	{
-		$this->title = $title;
-		$this->route = $route;
-		$this->action = $action;
+		$this->datas = $datas;
+		$this->label = $label;
+		$this->icon = $icon;
+		$this->variant = $variant;
 	}
 
 	/**
@@ -26,6 +27,6 @@ class CreateForm extends Component
 	 */
 	public function render()
 	{
-		return view('components.category.create-category');
+		return view('components.user.user-card');
 	}
 }

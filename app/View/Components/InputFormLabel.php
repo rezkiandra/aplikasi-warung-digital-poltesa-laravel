@@ -8,21 +8,23 @@ class InputFormLabel extends Component
 {
 	public $label;
 	public $name;
-	public $class;
 	public $type;
 	public $placeholder;
 	public $value;
+	public $options;
+	public $select;
 	/**
 	 * Create a new component instance.
 	 */
-	public function __construct($label, $name, $class = "", $type, $placeholder = "", $value)
+	public function __construct($label, $name, $type, $placeholder = "", $value = '', $options = '', $select = '')
 	{
 		$this->label = $label;
 		$this->name = $name;
-		$this->class = $class;
 		$this->type = $type;
 		$this->placeholder = $placeholder;
 		$this->value = $value;
+		$this->options = $options;
+		$this->select = $select;
 	}
 
 	/**

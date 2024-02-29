@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class CreateForm extends Component
+class EditForm extends Component
 {
 	public $title, $action, $route;
 	/**
@@ -12,11 +12,11 @@ class CreateForm extends Component
 	 *
 	 * @return void
 	 */
-	public function __construct($title, $route, $action)
+	public function __construct($title, $action, $route)
 	{
 		$this->title = $title;
-		$this->route = $route;
 		$this->action = $action;
+		$this->route = $route;
 	}
 
 	/**
@@ -26,6 +26,6 @@ class CreateForm extends Component
 	 */
 	public function render()
 	{
-		return view('components.category.create-category');
+		return view('components.edit-form');
 	}
 }

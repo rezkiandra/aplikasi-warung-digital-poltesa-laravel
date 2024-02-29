@@ -10,8 +10,7 @@
   <div class="card-body">
     <form action="{{ $action }}" method="POST">
       @csrf
-      @include('components.input-form-label')
-      @include('components.submit-button')
+      {{ $slot }}
     </form>
   </div>
 </div>

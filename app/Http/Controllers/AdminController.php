@@ -31,6 +31,12 @@ class AdminController extends Controller
 		return view('admin.customers.index', compact('customers'));
 	}
 
+	public function users()
+	{
+		$users = User::all();
+		return view('admin.users.index', compact('users'));
+	}
+
 	public function products()
 	{
 		$products = Products::all();

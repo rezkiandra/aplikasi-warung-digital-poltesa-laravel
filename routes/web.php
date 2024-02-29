@@ -9,6 +9,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\UserController;
 
 Route::redirect('/', '/guest');
 
@@ -28,6 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 			Route::get('/dashboard', 'dashboard')->name('admin.dashboard');
 			Route::get('/sellers', 'sellers')->name('admin.sellers');
 			Route::get('/customers', 'customers')->name('admin.customers');
+			Route::get('/users', 'users')->name('admin.users');
 			Route::get('/products', 'products')->name('admin.products');
 			Route::get('/orders', 'orders')->name('admin.orders');
 			Route::get('/roles', 'roles')->name('admin.roles');
@@ -67,6 +69,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
 			Route::get('/bank/{bank}/detail', 'show')->name('admin.detail.bank');
 			Route::put('/bank/{bank}/update', 'update')->name('admin.update.bank');
 			Route::delete('/bank/{bank}/destroy', 'destroy')->name('admin.destroy.bank');
+		});
+
+	Route::controller(UserController::class)
+		->prefix('admin')
+		->group(function () {
+			Route::get('/user/create', 'create')->name('admin.create.user');
+			Route::post('user/store', 'store')->name('admin.store.user');
+			Route::get('/user/{user}/edit', 'edit')->name('admin.edit.user');
+			Route::get('/user/{user}/detail', 'show')->name('admin.detail.user');
+			Route::put('/user/{user}/update', 'update')->name('admin.update.user');
+			Route::delete('/user/{user}/destroy', 'destroy')->name('admin.destroy.user');
 		});
 
 	Route::controller(SellerController::class)

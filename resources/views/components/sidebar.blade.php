@@ -16,8 +16,9 @@
     <x-sidebar-item :label="'Dashboard'" :route="route('admin.dashboard')" :icon="'view-dashboard-outline'" :datai18n="'Dashboard'" :active="request()->routeIs('admin.dashboard')" />
 
     <x-divider :label="'User Management'" />
-    <x-sidebar-item :label="'Sellers'" :route="route('admin.sellers')" :icon="'account-multiple-outline'" :datai18n="'Sellers'" :active="request()->routeIs('admin.sellers', 'admin.*.seller')" />
-    <x-sidebar-item :label="'Customers'" :route="route('admin.customers')" :icon="'account-group-outline'" :datai18n="'Customers'" :active="request()->routeIs('admin.customers', 'admin.*.customer')" />
+    <x-sidebar-item :label="'Sellers'" :route="route('admin.sellers')" :icon="'account-outline'" :datai18n="'Sellers'" :active="request()->routeIs('admin.sellers', 'admin.*.seller')" />
+    <x-sidebar-item :label="'Customers'" :route="route('admin.customers')" :icon="'account-multiple-outline'" :datai18n="'Customers'" :active="request()->routeIs('admin.customers', 'admin.*.customer')" />
+    <x-sidebar-item :label="'Users'" :route="route('admin.users')" :icon="'account-group-outline'" :datai18n="'users'" :active="request()->routeIs('admin.users', 'admin.*.user')" />
 
     <x-divider :label="'Data Management'" />
     <x-sidebar-item :label="'Products'" :route="route('admin.products')" :icon="'package-variant'" :datai18n="'Products'" :active="request()->routeIs('admin.products', 'admin.*.product')" />

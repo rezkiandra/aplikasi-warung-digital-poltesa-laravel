@@ -26,6 +26,6 @@ class CreateForm extends Component
 	 */
 	public function render()
 	{
-		return view('components.category.create-category');
+		return view('components.create-form');
 	}
 }
