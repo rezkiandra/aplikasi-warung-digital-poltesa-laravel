@@ -16,12 +16,12 @@
             @endforeach
             <td>
               <x-dropdown-table>
-                {{-- @include('components.dropdown-item') --}}
-                {{-- <form action="{{ route('admin.destroy.seller', $data->slug) }}" method="POST">
+                @include('components.dropdown-item')
+                <form action="{{ route('admin.destroy.seller', $data->slug) }}" method="POST">
 									@csrf
 									@method('DELETE')
 									<x-delete-button />
-								</form> --}}
+								</form>
               </x-dropdown-table>
             </td>
           </tr>

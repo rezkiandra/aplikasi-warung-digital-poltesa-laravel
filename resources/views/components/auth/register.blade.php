@@ -7,10 +7,22 @@
 
     <form id="formAuthentication" class="mb-3" action="{{ route('signup') }}" method="POST">
       @csrf
-      <x-input-form-label :class="'mb-3'" :label="'Username'" :name="'name'" :type="'text'" :placeholder="'Your name'" :value="old('name')" />
-      <x-input-form-label :class="'mb-3'" :label="'Email'" :name="'email'" :type="'text'" :placeholder="'Your email'" :value="old('email')" />
-      <x-input-form-label :class="'mb-3'" :label="'Password'" :name="'password'" :type="'password'" :placeholder="'Your password'" :value="old('password')" />
-      <x-input-form-label :class="'mb-3'" :label="'Confirm Password'" :name="'konfirmasi'" :type="'password'" :placeholder="'Confirm password'" :value="old('konfirmasi')" />
+      <x-form-floating>
+				<x-input-form-label :class="'mb-3'" :label="'Username'" :name="'name'" :type="'text'" :placeholder="'Your name'" :value="old('name')" />
+			</x-form-floating>
+			
+      <x-form-floating>
+				<x-input-form-label :class="'mb-3'" :label="'Email'" :name="'email'" :type="'text'" :placeholder="'Your email'" :value="old('email')" />
+			</x-form-floating>
+			
+      <x-form-floating>
+				<x-input-form-label :class="'mb-3'" :label="'Password'" :name="'password'" :type="'password'" :placeholder="'Your password'" :value="old('password')" />
+			</x-form-floating>
+			
+      <x-form-floating>
+				<x-input-form-label :class="'mb-3'" :label="'Confirm Password'" :name="'konfirmasi'" :type="'password'" :placeholder="'Confirm password'" :value="old('konfirmasi')" />
+			</x-form-floating>
+			
       <x-form-check :class="'mb-3'" :label="'I aggree to our terms and conditions'" :name="'terms'" :type="'checkbox'" :value="old('terms')" />
 
       <div class="mb-3">

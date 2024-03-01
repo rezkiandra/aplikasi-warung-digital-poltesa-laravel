@@ -7,8 +7,13 @@
 
     <form id="formAuthentication" class="mb-3" action="{{ route('signin') }}" method="POST">
       @csrf
-      <x-input-form-label :class="'mb-3'" :label="'Email'" :name="'email'" :type="'text'" :placeholder="'Your email'" :value="old('email')" />
-      <x-input-form-label :class="'mb-3'" :label="'Password'" :name="'password'" :type="'password'" :placeholder="'Your password'" :value="old('password')" />
+      <x-form-floating>
+        <x-input-form-label :label="'Email'" :name="'email'" :type="'text'" :placeholder="'Your email'" :value="old('email')" />
+      </x-form-floating>
+
+      <x-form-floating>
+        <x-input-form-label :label="'Password'" :name="'password'" :type="'password'" :placeholder="'Your password'" :value="old('password')" />
+      </x-form-floating>
 
       <div class="mb-3 d-flex justify-content-between">
         <div class="form-check">
@@ -20,7 +25,8 @@
         </a>
       </div>
       <div class="mb-3">
-        <x-submit-button :label="'Sign In'" :type="'submit'" :variant="'primary'" :icon="'login'" :class="'w-100'" />
+        <x-submit-button :label="'Sign In'" :type="'submit'" :variant="'primary'" :icon="'login'"
+          :class="'w-100'" />
       </div>
     </form>
 
