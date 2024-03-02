@@ -16,13 +16,13 @@
     <div class="card-widget-separator-wrapper">
       <div class="card-body card-widget-separator">
         <div class="row gy-4 gy-sm-1">
-          <x-product-card :datas="$products" :condition="\App\Models\Products::all()->count()" :label="'Total Products'" :icon="'cart-outline'" :variant="'primary'" :growth="'danger'"
-            :class="'border-end'"  />
-          <x-product-card :datas="$products" :condition="\App\Models\Products::all()->count()" :label="'Top Sale'" :icon="'shopping-outline'" :variant="'info'" :growth="'danger'"
+          <x-product-card :datas="$products" :condition="\App\Models\Products::all()->count()" :label="'Total Products'" :icon="'cart-outline'" :variant="'primary'"
+            :growth="'danger'" :class="'border-end'" />
+          <x-product-card :datas="$products" :condition="\App\Models\Order::where('product_id', '>=', 20)->count()" :label="'Top Sale'" :icon="'shopping-outline'" :variant="'info'" :growth="'danger'"
             :class="'border-end'" />
-          <x-product-card :datas="$products" :condition="\App\Models\Products::all()->count()" :label="'Discount'" :icon="'wallet-giftcard'" :variant="'success'" :growth="'danger'"
-            :class="'border-end'" />
-          <x-product-card :datas="$products" :condition="\App\Models\Products::all()->count()" :label="'Sold Out'" :icon="'sale-outline'" :variant="'dark'"
+          <x-product-card :datas="$products" :condition="\App\Models\Products::all()->count()" :label="'Discount'" :icon="'wallet-giftcard'" :variant="'success'"
+            :growth="'danger'" :class="'border-end'" />
+          <x-product-card :datas="$products" :condition="\App\Models\Products::where('stock', '=', 0)->count()" :label="'Out of Stock'" :icon="'sale-outline'" :variant="'dark'"
             :growth="'danger'" />
         </div>
       </div>

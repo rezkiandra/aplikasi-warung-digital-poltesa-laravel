@@ -64,22 +64,22 @@ class ProductsController extends Controller
   public function update(EditProductsRequest $request, string $slug)
   {
     $product = Products::where('slug', $slug)->firstOrFail();
+    $productImage = Products::where('slug', $slug)->pluck('image')->first();
 
-    $productId = Products::where('slug', $slug)->pluck('id')->first();
-    $oldImage = Products::findOrFail($productId);
-    if ($oldImage->image) {
-      Storage::delete('public/' . $oldImage->image);
+    if ($request->hasFile('image')) {
+      if ($productImage) {
+        Storage::delete('public/' . $productImage);
+      }
+      $product->update([
+        'name' => $request->name,
+        'slug' => Str::slug($request->name),
+        'description' => $request->description,
+        'price' => $request->price,
+        'stock' => $request->stock,
+        'category_id' => $request->category_id,
+        'image' => $request->image->store('products', 'public'),
+      ]);
     }
-
-    $product->update([
-      'name' => $request->name,
-      'slug' => Str::slug($request->name),
-      'description' => $request->description,
-      'price' => $request->price,
-      'stock' => $request->stock,
-      'category_id' => $request->category_id,
-      'image' => $request->image->store('products', 'public'),
-    ]);
 
     Alert::toast('Successfully updated product', 'success');
     return redirect()->route('admin.products');
