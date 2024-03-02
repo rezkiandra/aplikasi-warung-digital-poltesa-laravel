@@ -74,12 +74,29 @@ Route::middleware(['auth', 'verified'])->group(function () {
 	Route::controller(UserController::class)
 		->prefix('admin')
 		->group(function () {
-			Route::get('/user/create', 'create')->name('admin.create.user');
-			Route::post('user/store', 'store')->name('admin.store.user');
-			Route::get('/user/{user}/edit', 'edit')->name('admin.edit.user');
-			Route::get('/user/{user}/detail', 'show')->name('admin.detail.user');
-			Route::put('/user/{user}/update', 'update')->name('admin.update.user');
-			Route::delete('/user/{user}/destroy', 'destroy')->name('admin.destroy.user');
+      // userSeller
+			Route::get('/create-seller', 'createSeller')->name('admin.create.seller');
+			Route::post('/store-seller', 'storeSeller')->name('admin.store.seller');
+			Route::get('/{seller}/edit-seller', 'editSeller')->name('admin.edit.seller');
+			Route::get('/{seller}/detail-seller', 'showSeller')->name('admin.detail.seller');
+			Route::put('/{seller}/update-seller', 'updateSeller')->name('admin.update.seller');
+			Route::delete('/{seller}/destroy-seller', 'destroySeller')->name('admin.destroy.seller');
+
+      // userCustomer
+			Route::get('/create-customer', 'createCustomer')->name('admin.create.customer');
+			Route::post('store-customer', 'storeCustomer')->name('admin.store.customer');
+			Route::get('/{customer}/edit-customer', 'editCustomer')->name('admin.edit.customer');
+			Route::get('/{customer}/detail-customer', 'showCustomer')->name('admin.detail.customer');
+			Route::put('/{customer}/update-customer', 'updateCustomer')->name('admin.update.customer');
+			Route::delete('/{customer}/destroy-customer', 'destroyCustomer')->name('admin.destroy.customer');
+
+      // user
+			Route::get('/create-user', 'createUser')->name('admin.create.user');
+			Route::post('store-user', 'storeUser')->name('admin.store.user');
+			Route::get('/{user}/edit-user', 'editUser')->name('admin.edit.user');
+			Route::get('/{user}/detail-user', 'showUser')->name('admin.detail.user');
+			Route::put('/{user}/update-user', 'updateUser')->name('admin.update.user');
+			Route::delete('/{user}/destroy-user', 'destroyUser')->name('admin.destroy.user');
 		});
 
 	Route::controller(SellerController::class)

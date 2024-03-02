@@ -5,10 +5,10 @@
 				<div class="me-1">
 					<p class="text-heading mb-2">{{ $label }}</p>
 					<div class="d-flex align-items-center">
-						<h4 class="mb-2 me-1 display-6">{{ \App\Models\Seller::all()->count() }}</h4>
+						<h4 class="mb-2 me-1 display-6">{{ $count }}</h4>
 						<p class="text-success mb-2">0</p>
 					</div>
-					<p class="mb-0">Total Seller</p>
+					<p class="mb-0">{{ $description }}</p>
 				</div>
 				<div class="avatar">
 					<div class="avatar-initial bg-label-{{ $variant }} rounded">

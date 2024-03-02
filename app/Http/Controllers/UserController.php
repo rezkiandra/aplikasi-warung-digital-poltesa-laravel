@@ -3,63 +3,91 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Seller;
+use App\Models\Customer;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\SellerRequest;
+use App\Http\Requests\CustomerRequest;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+  public function createSeller()
+  {
+    return view('admin.sellers.create');
+  }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+  public function createCustomer()
+  {
+    return view('admin.customers.create');
+  }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+  public function storeSeller(SellerRequest $request)
+  {
+    Seller::create([
+      'full_name' => $request->full_name,
+      'slug' => Str::slug($request->full_name),
+      'address' => $request->address,
+      'phone_number' => $request->phone_number,
+      'gender' => $request->gender,
+      'bank_account_id' => $request->bank_account_id,
+      'image' => $request->image->store('sellers', 'public'),
+    ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        //
-    }
+    Alert::toast('Successfully created new seller', 'success');
+    session()->flash('action', 'store');
+    return redirect()->route('admin.sellers');
+  }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-        //
-    }
+  public function storeCustomer(CustomerRequest $request)
+  {
+    Customer::create([
+      'full_name' => $request->full_name,
+      'slug' => Str::slug($request->full_name),
+      'address' => $request->address,
+      'phone_number' => $request->phone_number,
+      'gender' => $request->gender,
+      'bank_account_id' => $request->bank_account_id,
+      'image' => $request->image->store('customers', 'public'),
+    ]);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
+    Alert::toast('Successfully created new customer', 'success');
+    session()->flash('action', 'store');
+    return redirect()->route('admin.customers');
+  }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(User $user)
-    {
-        //
-    }
+  /**
+   * Display the specified resource.
+   */
+  public function show(User $user)
+  {
+    //
+  }
+
+  /**
+   * Show the form for editing the specified resource.
+   */
+  public function edit(User $user)
+  {
+    //
+  }
+
+  /**
+   * Update the specified resource in storage.
+   */
+  public function update(Request $request, User $user)
+  {
+    //
+  }
+
+  /**
+   * Remove the specified resource from storage.
+   */
+  public function destroy(User $user)
+  {
+    //
+  }
 }

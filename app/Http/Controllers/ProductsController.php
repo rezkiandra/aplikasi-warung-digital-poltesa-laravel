@@ -35,7 +35,6 @@ class ProductsController extends Controller
       'image' => $request->image->store('products', 'public'),
     ]);
 
-
     Alert::toast('Successfully created new product', 'success');
     session()->flash('action', 'store');
     return redirect()->route('admin.products');

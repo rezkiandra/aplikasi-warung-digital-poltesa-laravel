@@ -17,5 +17,6 @@ class Seller extends Model
     'phone_number',
     'gender',
     'bank_account_id',
+    'image',
   ];
 }
