@@ -5,7 +5,7 @@
       <h4 class="mb-2">{{ $condition }}</h4>
       <p class="mb-0">
         <span class="me-2">5k orders</span>
-        <span class="badge rounded-pill bg-label-{{ $growth }}">+5.7%</span>
+        <span class="badge rounded-pill bg-label-{{ $variant }}">{{ $percentage }}</span>
       </p>
     </div>
     <div class="avatar me-sm-4">

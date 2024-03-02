@@ -35,7 +35,9 @@ class ProductsController extends Controller
       'image' => $request->image->store('products', 'public'),
     ]);
 
+
     Alert::toast('Successfully created new product', 'success');
+    session()->flash('action', 'store');
     return redirect()->route('admin.products');
   }
 
@@ -98,6 +100,7 @@ class ProductsController extends Controller
     }
 
     Alert::toast('Successfully deleted product', 'success');
+    session()->flash('action', 'delete');
     return redirect()->route('admin.products');
   }
 }

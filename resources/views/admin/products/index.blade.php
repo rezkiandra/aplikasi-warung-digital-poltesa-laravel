@@ -1,10 +1,11 @@
 @php
   $products = \App\Models\Products::paginate(10);
   $categories = \App\Models\ProductCategory::pluck('name', 'id')->toArray();
+  $productPercentage = round((\App\Models\Products::count() / \App\Models\ProductCategory::count()) * 100, 2);
+  $productPrePercentage = \App\Models\Products::count();
 @endphp
 
 @extends('layouts.authenticated')
-
 @section('title', 'Products')
 
 @section('content')
@@ -16,14 +17,14 @@
     <div class="card-widget-separator-wrapper">
       <div class="card-body card-widget-separator">
         <div class="row gy-4 gy-sm-1">
-          <x-product-card :datas="$products" :condition="\App\Models\Products::all()->count()" :label="'Total Products'" :icon="'cart-outline'" :variant="'primary'"
-            :growth="'danger'" :class="'border-end'" />
-          <x-product-card :datas="$products" :condition="\App\Models\Order::where('product_id', '>=', 20)->count()" :label="'Top Sale'" :icon="'shopping-outline'" :variant="'info'" :growth="'danger'"
+          <x-product-card :datas="$products" :condition="\App\Models\Products::all()->count()" :label="'Total Products'" :icon="'cart-outline'" :variant="$productPercentage > 0 ? 'primary' : 'danger'"
+            :percentage="$productPercentage ? '+' . $productPercentage . '%' : '-' . $productPrePercentage . '%'" :class="'border-end'" />
+          <x-product-card :datas="$products" :condition="\App\Models\Order::where('product_id', '>=', 20)->count()" :label="'Top Sale'" :icon="'shopping-outline'" :variant="'info'"
             :class="'border-end'" />
           <x-product-card :datas="$products" :condition="\App\Models\Products::all()->count()" :label="'Discount'" :icon="'wallet-giftcard'" :variant="'success'"
-            :growth="'danger'" :class="'border-end'" />
-          <x-product-card :datas="$products" :condition="\App\Models\Products::where('stock', '=', 0)->count()" :label="'Out of Stock'" :icon="'sale-outline'" :variant="'dark'"
-            :growth="'danger'" />
+            :class="'border-end'" />
+          <x-product-card :datas="$products" :condition="\App\Models\Products::where('stock', '=', 0)->count()" :label="'Out of Stock'" :icon="'sale-outline'"
+            :variant="'dark'" />
         </div>
       </div>
     </div>
