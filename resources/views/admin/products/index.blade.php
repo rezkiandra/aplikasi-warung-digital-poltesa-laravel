@@ -16,14 +16,18 @@
     <div class="card-widget-separator-wrapper">
       <div class="card-body card-widget-separator">
         <div class="row gy-4 gy-sm-1">
-          <x-product-card :datas="$products" :label="'Total Products'" :icon="'cart-outline'" :variant="'primary'" :growth="'danger'" :class="'border-end'" />
-          <x-product-card :datas="$products" :label="'Top Sale'" :icon="'shopping-outline'" :variant="'info'" :growth="'danger'" :class="'border-end'" />
-          <x-product-card :datas="$products" :label="'Discount'" :icon="'wallet-giftcard'" :variant="'success'" :growth="'danger'" :class="'border-end'" />
-          <x-product-card :datas="$products" :label="'Sold Out'" :icon="'sale-outline'" :variant="'dark'" :growth="'danger'" />
+          <x-product-card :datas="$products" :condition="\App\Models\Products::all()->count()" :label="'Total Products'" :icon="'cart-outline'" :variant="'primary'" :growth="'danger'"
+            :class="'border-end'"  />
+          <x-product-card :datas="$products" :condition="\App\Models\Products::all()->count()" :label="'Top Sale'" :icon="'shopping-outline'" :variant="'info'" :growth="'danger'"
+            :class="'border-end'" />
+          <x-product-card :datas="$products" :condition="\App\Models\Products::all()->count()" :label="'Discount'" :icon="'wallet-giftcard'" :variant="'success'" :growth="'danger'"
+            :class="'border-end'" />
+          <x-product-card :datas="$products" :condition="\App\Models\Products::all()->count()" :label="'Sold Out'" :icon="'sale-outline'" :variant="'dark'"
+            :growth="'danger'" />
         </div>
       </div>
     </div>
   </div>
 
-  <x-products-tabel :title="'List of products'" :datas="$products" :fields="['no', 'name', 'description', 'price', 'stock', 'category', 'created at', 'updated at', 'actions']" />
+  <x-products-tabel :title="'List of products'" :datas="$products" :fields="['no', 'product', 'category', 'price', 'stock', 'published on', 'actions']" />
 @endsection

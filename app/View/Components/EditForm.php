@@ -6,17 +6,18 @@ use Illuminate\View\Component;
 
 class EditForm extends Component
 {
-	public $title, $action, $route;
+	public $title, $action, $route, $class;
 	/**
 	 * Create a new component instance.
 	 *
 	 * @return void
 	 */
-	public function __construct($title, $action, $route)
+	public function __construct($title = '', $action = '', $route = '', $class = '')
 	{
 		$this->title = $title;
 		$this->action = $action;
 		$this->route = $route;
+		$this->class = $class;
 	}
 
 	/**

@@ -6,13 +6,13 @@ use Illuminate\View\Component;
 
 class ProductCard extends Component
 {
-	public $datas, $icon, $variant, $label, $growth, $class;
+	public $datas, $icon, $variant, $label, $growth, $class, $condition;
 	/**
 	 * Create a new component instance.
 	 *
 	 * @return void
 	 */
-	public function __construct($datas, $icon, $variant, $label, $growth, $class = '')
+	public function __construct($datas, $icon, $variant, $label, $growth, $class = '', $condition)
 	{
 		$this->datas = $datas;
 		$this->icon = $icon;
@@ -20,6 +20,7 @@ class ProductCard extends Component
 		$this->label = $label;
 		$this->growth = $growth;
 		$this->class = $class;
+		$this->condition = $condition;
 	}
 
 	/**

@@ -6,17 +6,18 @@ use Illuminate\View\Component;
 
 class ActionButton extends Component
 {
-	public $route, $icon, $variant;
+	public $route, $icon, $variant, $class;
 	/**
 	 * Create a new component instance.
 	 *
 	 * @return void
 	 */
-	public function __construct($route, $icon, $variant)
+	public function __construct($route, $icon, $variant, $class = '')
 	{
 		$this->route = $route;
 		$this->icon = $icon;
 		$this->variant = $variant;
+		$this->class = $class;
 	}
 
 	/**

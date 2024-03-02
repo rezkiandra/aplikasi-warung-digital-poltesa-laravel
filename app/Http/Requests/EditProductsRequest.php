@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Products;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductsRequest extends FormRequest
+class EditProductsRequest extends FormRequest
 {
 	public function authorize(): bool
 	{
@@ -15,12 +15,12 @@ class ProductsRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'name' => 'required|unique:products,name|max:30',
+			'name' => 'required|max:30',
 			'description' => 'required|',
 			'price' => 'required|numeric|',
 			'stock' => 'required|numeric|',
 			'category_id' => 'required',
-			'image' => 'required|mimes:png,jpg,jpeg',
+			'image' => 'mimes:png,jpg,jpeg',
 		];
 	}
 
@@ -28,7 +28,6 @@ class ProductsRequest extends FormRequest
 	{
 		return [
 			'name.required' => 'Nama produk diperlukan',
-			'name.unique' => 'Nama produk sudah ada',
 			'name.max' => 'Nama produk maksimal 30 karakter',
 
 			'description.required' => 'Deskripsi diperlukan',
@@ -41,7 +40,7 @@ class ProductsRequest extends FormRequest
 
 			'category_id.required' => 'Kategori diperlukan',
 
-			'image.required' => 'Gambar diperlukan',
+			// 'image.required' => 'Gambar diperlukan',
 			'image.mimes' => 'Gambar dalam format jpg, png, jpeg',
 			// 'image.size' => 'Gambar maksimal 2 MB',
 		];

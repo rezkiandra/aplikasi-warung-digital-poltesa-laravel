@@ -15,7 +15,8 @@
               <span class="fw-medium">{{ $data->name }}</span>
             </td>
             <td>
-              <span class="fw-medium">{{ \App\Models\ProductCategory::where('id', $data->parent_id)->count() }}</span>
+              <span
+                class="fw-medium">{{ \App\Models\ProductCategory::join('products', 'products.category_id', '=', 'product_categories.id', 'left')->where('products.category_id', $data->id)->count() }}</span>
             </td>
             <td>
               <span class="fw-medium">{{ \App\Models\Order::where('id', $data->parent_id)->count() }}</span>

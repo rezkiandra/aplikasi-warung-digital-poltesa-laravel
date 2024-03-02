@@ -1,4 +1,4 @@
-<div class="card mb-4">
+<div class="card mb-4 {{ $class }}">
   <h5 class="card-header">
     <div class="d-flex align-items-center">
       <a href="{{ $route }}">
@@ -8,7 +8,7 @@
     </div>
   </h5>
   <div class="card-body">
-    <form action="{{ $action }}" method="POST">
+    <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
       @csrf
 			@method('PUT')
       {{ $slot }}

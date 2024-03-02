@@ -12,12 +12,13 @@ class BasicButton extends Component
 	public $class;
 	public $variant;
 	public $href;
+	public $params;
 	/**
 	 * Create a new component instance.
 	 *
 	 * @return void
 	 */
-	public function __construct($label, $type = '', $icon, $class = '', $variant = '', $href = '')
+	public function __construct($label = '', $type = '', $icon, $class = '', $variant = '', $href = '', $params = '')
 	{
 		$this->label = $label;
 		$this->type = $type;
@@ -25,6 +26,7 @@ class BasicButton extends Component
 		$this->class = $class;
 		$this->variant = $variant;
 		$this->href = $href;
+		$this->params = $params;
 	}
 
 	/**
