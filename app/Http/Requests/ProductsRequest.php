@@ -15,12 +15,12 @@ class ProductsRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'name' => 'required|unique:products,name|max:30',
+			'name' => 'required|unique:products,id|max:30',
 			'description' => 'required|',
 			'price' => 'required|numeric|',
 			'stock' => 'required|numeric|',
 			'category_id' => 'required',
-			'image' => 'required|mimes:png,jpg,jpeg',
+			'image' => 'required_if:image,null|mimes:png,jpg,jpeg',
 		];
 	}
 
@@ -41,7 +41,7 @@ class ProductsRequest extends FormRequest
 
 			'category_id.required' => 'Kategori diperlukan',
 
-			'image.required' => 'Gambar diperlukan',
+			'image.required_if' => 'Gambar diperlukan',
 			'image.mimes' => 'Gambar dalam format jpg, png, jpeg',
 			// 'image.size' => 'Gambar maksimal 2 MB',
 		];

@@ -32,8 +32,9 @@
     </x-sidebar-dropdown>
 
     <x-divider :label="'Data Management'" />
-    <x-sidebar-dropdown :label="'Products'" :route="route('admin.sellers')" :icon="'package-variant'" :active="request()->routeIs('admin.products', 'admin.*.products')">
-      <x-sidebar-dropdown-item :label="'Product list'" :href="route('admin.products')" :active="request()->routeIs('admin.products')" />
+    <x-sidebar-dropdown :label="'Products'" :route="route('admin.sellers')" :icon="'package-variant'" :active="request()->routeIs('admin.products', 'admin.*.product')">
+      <x-sidebar-dropdown-item :label="'Create'" :href="route('admin.create.product')" :active="request()->routeIs('admin.create.product')" />
+      <x-sidebar-dropdown-item :label="'List'" :href="route('admin.products')" :active="request()->routeIs('admin.products')" />
     </x-sidebar-dropdown>
 
     <x-sidebar-item :label="'Orders'" :route="route('admin.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('admin.orders', 'admin.*.order')" />

@@ -16,12 +16,12 @@ class SellerRequest extends FormRequest
   {
     return [
       'user_id' => 'required|unique:Roles,role_name',
-      'full_name' => 'required|unique:sellers,full_name|max:30',
+      'full_name' => 'required|unique:sellers,id|max:30',
       'address' => 'required',
       'phone_number' => 'required|numeric|regex:/^\d{8,13}$/|min:8',
       'gender' => 'required',
       'bank_account_id' => 'required',
-      'image' => 'required|mimes:png,jpg,jpeg',
+      'image' => 'required_if:image,null|mimes:png,jpg,jpeg',
     ];
   }
 

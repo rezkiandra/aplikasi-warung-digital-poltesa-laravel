@@ -4,6 +4,11 @@
       'Male' => 'Male',
       'Female' => 'Female',
   ];
+  $status = [
+      'active' => 'active',
+      'inactive' => 'inactive',
+      'pending' => 'pending',
+  ];
   $bank = \App\Models\BankAccount::pluck('bank_name', 'id')->toArray();
 @endphp
 

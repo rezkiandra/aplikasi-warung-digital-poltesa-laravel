@@ -21,7 +21,7 @@
                 <div class="d-flex flex-column">
                   <span class="text-nowrap text-heading fw-medium">{{ $data->name }}</span>
                   <small class="text-truncate d-none d-sm-block">
-                    <span class="fw-medium">{{ Str::limit($data->description, 30) }}</span>
+                    <span class="fw-medium">{{ Str::limit($data->description, 50) }}</span>
                   </small>
                 </div>
               </div>
@@ -30,7 +30,8 @@
               <span class="fw-medium d-flex align-items-center">
                 <span
                   class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-2">
-                  <i class="mdi mdi-shoe-sneaker"></i>
+                  {{-- what is mdi for shirt --}}
+                  <i class="mdi mdi-tshirt-crew"></i>
                 </span>
                 {{ $data->category->name }}
               </span>

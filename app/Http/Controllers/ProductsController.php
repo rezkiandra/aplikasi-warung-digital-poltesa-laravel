@@ -6,7 +6,6 @@ use App\Models\Products;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductsRequest;
-use App\Http\Requests\EditProductsRequest;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -62,7 +61,7 @@ class ProductsController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(EditProductsRequest $request, string $slug)
+  public function update(ProductsRequest $request, string $slug)
   {
     $product = Products::where('slug', $slug)->firstOrFail();
     $productImage = Products::where('slug', $slug)->pluck('image')->first();

@@ -18,5 +18,16 @@ class Seller extends Model
     'gender',
     'bank_account_id',
     'image',
+    'status',
   ];
+
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
+
+  public function bank()
+  {
+    return $this->belongsTo(BankAccount::class);
+  }
 }
