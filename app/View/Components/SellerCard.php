@@ -6,13 +6,13 @@ use Illuminate\View\Component;
 
 class SellerCard extends Component
 {
-	public $datas, $label, $icon, $variant, $description, $count;
+	public $datas, $label, $icon, $variant, $description, $count, $growth;
 	/**
 	 * Create a new component instance.
 	 *
 	 * @return void
 	 */
-	public function __construct($datas, $label, $icon, $variant, $description = 'Last week analytics', $count)
+	public function __construct($datas, $label, $icon, $variant, $description = 'Last week analytics', $count, $growth = '')
 	{
 		$this->datas = $datas;
 		$this->label = $label;
@@ -20,6 +20,7 @@ class SellerCard extends Component
 		$this->variant = $variant;
 		$this->description = $description;
 		$this->count = $count;
+		$this->growth = $growth;
 	}
 
 	/**

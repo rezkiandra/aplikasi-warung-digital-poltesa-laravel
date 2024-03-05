@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Models\BankAccount;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Seller extends Model
 {
   use HasFactory;
 
   protected $fillable = [
+    'uuid',
     'user_id',
     'full_name',
     'slug',
@@ -18,6 +21,7 @@ class Seller extends Model
     'gender',
     'bank_account_id',
     'image',
+    'account_number',
     'status',
   ];
 
@@ -29,5 +33,10 @@ class Seller extends Model
   public function bank()
   {
     return $this->belongsTo(BankAccount::class);
+  }
+
+  public function product()
+  {
+    return $this->hasMany(Products::class);
   }
 }

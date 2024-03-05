@@ -14,6 +14,7 @@ class AddSellerIdColumnToProductsTable extends Migration
   public function up()
   {
     Schema::table('products', function (Blueprint $table) {
+      // how to add foreign key references uuid from sellers.id
       $table->unsignedBigInteger('seller_id')->nullable()->after('id');
       $table->foreign('seller_id')->references('id')->on('sellers')->onDelete('cascade');
     });

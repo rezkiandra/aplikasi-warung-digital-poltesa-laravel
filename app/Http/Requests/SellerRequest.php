@@ -22,6 +22,8 @@ class SellerRequest extends FormRequest
       'gender' => 'required',
       'bank_account_id' => 'required',
       'image' => 'required_if:image,null|mimes:png,jpg,jpeg',
+      'account_number' => 'required|unique:sellers,id|numeric|min:8',
+      'status' => 'required_if:status,null|in:active,inactive,pending',
     ];
   }
 
@@ -47,9 +49,17 @@ class SellerRequest extends FormRequest
 
       'bank_account_id.required' => 'Harap pilih bank',
 
-      'image.required' => 'Gambar diperlukan',
+      'image.required_if' => 'Gambar diperlukan',
       'image.mimes' => 'Gambar dalam format jpg, png, jpeg',
       // 'image.size' => 'Gambar maksimal 2 MB',
+
+      'account_number.required' => 'Nomor rekening diperlukan',
+      'account_number.unique' => 'Nomor rekening sudah ada',
+      'account_number.numeric' => 'Nomor rekening dalam bentuk angka',
+      'account_number.min' => 'Nomor rekening minimal 8 karakter',
+
+      'status.required_if' => 'Status diperlukan',
+      'status.in' => 'Status tidak valid',
     ];
   }
 
@@ -62,6 +72,8 @@ class SellerRequest extends FormRequest
       'gender' => 'Gender',
       'bank_account_id' => 'Bank',
       'image' => 'Gambar',
+      'account_number' => 'Nomor rekening',
+      'status' => 'Status',
     ];
   }
 }

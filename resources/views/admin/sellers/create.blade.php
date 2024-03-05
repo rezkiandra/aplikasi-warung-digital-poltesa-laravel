@@ -1,8 +1,8 @@
 @php
   $user = \App\Models\User::pluck('name', 'id')->toArray();
   $gender = [
-      'Male' => 'Male',
-      'Female' => 'Female',
+      'male' => 'male',
+      'female' => 'female',
   ];
   $status = [
       'active' => 'active',
@@ -39,30 +39,43 @@
         </x-form-floating>
       </div>
 
-      <div class="col-lg-3">
+      <div class="col-lg-4">
         <x-form-floating>
           <x-input-form-label :label="'Gender'" :name="'gender'" :type="'select'" :options="$gender"
-            :select="'Choose gender'" />
+            :select="'Choose gender'" value="{{ old('gender') }}" />
         </x-form-floating>
       </div>
 
-      <div class="col-lg-3">
+      <div class="col-lg-4">
         <x-form-floating>
           <x-input-form-label :label="'User'" :name="'user_id'" :type="'select'" :options="$user"
-            :select="'Choose user'" />
+            :select="'Choose user'" :value="old('user_id')" />
         </x-form-floating>
       </div>
 
-      <div class="col-lg-3">
+      <div class="col-lg-4">
         <x-form-floating>
           <x-input-form-label :label="'Bank'" :name="'bank_account_id'" :type="'select'" :options="$bank"
-            :select="'Choose bank'" />
+            :select="'Choose bank'" :value="old('bank_account_id')" />
         </x-form-floating>
       </div>
 
-      <div class="col-lg-3">
+      <div class="col-lg-4">
         <x-form-floating>
-          <x-input-form-label :label="'Image'" :name="'image'" :type="'file'" />
+          <x-input-form-label :label="'Image'" :name="'image'" :type="'file'" :value="old('image')" />
+        </x-form-floating>
+      </div>
+
+      <div class="col-lg-4">
+        <x-form-floating>
+          <x-input-form-label :label="'Status'" :name="'status'" :type="'select'" :options="$status"
+            :select="'Choose status'" :value="old('status')" />
+        </x-form-floating>
+      </div>
+
+      <div class="col-lg-4">
+        <x-form-floating>
+          <x-input-form-label :label="'Account Number'" :name="'account_number'" :type="'text'" :value="old('account_number')" />
         </x-form-floating>
       </div>
     </div>

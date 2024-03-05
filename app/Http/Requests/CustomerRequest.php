@@ -21,6 +21,7 @@ class CustomerRequest extends FormRequest
 			'gender' => 'required',
 			'bank_account_id' => 'required',
 			'image' => 'required|mimes:png,jpg,jpeg',
+      'account_number' => 'required|unique:sellers,account_number|numeric|min:8',
 		];
 	}
 
@@ -43,6 +44,11 @@ class CustomerRequest extends FormRequest
 			'image.required' => 'Gambar diperlukan',
 			'image.mimes' => 'Gambar dalam format jpg, png, jpeg',
 			// 'image.size' => 'Gambar maksimal 2 MB',
+
+      'account_number.required' => 'Nomor rekening diperlukan',
+      'account_number.unique' => 'Nomor rekening sudah ada',
+      'account_number.numeric' => 'Nomor rekening dalam bentuk angka',
+      'account_number.min' => 'Nomor rekening minimal 8 karakter',
 		];
 	}
 
@@ -55,6 +61,7 @@ class CustomerRequest extends FormRequest
 			'gender' => 'Gender',
 			'bank_account_id' => 'Bank',
 			'image' => 'Gambar',
+      'account_number' => 'Nomor rekening',
 		];
 	}
 }

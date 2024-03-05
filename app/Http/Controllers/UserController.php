@@ -29,6 +29,8 @@ class UserController extends Controller
   public function storeSeller(SellerRequest $request)
   {
     Seller::create([
+      'user_id' => $request->user_id,
+      'uuid' => Str::uuid('id'),
       'full_name' => $request->full_name,
       'slug' => Str::slug($request->full_name),
       'address' => $request->address,
@@ -36,6 +38,7 @@ class UserController extends Controller
       'gender' => $request->gender,
       'bank_account_id' => $request->bank_account_id,
       'image' => $request->image->store('sellers', 'public'),
+      'account_number' => $request->account_number,
       'status' => $request->status,
     ]);
 
@@ -48,12 +51,14 @@ class UserController extends Controller
   {
     Customer::create([
       'full_name' => $request->full_name,
+      'uuid' => Str::uuid('id'),
       'slug' => Str::slug($request->full_name),
       'address' => $request->address,
       'phone_number' => $request->phone_number,
       'gender' => $request->gender,
       'bank_account_id' => $request->bank_account_id,
       'image' => $request->image->store('customers', 'public'),
+      'account_number' => $request->account_number,
     ]);
 
     Alert::toast('Successfully created new customer', 'success');
@@ -73,9 +78,9 @@ class UserController extends Controller
     return view('admin.customers.detail', compact('customer'));
   }
 
-  public function editSeller(string $slug)
+  public function editSeller(string $uuid)
   {
-    $seller = Seller::where('slug', $slug)->firstOrFail();
+    $seller = Seller::where('uuid', $uuid)->firstOrFail();
     return view('admin.sellers.edit', compact('seller'));
   }
 
@@ -85,23 +90,29 @@ class UserController extends Controller
     return view('admin.customers.edit', compact('customer'));
   }
 
-  public function updateSeller(SellerRequest $request, string $slug)
+  public function updateSeller(SellerRequest $request, string $uuid)
   {
-    $seller = Seller::where('slug', $slug)->firstOrFail();
-    $sellerImage = Seller::where('slug', $slug)->pluck('image')->first();
+    $seller = Seller::where('uuid', $uuid)->firstOrFail();
+    $sellerImage = Seller::where('uuid', $uuid)->pluck('image')->first();
 
     if ($request->hasFile('image')) {
       if ($sellerImage) {
         Storage::delete('public/' . $sellerImage);
       }
       $seller->update([
+        'image' => $request->image->store('sellers', 'public'),
+      ]);
+    } else {
+      $seller->update([
+        'user_id' => $request->user_id,
         'full_name' => $request->full_name,
         'slug' => Str::slug($request->full_name),
         'address' => $request->address,
         'phone_number' => $request->phone_number,
         'gender' => $request->gender,
         'bank_account_id' => $request->bank_account_id,
-        'image' => $request->image->store('seller', 'public'),
+        'account_number' => $request->account_number,
+        'status' => $request->status,
       ]);
     }
 
@@ -126,6 +137,7 @@ class UserController extends Controller
         'gender' => $request->gender,
         'bank_account_id' => $request->bank_account_id,
         'image' => $request->image->store('customer', 'public'),
+        'account_number' => $request->account_number,
       ]);
     }
 
@@ -133,9 +145,9 @@ class UserController extends Controller
     return redirect()->route('admin.customers');
   }
 
-  public function destroySeller(string $slug)
+  public function destroySeller(string $uuid)
   {
-    $seller = Seller::where('slug', $slug)->firstOrFail();
+    $seller = Seller::where('uuid', $uuid)->firstOrFail();
     $seller->delete();
 
     if ($seller->image) {

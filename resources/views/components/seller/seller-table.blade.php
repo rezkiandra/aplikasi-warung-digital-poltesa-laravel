@@ -1,5 +1,5 @@
 @php
-  $totalProducts = \App\Models\Seller::join('products', 'sellers.id', '=', 'products.seller_id')->count();
+  $totalProducts = \App\Models\Seller::join('products', 'sellers.id', '=', 'products.seller_id', 'left')->count();
 @endphp
 
 <div class="card">
@@ -45,9 +45,9 @@
               <div class="d-flex justify-content-start align-items-center product-name">
                 <div class="d-flex flex-column">
                   <span class="text-nowrap text-heading fw-medium text-capitalize">
-                    @if ($data->gender == 'Male')
+                    @if ($data->gender == 'male')
                       <i class="mdi mdi-gender-male text-info"></i>
-                    @else
+                    @elseif($data->gender == 'female')
                       <i class="mdi mdi-gender-female text-danger"></i>
                     @endif
                     {{ $data->gender }}
@@ -82,9 +82,10 @@
             <td class="sorting_1">
               <div class="d-flex justify-content-start align-items-center product-name">
                 <div class="d-flex flex-column">
-                  <span class="text-nowrap text-heading fw-medium text-capitalize"> {{ $data->bank_account_id }}</span>
+                  <span
+                    class="text-nowrap text-heading fw-medium text-capitalize">{{ \App\Models\Seller::join('bank_accounts', 'bank_accounts.id', '=', 'sellers.bank_account_id', 'left')->where('sellers.id', $data->id)->first()->bank_name }}</span>
                   <small class="text-truncate d-none d-sm-block">
-                    <span class="fw-medium">{{ $data->bank_account_id }}</span>
+                    <span class="fw-medium">{{ $data->account_number ?? '-' }}</span>
                   </small>
                 </div>
               </div>
@@ -97,7 +98,7 @@
             </td>
             <td>
               <div class="d-flex align-items-center">
-                <a class="me-2" href="{{ route('admin.edit.seller', $data->slug) }}">
+                <a class="me-2" href="{{ route('admin.edit.seller', $data->uuid) }}">
                   <i class="mdi mdi-pencil-outline text-secondary"></i>
                 </a>
                 <div class="dropdown">
@@ -106,7 +107,7 @@
                   </button>
                   <div class="dropdown-menu">
                     <x-dropdown-item :label="'Detail'" :variant="'secondary'" :icon="'eye-outline'" :route="route('admin.detail.seller', $data->slug)" />
-                    <form action="{{ route('admin.destroy.seller', $data->slug) }}" method="POST">
+                    <form action="{{ route('admin.destroy.seller', $data->uuid) }}" method="POST">
                       @csrf
                       @method('DELETE')
                       <x-delete-button />
