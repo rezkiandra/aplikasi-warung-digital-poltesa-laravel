@@ -17,11 +17,12 @@ class CustomerRequest extends FormRequest
 		return [
 			'full_name' => 'required|unique:customers,full_name|max:30',
 			'address' => 'required',
-			'phone_number' => 'required|numeric|max:13',
+			'phone_number' => 'required|numeric|regex:/^\d{8,13}$/|min:8',
 			'gender' => 'required',
 			'bank_account_id' => 'required',
 			'image' => 'required|mimes:png,jpg,jpeg',
       'account_number' => 'required|unique:sellers,account_number|numeric|min:8',
+      'status' => 'required_if:status,null|in:active,inactive,pending',
 		];
 	}
 
@@ -35,7 +36,9 @@ class CustomerRequest extends FormRequest
 			'address.required' => 'Alamat diperlukan',
 
 			'phone_number.required' => 'Nomor handphone diperlukan',
-			'phone_number.numeric' => 'Nomor handphone dalam bentuk angka',
+      'phone_number.numeric' => 'Nomor handphone dalam bentuk angka',
+      'phone_number.regex' => 'Nomor handphone tidak valid',
+      'phone_number.max' => 'Nomor handphone maksimal 20 karakter',
 
 			'gender.required' => 'Harap pilih gender',
 
@@ -49,6 +52,9 @@ class CustomerRequest extends FormRequest
       'account_number.unique' => 'Nomor rekening sudah ada',
       'account_number.numeric' => 'Nomor rekening dalam bentuk angka',
       'account_number.min' => 'Nomor rekening minimal 8 karakter',
+
+      'status.required_if' => 'Status diperlukan',
+      'status.in' => 'Status tidak valid',
 		];
 	}
 
@@ -62,6 +68,7 @@ class CustomerRequest extends FormRequest
 			'bank_account_id' => 'Bank',
 			'image' => 'Gambar',
       'account_number' => 'Nomor rekening',
+      'status' => 'Status',
 		];
 	}
 }

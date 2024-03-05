@@ -45,9 +45,9 @@
               <div class="d-flex justify-content-start align-items-center product-name">
                 <div class="d-flex flex-column">
                   <span class="text-nowrap text-heading fw-medium text-capitalize">
-                    @if ($data->gender == 'male')
+                    @if ($data->gender == 'laki-laki')
                       <i class="mdi mdi-gender-male text-info"></i>
-                    @elseif($data->gender == 'female')
+                    @elseif($data->gender == 'perempuan')
                       <i class="mdi mdi-gender-female text-danger"></i>
                     @endif
                     {{ $data->gender }}

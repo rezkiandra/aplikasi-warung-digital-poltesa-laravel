@@ -42,7 +42,6 @@ class SellerRequest extends FormRequest
       'phone_number.required' => 'Nomor handphone diperlukan',
       'phone_number.numeric' => 'Nomor handphone dalam bentuk angka',
       'phone_number.regex' => 'Nomor handphone tidak valid',
-      'phone_number.max' => 'Nomor handphone minimal 8 karakter',
       'phone_number.max' => 'Nomor handphone maksimal 20 karakter',
 
       'gender.required' => 'Harap pilih gender',
