@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SellerRequest;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\CustomerRequest;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -193,7 +194,7 @@ class UserController extends Controller
       'slug' => Str::slug($request->name),
       'email' => $request->email,
       'role_id' => $request->role_id,
-      'password' => $request->password,
+      'password' => Hash::make($request->password),
     ]);
 
     Alert::toast('Successfully created new user', 'success');
@@ -204,13 +205,14 @@ class UserController extends Controller
   public function showUser(string $slug)
   {
     $user = User::where('slug', $slug)->firstOrFail();
-    return view('admin.customers.detail', compact('user'));
+    return view('admin.users.detail', compact('user'));
   }
 
   public function editUser(string $uuid)
   {
     $user = User::where('uuid', $uuid)->firstOrFail();
-    return view('admin.customers.edit', compact('user'));
+    $isDisabled = true;
+    return view('admin.users.edit', compact('user', 'isDisabled'));
   }
 
   public function updateUser(UserRequest $request, string $uuid)
@@ -222,7 +224,7 @@ class UserController extends Controller
       'slug' => Str::slug($request->name),
       'email' => $request->email,
       'role_id' => $request->role_id,
-      'password' => $request->password,
+      'password' => Hash::make($request->new_password) ?? $user->password,
     ]);
 
     Alert::toast('Successfully updated customer', 'success');
