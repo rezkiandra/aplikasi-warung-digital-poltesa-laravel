@@ -137,10 +137,10 @@ class UserController extends Controller
     return view('admin.customers.edit', compact('customer'));
   }
 
-  public function updateCustomer(CustomerRequest $request, string $slug)
+  public function updateCustomer(CustomerRequest $request, string $uuid)
   {
-    $customer = Customer::where('slug', $slug)->firstOrFail();
-    $customerImage = Customer::where('slug', $slug)->pluck('image')->first();
+    $customer = Customer::where('uuid', $uuid)->firstOrFail();
+    $customerImage = Customer::where('uuid', $uuid)->pluck('image')->first();
 
     if ($request->hasFile('image')) {
       if ($customerImage) {

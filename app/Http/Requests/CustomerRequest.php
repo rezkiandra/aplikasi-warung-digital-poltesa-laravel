@@ -7,46 +7,50 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CustomerRequest extends FormRequest
 {
-	public function authorize(): bool
-	{
-		return true;
-	}
+  public function authorize(): bool
+  {
+    return true;
+  }
 
-	public function rules(): array
-	{
-		return [
-			'full_name' => 'required|unique:customers,full_name|max:30',
-			'address' => 'required',
-			'phone_number' => 'required|numeric|regex:/^\d{8,13}$/|min:8',
-			'gender' => 'required',
-			'bank_account_id' => 'required',
-			'image' => 'required|mimes:png,jpg,jpeg',
-      'account_number' => 'required|unique:sellers,account_number|numeric|min:8',
+  public function rules(): array
+  {
+    return [
+      'user_id' => 'required|unique:Roles,role_name',
+      'full_name' => 'required|unique:customers,id|max:30',
+      'address' => 'required',
+      'phone_number' => 'required|numeric|regex:/^\d{8,13}$/|min:8',
+      'gender' => 'required',
+      'bank_account_id' => 'required',
+      'image' => 'required_if:image,null|mimes:png,jpg,jpeg',
+      'account_number' => 'required|unique:customers,id|numeric|min:8',
       'status' => 'required_if:status,null|in:active,inactive,pending',
-		];
-	}
+    ];
+  }
 
-	public function messages(): array
-	{
-		return [
-			'full_name.required' => 'Nama customer diperlukan',
-			'full_name.unique' => 'Nama customer sudah ada',
-			'full_name.max' => 'Nama customer maksimal 30 karakter',
+  public function messages(): array
+  {
+    return [
+      'user_id.required' => 'Harap pilih user',
+      'user_id.unique' => 'User sudah menjadi customer',
 
-			'address.required' => 'Alamat diperlukan',
+      'full_name.required' => 'Nama customer diperlukan',
+      'full_name.unique' => 'Nama customer sudah ada',
+      'full_name.max' => 'Nama customer maksimal 30 karakter',
 
-			'phone_number.required' => 'Nomor handphone diperlukan',
+      'address.required' => 'Alamat diperlukan',
+
+      'phone_number.required' => 'Nomor handphone diperlukan',
       'phone_number.numeric' => 'Nomor handphone dalam bentuk angka',
       'phone_number.regex' => 'Nomor handphone tidak valid',
       'phone_number.max' => 'Nomor handphone maksimal 20 karakter',
 
-			'gender.required' => 'Harap pilih gender',
+      'gender.required' => 'Harap pilih gender',
 
-			'bank_account_id.required' => 'Harap pilih bank',
+      'bank_account_id.required' => 'Harap pilih bank',
 
-			'image.required' => 'Gambar diperlukan',
-			'image.mimes' => 'Gambar dalam format jpg, png, jpeg',
-			// 'image.size' => 'Gambar maksimal 2 MB',
+      'image.required_if' => 'Gambar diperlukan',
+      'image.mimes' => 'Gambar dalam format jpg, png, jpeg',
+      // 'image.size' => 'Gambar maksimal 2 MB',
 
       'account_number.required' => 'Nomor rekening diperlukan',
       'account_number.unique' => 'Nomor rekening sudah ada',
@@ -55,20 +59,20 @@ class CustomerRequest extends FormRequest
 
       'status.required_if' => 'Status diperlukan',
       'status.in' => 'Status tidak valid',
-		];
-	}
+    ];
+  }
 
-	public function attributes(): array
-	{
-		return [
-			'full_name' => 'Nama customer',
-			'address' => 'Alamat',
-			'phone_number' => 'Nomor handphone',
-			'gender' => 'Gender',
-			'bank_account_id' => 'Bank',
-			'image' => 'Gambar',
+  public function attributes(): array
+  {
+    return [
+      'full_name' => 'Nama customer',
+      'address' => 'Alamat',
+      'phone_number' => 'Nomor handphone',
+      'gender' => 'Gender',
+      'bank_account_id' => 'Bank',
+      'image' => 'Gambar',
       'account_number' => 'Nomor rekening',
       'status' => 'Status',
-		];
-	}
+    ];
+  }
 }

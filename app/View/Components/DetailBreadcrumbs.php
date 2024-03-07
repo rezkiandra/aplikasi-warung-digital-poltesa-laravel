@@ -4,18 +4,18 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class DeleteButton extends Component
+class DetailBreadcrumbs extends Component
 {
-  public $label, $class;
+  public $id, $created;
   /**
    * Create a new component instance.
    *
    * @return void
    */
-  public function __construct($label = '', $class = '')
+  public function __construct($id, $created)
   {
-    $this->label = $label;
-    $this->class = $class;
+    $this->id = $id;
+    $this->created = $created;
   }
 
   /**
@@ -25,6 +25,6 @@ class DeleteButton extends Component
    */
   public function render()
   {
-    return view('components.delete-button');
+    return view('components.detail-breadcrumbs');
   }
 }

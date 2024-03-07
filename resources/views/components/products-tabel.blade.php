@@ -20,21 +20,24 @@
                 </div>
                 <div class="d-flex flex-column">
                   <span class="text-nowrap text-heading fw-medium">{{ $data->name }}</span>
-                  <small class="text-truncate d-none d-sm-block">
+                  <small class="d-flex flex-row text-truncate d-none d-sm-block d-flex">
                     <span class="fw-medium">{{ Str::limit($data->description, 50) }}</span>
                   </small>
                 </div>
               </div>
             </td>
-            <td>
-              <span class="fw-medium d-flex align-items-center">
-                <span
-                  class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-2">
-                  {{-- what is mdi for shirt --}}
-                  <i class="mdi mdi-tshirt-crew"></i>
+            <td class="sorting_1">
+              <div class="d-flex flex-column justify-content-start product-name">
+                <span class="fw-medium d-flex align-items-center">
+                  <span class="d-flex justify-content-center align-items-center">
+                    <i class="mdi mdi-tshirt-crew text-info me-1"></i>
+                  </span>
+                  {{ $data->category->name }}
                 </span>
-                {{ $data->category->name }}
-              </span>
+                <small class="fw-medium d-flex align-items-center">
+                  {{ $data->seller->full_name }} - {{ $data->seller->user->email }}
+                </small>
+              </div>
             </td>
             <td>
               <span class="fw-medium">Rp.{{ number_format($data->price, 2, ',', '.') }}</span>
@@ -43,8 +46,9 @@
               <span class="fw-medium">{{ $data->stock }} pcs</span>
             </td>
             <td>
-              <span class="fw-medium badge rounded-pill bg-label-info">{{ date('M d, H:i', strtotime($data->created_at)) }}
-                {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM'; }}
+              <span
+                class="fw-medium badge rounded-pill bg-label-info">{{ date('M d, H:i', strtotime($data->created_at)) }}
+                {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
               </span>
             </td>
             <td>
@@ -61,7 +65,7 @@
                     <form action="{{ route('admin.destroy.product', $data->slug) }}" method="POST">
                       @csrf
                       @method('DELETE')
-                      <x-delete-button />
+                      <x-delete-button :label="'Delete'" />
                     </form>
                   </div>
                 </div>

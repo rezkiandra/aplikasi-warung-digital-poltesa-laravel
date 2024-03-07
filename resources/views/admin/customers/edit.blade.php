@@ -1,5 +1,5 @@
 @php
-  $user = \App\Models\User::where('role_id', '2')->pluck('name', 'id')->toArray();
+  $user = \App\Models\User::where('role_id', '3')->pluck('name', 'id')->toArray();
   $gender = [
       'male' => 'male',
       'female' => 'female',
@@ -14,40 +14,40 @@
 
 @extends('layouts.authenticated')
 
-@section('title', 'Edit Seller')
+@section('title', 'Edit Customer')
 
 @section('content')
   <div class="d-lg-flex justify-content-between gap-4">
     <div class="col-lg-2 card-body">
-      <img src="{{ asset('storage/' . $seller->image) }}" alt="" class="img-fluid rounded" width="100%">
+      <img src="{{ asset('storage/' . $customer->image) }}" alt="" class="img-fluid rounded" width="100%">
     </div>
 
-    <x-edit-form :title="'Edit specific seller'" :action="route('admin.update.seller', $seller->uuid)" :route="route('admin.sellers')" :class="'col-lg-10'">
+    <x-edit-form :title="'Edit specific customer'" :action="route('admin.update.customer', $customer->uuid)" :route="route('admin.customers')" :class="'col-lg-10'">
       <div class="row">
         <div class="col-lg-4">
           <x-form-floating>
-            <x-input-form-label :label="'Seller Name'" :name="'full_name'" :type="'text'" :value="$seller->full_name" />
+            <x-input-form-label :label="'Customer Name'" :name="'full_name'" :type="'text'" :value="$customer->full_name" />
           </x-form-floating>
         </div>
 
         <div class="col-lg-4">
           <x-form-floating>
-            <x-input-form-label :label="'Address'" :name="'address'" :type="'text'" :value="$seller->address" />
+            <x-input-form-label :label="'Address'" :name="'address'" :type="'text'" :value="$customer->address" />
           </x-form-floating>
         </div>
 
         <div class="col-lg-4">
           <x-form-floating>
-            <x-input-form-label :label="'Phone'" :name="'phone_number'" :type="'text'" :value="$seller->phone_number" />
+            <x-input-form-label :label="'Phone'" :name="'phone_number'" :type="'text'" :value="$customer->phone_number" />
           </x-form-floating>
         </div>
 
         <div class="col-lg-4">
           <x-form-floating>
             <select name="gender" id="gender" class="form-select text-capitalize">
-              <option value="{{ $seller->gender }}">{{ $seller->gender }}</option>
+              <option value="{{ $customer->gender }}">{{ $customer->gender }}</option>
               @foreach ($gender as $key => $value)
-                @if ($key == $seller->gender)
+                @if ($key == $customer->gender)
                   @continue
                 @endif
                 <option value="{{ $key }}">{{ $value }}</option>
@@ -59,9 +59,9 @@
         <div class="col-lg-4">
           <x-form-floating>
             <select name="user_id" id="user_id" class="form-select">
-              <option value="{{ $seller->user_id }}" selected>{{ $seller->user->name }}</option>
+              <option value="{{ $customer->user_id }}" selected>{{ $customer->user->name }}</option>
               @foreach ($user as $key => $value)
-                @if ($key == $seller->user_id)
+                @if ($key == $customer->user_id)
                   @continue
                 @endif
                 <option value="{{ $key }}">{{ $value }}</option>
@@ -73,11 +73,11 @@
         <div class="col-lg-4">
           <x-form-floating>
             <select name="bank_account_id" id="bank_account_id" class="form-select">
-              <option value="{{ $seller->bank_account_id }}" selected>
-                {{ \App\Models\Seller::join('bank_accounts', 'bank_accounts.id', '=', 'sellers.bank_account_id', 'left')->where('sellers.id', $seller->id)->first()->bank_name }}
+              <option value="{{ $customer->bank_account_id }}" selected>
+                {{ \App\Models\Customer::join('bank_accounts', 'bank_accounts.id', '=', 'customers.bank_account_id', 'left')->where('customers.id', $customer->id)->first()->bank_name }}
               </option>
               @foreach ($bank as $key => $value)
-                @if ($key == $seller->bank_account_id)
+                @if ($key == $customer->bank_account_id)
                   @continue
                 @endif
                 <option value="{{ $key }}">{{ $value }}</option>
@@ -88,16 +88,16 @@
 
         <div class="col-lg-4">
           <x-form-floating>
-            <x-input-form-label :label="'Image'" :name="'image'" :type="'file'" :value="$seller->image" />
+            <x-input-form-label :label="'Image'" :name="'image'" :type="'file'" :value="$customer->image" />
           </x-form-floating>
         </div>
 
         <div class="col-lg-4">
           <x-form-floating>
             <select name="status" id="status" class="form-select text-capitalize">
-              <option value="{{ $seller->status }}" selected>{{ $seller->status }}</option>
+              <option value="{{ $customer->status }}" selected>{{ $customer->status }}</option>
               @foreach ($status as $key => $value)
-                @if ($key == $seller->status)
+                @if ($key == $customer->status)
                   @continue
                 @endif
                 <option value="{{ $key }}">{{ $value }}</option>
@@ -108,7 +108,7 @@
 
         <div class="col-lg-4">
           <x-form-floating>
-            <x-input-form-label :label="'Account Number'" :name="'account_number'" :type="'text'" :value="$seller->account_number, old('account_number')" />
+            <x-input-form-label :label="'Account Number'" :name="'account_number'" :type="'text'" :value="$customer->account_number, old('account_number')" />
           </x-form-floating>
         </div>
       </div>

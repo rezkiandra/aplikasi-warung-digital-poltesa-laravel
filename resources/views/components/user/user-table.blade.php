@@ -65,11 +65,13 @@
                   </button>
                   <div class="dropdown-menu">
                     <x-dropdown-item :label="'Detail'" :variant="'secondary'" :icon="'eye-outline'" :route="route('admin.detail.user', $data->slug)" />
-                    <form action="{{ route('admin.destroy.user', $data->uuid) }}" method="POST">
-                      @csrf
-                      @method('DELETE')
-                      <x-delete-button />
-                    </form>
+                    @if ($data->role_id == 1)
+                      <form action="{{ route('admin.destroy.user', $data->uuid) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <x-delete-button :label="'Delete'" />
+                      </form>
+                    @endif
                   </div>
                 </div>
               </div>

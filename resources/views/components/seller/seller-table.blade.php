@@ -1,7 +1,3 @@
-@php
-  $totalProducts = \App\Models\Seller::join('products', 'sellers.id', '=', 'products.seller_id', 'left')->count();
-@endphp
-
 <div class="card">
   <h5 class="card-header">{{ $title }}</h5>
   <div class="table-responsive text-nowrap">
@@ -33,7 +29,9 @@
             <td class="sorting_1">
               <div class="d-flex justify-content-start align-items-center product-name">
                 <div class="d-flex flex-column">
-                  <span class="text-nowrap text-heading fw-medium">{{ $totalProducts }} pcs</span>
+                  <span
+                    class="text-nowrap text-heading fw-medium">{{ \App\Models\Products::where('seller_id', $data->id)->count() }}
+                    pcs</span>
                   <small class="text-truncate d-none d-sm-block">
                     <span
                       class="fw-medium">Rp.{{ number_format(\App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->join('sellers', 'products.seller_id', '=', 'sellers.id', 'left')->where('sellers.id', $data->id)->sum('products.price'),2,',','.') }}</span>
@@ -110,7 +108,7 @@
                     <form action="{{ route('admin.destroy.seller', $data->uuid) }}" method="POST">
                       @csrf
                       @method('DELETE')
-                      <x-delete-button />
+                      <x-delete-button :label="'Delete'" />
                     </form>
                   </div>
                 </div>

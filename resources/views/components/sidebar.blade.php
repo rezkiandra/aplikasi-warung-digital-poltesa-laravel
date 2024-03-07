@@ -23,7 +23,7 @@
 
     <x-sidebar-dropdown :label="'Customers'" :route="route('admin.customers')" :icon="'account-multiple-outline'" :active="request()->routeIs('admin.customers', 'admin.*.customer')">
       <x-sidebar-dropdown-item :label="'Create'" :href="route('admin.create.customer')" :active="request()->routeIs('admin.create.customer')" />
-      <x-sidebar-dropdown-item :label="'List'" :href="route('admin.customers')" :active="request()->routeIs('admin.customers')" />
+      <x-sidebar-dropdown-item :label="'List'" :href="route('admin.customers')" :active="request()->routeIs('admin.customers', 'admin.detail.customer')" />
     </x-sidebar-dropdown>
 
     <x-sidebar-dropdown :label="'Users'" :route="route('admin.users')" :icon="'account-outline'" :active="request()->routeIs('admin.users', 'admin.*.user')">

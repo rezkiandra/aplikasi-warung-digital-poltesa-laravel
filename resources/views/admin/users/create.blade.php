@@ -9,7 +9,7 @@
       'inactive' => 'inactive',
       'pending' => 'pending',
   ];
-  $role = \App\Models\Role::pluck('role_name', 'id')->toArray();
+  $role = \App\Models\Role::where('role_name', '!=', 'Admin')->pluck('role_name', 'id')->toArray();
 @endphp
 
 @extends('layouts.authenticated')

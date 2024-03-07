@@ -2,10 +2,12 @@
   <div class="d-flex justify-content-between align-items-start card-widget-1 {{ $class }} pb-3 pb-sm-0">
     <div>
       <p class="mb-2">{{ $label }}</p>
-      <h4 class="mb-2">{{ $condition }}</h4>
+      <div class="d-flex align-items-center">
+        <h4 class="mb-2 me-2 display-6">{{ $condition }}</h4>
+        <p class="text-{{ $percentage > 0 ? 'success' : 'danger' }} mb-2">{{ $percentage }}</p>
+      </div>
       <p class="mb-0">
-        <span class="me-2">5k orders</span>
-        <span class="badge rounded-pill bg-label-{{ $variant }}">{{ $percentage }}</span>
+        <span class="me-2">{{ $totalOrders }}</span>
       </p>
     </div>
     <div class="avatar me-sm-4">

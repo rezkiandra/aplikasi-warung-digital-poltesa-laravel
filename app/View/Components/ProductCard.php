@@ -6,31 +6,32 @@ use Illuminate\View\Component;
 
 class ProductCard extends Component
 {
-	public $datas, $icon, $variant, $label, $class, $condition, $percentage, $action;
-	/**
-	 * Create a new component instance.
-	 *
-	 * @return void
-	 */
-	public function __construct($datas, $icon, $variant, $label, $class = '', $condition, $percentage = '', $action = '')
-	{
-		$this->datas = $datas;
-		$this->icon = $icon;
-		$this->variant = $variant;
-		$this->label = $label;
-		$this->class = $class;
-		$this->condition = $condition;
-		$this->percentage = $percentage;
+  public $datas, $icon, $variant, $label, $class, $condition, $percentage, $action, $totalOrders;
+  /**
+   * Create a new component instance.
+   *
+   * @return void
+   */
+  public function __construct($datas, $icon, $variant, $label, $class = '', $condition, $percentage = '', $action = '', $totalOrders = '')
+  {
+    $this->datas = $datas;
+    $this->icon = $icon;
+    $this->variant = $variant;
+    $this->label = $label;
+    $this->class = $class;
+    $this->condition = $condition;
+    $this->percentage = $percentage;
     $this->action = $action;
-	}
+    $this->totalOrders = $totalOrders;
+  }
 
-	/**
-	 * Get the view / contents that represent the component.
-	 *
-	 * @return \Illuminate\Contracts\View\View|\Closure|string
-	 */
-	public function render()
-	{
-		return view('components.product.product-card');
-	}
+  /**
+   * Get the view / contents that represent the component.
+   *
+   * @return \Illuminate\Contracts\View\View|\Closure|string
+   */
+  public function render()
+  {
+    return view('components.product.product-card');
+  }
 }

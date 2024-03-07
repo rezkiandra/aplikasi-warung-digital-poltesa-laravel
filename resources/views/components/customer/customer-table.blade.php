@@ -87,7 +87,7 @@
             </td>
             <td>
               <div class="d-flex align-items-center">
-                <a class="me-2" href="{{ route('admin.edit.seller', $data->uuid) }}">
+                <a class="me-2" href="{{ route('admin.edit.customer', $data->uuid) }}">
                   <i class="mdi mdi-pencil-outline text-secondary"></i>
                 </a>
                 <div class="dropdown">
@@ -95,11 +95,11 @@
                     <i class="mdi mdi-dots-vertical"></i>
                   </button>
                   <div class="dropdown-menu">
-                    <x-dropdown-item :label="'Detail'" :variant="'secondary'" :icon="'eye-outline'" :route="route('admin.detail.seller', $data->slug)" />
-                    <form action="{{ route('admin.destroy.seller', $data->uuid) }}" method="POST">
+                    <x-dropdown-item :label="'Detail'" :variant="'secondary'" :icon="'eye-outline'" :route="route('admin.detail.customer', $data->slug)" />
+                    <form action="{{ route('admin.destroy.customer', $data->uuid) }}" method="POST">
                       @csrf
                       @method('DELETE')
-                      <x-delete-button />
+                      <x-delete-button :label="'Delete'" />
                     </form>
                   </div>
                 </div>
