@@ -1,5 +1,6 @@
 @php
   $categories = \App\Models\ProductCategory::pluck('name', 'id')->toArray();
+  $seller = \App\Models\Seller::pluck('full_name', 'id')->toArray();
 @endphp
 
 @extends('layouts.authenticated')
@@ -9,21 +10,28 @@
 @section('content')
   <x-create-form :title="'Create new product'" :action="route('admin.store.product')" :route="route('admin.products')">
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-lg-3">
         <x-form-floating>
           <x-input-form-label :label="'Product Name'" :name="'name'" :type="'text'" :placeholder="'Baju kemeja, Kue ulang tahun, dsb'" :value="old('name')" />
         </x-form-floating>
       </div>
 
-      <div class="col-lg-4">
+      <div class="col-lg-3">
         <x-form-floating>
           <x-input-form-label :label="'Price'" :name="'price'" :type="'text'" :value="old('price')" />
         </x-form-floating>
       </div>
 
-      <div class="col-lg-4">
+      <div class="col-lg-3">
         <x-form-floating>
           <x-input-form-label :label="'Stock'" :name="'stock'" :type="'text'" :value="old('stock')" />
+        </x-form-floating>
+      </div>
+
+      <div class="col-lg-3">
+        <x-form-floating>
+          <x-input-form-label :label="'Seller'" :name="'seller_id'" :type="'select'" :options="$seller"
+            :select="'Choose seller'" />
         </x-form-floating>
       </div>
 

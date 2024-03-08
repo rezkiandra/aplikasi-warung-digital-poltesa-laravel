@@ -18,23 +18,23 @@
     <x-divider :label="'User Management'" />
     <x-sidebar-dropdown :label="'Sellers'" :route="route('admin.sellers')" :icon="'account-group-outline'" :active="request()->routeIs('admin.sellers', 'admin.*.seller')">
       <x-sidebar-dropdown-item :label="'Create'" :href="route('admin.create.seller')" :active="request()->routeIs('admin.create.seller')" />
-      <x-sidebar-dropdown-item :label="'List'" :href="route('admin.sellers')" :active="request()->routeIs('admin.sellers')" />
+      <x-sidebar-dropdown-item :label="'List'" :href="route('admin.sellers')" :active="request()->routeIs('admin.sellers', 'admin.detail.seller', 'admin.edit.seller')" />
     </x-sidebar-dropdown>
 
     <x-sidebar-dropdown :label="'Customers'" :route="route('admin.customers')" :icon="'account-multiple-outline'" :active="request()->routeIs('admin.customers', 'admin.*.customer')">
       <x-sidebar-dropdown-item :label="'Create'" :href="route('admin.create.customer')" :active="request()->routeIs('admin.create.customer')" />
-      <x-sidebar-dropdown-item :label="'List'" :href="route('admin.customers')" :active="request()->routeIs('admin.customers', 'admin.detail.customer')" />
+      <x-sidebar-dropdown-item :label="'List'" :href="route('admin.customers')" :active="request()->routeIs('admin.customers', 'admin.detail.customer', 'admin.edit.customer')" />
     </x-sidebar-dropdown>
 
     <x-sidebar-dropdown :label="'Users'" :route="route('admin.users')" :icon="'account-outline'" :active="request()->routeIs('admin.users', 'admin.*.user')">
       <x-sidebar-dropdown-item :label="'Create'" :href="route('admin.create.user')" :active="request()->routeIs('admin.create.user')" />
-      <x-sidebar-dropdown-item :label="'List'" :href="route('admin.users')" :active="request()->routeIs('admin.users')" />
+      <x-sidebar-dropdown-item :label="'List'" :href="route('admin.users')" :active="request()->routeIs('admin.users', 'admin.detail.user', 'admin.edit.user')" />
     </x-sidebar-dropdown>
 
     <x-divider :label="'Data Management'" />
     <x-sidebar-dropdown :label="'Products'" :route="route('admin.sellers')" :icon="'package-variant'" :active="request()->routeIs('admin.products', 'admin.*.product')">
       <x-sidebar-dropdown-item :label="'Create'" :href="route('admin.create.product')" :active="request()->routeIs('admin.create.product')" />
-      <x-sidebar-dropdown-item :label="'List'" :href="route('admin.products')" :active="request()->routeIs('admin.products')" />
+      <x-sidebar-dropdown-item :label="'List'" :href="route('admin.products')" :active="request()->routeIs('admin.products', 'admin.detail.product', 'admin.edit.product')" />
     </x-sidebar-dropdown>
 
     <x-sidebar-item :label="'Orders'" :route="route('admin.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('admin.orders', 'admin.*.order')" />

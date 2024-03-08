@@ -35,8 +35,7 @@
 
         <div class="col-lg-4">
           <x-form-floating>
-            <x-input-form-label :label="'Description'" :name="'description'" :type="'text'" :value="$product->description"
-              :placeholder="'This product contain 1000mg vitamin c'" />
+            <x-input-form-label :label="'Image'" :name="'image'" :type="'file'" :value="$product->image" />
           </x-form-floating>
         </div>
 
@@ -45,9 +44,9 @@
             <select name="category_id" id="category_id" class="form-select">
               <option value="{{ $product->category_id }}" selected>{{ $product->category->name }}</option>
               @foreach ($categories as $key => $value)
-              @if ($key == $product->category_id)
-                @continue
-              @endif
+                @if ($key == $product->category_id)
+                  @continue
+                @endif
                 <option value="{{ $key }}">{{ $value }}</option>
               @endforeach
             </select>
@@ -56,9 +55,25 @@
 
         <div class="col-lg-4">
           <x-form-floating>
-            <x-input-form-label :label="'Image'" :name="'image'" :type="'file'" :value="$product->image" />
+            <select name="seller_id" id="seller_id" class="form-select">
+              <option value="{{ $product->seller_id }}" selected>{{ $product->seller->full_name }}</option>
+              @foreach ($categories as $key => $value)
+                @if ($key == $product->seller_id)
+                  @continue
+                @endif
+                <option value="{{ $key }}">{{ $value }}</option>
+              @endforeach
+            </select>
           </x-form-floating>
         </div>
+
+        <div class="col-lg-12">
+          <x-form-floating>
+            <x-input-form-label :label="'Description'" :name="'description'" :type="'textarea'" :value="$product->description"
+              :placeholder="'This product contain 1000mg vitamin c'" />
+          </x-form-floating>
+        </div>
+
       </div>
 
       <x-submit-button :label="'Submit'" :type="'submit'" :variant="'primary'" :icon="'check-circle-outline'" />

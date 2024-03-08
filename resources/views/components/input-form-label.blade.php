@@ -8,6 +8,9 @@
 @elseif ($label == 'Old Password')
   <input type="{{ $type }}" class="form-control" id="{{ $name }}" name="{{ $name }}"
     placeholder="{{ $placeholder }}" value="{{ $value }}" disabled />
+@elseif ($type == 'textarea')
+  <textarea type="{{ $type }}" class="form-control" id="{{ $name }}" name="{{ $name }}"
+    placeholder="{{ $placeholder }}" style="height: 300px">{{ $value }}</textarea>
 @else
   <input type="{{ $type }}" class="form-control" id="{{ $name }}" name="{{ $name }}"
     placeholder="{{ $placeholder }}" value="{{ $value }}" {{ $attributes }} />

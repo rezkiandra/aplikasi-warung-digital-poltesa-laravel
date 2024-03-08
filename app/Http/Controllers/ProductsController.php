@@ -25,6 +25,7 @@ class ProductsController extends Controller
   public function store(ProductsRequest $request)
   {
     Products::create([
+      'seller_id' => $request->seller_id,
       'name' => $request->name,
       'slug' => Str::slug($request->name),
       'description' => $request->description,
@@ -71,6 +72,7 @@ class ProductsController extends Controller
         Storage::delete('public/' . $productImage);
       }
       $product->update([
+        'seller_id' => $request->seller_id,
         'name' => $request->name,
         'slug' => Str::slug($request->name),
         'description' => $request->description,
