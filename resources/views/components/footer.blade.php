@@ -6,11 +6,11 @@
         <script>
           document.write(new Date().getFullYear());
         </script>
-        Copyrights - All Rights Reserved.
-        <i class="tf-icons mdi mdi-laravel text-danger"></i>
+        Copyrights - <span class="text-primary fw-medium footer">Warung Digital</span>. All Rights Reserved
+        {{-- <i class="tf-icons mdi mdi-laravel text-danger"></i>
         <i class="tf-icons mdi mdi-tailwind text-info"></i>
         Developed and Design by
-        <a href="https://themeselection.com" class="footer-link fw-medium text-decoration-underline">Kyy Studio</a>
+        <a href="https://themeselection.com" class="footer-link fw-medium text-decoration-underline">Kyy Studio</a> --}}
       </div>
 
       <div class="d-none d-lg-inline-block">
