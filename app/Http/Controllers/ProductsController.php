@@ -72,6 +72,10 @@ class ProductsController extends Controller
         Storage::delete('public/' . $productImage);
       }
       $product->update([
+        'image' => $request->image->store('products', 'public'),
+      ]);
+    } else {
+      $product->update([
         'seller_id' => $request->seller_id,
         'name' => $request->name,
         'slug' => Str::slug($request->name),
@@ -79,7 +83,6 @@ class ProductsController extends Controller
         'price' => $request->price,
         'stock' => $request->stock,
         'category_id' => $request->category_id,
-        'image' => $request->image->store('products', 'public'),
       ]);
     }
 
