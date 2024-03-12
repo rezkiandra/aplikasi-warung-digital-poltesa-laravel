@@ -21,7 +21,7 @@
   <h4 class="mb-1">Product list</h4>
   <p class="mb-3">A product will be purchased by customers</p>
   @if (Auth::user()->role_id == 2)
-    <x-basic-button :label="'Add new product'" :icon="'plus'" :class="'w-0 text-uppercase mb-4'" :variant="'primary'" :href="route('admin.create.product')" />
+    <x-basic-button :label="'Add new product'" :icon="'plus'" :class="'w-0 text-uppercase mb-4'" :variant="'primary'" :href="route('seller.create.product')" />
   @endif
 
   <x-product-separator>
@@ -35,5 +35,5 @@
       :percentage="$totalOutOfStock ? '+' . $totalOutOfStock . '%' : '-' . $totalOutOfStock . '%'" :totalOrders="$totalOrders . ' orders'" />
   </x-product-separator>
 
-  <x-products-tabel :title="'List of products'" :datas="$products" :fields="['no', 'product', 'category / seller', 'price', 'stock', 'published on', 'actions']" />
+  <x-products-tabel :title="'List of products'" :datas="$products" :fields="['no', 'product', 'category', 'price', 'stock', 'published on', 'actions']" />
 @endsection

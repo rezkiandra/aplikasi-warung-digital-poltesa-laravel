@@ -17,11 +17,20 @@ class UserSeeder extends Seeder
   {
     User::create([
       'uuid' => Str::uuid('id'),
-      'name' => 'Admin',
-      'slug' => Str::slug('admin'),
-      'email' => 'admin@admin.com',
+      'name' => 'Rezkiandra',
+      'slug' => Str::slug('rezkiandra'),
+      'email' => 'rezki@admin.com',
       'role_id' => 1,
-      'password' => Hash::make('admin123')
+      'password' => Hash::make('rezki123')
+    ]);
+
+    User::create([
+      'uuid' => Str::uuid('id'),
+      'name' => 'Levi ackerman',
+      'slug' => Str::slug('levi-ackerman'),
+      'email' => 'levi@ackerman.com',
+      'role_id' => 2,
+      'password' => Hash::make('levi12')
     ]);
   }
 }

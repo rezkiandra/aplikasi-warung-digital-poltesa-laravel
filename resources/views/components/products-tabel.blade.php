@@ -34,9 +34,11 @@
                   </span>
                   {{ $data->category->name }}
                 </span>
-                <small class="fw-medium d-flex align-items-center">
-                  {{ $data->seller->full_name }} - {{ $data->seller->user->email }}
-                </small>
+                @if (Auth::user()->role_id == 1)
+                  <small class="fw-medium d-flex align-items-center">
+                    {{ $data->seller->full_name }} - {{ $data->seller->user->email }}
+                  </small>
+                @endif
               </div>
             </td>
             <td>
@@ -53,20 +55,24 @@
             </td>
             <td>
               <div class="d-flex align-items-center">
-                <a class="me-2" href="{{ route('admin.edit.product', $data->slug) }}">
-                  <i class="mdi mdi-pencil-outline text-secondary"></i>
-                </a>
+                @if (Auth::user()->role_id != 1)
+                  <a class="me-2" href="{{ route('seller.edit.product', $data->uuid) }}">
+                    <i class="mdi mdi-pencil-outline text-secondary"></i>
+                  </a>
+                @endif
                 <div class="dropdown">
                   <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                     <i class="mdi mdi-dots-vertical"></i>
                   </button>
                   <div class="dropdown-menu">
-                    <x-dropdown-item :label="'Detail'" :variant="'secondary'" :icon="'eye-outline'" :route="route('admin.detail.product', $data->slug)" />
-                    <form action="{{ route('admin.destroy.product', $data->slug) }}" method="POST">
-                      @csrf
-                      @method('DELETE')
-                      <x-delete-button :label="'Delete'" />
-                    </form>
+                    <x-dropdown-item :label="'Detail'" :variant="'secondary'" :icon="'eye-outline'" :route="route('seller.detail.product', $data->slug)" />
+                    @if (Auth::user()->role_id == 2)
+                      <form action="{{ route('seller.destroy.product', $data->slug) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <x-delete-button :label="'Delete'" />
+                      </form>
+                    @endif
                   </div>
                 </div>
               </div>

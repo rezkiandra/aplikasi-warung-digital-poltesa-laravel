@@ -2,29 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Seller;
 use App\Models\Products;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProductsRequest;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class ProductsController extends Controller
+class AdminProductController extends Controller
 {
-  public function index()
-  {
-    $products = Products::where('seller_id', Auth::user()->role_id)->get();
-    return view('seller.products.index', compact('products'));
-  }
-
   /**
    * Show the form for creating a new resource.
    */
   public function create()
   {
-    return view('seller.products.create');
+    return view('admin.products.create');
   }
 
   /**
@@ -32,11 +24,9 @@ class ProductsController extends Controller
    */
   public function store(ProductsRequest $request)
   {
-    $seller_id = Seller::where('user_id', Auth::user()->id)->pluck('id')->first();
-
     Products::create([
       'uuid' => Str::uuid('id'),
-      'seller_id' => $seller_id,
+      'seller_id' => $request->seller_id,
       'name' => $request->name,
       'slug' => Str::slug($request->name),
       'description' => $request->description,
@@ -47,7 +37,8 @@ class ProductsController extends Controller
     ]);
 
     Alert::toast('Successfully created new product', 'success');
-    return redirect()->route('seller.products');
+    session()->flash('action', 'store');
+    return redirect()->route('admin.products');
   }
 
   /**
@@ -57,7 +48,7 @@ class ProductsController extends Controller
   {
     $product = Products::where('slug', $slug)->firstOrFail();
     $relatedProducts = Products::where('category_id', $product->category_id)->where('id', '!=', $product->id)->get();
-    return view('seller.products.detail', compact('product', 'relatedProducts'));
+    return view('admin.products.detail', compact('product', 'relatedProducts'));
   }
 
   /**
@@ -66,7 +57,7 @@ class ProductsController extends Controller
   public function edit(string $uuid)
   {
     $product = Products::where('uuid', $uuid)->firstOrFail();
-    return view('seller.products.edit', compact('product'));
+    return view('admin.products.edit', compact('product'));
   }
 
   /**
@@ -76,7 +67,6 @@ class ProductsController extends Controller
   {
     $product = Products::where('uuid', $uuid)->firstOrFail();
     $productImage = Products::where('uuid', $uuid)->pluck('image')->first();
-    $seller_id = Seller::where('user_id', Auth::user()->id)->pluck('id')->first();
 
     if ($request->hasFile('image')) {
       if ($productImage) {
@@ -87,7 +77,8 @@ class ProductsController extends Controller
       ]);
     } else {
       $product->update([
-        'seller_id' => $seller_id,
+        'uuid' => Str::uuid('id'),
+        'seller_id' => $request->seller_id,
         'name' => $request->name,
         'slug' => Str::slug($request->name),
         'description' => $request->description,
@@ -98,7 +89,7 @@ class ProductsController extends Controller
     }
 
     Alert::toast('Successfully updated product', 'success');
-    return redirect()->route('seller.products');
+    return redirect()->route('admin.products');
   }
 
   /**
@@ -115,6 +106,6 @@ class ProductsController extends Controller
 
     Alert::toast('Successfully deleted product', 'success');
     session()->flash('action', 'delete');
-    return redirect()->route('seller.products');
+    return redirect()->route('admin.products');
   }
 }

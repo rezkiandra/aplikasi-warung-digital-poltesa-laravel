@@ -15,7 +15,7 @@
               <span class="fw-medium">{{ $data->bank_name }}</span>
             </td>
             <td>
-              <span class="fw-medium">{{ \App\Models\Seller::where('id', $data->parent_id)->count() }}</span>
+              <span class="fw-medium">{{ \App\Models\Seller::where('bank_account_id', $data->id)->count() }}</span>
             </td>
             <td><span
                 class="badge rounded-pill bg-label-success me-2">{{ date('d F Y, H:i:s', strtotime($data->created_at)) }}

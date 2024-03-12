@@ -223,7 +223,7 @@ class UserController extends Controller
       'name' => $request->name,
       'slug' => Str::slug($request->name),
       'email' => $request->email,
-      'role_id' => $request->role_id,
+      'role_id' => $request->role_id ?? $user->role_id,
       'password' => Hash::make($request->new_password) ?? $user->password,
     ]);
 

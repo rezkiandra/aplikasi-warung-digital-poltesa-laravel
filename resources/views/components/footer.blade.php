@@ -2,11 +2,11 @@
   <div class="container-xxl">
     <div class="footer-container d-flex align-items-center justify-content-between py-3 flex-md-row flex-column">
       <div class="text-body mb-2 mb-md-0">
-        ©
+        Copyrights ©
         <script>
           document.write(new Date().getFullYear());
         </script>
-        Copyrights - <span class="text-primary fw-medium footer">Warung Digital</span>. All Rights Reserved
+        <span class="text-primary fw-medium footer"> - Warung Digital</span>. All Rights Reserved
         {{-- <i class="tf-icons mdi mdi-laravel text-danger"></i>
         <i class="tf-icons mdi mdi-tailwind text-info"></i>
         Developed and Design by

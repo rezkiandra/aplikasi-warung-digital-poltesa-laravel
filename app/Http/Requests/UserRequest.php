@@ -19,7 +19,8 @@ class UserRequest extends FormRequest
       'email' => 'required_if:email,null|unique:users,id|email',
       'role_id' => 'required_if:role_id,null',
       'password' => 'required_if:password,notnull|min:6|max:20',
-      'konfirmasi' => 'required_if:konfirmasi,notnull|same:password',
+      'konfirmasi' => 'required_if:konfirmasi,notnull|same:password|',
+      'new_password' => 'required_if:new_password,notnull|min:6|max:20',
     ];
   }
 
@@ -39,6 +40,10 @@ class UserRequest extends FormRequest
       'password.required_if' => 'Password harus diisi',
       'password.min' => 'Password minimal 6 karakter',
       'password.max' => 'Password maksimal 20 karakter',
+
+      'new_password.required_if' => 'Password baru harus diisi',
+      'new_password.min' => 'Password minimal 6 karakter',
+      'new_password.max' => 'Password maksimal 20 karakter',
 
       'konfirmasi.required_if' => 'Konfirmasi password harus diisi',
       'konfirmasi.same' => 'Konfirmasi password tidak sama',
