@@ -21,7 +21,7 @@ class CheckBiodata
     if ($seller && $this->hasRequiredInfo($seller)) {
       return $next($request);
     } else {
-      return redirect()->route('seller.create.biodata')->with('error', 'Lengkapi biodata terlebih dahulu jika ingin menambahkan produk');
+      return redirect()->route('seller.biodata')->with('error', 'Lengkapi biodata terlebih dahulu jika ingin menambahkan produk');
     }
   }
 

@@ -1,10 +1,13 @@
 @php
-  $products = \App\Models\Products::paginate(10);
+  $products = \App\Models\Products::where('seller_id', Auth::user()->seller->id)->paginate(10);
   $categories = \App\Models\ProductCategory::pluck('name', 'id')->toArray();
   $productPercentage = round((\App\Models\Products::count() ?? 0 / \App\Models\ProductCategory::count()) * 100, 2);
   $productPrePercentage = \App\Models\Products::count();
 
-  $totalOrders = \App\Models\Order::all()->count();
+  $totalOrders = \App\Models\Order::join('products', 'products.id', '=', 'orders.product_id', 'left')
+      ->join('sellers', 'sellers.id', '=', 'products.seller_id', 'left')
+      ->where('seller_id', Auth::user()->seller->id)
+      ->count();
   $totalTopSale = \App\Models\Order::join('products', 'products.id', '=', 'orders.product_id', 'left')
       ->where('orders.product_id', '>=', 20)
       ->count();
@@ -35,5 +38,5 @@
       :percentage="$totalOutOfStock ? '+' . $totalOutOfStock . '%' : '-' . $totalOutOfStock . '%'" :totalOrders="$totalOrders . ' orders'" />
   </x-product-separator>
 
-  <x-products-tabel :title="'List of products'" :datas="$products" :fields="['no', 'product', 'category', 'price', 'stock', 'published on', 'actions']" />
+  <x-product-tabel-seller :title="'List of products'" :datas="$products" :fields="['no', 'product', 'category', 'price', 'stock', 'published on', 'actions']" />
 @endsection

@@ -10,7 +10,7 @@
     placeholder="{{ $placeholder }}" value="{{ $value }}" disabled />
 @elseif ($type == 'textarea')
   <textarea type="{{ $type }}" class="form-control" id="{{ $name }}" name="{{ $name }}"
-    placeholder="{{ $placeholder }}" style="height: 200px" {{ $value }}>{{ $value }}</textarea>
+    placeholder="{{ $placeholder }}" style="height: {{ $height }}" {{ $value }}>{{ $value }}</textarea>
 @else
   <input type="{{ $type }}" class="form-control" id="{{ $name }}" name="{{ $name }}"
     placeholder="{{ $placeholder }}" value="{{ $value }}" {{ $attributes }} />

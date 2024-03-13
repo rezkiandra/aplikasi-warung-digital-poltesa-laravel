@@ -13,7 +13,7 @@ use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\UserController;
 
-Route::redirect('/', '/guest');
+Route::redirect('/', '/guest')->name('logout');
 Route::redirect('/admin', '/admin/dashboard');
 Route::redirect('/seller', '/seller/dashboard');
 Route::redirect('/customer', '/customer/dashboard');
@@ -124,6 +124,7 @@ Route::middleware('auth', 'checkRole:Seller')->group(function () {
       Route::get('/product', 'product')->name('seller.product');
       Route::get('/orders', 'orders')->name('seller.orders');
       Route::get('/bank-account', 'bank_account')->name('seller.bank_account');
+      Route::get('/settings', 'settings')->name('seller.settings');
     });
   Route::middleware('checkBiodata')->group(function () {
     Route::controller(ProductsController::class)
@@ -145,7 +146,7 @@ Route::middleware('auth', 'checkRole:Seller')->group(function () {
     ->prefix('seller')
     ->group(function () {
       Route::get('/biodata', 'index')->name('seller.biodata');
-      Route::get('/biodata/create', 'create')->name('seller.create.biodata');
+      // Route::get('/biodata/create', 'create')->name('seller.create.biodata');
       Route::post('biodata/store', 'store')->name('seller.store.biodata');
       Route::get('/biodata/{biodata}/edit', 'edit')->name('seller.edit.biodata');
       Route::get('/biodata/{biodata}/detail', 'show')->name('seller.detail.biodata');

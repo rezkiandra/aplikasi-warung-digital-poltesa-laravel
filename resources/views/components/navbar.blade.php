@@ -52,7 +52,7 @@
           <li>
             <div class="dropdown-divider my-1"></div>
           </li>
-          <li>
+          {{-- <li>
             <a class="dropdown-item" href="#">
               <i class="mdi mdi-account-outline me-1 mdi-20px"></i>
               <span class="align-middle">My Profile</span>
@@ -72,7 +72,7 @@
                 <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
               </span>
             </a>
-          </li>
+          </li> --}}
           <li>
             <div class="dropdown-divider my-1"></div>
           </li>

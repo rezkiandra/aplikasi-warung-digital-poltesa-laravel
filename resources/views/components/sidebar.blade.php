@@ -32,7 +32,7 @@
       </x-sidebar-dropdown>
     @elseif(Auth::user()->role_id == 2)
       <x-sidebar-item :label="'Dashboard'" :route="route('seller.dashboard')" :icon="'view-dashboard-outline'" :active="request()->routeIs('seller.dashboard')" />
-      <x-sidebar-item :label="'Biodata'" :route="route('seller.biodata')" :icon="'account-box-outline'" :active="request()->routeIs('seller.biodata')" />
+      <x-sidebar-item :label="'Biodata'" :route="route('seller.biodata')" :icon="'account-box-outline'" :active="request()->routeIs('seller.biodata', 'seller.*.biodata')" />
     @endif
 
     <x-divider :label="'Data Management'" />
@@ -46,7 +46,11 @@
       @endif
     </x-sidebar-dropdown>
 
-    <x-sidebar-item :label="'Orders'" :route="route('admin.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('admin.orders', 'admin.*.order')" />
+    @if (Auth::user()->role_id == 1)
+      <x-sidebar-item :label="'Orders'" :route="route('admin.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('admin.orders', 'admin.*.order')" />
+    @elseif(Auth::user()->role_id == 2)
+      <x-sidebar-item :label="'Orders'" :route="route('seller.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('seller.orders', 'seller.*.order')" />
+    @endif
 
     @if (Auth::user()->role_id == 1)
       <x-divider :label="'Data Master'" />
@@ -56,6 +60,10 @@
     @endif
 
     <x-divider :label="'Settings'" />
-    <x-sidebar-item :label="'Settings'" :route="route('admin.settings')" :icon="'account-cog-outline'" :active="request()->routeIs('admin.settings')" />
+    @if (Auth::user()->role_id == 1)
+      <x-sidebar-item :label="'Settings'" :route="route('admin.settings')" :icon="'account-cog-outline'" :active="request()->routeIs('admin.settings')" />
+    @elseif (Auth::user()->role_id == 2)
+      <x-sidebar-item :label="'Settings'" :route="route('seller.settings')" :icon="'account-cog-outline'" :active="request()->routeIs('seller.settings')" />
+    @endif
   </ul>
 </aside>

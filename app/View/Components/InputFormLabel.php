@@ -14,10 +14,11 @@ class InputFormLabel extends Component
   public $options;
   public $select;
   public $attributes;
+  public $height;
   /**
    * Create a new component instance.
    */
-  public function __construct($label, $name = '', $type, $placeholder = "", $value = '', $options = '', $select = '', $attributes = '')
+  public function __construct($label, $name = '', $type, $placeholder = "", $value = '', $options = '', $select = '', $attributes = '', $height = '150px')
   {
     $this->label = $label;
     $this->name = $name;
@@ -27,6 +28,7 @@ class InputFormLabel extends Component
     $this->options = $options;
     $this->select = $select;
     $this->attributes = $attributes;
+    $this->height = $height;
   }
 
   /**

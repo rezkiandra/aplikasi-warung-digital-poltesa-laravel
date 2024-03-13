@@ -8,13 +8,13 @@
 
 @section('content')
   <div class="d-lg-flex justify-content-between gap-4">
-    <div class="col-lg-2 card-body">
+    <div class="card-body">
       <img src="{{ asset('storage/' . $product->image) }}" alt="" class="img-fluid rounded" width="100%">
     </div>
 
-    <x-edit-form :title="'Edit specific product'" :action="route('seller.update.product', $product->uuid)" :route="route('seller.products')" :class="'col-lg-10'">
+    <x-edit-form :title="'Edit specific product'" :action="route('seller.update.product', $product->uuid)" :route="route('seller.products')" :class="'col-lg-9'">
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-4">
           <x-form-floating>
             <x-input-form-label :label="'Product Name'" :name="'name'" :type="'text'" :placeholder="'Baju kemeja, Kue ulang tahun, dsb'"
               :value="$product->name" />
@@ -27,16 +27,9 @@
           </x-form-floating>
         </div>
 
-        <div class="col-lg-3">
+        <div class="col-lg-2">
           <x-form-floating>
             <x-input-form-label :label="'Stock'" :name="'stock'" :type="'text'" :value="$product->stock" />
-          </x-form-floating>
-        </div>
-
-        <div class="col-lg-6">
-          <x-form-floating>
-            <x-input-form-label :label="'Description'" :name="'description'" :type="'textarea'" :value="$product->description"
-              :placeholder="'This product contain 1000mg vitamin c'" />
           </x-form-floating>
         </div>
 
@@ -54,13 +47,19 @@
           </x-form-floating>
         </div>
 
-        <div class="col-lg-3">
+        <div class="col-lg-12">
+          <x-form-floating>
+            <x-input-form-label :label="'Description'" :name="'description'" :type="'textarea'" :height="'120px'"
+              :value="$product->description" :placeholder="'This product contain 1000mg vitamin c'" />
+          </x-form-floating>
+        </div>
+
+        <div class="col-lg-12">
           <x-form-floating>
             <x-input-form-label :label="'Image'" :name="'image'" :type="'file'" :value="$product->image" />
           </x-form-floating>
         </div>
       </div>
-
       <x-submit-button :label="'Submit'" :type="'submit'" :variant="'primary'" :icon="'check-circle-outline'" />
     </x-edit-form>
   </div>
