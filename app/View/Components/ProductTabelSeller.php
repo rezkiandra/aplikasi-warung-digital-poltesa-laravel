@@ -26,6 +26,6 @@ class ProductsTabelSeller extends Component
    */
   public function render()
   {
-    return view('components.products-tabel-seller');
+    return view('components.product-tabel-seller');
   }
 }
