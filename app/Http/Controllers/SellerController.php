@@ -15,18 +15,8 @@ class SellerController extends Controller
     return view('seller.dashboard');
   }
 
-  public function products()
+  public function settings()
   {
-    return view('seller.products.index');
-  }
-
-  public function orders()
-  {
-    return view('seller.orders');
-  }
-
-  public function bank_account()
-  {
-    return view('seller.bank_account');
+    return view('seller.settings');
   }
 }

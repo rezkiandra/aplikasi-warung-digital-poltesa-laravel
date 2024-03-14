@@ -10,6 +10,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\BiodataController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\UserController;
 
@@ -121,10 +122,18 @@ Route::middleware('auth', 'checkRole:Seller')->group(function () {
     ->prefix('seller')
     ->group(function () {
       Route::get('/dashboard', 'dashboard')->name('seller.dashboard');
-      Route::get('/product', 'product')->name('seller.product');
-      Route::get('/orders', 'orders')->name('seller.orders');
-      Route::get('/bank-account', 'bank_account')->name('seller.bank_account');
       Route::get('/settings', 'settings')->name('seller.settings');
+    });
+  Route::controller(OrderController::class)
+    ->prefix('seller')
+    ->group(function () {
+      Route::get('/orders', 'index')->name('seller.orders');
+      Route::get('/order/create', 'create')->name('seller.create.order');
+      Route::post('order/store', 'store')->name('seller.store.order');
+      Route::get('/order/{order}/edit', 'edit')->name('seller.edit.order');
+      Route::get('/order/{order}/detail', 'show')->name('seller.detail.order');
+      Route::put('/order/{order}/update', 'update')->name('seller.update.order');
+      Route::delete('/order/{order}/destroy', 'destroy')->name('seller.destroy.order');
     });
   Route::middleware('checkBiodata')->group(function () {
     Route::controller(ProductsController::class)

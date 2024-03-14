@@ -14,10 +14,10 @@
 
 @extends('layouts.authenticated')
 
-@section('title', 'Create User')
+@section('title', 'Add User')
 
 @section('content')
-  <x-create-form :title="'Create new user'" :action="route('admin.store.user')" :route="route('admin.users')">
+  <x-create-form :title="'Add new user'" :action="route('admin.store.user')" :route="route('admin.users')">
     <div class="row">
       <div class="col-lg-4">
         <x-form-floating>

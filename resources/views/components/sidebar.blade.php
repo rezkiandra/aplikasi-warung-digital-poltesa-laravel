@@ -17,18 +17,18 @@
       <x-sidebar-item :label="'Dashboard'" :route="route('admin.dashboard')" :icon="'view-dashboard-outline'" :active="request()->routeIs('admin.dashboard')" />
       <x-divider :label="'User Management'" />
       <x-sidebar-dropdown :label="'Sellers'" :route="route('admin.sellers')" :icon="'account-group-outline'" :active="request()->routeIs('admin.sellers', 'admin.*.seller')">
-        <x-sidebar-dropdown-item :label="'Create'" :href="route('admin.create.seller')" :active="request()->routeIs('admin.create.seller')" />
-        <x-sidebar-dropdown-item :label="'List'" :href="route('admin.sellers')" :active="request()->routeIs('admin.sellers', 'admin.detail.seller', 'admin.edit.seller')" />
+        <x-sidebar-dropdown-item :label="'Add seller'" :href="route('admin.create.seller')" :active="request()->routeIs('admin.create.seller')" />
+        <x-sidebar-dropdown-item :label="'Seller list'" :href="route('admin.sellers')" :active="request()->routeIs('admin.sellers', 'admin.detail.seller', 'admin.edit.seller')" />
       </x-sidebar-dropdown>
 
       <x-sidebar-dropdown :label="'Customers'" :route="route('admin.customers')" :icon="'account-multiple-outline'" :active="request()->routeIs('admin.customers', 'admin.*.customer')">
-        <x-sidebar-dropdown-item :label="'Create'" :href="route('admin.create.customer')" :active="request()->routeIs('admin.create.customer')" />
-        <x-sidebar-dropdown-item :label="'List'" :href="route('admin.customers')" :active="request()->routeIs('admin.customers', 'admin.detail.customer', 'admin.edit.customer')" />
+        <x-sidebar-dropdown-item :label="'Add customer'" :href="route('admin.create.customer')" :active="request()->routeIs('admin.create.customer')" />
+        <x-sidebar-dropdown-item :label="'Customer list'" :href="route('admin.customers')" :active="request()->routeIs('admin.customers', 'admin.detail.customer', 'admin.edit.customer')" />
       </x-sidebar-dropdown>
 
       <x-sidebar-dropdown :label="'Users'" :route="route('admin.users')" :icon="'account-outline'" :active="request()->routeIs('admin.users', 'admin.*.user')">
-        <x-sidebar-dropdown-item :label="'Create'" :href="route('admin.create.user')" :active="request()->routeIs('admin.create.user')" />
-        <x-sidebar-dropdown-item :label="'List'" :href="route('admin.users')" :active="request()->routeIs('admin.users', 'admin.detail.user', 'admin.edit.user')" />
+        <x-sidebar-dropdown-item :label="'Add user'" :href="route('admin.create.user')" :active="request()->routeIs('admin.create.user')" />
+        <x-sidebar-dropdown-item :label="'User list'" :href="route('admin.users')" :active="request()->routeIs('admin.users', 'admin.detail.user', 'admin.edit.user')" />
       </x-sidebar-dropdown>
     @elseif(Auth::user()->role_id == 2)
       <x-sidebar-item :label="'Dashboard'" :route="route('seller.dashboard')" :icon="'view-dashboard-outline'" :active="request()->routeIs('seller.dashboard')" />
@@ -38,11 +38,11 @@
     <x-divider :label="'Data Management'" />
     <x-sidebar-dropdown :label="'Products'" :route="route('admin.sellers')" :icon="'package-variant'" :active="request()->routeIs('admin.products', 'seller.products', 'admin.*.product', 'seller.*.product')">
       @if (Auth::user()->role_id == 2)
-        <x-sidebar-dropdown-item :label="'Create'" :href="route('seller.create.product')" :active="request()->routeIs('seller.create.product')" />
-        <x-sidebar-dropdown-item :label="'List'" :href="route('seller.products')" :active="request()->routeIs('seller.products')" />
+        <x-sidebar-dropdown-item :label="'Add product'" :href="route('seller.create.product')" :active="request()->routeIs('seller.create.product')" />
+        <x-sidebar-dropdown-item :label="'Product list'" :href="route('seller.products')" :active="request()->routeIs('seller.products')" />
       @elseif(Auth::user()->role_id == 1)
         {{-- <x-sidebar-dropdown-item :label="'Create'" :href="route('seller.create.product')" :active="request()->routeIs('seller.create.product')" /> --}}
-        <x-sidebar-dropdown-item :label="'List'" :href="route('admin.products')" :active="request()->routeIs('admin.products')" />
+        <x-sidebar-dropdown-item :label="'Product list'" :href="route('admin.products')" :active="request()->routeIs('admin.products')" />
       @endif
     </x-sidebar-dropdown>
 
