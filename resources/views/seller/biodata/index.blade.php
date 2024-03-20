@@ -17,7 +17,7 @@
           <div class="card">
             <div class="card-body d-flex flex-column justify-content-center">
               <div class="text-center">
-                <img src="{{ asset('storage/' . $data->image) }}" alt="" class="img-fluid rounded-circle w-50">
+                <img src="{{ asset('storage/' . $data->image) }}" alt="" class="img-fluid rounded-circle w-50" width="200">
               </div>
               <div class="mt-4 text-center fw-medium text-capitalize">
                 <h5 class="mb-3">{{ $data->full_name }}</h5>

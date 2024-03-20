@@ -14,7 +14,10 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\UserController;
 
-Route::redirect('/', '/guest')->name('logout');
+Route::get('/')->name('root');
+Route::get('/guest')->name('home');
+
+Route::redirect('/', '/guest');
 Route::redirect('/admin', '/admin/dashboard');
 Route::redirect('/seller', '/seller/dashboard');
 Route::redirect('/customer', '/customer/dashboard');
@@ -22,10 +25,11 @@ Route::redirect('/customer', '/customer/dashboard');
 Route::controller(GuestController::class)
   ->prefix('guest')
   ->group(function () {
-    Route::get('/', 'index')->name('home');
-    Route::get('/products', 'index')->name('products');
-    Route::get('/gallery', 'index')->name('gallery');
-    Route::get('/testimonials', 'index')->name('testimonials');
+    Route::get('/', 'index')->name('guest.home');   
+    Route::get('/products', 'products')->name('guest.products');
+    Route::get('/product/{product}/detail', 'product')->name('guest.detail.product');
+    Route::get('/gallery', 'index')->name('guest.gallery');
+    Route::get('/testimonials', 'index')->name('guest.testimonials');
   });
 
 Route::middleware(['auth', 'checkRole:Admin'])->group(function () {

@@ -1,5 +1,5 @@
 <div class="card p-2">
-  <x-application-logo :route="route('home')" />
+  <x-application-logo :route="route('guest.home')" />
 
   <div class="card-body mt-2">
     <h4 class="mb-2">Welcome to Warung Digital! 🚀</h4>

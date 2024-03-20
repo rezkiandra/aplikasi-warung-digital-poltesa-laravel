@@ -37,7 +37,6 @@ class AdminProductController extends Controller
     ]);
 
     Alert::toast('Successfully created new product', 'success');
-    session()->flash('action', 'store');
     return redirect()->route('admin.products');
   }
 
