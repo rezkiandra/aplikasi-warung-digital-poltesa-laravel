@@ -63,7 +63,7 @@
               href="{{ route('register') }}">Services</a>
           </li>
           <li class="nav-item my-lg-0 my-2">
-            <a class="nav-link fw-medium text-dark {{ request()->routeIs('guest.products') ? 'active text-primary' : 'text-dark' }}"
+            <a class="nav-link fw-medium text-dark {{ request()->routeIs('guest.products', 'guest.detail.product') ? 'active text-primary' : 'text-dark' }}"
               href="{{ route('guest.products') }}">Products</a>
           </li>
         </ul>

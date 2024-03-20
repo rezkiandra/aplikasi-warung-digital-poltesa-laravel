@@ -1,6 +1,14 @@
+@php
+  $user_role = Auth::user()->role_id ?? '';
+@endphp
+
 @foreach ($datas as $data)
-  <div class="col">
-    <div class="card h-100 cursor-pointer" onclick="window.location.href='{{ route('seller.detail.product', $data->slug) }}'">
+  <div class="col-lg-3 col-md-6 col-12">
+    <div class="card h-100 cursor-pointer"
+      @if ($user_role == 1) onclick="window.location.href='{{ route('admin.detail.product', $data->slug) }}'" 
+      @elseif ($user_role == 2) onclick="window.location.href='{{ route('seller.detail.product', $data->slug) }}'"
+      @elseif ($user_role == 3) onclick="window.location.href='{{ route('customer.detail.product', $data->slug) }}'"
+      @else onclick="window.location.href='{{ route('guest.detail.product', $data->slug) }}'" @endif>
       <img class="card-img-top img-fluid h-100 w-100" alt="Card image cap" src="{{ asset('storage/' . $data->image) }}"
         width="100%">
       <div class="card-body">
@@ -10,7 +18,7 @@
             Rp{{ number_format($data->price, 2, ',', '.') }}
           </span>
         </p>
-        <div class="d-lg-flex align-items-center justify-content-between gap-5">
+        <div class="d-lg-flex d-md-flex d-flex align-items-center justify-content-between">
           <p class="fw-medium">Rating:
             <i class="mdi mdi-star text-warning"></i>
             <i class="mdi mdi-star text-warning"></i>
