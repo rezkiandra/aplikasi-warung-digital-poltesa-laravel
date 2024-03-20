@@ -7,17 +7,17 @@
     <div class="position-absolute">
       <x-action-button :route="route('guest.products')" :variant="'text-light'" :icon="'arrow-left-circle mdi-24px'" :class="'p-2'" />
     </div>
-    <div class="col-lg-7 col-12">
-      <img src="{{ asset('storage/' . $product->image) }}" alt="" class="img-fluid rounded shadow hover-shadow">
-
+    <div class="col-12">
+      <img src="{{ asset('storage/' . $product->image) }}" alt="" class="img-fluid rounded shadow hover-shadow col-12 col-lg-5">
       <div class="align-self-center">
-        <h4 class="mt-4 fw-medium">{{ $product->name }} / <span class="h5 fw-medium">{{ $product->slug }}</span></h4>
+        <h4 class="mt-4 fw-medium">{{ $product->name }}</h4>
       </div>
-      <span class="mb-3 rounded badge bg-label-primary">
+      <span class="mb-3 me-3 rounded badge bg-label-primary">
         Rp.{{ number_format($product->price, 2, ',', '.') }}
       </span>
+      <span class="mb-3 rounded badge bg-label-success">Stok tersisa {{ $product->stock }} buah</span>
 
-      <div class="d-lg-flex align-items-center gap-5">
+      <div class="d-lg-flex d-md-flex align-items-center gap-5">
         <h6 class="fw-medium">Rating:
           <i class="mdi mdi-star text-warning"></i>
           <i class="mdi mdi-star text-warning"></i>
@@ -28,7 +28,7 @@
 
         <p class="fw-medium d-flex align-items-center">
           <i class="mdi mdi-cart-outline me-2"></i>
-          {{ \App\Models\Order::where('product_id', $product->id)->count() }} Orders
+          {{ \App\Models\Order::where('product_id', $product->id)->count() }} Terjual
         </p>
       </div>
 
@@ -52,9 +52,12 @@
     <h5 class="fw-medium mt-5 mb-3">Related Products</h5>
     <x-grid-card>
       @foreach ($relatedProducts as $data)
-        <div class="col">
+        <div class="col-lg-3 col-md-6">
           <div class="card h-100 cursor-pointer"
             onclick="window.location.href='{{ route('guest.detail.product', $data->slug) }}'">
+            <div class="position-absolute">
+              <span class="badge bg-primary text-white d-lg-flex align-items-centers text-uppercase px-4">On Sale</span>
+            </div>
             <img class="card-img-top img-fluid h-100 w-100" alt="Card image cap"
               src="{{ asset('storage/' . $data->image) }}" width="100%">
             <div class="card-body">
@@ -64,7 +67,7 @@
                   Rp{{ number_format($data->price, 2, ',', '.') }}
                 </span>
               </p>
-              <div class="d-lg-flex align-items-center justify-content-between gap-5">
+              <div class="d-lg-flex d-md-flex align-items-center justify-content-between">
                 <p class="fw-medium">Rating:
                   <i class="mdi mdi-star text-warning"></i>
                   <i class="mdi mdi-star text-warning"></i>

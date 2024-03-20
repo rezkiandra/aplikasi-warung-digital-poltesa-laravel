@@ -3,7 +3,7 @@
     <div class="card h-100 cursor-pointer"
     onclick="window.location.href='{{ route('guest.detail.product', $data->slug) }}'">
     <div class="position-absolute">
-      <span class="badge bg-danger text-white d-lg-flex align-items-centers text-uppercase px-4">Sale</span>
+      <span class="badge bg-primary text-white d-lg-flex align-items-centers text-uppercase px-4">On Sale</span>
     </div>
       <img class="card-img-top img-fluid" alt="Card image cap" src="{{ asset('storage/' . $data->image) }}" width="100%">
       <div class="card-body">
