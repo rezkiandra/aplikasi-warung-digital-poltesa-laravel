@@ -24,6 +24,6 @@ class GuestController extends Controller
 
     $product = Products::where('slug', $slug)->firstOrFail();
     $relatedProducts = Products::where('category_id', $product->category_id)->where('id', '!=', $product->id)->get();
-    return view('pages.detail-product', compact('product', 'relatedProducts')); 
+    return view('pages.detail-product', compact('product', 'relatedProducts'));
   }
 }
