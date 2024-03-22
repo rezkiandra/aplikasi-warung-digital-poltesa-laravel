@@ -63,7 +63,7 @@
       </div>
 
       <div class="col-lg-3 mt-lg-0 mt-3">
-        <div class="border rounded p-3 mb-3">
+        <div class="bg-white border rounded p-3 mb-3">
           <h6>Rincian Pesanan</h6>
           <div class="text-muted mb-3">
             <span class="">Kategori:</span>
