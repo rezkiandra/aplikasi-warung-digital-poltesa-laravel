@@ -3,63 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Products;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CustomerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+  public function index()
+  {
+    return view('customer.home');
+  }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+  public function products()
+  {
+    $products = Products::all();
+    return view('customer.products', compact('products'));
+  }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+  public function product(string $slug)
+  {
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Customer $customer)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Customer $customer)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Customer $customer)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Customer $customer)
-    {
-        //
-    }
+    $product = Products::where('slug', $slug)->firstOrFail();
+    $relatedProducts = Products::where('category_id', $product->category_id)->where('id', '!=', $product->id)->get();
+    return view('customer.detail-product', compact('product', 'relatedProducts'));
+  }
 }

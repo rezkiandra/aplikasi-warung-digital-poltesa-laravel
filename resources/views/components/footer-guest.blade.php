@@ -97,10 +97,10 @@
       </div>
       <div class="col-lg-3 col-md-4">
         <h6 class="footer-title mb-4">Download our app</h6>
-        <a href="javascript:void(0);" class="d-block footer-link mb-3 pb-2"><img
+        {{-- <a href="javascript:void(0);" class="d-block footer-link mb-3 pb-2"><img
             src="../../assets/img/front-pages/landing-page/apple-icon.png" alt="apple icon"></a>
         <a href="javascript:void(0);" class="d-block footer-link"><img
-            src="../../assets/img/front-pages/landing-page/google-play-icon.png" alt="google play icon"></a>
+            src="../../assets/img/front-pages/landing-page/google-play-icon.png" alt="google play icon"></a> --}}
       </div>
     </div>
   </div>
@@ -113,8 +113,8 @@
             document.write(new Date().getFullYear());
           </script>. Made with <i class="tf-icons mdi mdi-heart text-danger"></i> by
         </span>
-        <a href="https://themeselection.com" target="_blank"
-          class="footer-link fw-medium footer-theme-link">Kyy Studio</a>
+        <a href="https://themeselection.com" target="_blank" class="footer-link fw-medium footer-theme-link">Kyy
+          Studio</a>
       </div>
       <div>
         <a href="https://github.com/themeselection/materio-bootstrap-html-admin-template-free"

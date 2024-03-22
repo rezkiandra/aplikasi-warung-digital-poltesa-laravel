@@ -38,7 +38,7 @@ class AuthController extends Controller
       } elseif (Auth::user()->role_id === 2) {
         return redirect()->route('seller.dashboard');
       } elseif (Auth::user()->role_id === 3) {
-        return redirect()->route('customer.dashboard');
+        return redirect()->route('customer.home');
       }
     } elseif ($request->password != User::where('password')) {
       Alert::toast('Signin failed!', 'error');

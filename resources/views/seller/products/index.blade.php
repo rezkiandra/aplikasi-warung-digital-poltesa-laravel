@@ -68,10 +68,13 @@
 @section('content')
   <h4 class="mb-1">Product list</h4>
   <p class="mb-3">A product will be purchased by customers</p>
-  @if ($currentSeller->status != 'pending' && $currentSeller->status != 'inactive')
-    <x-basic-button :label="'Add new product'" :icon="'plus'" :class="'w-0 text-uppercase mb-4'" :variant="'primary'" :href="route('seller.create.product')" />
+  @if ($currentSeller->status == 'active')
+  <x-alert :type="'success'" :message="'Your account is active. And you can add new product'" :icon="'account-check-outline'" />
+  <x-basic-button :label="'Add new product'" :icon="'plus'" :class="'w-0 text-uppercase mb-3'" :variant="'primary'" :href="route('seller.create.product')" />
   @elseif($currentSeller->status == 'pending')
-    <x-alert :message="'Your status is still pending, please wait until your status is approved. And then you can add new product'" :icon="'alert-circle-outline'" :type="'warning'" />
+    <x-alert :type="'warning'" :message="'Your account is pending. Please wait for the admin to approve your account.'" :icon="'account-search-outline'" />
+  @elseif ($currentSeller->status == 'inactive')
+    <x-alert :type="'danger'" :message="'Your account is inactive. Please contact the admin to reactive your account.'" :icon="'account-off-outline'" />
   @endif
 
   <x-product-separator>

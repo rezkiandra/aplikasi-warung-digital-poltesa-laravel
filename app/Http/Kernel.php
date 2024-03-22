@@ -61,6 +61,8 @@ class Kernel extends HttpKernel
     'checkBiodata' => \App\Http\Middleware\CheckBiodata::class,
     'can' => \Illuminate\Auth\Middleware\Authorize::class,
     'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+    'mustActive' => \App\Http\Middleware\MustActive::class,
+    'mustLogin' => \App\Http\Middleware\MustLogin::class,
     'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
     'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
     'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,

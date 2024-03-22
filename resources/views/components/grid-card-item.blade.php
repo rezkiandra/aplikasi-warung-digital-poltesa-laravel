@@ -20,13 +20,9 @@
             Rp{{ number_format($data->price, 0, ',', '.') }}
           </small>
           <small class="fw-medium d-flex align-items-center">
-            {{ \App\Models\Order::where('product_id', $data->id)->count() }} Terjual
+            <span>Terjual {{ \App\Models\Order::where('product_id', $data->id)->count() }}</span>
           </small>
         </div>
-        {{-- <div class="d-lg-flex flex-column align-items-cente justify-content-between">
-        <x-basic-button :route="route('guest.detail.product', $data->slug)" :label="'Tambah ke keranjang'" :icon="'cart-outline'" :variant="'info'" :class="'btn-sm'" />
-        <x-basic-button :route="route('guest.detail.product', $data->slug)" :label="'Beli produk'" :icon="'cart-outline'" :variant="'danger'" :class="'btn-sm'" />
-      </div> --}}
       </div>
     </div>
   </div>

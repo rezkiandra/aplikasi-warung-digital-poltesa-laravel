@@ -12,6 +12,7 @@ use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductsCartController;
 use App\Http\Controllers\UserController;
 
 Route::get('/')->name('root');
@@ -25,12 +26,21 @@ Route::redirect('/customer', '/customer/dashboard');
 Route::controller(GuestController::class)
   ->prefix('guest')
   ->group(function () {
-    Route::get('/', 'index')->name('guest.home');   
+    Route::get('/', 'index')->name('guest.home');
     Route::get('/products', 'products')->name('guest.products');
     Route::get('/product/{product}/detail', 'product')->name('guest.detail.product');
     Route::get('/gallery', 'index')->name('guest.gallery');
     Route::get('/testimonials', 'index')->name('guest.testimonials');
   });
+
+Route::middleware('auth', 'mustLogin')->group(function () {
+  Route::controller(ProductsCartController::class)->group(function () {
+    Route::get('/cart', 'index')->name('cart');
+    Route::post('/add-cart', 'store')->name('cart.store');
+    Route::put('/cart', 'update')->name('cart.update');
+    Route::delete('/cart', 'destroy')->name('cart.destroy');
+  });
+});
 
 Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
   Route::controller(AdminController::class)
@@ -144,8 +154,8 @@ Route::middleware('auth', 'checkRole:Seller')->group(function () {
       ->prefix('seller')
       ->group(function () {
         Route::get('/products', 'index')->name('seller.products');
-        Route::get('/product/create', 'create')->name('seller.create.product');
-        Route::post('product/store', 'store')->name('seller.store.product');
+        Route::get('/product/create', 'create')->name('seller.create.product')->middleware('mustActive');
+        Route::post('product/store', 'store')->name('seller.store.product')->middleware('mustActive');
         Route::get('/product/{product}/edit', 'edit')->name('seller.edit.product');
         Route::get('/product/{product}/detail', 'show')->name('seller.detail.product');
         Route::put('/product/{product}/update', 'update')->name('seller.update.product');
@@ -171,6 +181,9 @@ Route::middleware('auth', 'checkRole:Customer')->group(function () {
   Route::controller(CustomerController::class)
     ->prefix('customer')
     ->group(function () {
+      Route::get('/', 'index')->name('customer.home');
+      Route::get('/products', 'products')->name('customer.products');
+      Route::get('/product/{product}/detail', 'product')->name('customer.detail.product');
       Route::get('/dashboard', 'dashboard')->name('customer.dashboard');
       Route::get('/product-cart', 'product_cart')->name('customer.product_cart');
       Route::get('/orders', 'orders')->name('customer.orders');

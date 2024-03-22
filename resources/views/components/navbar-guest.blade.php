@@ -1,3 +1,7 @@
+@php
+  $user_role = Auth::user()->role_id ?? '';
+@endphp
+
 <div class="container fixed-top mt-3">
   <nav class="layout-navbar shadow bg-white rounded border">
     <div class="navbar navbar-expand-lg landing-navbar border-top-0 px-3 px-md-4 bg-white rounded">
@@ -51,8 +55,8 @@
         </button>
         <ul class="navbar-nav d-lg-flex align-items-center justify-content-between gap-4 d-inline">
           <li class="nav-item my-lg-0 my-2">
-            <a class="nav-link fw-medium {{ request()->routeIs('guest.home') ? 'active text-primary' : 'text-dark' }}"
-              href="{{ route('guest.home') }}">Home</a>    
+            <a class="nav-link fw-medium {{ request()->routeIs('guest.home', 'customer.home') ? 'active text-primary' : 'text-dark' }}"
+              href="@if ($user_role == 3) {{ route('customer.home') }} @else {{ route('guest.home') }} @endif">Home</a>
           </li>
           <li class="nav-item my-lg-0 my-2">
             <a class="nav-link fw-medium {{ request()->routeIs('login') ? 'active text-primary' : 'text-dark' }}"
@@ -63,17 +67,33 @@
               href="{{ route('register') }}">Services</a>
           </li>
           <li class="nav-item my-lg-0 my-2">
-            <a class="nav-link fw-medium text-dark {{ request()->routeIs('guest.products', 'guest.detail.product') ? 'active text-primary' : 'text-dark' }}"
-              href="{{ route('guest.products') }}">Products</a>
+            <a class="nav-link fw-medium text-dark {{ request()->routeIs('guest.products', 'customer.products', 'guest.*.product', 'customer.*.product') ? 'active text-primary' : 'text-dark' }}"
+              href="@if ($user_role == 3) {{ route('customer.products') }} @else {{ route('guest.products') }} @endif">Products</a>
+          </li>
+          <li class="nav-item my-lg-0 my-2">
+            <a class="nav-link fw-medium text-dark text-capitalize"
+              href="{{ route('customer.dashboard') }}">Dashboard</a>
+          </li>
+          <li class="nav-item my-lg-0 my-2">
+            <small
+              class="bg-label-primary px-2 px-lg-2 rounded rounded-lg nav-link fw-medium text-dark text-capitalize">{{ Auth::user()->name }}</small>
           </li>
         </ul>
       </div>
-      <div class="landing-menu-overlay d-lg-none"></div>
-      <ul class="navbar-nav flex-row align-items-center ms-auto">
+      <ul class="navbar-nav d-flex d-lg-flex d-md-flex flex-row align-items-center ms-auto">
         <li>
-          <a href="{{ route('login') }}" class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4 waves-effect waves-light">
-            <i class="tf-icons mdi mdi-account me-2"></i>
-            <span class="d-none d-lg-inline d-md-inline">Login</span></a>
+          @guest
+            <a href="{{ route('login') }}" class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4">
+              <i class="tf-icons mdi mdi-account me-0 me-lg-2 me-md-2"></i>
+              <span class="d-none d-lg-inline d-md-inline">Login</span>
+            </a>
+          @endguest
+          @auth
+            <div class="fw-medium btn btn-primary">
+              <i class="mdi mdi-logout me-0 me-lg-2 me-md-2"></i>
+              <a href="{{ route('logout') }}" class="d-none d-lg-inline d-md-inline text-white text-uppercase">Logout</a>
+            </div>
+          @endauth
         </li>
       </ul>
     </div>

@@ -6,19 +6,15 @@ use Illuminate\View\Component;
 
 class GridCardItem extends Component
 {
-  public $title, $price, $image, $datas, $limit;
+  public $datas;
   /**
    * Create a new component instance.
    *
    * @return void
    */
-  public function __construct($image, $title, $price, $datas, $limit = 30)
+  public function __construct($datas)
   {
-    $this->image = $image;
-    $this->title = $title;
-    $this->price = $price;
     $this->datas = $datas;
-    $this->limit = $limit;
   }
 
   /**
