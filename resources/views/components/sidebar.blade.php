@@ -33,18 +33,26 @@
     @elseif(Auth::user()->role_id == 2)
       <x-sidebar-item :label="'Dashboard'" :route="route('seller.dashboard')" :icon="'view-dashboard-outline'" :active="request()->routeIs('seller.dashboard')" />
       <x-sidebar-item :label="'Biodata'" :route="route('seller.biodata')" :icon="'account-box-outline'" :active="request()->routeIs('seller.biodata', 'seller.*.biodata')" />
+    @elseif(Auth::user()->role_id == 3)
+      <x-sidebar-item :label="'Dashboard'" :route="route('customer.dashboard')" :icon="'view-dashboard-outline'" :active="request()->routeIs('customer.dashboard')" />
+      <x-sidebar-item :label="'Biodata'" :route="route('customer.biodata')" :icon="'account-box-outline'" :active="request()->routeIs('customer.biodata', 'seller.*.biodata')" />
     @endif
 
     <x-divider :label="'Data Management'" />
-    <x-sidebar-dropdown :label="'Products'" :route="route('admin.sellers')" :icon="'package-variant'" :active="request()->routeIs('admin.products', 'seller.products', 'admin.*.product', 'seller.*.product')">
-      @if (Auth::user()->role_id == 2)
+    @if (Auth::user()->role_id == 2)
+      <x-sidebar-dropdown :label="'Products'" :route="route('admin.sellers')" :icon="'package-variant'" :active="request()->routeIs('admin.products', 'seller.products', 'admin.*.product', 'seller.*.product')">
         <x-sidebar-dropdown-item :label="'Add product'" :href="route('seller.create.product')" :active="request()->routeIs('seller.create.product')" />
         <x-sidebar-dropdown-item :label="'Product list'" :href="route('seller.products')" :active="request()->routeIs('seller.products')" />
-      @elseif(Auth::user()->role_id == 1)
+      </x-sidebar-dropdown>
+    @elseif(Auth::user()->role_id == 3)
+      <x-sidebar-item :label="'Cart'" :route="route('customer.cart')" :badge="\App\Models\ProductsCart::where('customer_id', Auth::user()->customer->id)->count()" :icon="'cart-outline'" :active="request()->routeIs('customer.cart')" />
+      <x-sidebar-item :label="'Orders'" :route="route('customer.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('customer.orders')" />
+    @elseif(Auth::user()->role_id == 1)
+      <x-sidebar-dropdown :label="'Products'" :route="route('admin.sellers')" :icon="'package-variant'" :active="request()->routeIs('admin.products', 'seller.products', 'admin.*.product', 'seller.*.product')">
         {{-- <x-sidebar-dropdown-item :label="'Create'" :href="route('seller.create.product')" :active="request()->routeIs('seller.create.product')" /> --}}
         <x-sidebar-dropdown-item :label="'Product list'" :href="route('admin.products')" :active="request()->routeIs('admin.products')" />
-      @endif
-    </x-sidebar-dropdown>
+      </x-sidebar-dropdown>
+    @endif
 
     @if (Auth::user()->role_id == 1)
       <x-sidebar-item :label="'Orders'" :route="route('admin.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('admin.orders', 'admin.*.order')" />
@@ -59,8 +67,8 @@
       <x-sidebar-item :label="'Bank Account'" :route="route('admin.bank_accounts')" :icon="'bank-outline'" :active="request()->routeIs('admin.bank_accounts', 'admin.*.bank')" />
     @endif
 
-    <x-divider :label="'Settings'" />
     @if (Auth::user()->role_id == 1)
+      <x-divider :label="'Settings'" />
       <x-sidebar-item :label="'Settings'" :route="route('admin.settings')" :icon="'account-cog-outline'" :active="request()->routeIs('admin.settings')" />
     @elseif (Auth::user()->role_id == 2)
       <x-sidebar-item :label="'Settings'" :route="route('seller.settings')" :icon="'account-cog-outline'" :active="request()->routeIs('seller.settings')" />

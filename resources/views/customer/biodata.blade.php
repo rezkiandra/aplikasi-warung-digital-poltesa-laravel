@@ -4,15 +4,15 @@
       'perempuan' => 'perempuan',
   ];
   $bank = \App\Models\BankAccount::pluck('bank_name', 'id')->toArray();
-  $currentSeller = \App\Models\Seller::where('user_id', Auth::user()->id)->first();
+  $currentCustomer = \App\Models\Customer::where('user_id', Auth::user()->id)->first();
 @endphp
 
 @extends('layouts.authenticated')
 @section('title', 'Add Biodata')
 @section('content')
-  @if (!$currentSeller)
+  @if (!$currentCustomer)
     <x-alert :type="'warning'" :message="'Your biodata is not added yet. Please add your biodata first'" :icon="'account-off-outline'" />
-    <x-create-form :title="'Add biodata'" :action="route('seller.store.biodata')" :route="route('seller.biodata')">
+    <x-create-form :title="'Add biodata'" :action="route('customer.store.biodata')" :route="route('customer.biodata')">
       <div class="row">
         <div class="col-lg-4">
           <x-form-floating>
@@ -64,7 +64,7 @@
       <x-submit-button :label="'Submit'" :type="'submit'" :variant="'primary'" :icon="'check-circle-outline'" />
     </x-create-form>
   @else
-    @foreach ($seller as $data)
+    @foreach ($customer as $data)
       <x-alert :type="'success'" :message="'Your biodata is added. And you can edit your biodata'" :icon="'account-off-outline'" />
       <div class="row">
         <div class="col-lg-4">

@@ -11,7 +11,7 @@
           aria-label="Toggle navigation">
           <i class="tf-icons mdi mdi-menu mdi-24px align-middle"></i>
         </button>
-        <a href="{{ route('guest.home') }}" class="app-brand-link gap-3 me-lg-0 me-5">
+        <a href="{{ route('guest.home') }}" class="app-brand-link gap-3 me-lg-0 me-0">
           <span class="app-brand-logo demo" style="rotate: -180deg">
             <span style="color: #9055fd">
               <svg width="30" height="24" viewBox="0 0 250 196" fill="none"
@@ -58,29 +58,31 @@
             <a class="nav-link fw-medium {{ request()->routeIs('guest.home', 'customer.home') ? 'active text-primary' : 'text-dark' }}"
               href="@if ($user_role == 3) {{ route('customer.home') }} @else {{ route('guest.home') }} @endif">Home</a>
           </li>
-          <li class="nav-item my-lg-0 my-2">
+          {{-- <li class="nav-item my-lg-0 my-2">
             <a class="nav-link fw-medium {{ request()->routeIs('login') ? 'active text-primary' : 'text-dark' }}"
               href="{{ route('login') }}">Features</a>
           </li>
           <li class="nav-item my-lg-0 my-2">
             <a class="nav-link fw-medium text-dark {{ request()->routeIs('register') ? 'active text-primary' : 'text-dark' }}"
               href="{{ route('register') }}">Services</a>
-          </li>
+          </li> --}}
           <li class="nav-item my-lg-0 my-2">
             <a class="nav-link fw-medium text-dark {{ request()->routeIs('guest.products', 'customer.products', 'guest.*.product', 'customer.*.product') ? 'active text-primary' : 'text-dark' }}"
               href="@if ($user_role == 3) {{ route('customer.products') }} @else {{ route('guest.products') }} @endif">Products</a>
           </li>
-          <li class="nav-item my-lg-0 my-2">
-            <a class="nav-link fw-medium text-dark text-capitalize"
-              href="{{ route('customer.dashboard') }}">Dashboard</a>
-          </li>
-          <li class="nav-item my-lg-0 my-2">
-            <small
-              class="bg-label-primary px-2 px-lg-2 rounded rounded-lg nav-link fw-medium text-dark text-capitalize">{{ Auth::user()->name }}</small>
-          </li>
+          @auth
+            <li class="nav-item my-lg-0 my-2">
+              <a class="nav-link fw-medium text-dark text-capitalize"
+                href="{{ route('customer.dashboard') }}">Dashboard</a>
+            </li>
+            <li class="nav-item my-lg-0 my-2">
+              <small
+                class="cursor-pointer bg-label-primary px-2 px-lg-2 rounded rounded-lg nav-link fw-medium text-dark text-capitalize">{{ Auth::user()->name }}</small>
+            </li>
+          @endauth
         </ul>
       </div>
-      <ul class="navbar-nav d-flex d-lg-flex d-md-flex flex-row align-items-center ms-auto">
+      <ul class="navbar-nav d-flex d-lg-flex d-md-flex align-items-center ms-auto">
         <li>
           @guest
             <a href="{{ route('login') }}" class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4">
@@ -89,6 +91,12 @@
             </a>
           @endguest
           @auth
+            <a href="{{ route('customer.cart') }}" class="me-4">
+              <i class="mdi mdi-cart-outline mdi-24px"></i>
+              <span class="position-absolute fs-tiny badge rounded-pill bg-danger" style="margin-left: -10px">
+                {{ \App\Models\ProductsCart::where('customer_id', Auth::user()->customer->id)->count() ?? 0 }}
+              </span>
+            </a>
             <div class="fw-medium btn btn-primary">
               <i class="mdi mdi-logout me-0 me-lg-2 me-md-2"></i>
               <a href="{{ route('logout') }}" class="d-none d-lg-inline d-md-inline text-white text-uppercase">Logout</a>

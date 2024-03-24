@@ -17,7 +17,7 @@ return new class extends Migration
       $table->unsignedBigInteger('product_id')->nullable();
       $table->integer('quantity');
       $table->integer('total_price');
-      $table->enum('status', ['pending', 'delivered', 'cancelled'])->default('pending');
+      $table->enum('status', ['unpaid', 'paid', 'cancelled'])->default('unpaid');
       $table->date('order_date');
       $table->timestamps();
 

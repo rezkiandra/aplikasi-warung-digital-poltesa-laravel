@@ -16,11 +16,11 @@
       <div class="card-body d-flex flex-column justify-content-between">
         <small class="card-title text-dark fw-medium mb-3">{{ $data->name }}</small>
         <div class="card-text d-flex align-items-center justify-content-between">
-          <small class="rounded p-1 bg-label-primary me-1">
+          <small class="badge rounded p-1 bg-label-primary">
             Rp{{ number_format($data->price, 0, ',', '.') }}
           </small>
-          <small class="fw-medium d-flex align-items-center">
-            <span>Terjual {{ \App\Models\Order::where('product_id', $data->id)->count() }}</span>
+          <small class="d-flex align-items-center">
+            <span>Terjual {{ \App\Models\Order::where('product_id', $data->id)->sum('quantity') }}</span>
           </small>
         </div>
       </div>

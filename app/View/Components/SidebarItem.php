@@ -9,17 +9,19 @@ class SidebarItem extends Component
 	public $label;
 	public $route;
 	public $icon;
+  public $badge;
 	public $active;
 	/**
 	 * Create a new component instance.
 	 *
 	 * @return void
 	 */
-	public function __construct($label, $route, $icon, $active)
+	public function __construct($label, $route, $icon, $badge = '', $active)
 	{
 		$this->label = $label;
 		$this->route = $route;
 		$this->icon = $icon;
+    $this->badge = $badge;
 		$this->active = $active;
 	}
 

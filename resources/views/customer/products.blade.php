@@ -17,7 +17,7 @@
 
     <div class="container">
       <x-grid-card>
-        <x-grid-product :datas="$products" />
+        <x-grid-card-item :datas="$products" />
       </x-grid-card>
     </div>
   </section>

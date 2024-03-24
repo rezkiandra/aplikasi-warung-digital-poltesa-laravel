@@ -34,13 +34,26 @@ Route::controller(GuestController::class)
   });
 
 Route::middleware('auth', 'mustLogin')->group(function () {
-  Route::controller(ProductsCartController::class)->group(function () {
-    Route::get('/cart', 'index')->name('cart');
-    Route::post('/add-cart', 'store')->name('cart.store');
-    Route::put('/cart', 'update')->name('cart.update');
-    Route::delete('/cart', 'destroy')->name('cart.destroy');
-  });
+  Route::controller(ProductsCartController::class)
+    ->prefix('customer')
+    ->group(function () {
+      Route::get('/cart', 'index')->name('cart');
+      Route::post('/add-cart', 'store')->name('cart.store');
+      Route::put('/cart/{cart}', 'update')->name('cart.update');
+      Route::delete('/cart', 'destroy')->name('cart.destroy');
+    });
 });
+
+Route::middleware('auth', 'mustLogin')->group(function () {
+  Route::controller(OrderController::class)
+    ->prefix('customer')
+    ->group(function () {
+      Route::get('/order', 'index')->name('order');
+      Route::post('/add-order', 'store')->name('order.store');
+      Route::delete('/cancel-order', 'destroy')->name('order.destroy');
+    });
+});
+
 
 Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
   Route::controller(AdminController::class)
@@ -169,10 +182,7 @@ Route::middleware('auth', 'checkRole:Seller')->group(function () {
     ->prefix('seller')
     ->group(function () {
       Route::get('/biodata', 'index')->name('seller.biodata');
-      // Route::get('/biodata/create', 'create')->name('seller.create.biodata');
       Route::post('biodata/store', 'store')->name('seller.store.biodata');
-      Route::get('/biodata/{biodata}/edit', 'edit')->name('seller.edit.biodata');
-      Route::get('/biodata/{biodata}/detail', 'show')->name('seller.detail.biodata');
       Route::put('/biodata/{biodata}/update', 'update')->name('seller.update.biodata');
     });
 });
@@ -182,12 +192,15 @@ Route::middleware('auth', 'checkRole:Customer')->group(function () {
     ->prefix('customer')
     ->group(function () {
       Route::get('/', 'index')->name('customer.home');
+      Route::get('/dashboard', 'dashboard')->name('customer.dashboard');
       Route::get('/products', 'products')->name('customer.products');
       Route::get('/product/{product}/detail', 'product')->name('customer.detail.product');
-      Route::get('/dashboard', 'dashboard')->name('customer.dashboard');
-      Route::get('/product-cart', 'product_cart')->name('customer.product_cart');
+      Route::get('/cart', 'cart')->name('customer.cart');
       Route::get('/orders', 'orders')->name('customer.orders');
-      Route::get('/bank-account', 'bank_account')->name('customer.bank_account');
+
+      Route::get('/biodata', 'biodata')->name('customer.biodata');
+      Route::post('biodata/store', 'store')->name('customer.store.biodata');
+      Route::put('/biodata/{biodata}/update', 'update')->name('customer.update.biodata');
     });
 });
 

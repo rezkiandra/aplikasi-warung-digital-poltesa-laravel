@@ -33,13 +33,13 @@ class ProductsCartController extends Controller
   public function store(Request $request)
   {
     ProductsCart::create([
-      'user_id' => Auth::user()->id,
+      'customer_id' => Auth::user()->customer->id,
       'product_id' => $request->product_id,
       'quantity' => $request->quantity
     ]);
 
     Alert::toast('Successfully added to cart', 'success');
-    return redirect()->back()->route('customer.products');
+    return redirect()->back();
   }
 
   /**

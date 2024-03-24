@@ -6,15 +6,15 @@ use Illuminate\View\Component;
 
 class RelatedProducts extends Component
 {
-  public $products;
+  public $relatedProducts;
   /**
    * Create a new component instance.
    *
    * @return void
    */
-  public function __construct($products)
+  public function __construct($relatedProducts)
   {
-    $this->products = $products;
+    $this->relatedProducts = $relatedProducts;
   }
 
   /**
