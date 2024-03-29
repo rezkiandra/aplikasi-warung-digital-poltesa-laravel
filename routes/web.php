@@ -57,22 +57,22 @@ Route::middleware('auth', 'mustLogin')->group(function () {
 
 Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
   Route::controller(AdminController::class)
-    ->prefix('admin')
+    ->prefix('admin/dashboard')
     ->group(function () {
-      Route::get('/dashboard', 'dashboard')->name('admin.dashboard');
-      Route::get('/sellers', 'sellers')->name('admin.sellers');
-      Route::get('/customers', 'customers')->name('admin.customers');
-      Route::get('/users', 'users')->name('admin.users');
-      Route::get('/products', 'products')->name('admin.products');
-      Route::get('/orders', 'orders')->name('admin.orders');
-      Route::get('/roles', 'roles')->name('admin.roles');
-      Route::get('/product-category', 'product_category')->name('admin.product_category');
-      Route::get('/bank-accounts', 'bank_account')->name('admin.bank_accounts');
+      Route::get('/', 'dashboard')->name('admin.dashboard');
+      Route::get('/list-sellers', 'sellers')->name('admin.sellers');
+      Route::get('/list-customers', 'customers')->name('admin.customers');
+      Route::get('/list-users', 'users')->name('admin.users');
+      Route::get('/list-products', 'products')->name('admin.products');
+      Route::get('/list-orders', 'orders')->name('admin.orders');
+      Route::get('/list-roles', 'roles')->name('admin.roles');
+      Route::get('/list-product-category', 'product_category')->name('admin.product_category');
+      Route::get('/list-bank-accounts', 'bank_account')->name('admin.bank_accounts');
       Route::get('/settings', 'settings')->name('admin.settings');
     });
 
   Route::controller(AdminProductController::class)
-    ->prefix('admin')
+    ->prefix('admin/dashboard')
     ->group(function () {
       Route::get('/product/create', 'create')->name('admin.create.product');
       Route::post('product/store', 'store')->name('admin.store.product');
@@ -83,7 +83,7 @@ Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
     });
 
   Route::controller(RoleController::class)
-    ->prefix('admin')
+    ->prefix('admin/dashboard')
     ->group(function () {
       Route::get('/role/create', 'create')->name('admin.create.role');
       Route::post('role/store', 'store')->name('admin.store.role');
@@ -94,18 +94,18 @@ Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
     });
 
   Route::controller(ProductCategoryController::class)
-    ->prefix('admin')
+    ->prefix('admin/dashboard')
     ->group(function () {
-      Route::get('/category/create', 'create')->name('admin.create.category');
+      Route::get('/product-category/create', 'create')->name('admin.create.category');
       Route::post('category/store', 'store')->name('admin.store.category');
-      Route::get('/category/{category}/edit', 'edit')->name('admin.edit.category');
-      Route::get('/category/{category}/detail', 'show')->name('admin.detail.category');
-      Route::put('/category/{category}/update', 'update')->name('admin.update.category');
-      Route::delete('/category/{category}/destroy', 'destroy')->name('admin.destroy.category');
+      Route::get('/product-category/{category}/edit', 'edit')->name('admin.edit.category');
+      Route::get('/product-category/{category}/detail', 'show')->name('admin.detail.category');
+      Route::put('/product-category/{category}/update', 'update')->name('admin.update.category');
+      Route::delete('/product-category/{category}/destroy', 'destroy')->name('admin.destroy.category');
     });
 
   Route::controller(BankAccountController::class)
-    ->prefix('admin')
+    ->prefix('admin/dashboard')
     ->group(function () {
       Route::get('/bank/create', 'create')->name('admin.create.bank');
       Route::post('bank/store', 'store')->name('admin.store.bank');
@@ -116,7 +116,7 @@ Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
     });
 
   Route::controller(UserController::class)
-    ->prefix('admin')
+    ->prefix('admin/dashboard')
     ->group(function () {
       // userSeller
       Route::get('/create-seller', 'createSeller')->name('admin.create.seller');
@@ -146,15 +146,15 @@ Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
 
 Route::middleware('auth', 'checkRole:Seller')->group(function () {
   Route::controller(SellerController::class)
-    ->prefix('seller')
+    ->prefix('seller/dashboard')
     ->group(function () {
-      Route::get('/dashboard', 'dashboard')->name('seller.dashboard');
+      Route::get('/', 'dashboard')->name('seller.dashboard');
       Route::get('/settings', 'settings')->name('seller.settings');
     });
   Route::controller(OrderController::class)
-    ->prefix('seller')
+    ->prefix('seller/dashboard')
     ->group(function () {
-      Route::get('/orders', 'index')->name('seller.orders');
+      Route::get('/list-orders', 'index')->name('seller.orders');
       Route::get('/order/create', 'create')->name('seller.create.order');
       Route::post('order/store', 'store')->name('seller.store.order');
       Route::get('/order/{order}/edit', 'edit')->name('seller.edit.order');
@@ -164,9 +164,9 @@ Route::middleware('auth', 'checkRole:Seller')->group(function () {
     });
   Route::middleware('checkBiodata')->group(function () {
     Route::controller(ProductsController::class)
-      ->prefix('seller')
+      ->prefix('seller/dashboards')
       ->group(function () {
-        Route::get('/products', 'index')->name('seller.products');
+        Route::get('/list-products', 'index')->name('seller.products');
         Route::get('/product/create', 'create')->name('seller.create.product')->middleware('mustActive');
         Route::post('product/store', 'store')->name('seller.store.product')->middleware('mustActive');
         Route::get('/product/{product}/edit', 'edit')->name('seller.edit.product');
@@ -179,7 +179,7 @@ Route::middleware('auth', 'checkRole:Seller')->group(function () {
 
 Route::middleware('auth', 'checkRole:Seller')->group(function () {
   Route::controller(BiodataController::class)
-    ->prefix('seller')
+    ->prefix('seller/dashboard')
     ->group(function () {
       Route::get('/biodata', 'index')->name('seller.biodata');
       Route::post('biodata/store', 'store')->name('seller.store.biodata');
@@ -189,18 +189,21 @@ Route::middleware('auth', 'checkRole:Seller')->group(function () {
 
 Route::middleware('auth', 'checkRole:Customer')->group(function () {
   Route::controller(CustomerController::class)
-    ->prefix('customer')
+    ->prefix('customer/dashboard')
     ->group(function () {
-      Route::get('/', 'index')->name('customer.home');
-      Route::get('/dashboard', 'dashboard')->name('customer.dashboard');
-      Route::get('/products', 'products')->name('customer.products');
-      Route::get('/product/{product}/detail', 'product')->name('customer.detail.product');
+      Route::get('/', 'dashboard')->name('customer.dashboard');
       Route::get('/cart', 'cart')->name('customer.cart');
       Route::get('/orders', 'orders')->name('customer.orders');
-
       Route::get('/biodata', 'biodata')->name('customer.biodata');
       Route::post('biodata/store', 'store')->name('customer.store.biodata');
       Route::put('/biodata/{biodata}/update', 'update')->name('customer.update.biodata');
+    });
+  Route::controller(CustomerController::class)
+    ->prefix('customer')
+    ->group(function () {
+      Route::get('/home', 'index')->name('customer.home');
+      Route::get('/products', 'products')->name('customer.products');
+      Route::get('/product/{product}/detail', 'product')->name('customer.detail.product');
     });
 });
 

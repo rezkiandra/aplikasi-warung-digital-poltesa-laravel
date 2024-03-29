@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\Products;
 use Illuminate\Support\Str;
+use App\Models\ProductsCart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +47,8 @@ class CustomerController extends Controller
 
   public function cart()
   {
-    return view('customer.cart');
+    $carts = ProductsCart::where('customer_id', Auth::user()->customer->id)->get();
+    return view('customer.cart', compact('carts'));
   }
 
   public function orders()

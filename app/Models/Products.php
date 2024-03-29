@@ -30,4 +30,9 @@ class Products extends Model
   {
     return $this->belongsTo(Seller::class);
   }
+
+  public function cart()
+  {
+    return $this->belongsTo(ProductsCart::class);
+  }
 }
