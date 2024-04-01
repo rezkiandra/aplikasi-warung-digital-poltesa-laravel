@@ -32,45 +32,54 @@ class ProductsCartController extends Controller
    */
   public function store(Request $request)
   {
-    ProductsCart::create([
-      'customer_id' => Auth::user()->customer->id,
-      'product_id' => $request->product_id,
-      'quantity' => $request->quantity
-    ]);
+    $customer_id = Auth::user()->customer->id;
+    $product_id = $request->product_id;
+    $quantity = $request->quantity;
+
+    $cart = ProductsCart::where('customer_id', $customer_id)
+      ->where('product_id', $product_id)
+      ->first();
+
+    if ($cart) {
+      $newQuantity = $cart->quantity + $quantity;
+      $cart->update([
+        'quantity' => $newQuantity
+      ]);
+    } else {
+      ProductsCart::create([
+        'customer_id' => $customer_id,
+        'product_id' => $product_id,
+        'quantity' => $quantity
+      ]);
+    }
 
     Alert::toast('Successfully added to cart', 'success');
     return redirect()->back();
   }
 
-  /**
-   * Display the specified resource.
-   */
-  public function show(ProductsCart $productsCart)
+  public function update(Request $request)
   {
-    //
+    $customer_id = $request->input('customer_id');
+    $product_id = $request->input('product_id');
+    $newQuantity = $request->input('quantity');
+
+    $cart = ProductsCart::where('customer_id', $customer_id)
+      ->where('product_id', $product_id)
+      ->firstOrFail();
+
+    $cart->update([
+      'customer_id' => $customer_id,
+      'product_id' => $product_id,
+      'quantity' => $newQuantity
+    ]);
   }
 
-  /**
-   * Show the form for editing the specified resource.
-   */
-  public function edit(ProductsCart $productsCart)
+  public function destroy(string $id)
   {
-    //
-  }
+    $cart = ProductsCart::findOrFail($id);
+    $cart->delete();
 
-  /**
-   * Update the specified resource in storage.
-   */
-  public function update(Request $request, ProductsCart $productsCart)
-  {
-    //
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   */
-  public function destroy(ProductsCart $productsCart)
-  {
-    //
+    Alert::toast('Successfully deleted from cart', 'success');
+    return redirect()->back();
   }
 }

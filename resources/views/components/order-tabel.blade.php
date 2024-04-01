@@ -1,0 +1,73 @@
+<div class="card">
+  <div class="card-datatable table-responsive">
+    <table class="dt-table table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Date</th>
+          <th>Product</th>
+          <th>Total</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach ($orders as $data)
+          <tr>
+            <td class="text-primary">#{{ rand(1000, 9999) }}</td>
+            <td>
+              {{ date('d M Y, H:i', strtotime($data->updated_at)) }}
+            </td>
+            <td>
+              <div class="d-flex justify-content-start align-items-center user-name">
+                <div class="avatar-wrapper me-3">
+                  <div class="avatar avatar-sm">
+                    <img src="{{ asset('storage/' . $data->product->image) }}" alt="Avatar" class="rounded">
+                  </div>
+                </div>
+                <div class="d-flex flex-column">
+                  <a href="pages-profile-user.html" class="text-truncate text-heading">
+                    <span class="fw-medium">{{ $data->product->name }}</span>
+                  </a>
+                  <small class="text-truncate">Rp{{ number_format($data->product->price, 0, ',', '.') }} -
+                    {{ $data->quantity }} pcs</small>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="mb-0 w-px-100 d-flex align-items-center">
+                <i class="mdi-circle-fill mdi-10px me-1"></i>
+                <span>Rp{{ number_format($data->total_price, 0, ',', '.') }}</span>
+              </span>
+            </td>
+            <td>
+              <h6
+                class="mb-0 w-px-100 d-flex align-items-center @if ($data->status == 'unpaid') text-warning @elseif ($data->status == 'canceled') text-dark @elseif($data->status == 'paid') text-success @endif text-capitalize">
+                <i class="mdi mdi-circle fs-tiny me-1"></i>
+                {{ $data->status }}
+              </h6>
+            </td>
+            <td>
+              <div class="d-flex align-items-center">
+                <div class="dropdown">
+                  <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                    <i class="mdi mdi-dots-vertical"></i>
+                  </button>
+                  <div class="dropdown-menu">
+                    <x-dropdown-item :label="'Bayar'" :variant="'secondary'" :icon="'wallet-outline'" :route="route('order.update', $data->uuid)" />
+                    <form action="{{ route('order.destroy', $data->uuid) }}" method="POST">
+                      @csrf
+                      @method('DELETE')
+                      <x-delete-button :label="'Delete'" />
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>

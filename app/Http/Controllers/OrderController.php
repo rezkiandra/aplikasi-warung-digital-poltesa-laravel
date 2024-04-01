@@ -29,4 +29,30 @@ class OrderController extends Controller
     Alert::toast('Successfully maked an order', 'success');
     return redirect()->route('customer.orders');
   }
+
+  public function show(string $uuid)
+  {
+    $order = Order::where('uuid', $uuid)->firstOrFail();
+    return view('customer.order-detail', compact('order'));
+  }
+
+  public function update(Request $request, string $uuid)
+  {
+    $order = Order::where('uuid', $uuid)->firstOrFail();
+    $order->update([
+      'status' => 'paid',
+    ]);
+
+    Alert::toast('Successfully paid an order', 'success');
+    return redirect()->route('customer.orders');
+  }
+
+  public function destroy(string $uuid)
+  {
+    $order = Order::where('uuid', $uuid)->firstOrFail();
+    $order->delete();
+
+    Alert::toast('Successfully deleted an order', 'success');
+    return redirect()->route('customer.orders');
+  }
 }

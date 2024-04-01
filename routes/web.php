@@ -38,9 +38,9 @@ Route::middleware('auth', 'mustLogin')->group(function () {
     ->prefix('customer')
     ->group(function () {
       Route::get('/cart', 'index')->name('cart');
-      Route::post('/add-cart', 'store')->name('cart.store');
-      Route::put('/cart/{cart}', 'update')->name('cart.update');
-      Route::delete('/cart', 'destroy')->name('cart.destroy');
+      Route::post('/cart', 'store')->name('cart.store');
+      Route::put('/cart', 'update')->name('cart.update');
+      Route::delete('/cart/{cart}', 'destroy')->name('cart.destroy');
     });
 });
 
@@ -50,7 +50,9 @@ Route::middleware('auth', 'mustLogin')->group(function () {
     ->group(function () {
       Route::get('/order', 'index')->name('order');
       Route::post('/add-order', 'store')->name('order.store');
-      Route::delete('/cancel-order', 'destroy')->name('order.destroy');
+      Route::get('/order/{order}/detail', 'show')->name('order.detail');
+      Route::put('/order/{order}/checkout', 'update')->name('order.update');
+      Route::delete('/cancel-order/{order}', 'destroy')->name('order.destroy');
     });
 });
 

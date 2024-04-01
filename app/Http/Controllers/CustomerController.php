@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Customer;
 use App\Models\Products;
 use Illuminate\Support\Str;
@@ -53,7 +54,8 @@ class CustomerController extends Controller
 
   public function orders()
   {
-    return view('customer.orders');
+    $orders = Order::where('customer_id', Auth::user()->customer->id)->get();
+    return view('customer.orders', compact('orders'));
   }
 
   public function store(BiodataRequest $request)
