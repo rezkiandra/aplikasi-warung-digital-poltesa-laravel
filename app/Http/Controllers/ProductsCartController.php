@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use Illuminate\Support\Str;
 use App\Models\ProductsCart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,25 +12,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductsCartController extends Controller
 {
-  /**
-   * Display a listing of the resource.
-   */
-  public function index()
-  {
-    //
-  }
-
-  /**
-   * Show the form for creating a new resource.
-   */
-  public function create()
-  {
-    //
-  }
-
-  /**
-   * Store a newly created resource in storage.
-   */
   public function store(Request $request)
   {
     $customer_id = Auth::user()->customer->id;
@@ -47,6 +29,7 @@ class ProductsCartController extends Controller
       ]);
     } else {
       ProductsCart::create([
+        'uuid' => Str::uuid('id'),
         'customer_id' => $customer_id,
         'product_id' => $product_id,
         'quantity' => $quantity

@@ -1,7 +1,9 @@
+@php
+  $fee = 500;
+@endphp
+
 @extends('layouts.authenticated')
-
 @section('title', 'Cart')
-
 @section('content')
   <h4 class="mb-1">Cart</h4>
   <p class="mb-3">List of products in your cart</p>
@@ -52,14 +54,15 @@
                   <div class="mt-lg-0 mt-2">
                     {{-- <s class="text-primary">$299 /</s> --}}
                     <span class="text-body"
-                      id="totalPrice">Rp{{ number_format($cart->product->price * $cart->quantity, 0, '.', '.') }}
+                      id="totalPrice">Rp{{ number_format($cart->product->price * $cart->quantity + $fee, 0, '.', '.') }}
                     </span>
                   </div>
                   <form action="{{ route('order.store') }}" method="POST" id="form">
                     @csrf
                     <input type="hidden" name="product_id" value="{{ $cart->product_id }}">
                     <input type="hidden" name="quantity" id="quantity" value="{{ $cart->quantity }}">
-                    <input type="hidden" name="total_price" id="totalPrice">
+                    <input type="hidden" name="total_price"
+                      value="{{ $cart->product->price * $cart->quantity + $fee }}">
                     <x-submit-button :label="'Beli Sekarang'" id="btn-buy" :type="'submit'" :variant="'outline-primary btn-sm'" />
                   </form>
                 </div>
@@ -100,7 +103,7 @@
       $('input[name="quantity"]').on('change', function() {
         const price = $(this).parents('li').data('price');
         const quantity = $(this).val();
-        const totalPrice = price * quantity;
+        const totalPrice = price * quantity + {{ $fee }};
 
         $(this).parents('li').find('#totalPrice').html('Rp' + totalPrice.toString().replace(
           /\B(?=(\d{3})+(?!\d))/g, '.'));

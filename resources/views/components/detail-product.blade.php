@@ -1,6 +1,6 @@
 @php
   $customer = auth()->user()->customer ?? '';
-  $fee = 1000;
+  $fee = 500;
 @endphp
 
 @auth
@@ -124,7 +124,7 @@
             @csrf
             <input type="hidden" name="product_id" value="{{ $product->id }}">
             <input type="hidden" name="quantity" id="newQuantityOrder" value="1">
-            <input type="hidden" name="total_price" id="newTotalPriceOrder">
+            <input type="hidden" name="total_price" id="newTotalPriceOrder" value="{{ $product->price + $fee }}">
             @if ($product->stock == 0)
               <x-submit-button :label="'Beli'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100 disabled'"
                 aria-disabled="true" :icon="'basket-outline me-2'" :variant="'primary'" />
@@ -161,7 +161,7 @@
 
       const newQuantity = parseInt(quantity) - 1;
       const subTotal = newQuantity * price;
-      const total = newQuantity * price + fee;
+      const total = newQuantity * price + fee ?? price + fee;
 
       $('#quantity').val(newQuantity);
       $('#newQuantityCart').val(newQuantity);

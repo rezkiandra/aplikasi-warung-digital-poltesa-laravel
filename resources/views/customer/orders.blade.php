@@ -1,12 +1,12 @@
 @php
-  $countOrder = \App\Models\Order::where('customer_id', auth()->user()->id)->count();
-  $countUnpaid = \App\Models\Order::where('customer_id', auth()->user()->id)
+  $countOrder = \App\Models\Order::where('customer_id', Auth::user()->customer->id)->count();
+  $countUnpaid = \App\Models\Order::where('customer_id', Auth::user()->customer->id)
       ->where('status', 'unpaid')
       ->count();
-  $countPaid = \App\Models\Order::where('customer_id', auth()->user()->id)
+  $countPaid = \App\Models\Order::where('customer_id', Auth::user()->customer->id)
       ->where('status', 'paid')
       ->count();
-  $countCancelled = \App\Models\Order::where('customer_id', auth()->user()->id)
+  $countCancelled = \App\Models\Order::where('customer_id', Auth::user()->customer->id)
       ->where('status', 'cancelled')
       ->count();
 @endphp
@@ -26,3 +26,22 @@
 
   <x-order-tabel :orders="$orders" />
 @endsection
+
+@push('scripts')
+  <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
+  <script type="text/javascript">
+    document.getElementById('pay-button').onclick = function() {
+      snap.pay('{{ $snapToken }}', {
+        onSuccess: function(result) {
+          document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+        },
+        onPending: function(result) {
+          document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+        },
+        onError: function(result) {
+          document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+        }
+      });
+    };
+  </script>
+@endpush

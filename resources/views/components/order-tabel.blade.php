@@ -14,9 +14,11 @@
       <tbody>
         @foreach ($orders as $data)
           <tr>
-            <td class="text-primary">#{{ rand(1000, 9999) }}</td>
-            <td>
-              {{ date('d M Y, H:i', strtotime($data->updated_at)) }}
+            <td class="text-primary">
+              <span class="rounded p-1 bg-label-primary">#{{ rand(1000, 9999) }}</span>
+            </td>
+            <td class="">
+              <span class="badge bg-label-info">{{ date('d M Y, H:i', strtotime($data->updated_at)) }}</span>
             </td>
             <td>
               <div class="d-flex justify-content-start align-items-center user-name">
@@ -36,8 +38,7 @@
             </td>
             <td>
               <span class="mb-0 w-px-100 d-flex align-items-center">
-                <i class="mdi-circle-fill mdi-10px me-1"></i>
-                <span>Rp{{ number_format($data->total_price, 0, ',', '.') }}</span>
+                <span class="fw-medium">Rp{{ number_format($data->total_price, 0, ',', '.') }}</span>
               </span>
             </td>
             <td>
@@ -48,20 +49,14 @@
               </h6>
             </td>
             <td>
-              <div class="d-flex align-items-center">
-                <div class="dropdown">
-                  <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                    <i class="mdi mdi-dots-vertical"></i>
-                  </button>
-                  <div class="dropdown-menu">
-                    <x-dropdown-item :label="'Bayar'" :variant="'secondary'" :icon="'wallet-outline'" :route="route('order.update', $data->uuid)" />
-                    <form action="{{ route('order.destroy', $data->uuid) }}" method="POST">
-                      @csrf
-                      @method('DELETE')
-                      <x-delete-button :label="'Delete'" />
-                    </form>
-                  </div>
-                </div>
+              <div class="d-lg-flex flex-column align-items-start justify-content-center gap-1">
+                <x-submit-button :label="'Bayar'" :type="'button'" :icon="'wallet-outline'" :variant="'outline-primary btn-sm'"
+                  :id="'pay-button'" />
+                <form action="{{ route('order.destroy', $data->uuid) }}" method="POST">
+                  @csrf
+                  @method('DELETE')
+                  <x-submit-button :label="'Hapus'" :type="'submit'" :icon="'trash-can-outline'" :variant="'outline-danger btn-sm'" />
+                </form>
               </div>
             </td>
           </tr>
@@ -69,5 +64,4 @@
       </tbody>
     </table>
   </div>
-</div>
 </div>

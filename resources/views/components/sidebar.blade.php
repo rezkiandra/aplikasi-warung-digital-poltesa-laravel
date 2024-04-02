@@ -1,3 +1,8 @@
+@php
+  $cartCount = \App\Models\ProductsCart::where('customer_id', Auth::user()->customer->id)->count();
+  $cartCount = $cartCount != 0 ? $cartCount : '';
+@endphp
+
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme border-end">
   <div class="app-brand demo">
     <a href="javascript:void(0)" class="app-brand-link">
@@ -45,7 +50,7 @@
         <x-sidebar-dropdown-item :label="'Product list'" :href="route('seller.products')" :active="request()->routeIs('seller.products')" />
       </x-sidebar-dropdown>
     @elseif(Auth::user()->role_id == 3)
-      <x-sidebar-item :label="'Cart'" :route="route('customer.cart')" :badge="\App\Models\ProductsCart::where('customer_id', Auth::user()->customer->id)->count()" :icon="'cart-outline'" :active="request()->routeIs('customer.cart')" />
+      <x-sidebar-item :label="'Cart'" :badge="$cartCount" :route="route('customer.cart')" :icon="'cart-outline'" :active="request()->routeIs('customer.cart')" />
       <x-sidebar-item :label="'Orders'" :route="route('customer.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('customer.orders')" />
     @elseif(Auth::user()->role_id == 1)
       <x-sidebar-dropdown :label="'Products'" :route="route('admin.sellers')" :icon="'package-variant'" :active="request()->routeIs('admin.products', 'seller.products', 'admin.*.product', 'seller.*.product')">

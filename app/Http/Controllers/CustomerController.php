@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Midtrans\Snap;
+use Midtrans\Config;
 use App\Models\Order;
 use App\Models\Customer;
 use App\Models\Products;
@@ -16,6 +18,14 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class CustomerController extends Controller
 {
+  public function __construct()
+  {
+    Config::$serverKey = config('midtrans.sandbox_server_key');
+    Config::$isProduction = config('midtrans.is_production');
+    Config::$isSanitized = config('midtrans.is_sanitized');
+    Config::$is3ds = config('midtrans.is_3ds');
+  }
+
   public function index()
   {
     return view('customer.home');
@@ -34,7 +44,6 @@ class CustomerController extends Controller
 
   public function product(string $slug)
   {
-
     $product = Products::where('slug', $slug)->firstOrFail();
     $relatedProducts = Products::where('category_id', $product->category_id)->where('id', '!=', $product->id)->get();
     return view('pages.detail-product', compact('product', 'relatedProducts'));
@@ -55,7 +64,16 @@ class CustomerController extends Controller
   public function orders()
   {
     $orders = Order::where('customer_id', Auth::user()->customer->id)->get();
-    return view('customer.orders', compact('orders'));
+
+    $params = array(
+      'transaction_details' => array(
+        'order_id' => rand(),
+        'gross_amount' => 10000,
+      )
+    );
+
+    $snapToken = Snap::getSnapToken($params);
+    return view('customer.orders', compact('orders', 'snapToken'));
   }
 
   public function store(BiodataRequest $request)
