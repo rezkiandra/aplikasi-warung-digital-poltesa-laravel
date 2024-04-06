@@ -6,16 +6,16 @@ use Illuminate\View\Component;
 
 class ProductsTabelSeller extends Component
 {
-  public $datas, $title;
+  public $title, $datas;
   /**
    * Create a new component instance.
    *
    * @return void
    */
-  public function __construct($datas, $title)
+  public function __construct($title, $datas)
   {
-    $this->datas = $datas;
     $this->title = $title;
+    $this->datas = $datas;
   }
 
   /**
@@ -25,6 +25,6 @@ class ProductsTabelSeller extends Component
    */
   public function render()
   {
-    return view('components.product-tabel-seller');
+    return view('components.products-tabel-seller');
   }
 }

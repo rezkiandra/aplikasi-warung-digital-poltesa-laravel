@@ -64,16 +64,7 @@ class CustomerController extends Controller
   public function orders()
   {
     $orders = Order::where('customer_id', Auth::user()->customer->id)->get();
-
-    $params = array(
-      'transaction_details' => array(
-        'order_id' => rand(),
-        'gross_amount' => 10000,
-      )
-    );
-
-    $snapToken = Snap::getSnapToken($params);
-    return view('customer.orders', compact('orders', 'snapToken'));
+    return view('customer.orders', compact('orders'));
   }
 
   public function store(BiodataRequest $request)

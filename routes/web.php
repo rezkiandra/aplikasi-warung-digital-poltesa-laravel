@@ -51,7 +51,8 @@ Route::middleware('auth', 'mustLogin')->group(function () {
       Route::get('/order', 'index')->name('order');
       Route::post('/add-order', 'store')->name('order.store');
       Route::get('/order/{order}/detail', 'show')->name('order.detail');
-      Route::put('/order/{order}/checkout', 'update')->name('order.update');
+      Route::get('/order/{order}/checkout', 'checkout')->name('order.checkout');
+      // Route::put('/order/{order}/checkout', 'update')->name('order.update');
       Route::delete('/cancel-order/{order}', 'destroy')->name('order.destroy');
     });
 });

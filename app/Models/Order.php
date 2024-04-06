@@ -16,6 +16,7 @@ class Order extends Model
     'quantity',
     'total_price',
     'status',
+    'snap_token'
   ];
 
   public function customer()

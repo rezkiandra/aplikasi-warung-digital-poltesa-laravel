@@ -50,13 +50,16 @@
             </td>
             <td>
               <div class="d-lg-flex flex-column align-items-start justify-content-center gap-1">
-                <x-submit-button :label="'Bayar'" :type="'button'" :icon="'wallet-outline'" :variant="'outline-primary btn-sm'"
-                  :id="'pay-button'" />
-                <form action="{{ route('order.destroy', $data->uuid) }}" method="POST">
-                  @csrf
-                  @method('DELETE')
-                  <x-submit-button :label="'Hapus'" :type="'submit'" :icon="'trash-can-outline'" :variant="'outline-danger btn-sm'" />
-                </form>
+                @if ($data->status === 'pending')
+                  <x-basic-button :href="route('order.checkout', $data->uuid)" :icon="'wallet-outline ?>'" :label="'Bayar'" :variant="'outline-primary btn-sm'" />
+                  <form action="{{ route('order.destroy', $data->uuid) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <x-submit-button :label="'Hapus'" :type="'submit'" :icon="'trash-can-outline'" :variant="'outline-danger btn-sm'" />
+                  </form>
+                @elseif ($data->status === 'paid')
+                  <x-basic-button :href="route('order.detail', $data->uuid)" :icon="'eye-outline ?>'" :label="'Detail'" :variant="'outline-dark btn-sm'" />
+                @endif
               </div>
             </td>
           </tr>

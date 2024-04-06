@@ -1,6 +1,8 @@
 @php
-  $cartCount = \App\Models\ProductsCart::where('customer_id', Auth::user()->customer->id)->count();
-  $cartCount = $cartCount != 0 ? $cartCount : '';
+  if (Auth::user()->role_id == 3) {
+      $cartCount = \App\Models\ProductsCart::where('customer_id', Auth::user()->customer->id)->count();
+      $cartCount = $cartCount != 0 ? $cartCount : '';
+  }
 @endphp
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme border-end">

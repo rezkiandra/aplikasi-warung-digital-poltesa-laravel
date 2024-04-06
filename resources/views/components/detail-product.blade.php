@@ -1,6 +1,6 @@
 @php
   $customer = auth()->user()->customer ?? '';
-  $fee = 500;
+  $fee = 0;
 @endphp
 
 @auth

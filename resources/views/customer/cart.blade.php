@@ -1,5 +1,5 @@
 @php
-  $fee = 500;
+  $fee = 1000;
 @endphp
 
 @extends('layouts.authenticated')

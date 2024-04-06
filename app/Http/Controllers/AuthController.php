@@ -67,6 +67,6 @@ class AuthController extends Controller
     $request->session()->regenerateToken();
 
     Alert::toast('Logout successfully!', 'info');
-    return redirect('/');
+    return redirect()->route('login');
   }
 }

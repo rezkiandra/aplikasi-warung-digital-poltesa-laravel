@@ -69,8 +69,8 @@
   <h4 class="mb-1">Product list</h4>
   <p class="mb-3">A product will be purchased by customers</p>
   @if ($currentSeller->status == 'active')
-  <x-alert :type="'success'" :message="'Your account is active. And you can add new product'" :icon="'account-check-outline'" />
-  <x-basic-button :label="'Add new product'" :icon="'plus'" :class="'w-0 text-uppercase mb-3'" :variant="'primary'" :href="route('seller.create.product')" />
+    <x-alert :type="'primary'" :message="'Your account is active. And you can add new product'" :icon="'account-check-outline'" />
+    <x-basic-button :label="'Add new product'" :icon="'plus'" :class="'w-0 text-uppercase mb-3'" :variant="'primary'" :href="route('seller.create.product')" />
   @elseif($currentSeller->status == 'pending')
     <x-alert :type="'warning'" :message="'Your account is pending. Please wait for the admin to approve your account.'" :icon="'account-search-outline'" />
   @elseif ($currentSeller->status == 'inactive')
@@ -95,9 +95,9 @@
 
     <x-product-card :datas="$products" :condition="$totalProductOutOfStockCurrentSeller" :label="'Out of Stock'" :icon="'sale-outline'" :variant="'dark'"
       :percentage="$productPercentageOutOfStockCurrentSeller
-          ? '+' . $totalProductOutOfStock . '%'
+          ? '+' . $totalProductOutOfStockCurrentSeller . '%'
           : '-' . $productPrePentageOutOfStockCurrentSeller . '%'" :totalOrders="'Total out of stock'" />
   </x-product-separator>
 
-  <x-product-tabel-seller :title="'List of products'" :datas="$products" :fields="['no', 'product', 'category', 'price', 'stock', 'published on', 'actions']" />
+  <x-products-tabel-seller :title="'List of products'" :datas="$products" />
 @endsection
