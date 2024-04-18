@@ -59,6 +59,7 @@ class Kernel extends HttpKernel
     'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
     'checkRole' => \App\Http\Middleware\CheckRole::class,
     'checkBiodata' => \App\Http\Middleware\CheckBiodata::class,
+    'checkCustomer' => \App\Http\Middleware\CheckCustomer::class,
     'can' => \Illuminate\Auth\Middleware\Authorize::class,
     'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
     'mustActive' => \App\Http\Middleware\MustActive::class,

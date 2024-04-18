@@ -1,15 +1,16 @@
 @php
-  $countOrder = \App\Models\Order::where('customer_id', Auth::user()->customer->id)->count();
-  $countUnpaid = \App\Models\Order::where('customer_id', Auth::user()->customer->id)
-      ->where('status', 'unpaid')
-      ->count();
-  $countPaid = \App\Models\Order::where('customer_id', Auth::user()->customer->id)
-      ->where('status', 'paid')
-      ->count();
-  $countCancelled = \App\Models\Order::where('customer_id', Auth::user()->customer->id)
-      ->where('status', 'cancelled')
-      ->count();
+  if (Auth::user()->customer) {
+      $customer_id = Auth::user()->customer->id;
+  } else {
+      $customer_id = null;
+  }
+
+  $countOrder = \App\Models\Order::where('customer_id', $customer_id)->count();
+  $countUnpaid = \App\Models\Order::where('customer_id', $customer_id)->where('status', 'unpaid')->count();
+  $countPaid = \App\Models\Order::where('customer_id', $customer_id)->where('status', 'paid')->count();
+  $countCancelled = \App\Models\Order::where('customer_id', $customer_id)->where('status', 'cancelled')->count();
 @endphp
+
 
 @extends('layouts.authenticated')
 @section('title', 'Orders')

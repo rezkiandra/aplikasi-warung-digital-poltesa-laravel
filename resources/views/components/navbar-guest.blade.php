@@ -94,7 +94,9 @@
             <a href="{{ route('customer.cart') }}" class="me-4">
               <i class="mdi mdi-cart-outline mdi-24px"></i>
               <span class="position-absolute fs-tiny badge rounded-pill bg-danger" style="margin-left: -10px">
-                {{ \App\Models\ProductsCart::where('customer_id', Auth::user()->customer->id)->count() ?? 0 }}
+                @if (Auth::user()->role_id == 3)
+                  {{ \App\Models\ProductsCart::where('customer_id', Auth::user()->customer->id)->count() }}
+                @endif
               </span>
             </a>
             <div class="fw-medium btn btn-primary">

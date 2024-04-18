@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Customer;
+use App\Models\Products;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Order extends Model
 {
@@ -15,6 +17,7 @@ class Order extends Model
     'product_id',
     'quantity',
     'total_price',
+    'fee',
     'status',
     'snap_token'
   ];

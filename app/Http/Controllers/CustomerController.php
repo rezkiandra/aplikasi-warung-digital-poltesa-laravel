@@ -57,13 +57,22 @@ class CustomerController extends Controller
 
   public function cart()
   {
-    $carts = ProductsCart::where('customer_id', Auth::user()->customer->id)->get();
+    // $carts = ProductsCart::where('customer_id', Auth::user()->customer->id)->get();
+    if (Auth::user()->customer) {
+      $carts = ProductsCart::where('customer_id', Auth::user()->customer->id)->get();
+    } else {
+      $carts = collect([]);
+    }
     return view('customer.cart', compact('carts'));
   }
 
   public function orders()
   {
-    $orders = Order::where('customer_id', Auth::user()->customer->id)->get();
+    if(Auth::user()->customer) {
+      $orders = Order::where('customer_id', Auth::user()->customer->id)->get();
+    } else {
+      $orders = collect([]);
+    }
     return view('customer.orders', compact('orders'));
   }
 

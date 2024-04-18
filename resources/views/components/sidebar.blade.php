@@ -1,7 +1,10 @@
 @php
-  if (Auth::user()->role_id == 3) {
-      $cartCount = \App\Models\ProductsCart::where('customer_id', Auth::user()->customer->id)->count();
+  $customer_id = optional(Auth::user()->customer)->id;
+  if (Auth::user()->role_id == 3 && $customer_id) {
+      $cartCount = \App\Models\ProductsCart::where('customer_id', $customer_id)->count();
       $cartCount = $cartCount != 0 ? $cartCount : '';
+  } else {
+      $cartCount = '';
   }
 @endphp
 
@@ -53,7 +56,7 @@
       </x-sidebar-dropdown>
     @elseif(Auth::user()->role_id == 3)
       <x-sidebar-item :label="'Cart'" :badge="$cartCount" :route="route('customer.cart')" :icon="'cart-outline'" :active="request()->routeIs('customer.cart')" />
-      <x-sidebar-item :label="'Orders'" :route="route('customer.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('customer.orders')" />
+      <x-sidebar-item :label="'Orders'" :route="route('customer.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('customer.orders', 'midtrans.checkout')" />
     @elseif(Auth::user()->role_id == 1)
       <x-sidebar-dropdown :label="'Products'" :route="route('admin.sellers')" :icon="'package-variant'" :active="request()->routeIs('admin.products', 'seller.products', 'admin.*.product', 'seller.*.product')">
         {{-- <x-sidebar-dropdown-item :label="'Create'" :href="route('seller.create.product')" :active="request()->routeIs('seller.create.product')" /> --}}

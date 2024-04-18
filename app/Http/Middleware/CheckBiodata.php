@@ -18,14 +18,14 @@ class CheckBiodata
   {
     $seller = auth()->user()->seller;
 
-    if ($seller && $this->hasRequiredInfo($seller)) {
+    if ($seller && $this->hasRequiredInfoSeller($seller)) {
       return $next($request);
     } else {
       return redirect()->route('seller.biodata')->with('error', 'Lengkapi biodata terlebih dahulu jika ingin menambahkan produk');
     }
   }
 
-  private function hasRequiredInfo($seller)
+  private function hasRequiredInfoSeller($seller)
   {
     return !empty($seller->full_name) && !empty($seller->address) && !empty($seller->phone_number) && !empty($seller->gender) && !empty($seller->bank_account_id) && !empty($seller->account_number) && !empty($seller->status);
   }

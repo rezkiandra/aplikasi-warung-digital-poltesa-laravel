@@ -30,7 +30,7 @@
                     <div class="text-muted mb-1 mb-lg-2 d-lg-flex flex-row align-items-center small">
                       <span class="me-lg-1 me-0">Dijual:</span>
                       <span
-                        class="badge bg-label-primary rounded-pill mt-2 mt-sm-0">{{ $cart->product->seller->full_name }}</span>
+                        class="badge bg-label-primary rounded-pill mt-2 mt-sm-0 text-capitalize">{{ $cart->product->seller->full_name }}</span>
                     </div>
                     <div class="text-muted mb-1 mb-lg-2 d-lg-flex align-items-center small">
                       <span class="me-lg-1 me-0">Stok:</span>

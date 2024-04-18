@@ -107,13 +107,12 @@
 @endsection
 
 @push('scripts')
-  <script src="https://app.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
-  </script>
+  <script src="https://app.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}"></script>
   <script type="text/javascript">
     document.getElementById('pay-button').onclick = function() {
-      snap.pay('{{ $snapToken }}', {
+      snap.pay('{{ $order->snap_token }}', {
         onSuccess: function(result) {
-          document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+          window.location.href = "{{ route('midtrans.success', $order->uuid) }}";
         },
         onPending: function(result) {
           document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);

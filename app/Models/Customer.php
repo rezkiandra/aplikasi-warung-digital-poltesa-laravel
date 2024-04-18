@@ -11,7 +11,7 @@ class Customer extends Model
 
   protected $fillable = [
     'uuid',
-    'customer_id',
+    'user_id',
     'full_name',
     'slug',
     'address',
