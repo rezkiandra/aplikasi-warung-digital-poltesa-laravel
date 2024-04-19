@@ -1,5 +1,5 @@
 @php
-  $fee = 1000;
+  $fee = $carts->sum('order.fee');
 @endphp
 
 @extends('layouts.authenticated')
@@ -54,7 +54,7 @@
                   <div class="mt-lg-0 mt-2">
                     {{-- <s class="text-primary">$299 /</s> --}}
                     <span class="text-body"
-                      id="totalPrice">Rp{{ number_format($cart->product->price * $cart->quantity + $fee, 0, '.', '.') }}
+                      id="totalPrice">Rp{{ number_format($cart->product->price * $cart->quantity + $cart->order->fee, 0, '.', '.') }}
                     </span>
                   </div>
                   <form action="{{ route('order.store') }}" method="POST" id="form">
@@ -62,7 +62,7 @@
                     <input type="hidden" name="product_id" value="{{ $cart->product_id }}">
                     <input type="hidden" name="quantity" id="quantity" value="{{ $cart->quantity }}">
                     <input type="hidden" name="total_price"
-                      value="{{ $cart->product->price * $cart->quantity + $fee }}">
+                      value="{{ $cart->product->price * $cart->quantity + $cart->order->fee }}">
                     <x-submit-button :label="'Beli Sekarang'" id="btn-buy" :type="'submit'" :variant="'outline-primary btn-sm'" />
                   </form>
                 </div>

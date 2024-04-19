@@ -61,6 +61,8 @@ Route::middleware('auth', 'mustLogin', 'checkCustomer')->group(function () {
       Route::get('/transaction/success/{order}', 'successPayment')->name('midtrans.success');
       Route::get('/transaction/failed/{order}', 'failedPayment')->name('midtrans.failed');
       Route::get('/transaction/cancelled/{order}', 'cancelPayment')->name('midtrans.cancelled');
+
+      Route::post('/midtrans/callback', 'callbackHandler')->name('midtrans.callback');
     });
 });
 

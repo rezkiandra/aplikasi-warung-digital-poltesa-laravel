@@ -19,6 +19,7 @@ class Order extends Model
     'total_price',
     'fee',
     'status',
+    'payment_method',
     'snap_token'
   ];
 
