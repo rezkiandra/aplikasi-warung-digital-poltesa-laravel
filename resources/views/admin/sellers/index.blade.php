@@ -3,7 +3,6 @@
   $activeSeller = \App\Models\Seller::where('status', 'active')->count();
   $inactiveSeller = \App\Models\Seller::where('status', 'inactive')->count();
   $pendingSeller = \App\Models\Seller::where('status', 'pending')->count();
-
   $sellerPercentage = round((\App\Models\Seller::count() ?? 0 / \App\Models\Seller::count()) * 100, 2);
   $sellerPrePercentage = \App\Models\Seller::count();
 
@@ -12,13 +11,11 @@
       2,
   );
   $sellerActivePrePercentage = \App\Models\Seller::where('status', 'active')->count();
-
   $sellerInactivePercentage = round(
       (\App\Models\Seller::where('status', 'inactive')->count() ?? 0 / \App\Models\Seller::count()) * 100,
       2,
   );
   $sellerInactivePrePercentage = \App\Models\Seller::where('status', 'inactive')->count();
-
   $sellerPendingPercentage = round(
       (\App\Models\Seller::where('status', 'pending')->count() ?? 0 / \App\Models\Seller::count()) * 100,
       2,
@@ -27,9 +24,7 @@
 @endphp
 
 @extends('layouts.authenticated')
-
 @section('title', 'Sellers')
-
 @section('content')
   <h4 class="mb-1">Seller list</h4>
   <p class="mb-3">A seller selling the products</p>

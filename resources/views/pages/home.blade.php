@@ -1,7 +1,5 @@
 @extends('layouts.guest')
-
 @section('title', 'Beranda')
-
 @push('styles')
   <style>
     #detail {
@@ -9,7 +7,6 @@
     }
   </style>
 @endpush
-
 @section('content')
   <section id="hero" class="mb-5 pb-5">
     <div class="container mt-lg-5 mt-1 pt-4">
