@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class TopCardContent extends Component
+class TopSellersCard extends Component
 {
   public $datas, $title;
   /**
@@ -25,6 +25,6 @@ class TopCardContent extends Component
    */
   public function render()
   {
-    return view('components.top-card-content');
+    return view('components.top-sellers-card');
   }
 }

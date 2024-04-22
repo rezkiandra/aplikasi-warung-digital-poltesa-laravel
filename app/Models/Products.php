@@ -35,4 +35,9 @@ class Products extends Model
   {
     return $this->belongsTo(ProductsCart::class);
   }
+
+  public function order()
+  {
+    return $this->belongsTo(Order::class);
+  }
 }

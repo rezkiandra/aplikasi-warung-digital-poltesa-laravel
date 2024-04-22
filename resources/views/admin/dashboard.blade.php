@@ -1,13 +1,13 @@
 @php
   // Greetings Card
   $greetings = 'Halo, Admin';
-  $description = 'Selamat datang di dashboard admin';
+  $descriptionGreetings = 'Selamat datang di dashboard admin';
   $label = 'Total Pengguna';
   $value = \App\Models\User::count();
   $actionLabel = 'Selengkapnya';
 
   // Transaction Card
-  $title = 'Transaksi';
+  $title = 'Transaksi'; 
   $description = 'Total transaksi dibulan ini';
 
   // Transaction Item Card
@@ -27,7 +27,7 @@
 
 @section('content')
   <x-content-card>
-    <x-greetings-card :greetings="$greetings" :description="$description" :label="$label" :value="$value" :actionLabel="$actionLabel" />
+    <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel" />
     <x-transactions-card :title="$title" :description="$description">
       <x-transaction-item-card :label="'Seller'" :value="$totalSeller" :variant="'info'" :icon="'account-group-outline'" />
       <x-transaction-item-card :label="'Customer'" :value="$totalCustomer" :variant="'success'" :icon="'account-multiple-outline'" />
@@ -44,9 +44,7 @@
       <x-graph-card-content />
     </x-four-card> --}}
 
-    <x-top-card-content :datas="$sellers" :title="'Top Seller'" />
-    <x-top-card-content :datas="$customers" :title="'Top Seller'" />
-    <x-top-card-content :datas="$orders" :title="'Top Seller'" />
+    <x-top-sellers-card :datas="$sellers" :title="'Top Earnings Seller'" />
 
     <x-user-table-card />
   </x-content-card>
