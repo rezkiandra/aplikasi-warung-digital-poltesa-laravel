@@ -19,7 +19,7 @@
   // Top Card Content
   $sellers = \App\Models\Seller::take(5)->get();
   $customers = \App\Models\Customer::take(5)->get();
-  $orders = \App\Models\Order::take(5)->get();
+  $products = \App\Models\Products::take(5)->get();
 @endphp
 
 @extends('layouts.authenticated')
@@ -45,6 +45,8 @@
     </x-four-card> --}}
 
     <x-top-sellers-card :datas="$sellers" :title="'Top Earnings Seller'" />
+    <x-top-customers-card :datas="$customers" :title="'Top Buying Customer'" />
+    <x-top-products-card :datas="$products" :title="'Top Sale Product'" />
 
     <x-user-table-card />
   </x-content-card>

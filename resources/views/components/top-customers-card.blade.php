@@ -1,8 +1,7 @@
 @php
-  $totalEarnings = \App\Models\Order::join('products', 'products.id', '=', 'orders.product_id', 'left')
-      ->join('sellers', 'sellers.id', '=', 'products.seller_id', 'left')
-      ->orderBy('price', 'desc')
-      ->sum('price');
+  $totalOrders = \App\Models\Order::join('customers', 'customers.id', '=', 'orders.customer_id', 'left')
+  ->orderBy('customer_id', 'desc')
+  ->count();
 @endphp
 
 <div class="col-xl-4 col-md-6">
@@ -27,8 +26,8 @@
             </div>
           </div>
           <div class="text-end">
-            <h6 class="mb-0">Rp{{ number_format($totalEarnings, 0, '.', ',') }}</h6>
-            <small>Earnings</small>
+            <h6 class="mb-0">{{ $totalOrders }}</h6>
+            <small>Order</small>
           </div>
         </div>
       @endforeach
