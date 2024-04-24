@@ -1,7 +1,5 @@
 @php
-  $totalOrders = \App\Models\Order::join('products', 'products.id', '=', 'orders.customer_id', 'left')
-      ->orderBy('product_id', 'desc')
-      ->count();
+  $totalOrders = \App\Models\Order::where('product_id', '>=', 20)->count();
 @endphp
 
 <div class="col-xl-4 col-md-6">
@@ -27,7 +25,7 @@
           </div>
           <div class="text-end">
             <h6 class="mb-0">{{ $totalOrders }}</h6>
-            <small>Order</small>
+            <small>Terjual</small>
           </div>
         </div>
       @endforeach

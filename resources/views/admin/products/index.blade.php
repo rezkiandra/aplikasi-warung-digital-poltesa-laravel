@@ -16,7 +16,6 @@
 
 @extends('layouts.authenticated')
 @section('title', 'Products')
-
 @section('content')
   <h4 class="mb-1">Product list</h4>
   <p class="mb-3">A product will be purchased by customers</p>

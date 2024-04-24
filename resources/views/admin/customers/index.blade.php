@@ -27,9 +27,7 @@
 @endphp
 
 @extends('layouts.authenticated')
-
 @section('title', 'Customers')
-
 @section('content')
   <h4 class="mb-1">Customers list</h4>
   <p class="mb-3">A customer will purchase the product</p>

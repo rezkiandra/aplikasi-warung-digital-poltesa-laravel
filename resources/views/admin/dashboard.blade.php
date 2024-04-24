@@ -20,6 +20,7 @@
   $sellers = \App\Models\Seller::take(5)->get();
   $customers = \App\Models\Customer::take(5)->get();
   $products = \App\Models\Products::take(5)->get();
+  $users = \App\Models\User::all();
 @endphp
 
 @extends('layouts.authenticated')
@@ -35,19 +36,19 @@
       <x-transaction-item-card :label="'Order'" :value="$totalOrder" :variant="'danger'" :icon="'basket-outline'" />
     </x-transactions-card>
 
-    {{-- <x-bar-graph-card />
+    <x-bar-graph-card />
     <x-earnings-card />
     <x-four-card>
       <x-graph-card-content />
       <x-graph-card-content />
       <x-graph-card-content />
       <x-graph-card-content />
-    </x-four-card> --}}
+    </x-four-card>
 
     <x-top-sellers-card :datas="$sellers" :title="'Top Earnings Seller'" />
     <x-top-customers-card :datas="$customers" :title="'Top Buying Customer'" />
     <x-top-products-card :datas="$products" :title="'Top Sale Product'" />
 
-    <x-user-table-card />
+    <x-user-table-card :datas="$users" />
   </x-content-card>
 @endsection

@@ -6,23 +6,24 @@ use Illuminate\View\Component;
 
 class UserTableCard extends Component
 {
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+  public $datas;
+  /**
+   * Create a new component instance.
+   *
+   * @return void
+   */
+  public function __construct($datas)
+  {
+    $this->datas = $datas;
+  }
 
-    /**
-     * Get the view / contents that represent the component.
-     *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
-     */
-    public function render()
-    {
-        return view('components.user-table-card');
-    }
+  /**
+   * Get the view / contents that represent the component.
+   *
+   * @return \Illuminate\Contracts\View\View|\Closure|string
+   */
+  public function render()
+  {
+    return view('components.user-table-card');
+  }
 }

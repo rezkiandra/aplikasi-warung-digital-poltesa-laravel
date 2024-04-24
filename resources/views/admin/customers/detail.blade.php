@@ -11,9 +11,7 @@
 @endphp
 
 @extends('layouts.authenticated')
-
 @section('title', 'Detail Customer')
-
 @section('content')
   <x-detail-breadcrumbs :id="'Customer ID #' . $customer_id" :created="date('d F, H:i', strtotime($customer->created_at)) > '12.00'
       ? date('d F, H:i:s', strtotime($customer->created_at)) . ' PM'

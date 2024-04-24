@@ -8,21 +8,6 @@
               {{ \App\Models\User::where('role_id', $data->id)->count() }} users
             </p>
             <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
-              {{-- <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar pull-up"
-                aria-label="{{ $data->role->role_name }}"
-                data-bs-original-title="{{ \App\Models\User::where('role_id', $data->id)->pluck('name')->implode(', ') }}">
-                <img class="rounded-circle" src="{{ asset('materio/assets/img/avatars/5.png') }}" alt="Avatar">
-              </li>
-              <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar pull-up"
-                aria-label="{{ $data->role->role_name }}"
-                data-bs-original-title="{{ \App\Models\User::where('role_id', $data->id)->pluck('name')->implode(', ') }}">
-                <img class="rounded-circle" src="{{ asset('materio/assets/img/avatars/2.png') }}" alt="Avatar">
-              </li>
-              <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar pull-up"
-                aria-label="{{ $data->role->role_name }}"
-                data-bs-original-title="{{ \App\Models\User::where('role_id', $data->id)->pluck('name')->implode(', ') }}">
-                <img class="rounded-circle" src="{{ asset('materio/assets/img/avatars/6.png') }}" alt="Avatar">
-              </li> --}}
               <li class="avatar">
                 @if (\App\Models\User::where('role_id', $data->id)->count() >= 6)
                   <span class="avatar-initial rounded-circle pull-up bg-lighter text-body" data-bs-toggle="tooltip"
