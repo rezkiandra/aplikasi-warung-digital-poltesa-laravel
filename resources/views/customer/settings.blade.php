@@ -1,20 +1,15 @@
 @php
-  $gender = [
-      'male' => 'male',
-      'female' => 'female',
-  ];
-  $status = [
-      'active' => 'active',
-      'inactive' => 'inactive',
-      'pending' => 'pending',
-  ];
-  $role = \App\Models\Role::where('role_name', '!=', 'Admin')->pluck('role_name', 'id')->toArray();
+  $user = \App\Models\User::where('role_id', '3')->first();
 @endphp
+
 @extends('layouts.authenticated')
-@section('title', 'Edit Pengguna')
+@section('title', 'Pengaturan')
 @section('content')
+  <h4 class="mb-1">Pengaturan</h4>
+  <p class="mb-3">Pengaturan user role customer</p>
+
   <div class="d-lg-flex justify-content-between gap-4">
-    <x-edit-form :title="'Edit spesifik pengguna'" :action="route('admin.update.user', $user->uuid)" :route="route('admin.users')" :class="'col-lg-12'">
+    <x-edit-form :title="'Edit data admin'" :action="route('admin.update.user', $user->uuid)" :route="route('admin.users')" :class="'col-lg-12'">
       <div class="row">
         <div class="col-lg-3">
           <x-form-floating>

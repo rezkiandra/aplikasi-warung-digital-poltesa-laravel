@@ -17,28 +17,29 @@
             <td>
               <span class="fw-medium">{{ \App\Models\Seller::where('bank_account_id', $data->id)->count() }}</span>
             </td>
-            <td><span
-                class="badge rounded-pill bg-label-success me-2">{{ date('d F Y, H:i:s', strtotime($data->created_at)) }}
+            <td>
+              <span class="badge rounded bg-label-info me-2">
+                {{ date('d M Y, H:i', strtotime($data->created_at)) }}
+                {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
               </span>
             </td>
             <td>
-              <span
-                class="badge rounded-pill bg-label-info me-2">{{ date('d F Y, H:i:s', strtotime($data->updated_at)) }}
-              </span>
-            </td>
-            <td>
-              <div class="dropdown">
-                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                  <i class="mdi mdi-dots-vertical"></i>
-                </button>
-                <div class="dropdown-menu">
-                  <x-dropdown-item :label="'Edit'" :variant="'warning'" :icon="'pencil-outline'" :route="route('admin.edit.bank', $data->slug)" />
-                  <x-dropdown-item :label="'Detail'" :variant="'secondary'" :icon="'eye-outline'" :route="route('admin.detail.bank', $data->slug)" />
-                  <form action="{{ route('admin.destroy.bank', $data->slug) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <x-delete-button />
-                  </form>
+              <div class="d-flex align-items-center">
+                <a class="me-2" href="{{ route('admin.edit.bank', $data->slug) }}">
+                  <i class="mdi mdi-pencil-outline text-secondary"></i>
+                </a>
+                <div class="dropdown">
+                  <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                    <i class="mdi mdi-dots-vertical"></i>
+                  </button>
+                  <div class="dropdown-menu">
+                    {{-- <x-dropdown-item :label="'Detail'" :variant="'secondary'" :icon="'eye-outline'" :route="route('admin.detail.category', $data->slug)" /> --}}
+                    <form action="{{ route('admin.destroy.bank', $data->slug) }}" method="POST">
+                      @csrf
+                      @method('DELETE')
+                      <x-delete-button :label="'Delete'" />
+                    </form>
+                  </div>
                 </div>
               </div>
             </td>

@@ -4,11 +4,9 @@
   $totalAdmins = \App\Models\User::join('roles', 'users.role_id', '=', 'roles.id', 'left')
       ->where('roles.role_name', 'Admin')
       ->count();
-
   $totalSellers = \App\Models\User::join('roles', 'users.role_id', '=', 'roles.id', 'left')
       ->where('roles.role_name', 'Seller')
       ->count();
-
   $totalCustomers = \App\Models\User::join('roles', 'users.role_id', '=', 'roles.id', 'left')
       ->where('roles.role_name', 'Customer')
       ->count();
@@ -31,20 +29,20 @@
 @endphp
 
 @extends('layouts.authenticated')
-@section('title', 'Users')
+@section('title', 'Pengguna')
 @section('content')
-  <h4 class="mb-1">User list</h4>
-  <p class="mb-3">A user can be a customer or seller</p>
-  <x-basic-button :label="'Add new user'" :icon="'plus'" :class="'w-0 text-uppercase mb-4'" :variant="'primary'" :href="route('admin.create.user')" />
+  <h4 class="mb-1">Daftar Pengguna</h4>
+  <p class="mb-3">Seorang pengguna akan menjadi sebagai admin, penjual, atau pelanggan</p>
+  <x-basic-button :label="'Tambah Pelanggan'" :icon="'plus'" :class="'w-0 text-uppercase mb-4'" :variant="'primary'" :href="route('admin.create.user')" />
 
   <div class="row g-4 mb-4">
-    <x-user-card :datas="$users" :label="'Session'" :icon="'account-outline'" :variant="'primary'" :condition="$totalUsers"
-      :description="'Total users'" :percentage="$userPercentage ? '+' . $userPercentage . '%' : '-' . $userPrePercentage . '%'" />
-    <x-user-card :datas="$users" :label="'Admin Role'" :icon="'account-plus-outline'" :variant="'danger'" :condition="$totalAdmins"
+    <x-user-card :datas="$users" :label="'Sesi'" :icon="'account-group-outline'" :variant="'primary'" :condition="$totalUsers"
+      :description="'Jumlah Pengguna'" :percentage="$userPercentage ? '+' . $userPercentage . '%' : '-' . $userPrePercentage . '%'" />
+    <x-user-card :datas="$users" :label="'Role Admin'" :icon="'laptop'" :variant="'danger'" :condition="$totalAdmins"
       :percentage="$adminPercentage ? '+' . $adminPercentage . '%' : '-' . $adminPrePercentage . '%'" />
-    <x-user-card :datas="$users" :label="'Seller Role'" :icon="'account-check-outline'" :variant="'success'" :condition="$totalSellers" :percentage="$sellerPercentage ? '+' . $sellerPercentage . '%' : '-' . $sellerPrePercentage . '%'" />
-    <x-user-card :datas="$users" :label="'Customer Role'" :icon="'account-search-outline'" :variant="'warning'" :condition="$totalCustomers" :percentage="$customerPercentage ? '+' . $customerPercentage . '%' : '-' . $customerPrePercentage . '%'" />
+    <x-user-card :datas="$users" :label="'Role Seller'" :icon="'store-outline'" :variant="'info'" :condition="$totalSellers" :percentage="$sellerPercentage ? '+' . $sellerPercentage . '%' : '-' . $sellerPrePercentage . '%'" />
+    <x-user-card :datas="$users" :label="'Role Customer'" :icon="'account-outline'" :variant="'warning'" :condition="$totalCustomers" :percentage="$customerPercentage ? '+' . $customerPercentage . '%' : '-' . $customerPrePercentage . '%'" />
   </div>
 
-  <x-user-table :title="'List of users'" :datas="$users" :fields="['No', 'Username / Email - Slug', 'Role Name', 'Created at', 'Actions']" />
+  <x-user-table :title="'Data Pengguna'" :datas="$users" :fields="['No', 'Username / Email - Slug', 'Role', 'Dibuat Pada', 'Aksi']" />
 @endsection

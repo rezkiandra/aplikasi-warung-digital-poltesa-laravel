@@ -206,6 +206,7 @@ Route::middleware('auth', 'checkRole:Customer')->group(function () {
       Route::get('/', 'dashboard')->name('customer.dashboard');
       Route::get('/cart', 'cart')->name('customer.cart');
       Route::get('/orders', 'orders')->name('customer.orders');
+      Route::get('/settings', 'settings')->name('customer.settings');
       Route::get('/biodata', 'biodata')->name('customer.biodata');
       Route::post('biodata/store', 'store')->name('customer.store.biodata');
       Route::put('/biodata/update/{biodata}', 'update')->name('customer.update.biodata');

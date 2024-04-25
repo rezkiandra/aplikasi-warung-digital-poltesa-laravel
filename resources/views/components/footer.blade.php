@@ -6,7 +6,7 @@
         <script>
           document.write(new Date().getFullYear());
         </script>
-        <span class="text-primary fw-medium footer"> - Warung Digital</span>. All Rights Reserved
+        <span class="text-primary fw-medium footer"> - Warung Digital</span>. Hak Cipta Dilindungi
         {{-- <i class="tf-icons mdi mdi-laravel text-danger"></i>
         <i class="tf-icons mdi mdi-tailwind text-info"></i>
         Developed and Design by

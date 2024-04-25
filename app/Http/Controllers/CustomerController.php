@@ -76,6 +76,11 @@ class CustomerController extends Controller
     return view('customer.orders', compact('orders'));
   }
 
+  public function settings()
+  {
+    return view('customer.settings');
+  }
+
   public function store(BiodataRequest $request)
   {
     Customer::create([

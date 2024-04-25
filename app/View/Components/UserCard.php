@@ -12,7 +12,7 @@ class UserCard extends Component
    *
    * @return void
    */
-  public function __construct($datas, $label, $icon, $variant, $description = 'Last week analytics', $condition, $percentage = '')
+  public function __construct($datas, $label, $icon, $variant, $description = 'Analitik pengguna minggu ini', $condition, $percentage = '')
   {
     $this->datas = $datas;
     $this->label = $label;

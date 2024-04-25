@@ -6,13 +6,13 @@ use Illuminate\View\Component;
 
 class ProductCard extends Component
 {
-  public $datas, $icon, $variant, $label, $class, $condition, $percentage, $action, $totalOrders;
+  public $datas, $icon, $variant, $label, $class, $condition, $percentage, $action, $description;
   /**
    * Create a new component instance.
    *
    * @return void
    */
-  public function __construct($datas, $icon, $variant, $label, $class = '', $condition, $percentage = '', $action = '', $totalOrders = '')
+  public function __construct($datas, $icon, $variant, $label, $class = '', $condition, $percentage = '', $action = '', $description = 'Analitik produk minggu ini')
   {
     $this->datas = $datas;
     $this->icon = $icon;
@@ -22,7 +22,7 @@ class ProductCard extends Component
     $this->condition = $condition;
     $this->percentage = $percentage;
     $this->action = $action;
-    $this->totalOrders = $totalOrders;
+    $this->description = $description;
   }
 
   /**

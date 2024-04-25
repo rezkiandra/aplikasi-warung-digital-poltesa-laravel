@@ -11,34 +11,31 @@
   ];
   $bank = \App\Models\BankAccount::pluck('bank_name', 'id')->toArray();
 @endphp
-
 @extends('layouts.authenticated')
-
-@section('title', 'Edit Customer')
-
+@section('title', 'Edit Pelanggan')
 @section('content')
   <div class="d-lg-flex justify-content-between gap-4">
     <div class="col-lg-2 card-body">
       <img src="{{ asset('storage/' . $customer->image) }}" alt="" class="img-fluid rounded" width="100%">
     </div>
 
-    <x-edit-form :title="'Edit specific customer'" :action="route('admin.update.customer', $customer->uuid)" :route="route('admin.customers')" :class="'col-lg-10'">
+    <x-edit-form :title="'Edit spesifik pelanggan'" :action="route('admin.update.customer', $customer->uuid)" :route="route('admin.customers')" :class="'col-lg-10'">
       <div class="row">
         <div class="col-lg-4">
           <x-form-floating>
-            <x-input-form-label :label="'Customer Name'" :name="'full_name'" :type="'text'" :value="$customer->full_name" />
+            <x-input-form-label :label="'Nama Pelanggan'" :name="'full_name'" :type="'text'" :value="$customer->full_name" />
           </x-form-floating>
         </div>
 
         <div class="col-lg-4">
           <x-form-floating>
-            <x-input-form-label :label="'Address'" :name="'address'" :type="'text'" :value="$customer->address" />
+            <x-input-form-label :label="'Alamat'" :name="'address'" :type="'text'" :value="$customer->address" />
           </x-form-floating>
         </div>
 
         <div class="col-lg-4">
           <x-form-floating>
-            <x-input-form-label :label="'Phone'" :name="'phone_number'" :type="'text'" :value="$customer->phone_number" />
+            <x-input-form-label :label="'Nomor HP'" :name="'phone_number'" :type="'text'" :value="$customer->phone_number" />
           </x-form-floating>
         </div>
 
@@ -88,7 +85,7 @@
 
         <div class="col-lg-4">
           <x-form-floating>
-            <x-input-form-label :label="'Image'" :name="'image'" :type="'file'" :value="$customer->image" />
+            <x-input-form-label :label="'Profil'" :name="'image'" :type="'file'" :value="$customer->image" />
           </x-form-floating>
         </div>
 
@@ -108,12 +105,12 @@
 
         <div class="col-lg-4">
           <x-form-floating>
-            <x-input-form-label :label="'Account Number'" :name="'account_number'" :type="'text'" :value="$customer->account_number, old('account_number')" />
+            <x-input-form-label :label="'Nomor Rekening'" :name="'account_number'" :type="'text'" :value="$customer->account_number, old('account_number')" />
           </x-form-floating>
         </div>
       </div>
 
-      <x-submit-button :label="'Submit'" :type="'submit'" :variant="'primary'" :icon="'check-circle-outline'" />
+      <x-submit-button :label="'Simpan'" :type="'submit'" :variant="'primary'" :icon="'check-circle-outline'" />
     </x-edit-form>
   </div>
 @endsection

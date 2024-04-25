@@ -1,17 +1,23 @@
+@php
+  $orders = \App\Models\Order::paginate(10);
+  $totalOrders = \App\Models\Order::all()->count();
+  $totalUnpaid = \App\Models\Order::where('status', 'unpaid')->count();
+  $totalPaid = \App\Models\Order::where('status', 'paid')->count();
+  $totalCancelled = \App\Models\Order::where('status', 'cancelled')->count();
+@endphp
+
 @extends('layouts.authenticated')
-
-@section('title', 'Orders')
-
+@section('title', 'Pesanan')
 @section('content')
-  <h4 class="mb-1">Order list</h4>
-  <p class="mb-3">A order will show when customers have purchase the product</p>
+  <h4 class="mb-1">Daftar Pesanan</h4>
+  <p class="mb-3">Sebuah pesanan akan diproses ketika pelanggan menyelesaikan pembelian</p>
 
-  {{-- <div class="row g-4 mb-4">
-    <x-user-card :datas="$users" :label="'Session'" :icon="'account-outline'" :variant="'primary'" />
-    <x-user-card :datas="$users" :label="'Paid users'" :icon="'account-plus-outline'" :variant="'danger'" />
-    <x-user-card :datas="$users" :label="'Active users'" :icon="'account-check-outline'" :variant="'success'" />
-    <x-user-card :datas="$users" :label="'Pending users'" :icon="'account-search-outline'" :variant="'warning'" />
-  </div>
+  <x-detail-order>
+    <x-detail-order-item :label="'Jumlah Pesanan'" :icon="'wallet-giftcard'" :class="'border-end'" :variant="'primary'" :condition="$totalOrders" />
+    <x-detail-order-item :label="'Pesanan Belum Dibayar'" :icon="'wallet-outline'" :class="'border-end'" :variant="'danger'" :condition="$totalUnpaid" />
+    <x-detail-order-item :label="'Pesanan Selesai'" :icon="'check-all'" :class="'border-end'" :variant="'success'" :condition="$totalPaid" />
+    <x-detail-order-item :label="'Pesanan Dibatalkan'" :icon="'alert-circle-outline'" :variant="'dark'" :condition="$totalCancelled" />
+  </x-detail-order>
 
-  <x-user-table :title="'List of users'" :datas="$users" :fields="['No', 'Username', 'Email', 'Role', 'Created at', 'Updated at', '#']" /> --}}
+  <x-order-tabel :orders="$orders" />
 @endsection

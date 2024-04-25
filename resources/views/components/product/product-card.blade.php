@@ -7,7 +7,7 @@
         <p class="text-{{ $percentage > 0 ? 'success' : 'danger' }} mb-2">{{ $percentage }}</p>
       </div>
       <p class="mb-0">
-        <span class="me-2">{{ $totalOrders }}</span>
+        <span class="me-2">{{ $description }}</span>
       </p>
     </div>
     <div class="avatar me-sm-4">

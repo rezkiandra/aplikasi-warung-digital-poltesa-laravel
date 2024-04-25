@@ -3,12 +3,12 @@
     <table class="dt-table table">
       <thead>
         <tr>
-          <th>Order ID</th>
-          <th>Date</th>
-          <th>Product</th>
+          <th>ID</th>
+          <th>Produk</th>
           <th>Total</th>
           <th>Status</th>
-          <th>Actions</th>
+          <th>Tanggal Pemesanan</th>
+          <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
@@ -16,10 +16,8 @@
           <tr>
             <td class="text-primary">
               {{-- <span class="rounded p-1 bg-label-primary">#{{ rand(1000, 9999) }}</span> --}}
-              <span class="rounded p-1 bg-label-primary text-uppercase">#{{ Str::substr($data->uuid, 0, 5) }}</span>
-            </td>
-            <td class="">
-              <span class="badge bg-label-info">{{ date('d M Y, H:i', strtotime($data->updated_at)) }}</span>
+              <span
+                class="badge rounded p-1 bg-label-primary text-uppercase">#{{ Str::substr($data->uuid, 0, 5) }}</span>
             </td>
             <td>
               <div class="d-flex justify-content-start align-items-center user-name">
@@ -48,6 +46,10 @@
                 <i class="mdi mdi-circle fs-tiny me-1"></i>
                 {{ $data->status }}
               </h6>
+            </td>
+            <td class="">
+              <span class="badge bg-label-info">{{ date('d M Y, H:i', strtotime($data->updated_at)) }}
+                {{ $data->updated_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}</span>
             </td>
             <td>
               <div class="d-lg-flex flex-row gap-1">
@@ -78,6 +80,16 @@
           </tr>
         @endforeach
       </tbody>
+      <tfoot>
+        <tr>
+          <th>ID</th>
+          <th>Produk</th>
+          <th>Total</th>
+          <th>Status</th>
+          <th>Tanggal Pemesanan</th>
+          <th>Aksi</th>
+        </tr>
+      </tfoot>
     </table>
   </div>
 </div>

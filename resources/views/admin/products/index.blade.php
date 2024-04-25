@@ -15,24 +15,24 @@
 @endphp
 
 @extends('layouts.authenticated')
-@section('title', 'Products')
+@section('title', 'Produk')
 @section('content')
-  <h4 class="mb-1">Product list</h4>
-  <p class="mb-3">A product will be purchased by customers</p>
+  <h4 class="mb-1">Daftar Produk</h4>
+  <p class="mb-3">Sebuah produk akan dibeli oleh pelanggan</p>
   @if (Auth::user()->role_id == 2)
-    <x-basic-button :label="'Add new product'" :icon="'plus'" :class="'w-0 text-uppercase mb-4'" :variant="'primary'" :href="route('admin.create.product')" />
+    <x-basic-button :label="'Tambah Produk'" :icon="'plus'" :class="'w-0 text-uppercase mb-4'" :variant="'primary'" :href="route('admin.create.product')" />
   @endif
 
   <x-product-separator>
-    <x-product-card :datas="$products" :condition="$totalOrders" :label="'Products'" :icon="'cart-outline'" :variant="'primary'"
-      :percentage="$productPercentage ? '+' . $productPercentage . '%' : '-' . $productPrePercentage . '%'" :class="'border-end'" :totalOrders="'Total products'" />
-    <x-product-card :datas="$products" :condition="$totalTopSale" :label="'Top Sale'" :icon="'shopping-outline'" :variant="'info'"
-      :percentage="$totalTopSale ? '+' . $totalTopSale . '%' : '-' . $totalTopSale . '%'" :class="'border-end'" :totalOrders="$totalOrders . ' orders'" />
-    <x-product-card :datas="$products" :condition="$totalDiscount" :label="'Discount'" :icon="'wallet-giftcard'" :variant="'success'"
-      :percentage="$totalDiscount ? '+' . $totalDiscount . '%' : '-' . $totalDiscount . '%'" :class="'border-end'" :totalOrders="$totalOrders . ' orders'" />
-    <x-product-card :datas="$products" :condition="$totalOutOfStock" :label="'Out of Stock'" :icon="'sale-outline'" :variant="'dark'"
-      :percentage="$totalOutOfStock ? '+' . $totalOutOfStock . '%' : '-' . $totalOutOfStock . '%'" :totalOrders="$totalOrders . ' orders'" />
+    <x-product-card :datas="$products" :condition="$totalOrders" :label="'Produk'" :icon="'cart-outline'" :variant="'primary'"
+      :percentage="$productPercentage ? '+' . $productPercentage . '%' : '-' . $productPrePercentage . '%'" :class="'border-end'" :description="'Jumlah Produk'" />
+    <x-product-card :datas="$products" :condition="$totalTopSale" :label="'Produk Teratas'" :icon="'shopping-outline'" :variant="'info'"
+      :percentage="$totalTopSale ? '+' . $totalTopSale . '%' : '-' . $totalTopSale . '%'" :class="'border-end'" />
+    <x-product-card :datas="$products" :condition="$totalDiscount" :label="'Produk Diskon'" :icon="'wallet-giftcard'" :variant="'success'"
+      :percentage="$totalDiscount ? '+' . $totalDiscount . '%' : '-' . $totalDiscount . '%'" :class="'border-end'" />
+    <x-product-card :datas="$products" :condition="$totalOutOfStock" :label="'Produk Habis'" :icon="'sale-outline'" :variant="'dark'"
+      :percentage="$totalOutOfStock ? '+' . $totalOutOfStock . '%' : '-' . $totalOutOfStock . '%'" />
   </x-product-separator>
 
-  <x-products-tabel :title="'List of products'" :datas="$products" :fields="['no', 'product', 'category / seller', 'price', 'stock', 'published on', 'actions']" />
+  <x-products-tabel :title="'Data Produk'" :datas="$products" :fields="['no', 'produk', 'kategori / penjual', 'harga', 'stok', 'Publish Pada', 'Aksi']" />
 @endsection

@@ -88,8 +88,8 @@
         </div>
         <div class="col-7">
           <div class="card-body text-sm-end text-center ps-sm-0">
-            <x-basic-button :label="'Add role'" :icon="'plus'" :class="'w-0 text-uppercase mb-5'" :variant="'primary'" :href="route('admin.create.role')" />
-            <p class="mb-0">Add role, if it does not exist</p>
+            <x-basic-button :label="'Tambah role'" :icon="'plus'" :class="'w-0 text-uppercase mb-5'" :variant="'primary'" :href="route('admin.create.role')" />
+            <p class="mb-0">Tambah role, jika tidak ada</p>
           </div>
         </div>
       </div>

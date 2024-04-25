@@ -5,7 +5,7 @@
       <option value="{{ $key }}" @if (old($name) == $key) selected @endif>{{ $value }}</option>
     @endforeach
   </select>
-@elseif ($label == 'Old Password')
+@elseif ($label == 'Password Lama')
   <input type="{{ $type }}" class="form-control" id="{{ $name }}" name="{{ $name }}"
     placeholder="{{ $placeholder }}" value="{{ $value }}" disabled />
 @elseif ($type == 'textarea')

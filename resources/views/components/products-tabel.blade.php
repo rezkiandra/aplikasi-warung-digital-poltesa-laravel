@@ -36,13 +36,15 @@
                 </span>
                 @if (Auth::user()->role_id == 1)
                   <small class="fw-medium d-flex align-items-center">
-                    {{ $data->seller->full_name }} - {{ $data->seller->user->email }}
+                    <span class="badge bg-label-primary rounded">
+                      {{ $data->seller->full_name }} - {{ $data->seller->user->email }}
+                    </span>
                   </small>
                 @endif
               </div>
             </td>
             <td>
-              <span class="fw-medium">Rp.{{ number_format($data->price, 2, ',', '.') }}</span>
+              <span class="fw-medium">Rp{{ number_format($data->price, 0, ',', '.') }}</span>
             </td>
             <td>
               <span class="fw-medium">{{ $data->stock }} pcs</span>
