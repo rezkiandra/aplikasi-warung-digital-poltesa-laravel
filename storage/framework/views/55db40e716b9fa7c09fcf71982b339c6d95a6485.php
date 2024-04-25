@@ -1,0 +1,1 @@
+components.category-table<?php /**PATH C:\laragon\www\warungdigital\storage\framework\views/5ddfd77b63bd4029fca6f794c514c85d6f1e68c1.blade.php ENDPATH**/ ?>

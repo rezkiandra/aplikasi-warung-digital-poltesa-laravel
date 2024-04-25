@@ -1,0 +1,1 @@
+<?php /**PATH C:\Users\USER\Desktop\warungdigital\resources\views/admin/bank_account/detail.blade.php ENDPATH**/ ?>
