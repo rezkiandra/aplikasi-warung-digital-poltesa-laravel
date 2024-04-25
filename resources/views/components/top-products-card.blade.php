@@ -1,7 +1,3 @@
-@php
-  $totalOrders = \App\Models\Order::where('product_id', '>=', 20)->count();
-@endphp
-
 <div class="col-xl-4 col-md-6">
   <div class="card">
     <div class="card-header d-flex align-items-center justify-content-between">
@@ -9,7 +5,7 @@
     </div>
     <div class="card-body">
       @foreach ($datas as $data)
-        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
           <div class="d-flex align-items-center">
             <div class="avatar-wrapper me-3">
               <div class="avatar rounded-2 bg-label-secondary">
@@ -24,7 +20,8 @@
             </div>
           </div>
           <div class="text-end">
-            <h6 class="mb-0">{{ $totalOrders }}</h6>
+            <h6 class="mb-0">
+              {{ \App\Models\Order::where('product_id', $data->id)->orderBy('quantity', 'desc')->sum('quantity') }}</h6>
             <small>Terjual</small>
           </div>
         </div>

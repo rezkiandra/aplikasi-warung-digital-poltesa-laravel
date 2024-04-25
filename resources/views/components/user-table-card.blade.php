@@ -9,7 +9,8 @@
             <th class="text-truncate">Email</th>
             <th class="text-truncate">Role</th>
             <th class="text-truncate">Dibuat Pada</th>
-            <th class="text-truncate">Email Verified</th>
+            <th class="text-truncate">Email Verifikasi</th>
+            <th class="text-truncate">Status</th>
           </tr>
         </thead>
         <tbody>
@@ -38,7 +39,51 @@
                 {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}</td>
               <td class="text-truncate">{{ date('M d, H:i', strtotime($data->email_verified_at)) }}
                 {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}</td>
-              <td><span class="badge bg-label-warning rounded-pill">Pending</span></td>
+              <td>
+                @if ($data->role_id == 1)
+                  @if ($data->seller && $data->seller->status == 'active')
+                    <span class="badge bg-label-success rounded-pill text-uppercase">
+                      {{ $data->seller->status }}
+                    </span>
+                  @elseif($data->seller && $data->seller->status == 'pending')
+                    <span class="badge bg-label-warning rounded-pill text-uppercase">
+                      {{ $data->seller->status }}
+                    </span>
+                  @elseif($data->seller && $data->seller->status == 'inactive')
+                    <span class="badge bg-label-danger rounded-pill text-uppercase">
+                      {{ $data->seller->status }}
+                    </span>
+                  @endif
+                @elseif ($data->role_id == 2)
+                  @if ($data->seller && $data->seller->status == 'active')
+                    <span class="badge bg-label-success rounded-pill text-uppercase">
+                      {{ $data->seller->status }}
+                    </span>
+                  @elseif($data->seller && $data->seller->status == 'pending')
+                    <span class="badge bg-label-warning rounded-pill text-uppercase">
+                      {{ $data->seller->status }}
+                    </span>
+                  @elseif($data->seller && $data->seller->status == 'inactive')
+                    <span class="badge bg-label-danger rounded-pill text-uppercase">
+                      {{ $data->seller->status }}
+                    </span>
+                  @endif
+                @elseif ($data->role_id == 3)
+                  @if ($data->customer && $data->customer->status == 'active')
+                    <span class="badge bg-label-success rounded-pill text-uppercase">
+                      {{ $data->customer->status }}
+                    </span>
+                  @elseif($data->customer && $data->customer->status == 'pending')
+                    <span class="badge bg-label-warning rounded-pill text-uppercase">
+                      {{ $data->customer->status }}
+                    </span>
+                  @elseif($data->customer && $data->customer->status == 'inactive')
+                    <span class="badge bg-label-danger rounded-pill text-uppercase">
+                      {{ $data->customer->status }}
+                    </span>
+                  @endif
+                @endif
+              </td>
             </tr>
           @endforeach
         </tbody>

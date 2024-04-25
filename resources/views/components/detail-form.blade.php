@@ -3,7 +3,7 @@
     <div class="d-flex align-items-center flex-column">
       <img class="img-fluid rounded mb-3 mt-4" src="{{ $image }}" height="120" width="120" alt="User avatar">
       <div class="customer-info text-center mb-4">
-        <h5 class="mb-1">{{ $name }}</h5>
+        <h5 class="mb-1 text-capitalize">{{ $name }}</h5>
         <span>{{ $id }}</span>
       </div>
     </div>
@@ -36,7 +36,7 @@
     <ul class="list-unstyled mb-4">
       <li class="mb-2">
         <span class="h6 me-1">Username:</span>
-        <span>{{ $username }}</span>
+        <span class="text-capitalize">{{ $username }}</span>
       </li>
       <li class="mb-2">
         <span class="h6 me-1">Email:</span>
@@ -48,13 +48,13 @@
           class="badge text-capitalize @if ($status == 'active') bg-label-success @elseif($status == 'inactive') bg-label-danger @else bg-label-warning @endif rounded-pill">{{ $status }}</span>
       </li>
       <li class="mb-2">
-        <span class="h6 me-1">Contact:</span>
+        <span class="h6 me-1">Nomor Telepon:</span>
         <span>{{ $phone }}</span>
       </li>
 
       <li>
-        <span class="h6 me-1">Address:</span>
-        <span>{{ $address }}</span>
+        <span class="h6 me-1">Alamat:</span>
+        <span class="text-capitalize">{{ $address }}</span>
       </li>
     </ul>
     <div class="d-flex justify-content-center gap-3">

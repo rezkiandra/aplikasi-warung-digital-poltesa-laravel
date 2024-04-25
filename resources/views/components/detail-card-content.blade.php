@@ -2,5 +2,4 @@
   <div class="row text-nowrap">
     {{ $slot }}
   </div>
-  <x-detail-order />
 </div>

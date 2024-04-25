@@ -12,7 +12,7 @@ class DetailCard extends Component
    *
    * @return void
    */
-  public function __construct($title, $description, $count, $icon, $variant, $countDescription)
+  public function __construct($title, $description = '', $count, $icon, $variant, $countDescription)
   {
     $this->title = $title;
     $this->description = $description;

@@ -12,7 +12,7 @@ class SellerCard extends Component
 	 *
 	 * @return void
 	 */
-	public function __construct($datas, $label, $icon, $variant, $description = 'Last week analytics', $count, $growth = '')
+	public function __construct($datas, $label, $icon, $variant, $description = 'Analitik penjual minggu ini', $count, $growth = '')
 	{
 		$this->datas = $datas;
 		$this->label = $label;

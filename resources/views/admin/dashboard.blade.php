@@ -7,7 +7,7 @@
   $actionLabel = 'Selengkapnya';
 
   // Transaction Card
-  $title = 'Transaksi'; 
+  $title = 'Transaksi';
   $description = 'Total transaksi dibulan ini';
 
   // Transaction Item Card
@@ -20,7 +20,7 @@
   $sellers = \App\Models\Seller::take(5)->get();
   $customers = \App\Models\Customer::take(5)->get();
   $products = \App\Models\Products::take(5)->get();
-  $users = \App\Models\User::all();
+  $users = \App\Models\User::where('role_id', '!=', 1)->take(8)->get();
 @endphp
 
 @extends('layouts.authenticated')
@@ -36,18 +36,18 @@
       <x-transaction-item-card :label="'Order'" :value="$totalOrder" :variant="'danger'" :icon="'basket-outline'" />
     </x-transactions-card>
 
-    <x-bar-graph-card />
+    {{-- <x-bar-graph-card />
     <x-earnings-card />
     <x-four-card>
       <x-graph-card-content />
       <x-graph-card-content />
       <x-graph-card-content />
       <x-graph-card-content />
-    </x-four-card>
+    </x-four-card> --}}
 
-    <x-top-sellers-card :datas="$sellers" :title="'Top Earnings Seller'" />
-    <x-top-customers-card :datas="$customers" :title="'Top Buying Customer'" />
-    <x-top-products-card :datas="$products" :title="'Top Sale Product'" />
+    <x-top-sellers-card :datas="$sellers" :title="'Penjual Teratas'" />
+    <x-top-customers-card :datas="$customers" :title="'Pelanggan Teratas'" />
+    <x-top-products-card :datas="$products" :title="'Penjualan Produk Teratas'" />
 
     <x-user-table-card :datas="$users" />
   </x-content-card>

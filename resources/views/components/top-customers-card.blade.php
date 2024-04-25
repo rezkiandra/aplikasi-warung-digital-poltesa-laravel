@@ -11,7 +11,7 @@
     </div>
     <div class="card-body">
       @foreach ($datas as $data)
-        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
           <div class="d-flex align-items-center">
             <div class="avatar-wrapper me-3">
               <div class="avatar rounded-2 bg-label-secondary">
@@ -27,7 +27,7 @@
           </div>
           <div class="text-end">
             <h6 class="mb-0">{{ $totalOrders }}</h6>
-            <small>Order</small>
+            <small>Pesanan</small>
           </div>
         </div>
       @endforeach

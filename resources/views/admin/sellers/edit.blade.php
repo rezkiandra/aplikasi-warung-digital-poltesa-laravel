@@ -14,7 +14,7 @@
 
 @extends('layouts.authenticated')
 
-@section('title', 'Edit Seller')
+@section('title', 'Edit Penjual')
 
 @section('content')
   <div class="d-lg-flex justify-content-between gap-4">
@@ -22,23 +22,23 @@
       <img src="{{ asset('storage/' . $seller->image) }}" alt="" class="img-fluid rounded" width="100%">
     </div>
 
-    <x-edit-form :title="'Edit specific seller'" :action="route('admin.update.seller', $seller->uuid)" :route="route('admin.sellers')" :class="'col-lg-10'">
+    <x-edit-form :title="'Edit spesifik penjual'" :action="route('admin.update.seller', $seller->uuid)" :route="route('admin.sellers')" :class="'col-lg-10'">
       <div class="row">
         <div class="col-lg-4">
           <x-form-floating>
-            <x-input-form-label :label="'Seller Name'" :name="'full_name'" :type="'text'" :value="$seller->full_name" />
+            <x-input-form-label :label="'Nama Penjual'" :name="'full_name'" :type="'text'" :value="$seller->full_name" />
           </x-form-floating>
         </div>
 
         <div class="col-lg-4">
           <x-form-floating>
-            <x-input-form-label :label="'Address'" :name="'address'" :type="'text'" :value="$seller->address" />
+            <x-input-form-label :label="'Alamat'" :name="'address'" :type="'text'" :value="$seller->address" />
           </x-form-floating>
         </div>
 
         <div class="col-lg-4">
           <x-form-floating>
-            <x-input-form-label :label="'Phone'" :name="'phone_number'" :type="'text'" :value="$seller->phone_number" />
+            <x-input-form-label :label="'Nomor Telepon'" :name="'phone_number'" :type="'text'" :value="$seller->phone_number" />
           </x-form-floating>
         </div>
 
@@ -88,7 +88,7 @@
 
         <div class="col-lg-4">
           <x-form-floating>
-            <x-input-form-label :label="'Image'" :name="'image'" :type="'file'" :value="$seller->image" />
+            <x-input-form-label :label="'Profil'" :name="'image'" :type="'file'" :value="$seller->image" />
           </x-form-floating>
         </div>
 
@@ -108,12 +108,12 @@
 
         <div class="col-lg-4">
           <x-form-floating>
-            <x-input-form-label :label="'Account Number'" :name="'account_number'" :type="'text'" :value="$seller->account_number, old('account_number')" />
+            <x-input-form-label :label="'Nomor Rekening'" :name="'account_number'" :type="'text'" :value="$seller->account_number, old('account_number')" />
           </x-form-floating>
         </div>
       </div>
 
-      <x-submit-button :label="'Submit'" :type="'submit'" :variant="'primary'" :icon="'check-circle-outline'" />
+      <x-submit-button :label="'Simpan'" :type="'submit'" :variant="'primary'" :icon="'check-circle-outline'" />
     </x-edit-form>
   </div>
 @endsection
