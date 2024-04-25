@@ -6,7 +6,7 @@
 <?php $__env->startSection('title', 'Pengaturan'); ?>
 <?php $__env->startSection('content'); ?>
   <h4 class="mb-1">Pengaturan</h4>
-  <p class="mb-3">Pengaturan data admin warung digital</p>
+  <p class="mb-3">Pengaturan data user admin warung digital</p>
 
   <div class="d-lg-flex justify-content-between gap-4">
     <?php if (isset($component)) { $__componentOriginalceb32ab743a10e309928ba02699759a8f4b56f39 = $component; } ?>

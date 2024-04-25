@@ -4,19 +4,17 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class EarningsCard extends Component
+class OrderTableCard extends Component
 {
-  public $title, $earnings, $description;
+  public $datas;
   /**
    * Create a new component instance.
    *
    * @return void
    */
-  public function __construct($title, $earnings, $description)
+  public function __construct($datas)
   {
-    $this->title = $title;
-    $this->earnings = $earnings;
-    $this->description = $description;
+    $this->datas = $datas;
   }
 
   /**
@@ -26,6 +24,6 @@ class EarningsCard extends Component
    */
   public function render()
   {
-    return view('components.earnings-card');
+    return view('components.order-table-card');
   }
 }

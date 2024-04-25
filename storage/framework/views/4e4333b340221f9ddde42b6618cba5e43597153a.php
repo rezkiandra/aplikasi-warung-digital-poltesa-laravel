@@ -1,14 +1,15 @@
 <?php
   // Greetings Card
-  $greetings = 'Halo, Admin';
+  $message = 'Dashboard admin berisi informasi tentang transaksi, pengguna, penjual, dan produk';
+  $greetings = 'Halo, ' . auth()->user()->name;
   $descriptionGreetings = 'Selamat datang di dashboard admin';
   $label = 'Total Pengguna';
   $value = \App\Models\User::count();
   $actionLabel = 'Selengkapnya';
 
   // Transaction Card
-  $title = 'Transaksi';
-  $description = 'Total transaksi dibulan ini';
+  $title = 'Data Master';
+  $description = 'Total data master dibulan ini';
 
   // Transaction Item Card
   $totalSeller = \App\Models\Seller::count();

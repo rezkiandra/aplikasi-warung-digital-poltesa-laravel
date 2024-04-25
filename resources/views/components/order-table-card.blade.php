@@ -4,13 +4,12 @@
       <table class="table">
         <thead class="table-light">
           <tr>
-            <th class="text-truncate">UUID</th>
-            <th class="text-truncate">User</th>
-            <th class="text-truncate">Email</th>
-            <th class="text-truncate">Role</th>
-            <th class="text-truncate">Dibuat Pada</th>
-            <th class="text-truncate">Email Verifikasi</th>
-            <th class="text-truncate">Status</th>
+            <th class="text-truncate">ID Pesanan</th>
+            <th class="text-truncate">Produk</th>
+            <th class="text-truncate">Quantity</th>
+            <th class="text-truncate">Harga Total</th>
+            <th class="text-truncate">Tanggal Pemesanan</th>
+            <th class="text-truncate">Tanggal Dibayar</th>
           </tr>
         </thead>
         <tbody>
@@ -21,11 +20,8 @@
               </td>
               <td>
                 <div class="d-flex align-items-center">
-                  {{-- <div class="avatar avatar-sm me-3">
-                    <img src="{{ asset('storage/' . $data->image) }}" alt="Avatar" class="rounded-circle">
-                  </div> --}}
                   <div>
-                    <h6 class="mb-1 text-truncate">{{ $data->name }}</h6>
+                    <h6 class="mb-1 text-truncate">{{ $data->customer->full_name }}</h6>
                     <small class="text-truncate badge bg-label-info rounded">{{ $data->slug }}</small>
                   </div>
                 </div>
@@ -92,13 +88,12 @@
         </tbody>
         <tfoot class="table-light">
           <tr>
-            <th class="text-truncate">UUID</th>
-            <th class="text-truncate">User</th>
-            <th class="text-truncate">Email</th>
-            <th class="text-truncate">Role</th>
-            <th class="text-truncate">Dibuat Pada</th>
-            <th class="text-truncate">Email Verifikasi</th>
-            <th class="text-truncate">Status</th>
+            <th class="text-truncate">ID Pesanan</th>
+            <th class="text-truncate">Produk</th>
+            <th class="text-truncate">Quantity</th>
+            <th class="text-truncate">Harga Total</th>
+            <th class="text-truncate">Tanggal Pemesanan</th>
+            <th class="text-truncate">Tanggal Dibayar</th>
           </tr>
         </tfoot>
       </table>

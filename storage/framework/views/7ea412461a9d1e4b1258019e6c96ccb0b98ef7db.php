@@ -4,7 +4,7 @@
       <table class="table">
         <thead class="table-light">
           <tr>
-            <th class="text-truncate">ID</th>
+            <th class="text-truncate">UUID</th>
             <th class="text-truncate">User</th>
             <th class="text-truncate">Email</th>
             <th class="text-truncate">Role</th>
@@ -17,7 +17,7 @@
           <?php $__currentLoopData = $datas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <tr>
               <td class="text-truncate">
-                <span class="badge bg-label-primary">#<?php echo e($data->id); ?></span>
+                <span class="badge bg-label-primary text-uppercase">#<?php echo e(Str::substr($data->uuid, 0, 4)); ?></span>
               </td>
               <td>
                 <div class="d-flex align-items-center">
@@ -30,8 +30,11 @@
               </td>
               <td class="text-truncate"><?php echo e($data->email); ?></td>
               <td class="text-truncate">
-                <i class="mdi mdi-laptop mdi-24px text-danger me-1"></i>
-                <span><?php echo e($data->role->role_name); ?></span>
+                <?php if($data->role_id == 2): ?>
+                  <span class="badge bg-label-info text-uppercase"><?php echo e($data->role->role_name); ?></span>
+                <?php elseif($data->role_id == 3): ?>
+                  <span class="badge bg-label-primary text-uppercase"><?php echo e($data->role->role_name); ?></span>
+                <?php endif; ?>
               </td>
               <td class="text-truncate fw-medium"><?php echo e(date('M d, H:i', strtotime($data->created_at))); ?>
 
@@ -96,6 +99,17 @@
             </tr>
           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </tbody>
+        <tfoot class="table-light">
+          <tr>
+            <th class="text-truncate">UUID</th>
+            <th class="text-truncate">User</th>
+            <th class="text-truncate">Email</th>
+            <th class="text-truncate">Role</th>
+            <th class="text-truncate">Dibuat Pada</th>
+            <th class="text-truncate">Email Verifikasi</th>
+            <th class="text-truncate">Status</th>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </div>
