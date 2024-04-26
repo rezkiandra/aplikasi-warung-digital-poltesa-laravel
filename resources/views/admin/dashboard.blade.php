@@ -6,6 +6,7 @@
   $label = 'Total Pengguna';
   $value = \App\Models\User::count();
   $actionLabel = 'Selengkapnya';
+  $route = route('admin.users');
 
   // Transaction Card
   $title = 'Data Master';
@@ -29,7 +30,7 @@
 
 @section('content')
   <x-content-card>
-    <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel" />
+    <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel" :route="$route" />
     <x-transactions-card :title="$title" :description="$description">
       <x-transaction-item-card :label="'Seller'" :value="$totalSeller" :variant="'info'" :icon="'account-group-outline'" />
       <x-transaction-item-card :label="'Customer'" :value="$totalCustomer" :variant="'success'" :icon="'account-multiple-outline'" />

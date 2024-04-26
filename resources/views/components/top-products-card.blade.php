@@ -9,19 +9,19 @@
           <div class="d-flex align-items-center">
             <div class="avatar-wrapper me-3">
               <div class="avatar rounded-2 bg-label-secondary">
-                <img src="{{ asset('storage/' . $data->image) }}" class="rounded-2">
+                <img src="{{ asset('storage/' . $data->product->image) }}" class="rounded-2">
               </div>
             </div>
             <div class="">
               <div class="d-flex flex-row align-items-start justify-content-start gap-1">
-                <span class="text-dark text-capitalize fw-medium">{{ $data->name }}</span>
+                <span class="text-dark text-capitalize fw-medium">{{ $data->product->name }}</span>
               </div>
-              <small>Rp{{ number_format($data->price, 0, '.', ',') }}</small>
+              <small>Rp{{ number_format($data->product->price, 0, '.', ',') }}</small>
             </div>
           </div>
           <div class="text-end">
             <h6 class="mb-0">
-              {{ \App\Models\Order::where('product_id', $data->id)->orderBy('quantity', 'desc')->sum('quantity') }}</h6>
+              {{ $data->total }}</h6>
             <small>Terjual</small>
           </div>
         </div>

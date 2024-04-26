@@ -130,11 +130,11 @@
     <?php if (isset($component)) { $__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalProductCurrentSeller,'label' => 'Products','icon' => 'cart-outline','variant' => 'primary','percentage' => $productPercentageCurrentSeller
           ? '+' . $productPercentageCurrentSeller . '%'
-          : '-' . $productPrePercentageCurrentSeller . '%','class' => 'border-end','totalOrders' => 'Total products']); ?>
+          : '-' . $productPrePercentageCurrentSeller . '%','class' => 'border-end']); ?>
 <?php $component->withName('product-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes([]); ?>
+<?php $component->withAttributes(['totalOrders' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('Total products')]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5)): ?>
@@ -145,11 +145,11 @@
     <?php if (isset($component)) { $__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalProductTopSaleCurrentSeller,'label' => 'Top Sale','icon' => 'shopping-outline','variant' => 'info','percentage' => $productPercentageTopSaleCurrentSeller
           ? '+' . $productPercentageTopSaleCurrentSeller . '%'
-          : '-' . $productPrePercentageTopSaleCurrentSeller . '%','class' => 'border-end','totalOrders' => 'Total top sale']); ?>
+          : '-' . $productPrePercentageTopSaleCurrentSeller . '%','class' => 'border-end']); ?>
 <?php $component->withName('product-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes([]); ?>
+<?php $component->withAttributes(['totalOrders' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('Total top sale')]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5)): ?>
@@ -160,11 +160,11 @@
     <?php if (isset($component)) { $__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalProductDiscountCurrentSeller,'label' => 'Discount','icon' => 'wallet-giftcard','variant' => 'success','percentage' => $productPercentageDiscountCurrentSeller
           ? '+' . $totalProductDiscountCurrentSeller . '%'
-          : '-' . $productPrePercentageDiscountCurrentSeller . '%','class' => 'border-end','totalOrders' => 'Total discount']); ?>
+          : '-' . $productPrePercentageDiscountCurrentSeller . '%','class' => 'border-end']); ?>
 <?php $component->withName('product-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes([]); ?>
+<?php $component->withAttributes(['totalOrders' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('Total discount')]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5)): ?>
@@ -175,11 +175,11 @@
     <?php if (isset($component)) { $__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalProductOutOfStockCurrentSeller,'label' => 'Out of Stock','icon' => 'sale-outline','variant' => 'dark','percentage' => $productPercentageOutOfStockCurrentSeller
           ? '+' . $totalProductOutOfStockCurrentSeller . '%'
-          : '-' . $productPrePentageOutOfStockCurrentSeller . '%','totalOrders' => 'Total out of stock']); ?>
+          : '-' . $productPrePentageOutOfStockCurrentSeller . '%']); ?>
 <?php $component->withName('product-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes([]); ?>
+<?php $component->withAttributes(['totalOrders' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('Total out of stock')]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5)): ?>

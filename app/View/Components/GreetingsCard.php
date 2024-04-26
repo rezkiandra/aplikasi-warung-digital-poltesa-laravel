@@ -11,19 +11,20 @@ class GreetingsCard extends Component
   public $label;
   public $value;
   public $actionLabel;
+  public $route;
   /**
    * Create a new component instance.
    *
    * @return void
    */
-  public function __construct($greetings, $description, $label, $value, $actionLabel)
+  public function __construct($greetings, $description, $label, $value, $actionLabel, $route)
   {
     $this->greetings = $greetings;
     $this->description = $description;
     $this->label = $label;
     $this->value = $value;
     $this->actionLabel = $actionLabel;
-    //
+    $this->route = $route;
   }
 
   /**

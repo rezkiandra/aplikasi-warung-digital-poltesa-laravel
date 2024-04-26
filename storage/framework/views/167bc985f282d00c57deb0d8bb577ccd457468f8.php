@@ -6,6 +6,7 @@
   $label = 'Total Produk';
   $value = \App\Models\Products::where('seller_id', auth()->user()->seller->id)->count();
   $actionLabel = 'Selengkapnya';
+  $route = route('seller.products');
 
   // Transaction Card
   $title = 'Transaksi';
@@ -41,27 +42,25 @@
 
   // Top Card Content
   // get top buying customers
-  // $customers = \App\Models\Order::join('customers', 'orders.customer_id', '=', 'customers.id', 'left')
-  //     ->orderBy('orders.created_at', 'desc')
-  //     ->take(5)
-  //     ->get();
-  $customers = \App\Models\Order::join('customers', 'orders.customer_id', '=', 'customers.id', 'left')
+  $topCustomers = \App\Models\Order::selectRaw('customer_id, count(*) as total')
       ->join('products', 'orders.product_id', '=', 'products.id', 'left')
       ->where('products.seller_id', auth()->user()->seller->id)
-      ->orderBy('orders.created_at', 'desc')
+      ->where('orders.status', 'paid')
+      ->groupBy('customer_id')
+      ->orderBy('total', 'desc')
       ->take(5)
       ->get();
 
-  $products = \App\Models\Products::where('seller_id', auth()->user()->seller->id)
-      ->take(5)
-      ->get();
-
-  $orders = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
+  $topProducts = \App\Models\Order::selectRaw('product_id, sum(quantity) as total')
+      ->join('products', 'orders.product_id', '=', 'products.id', 'left')
       ->where('products.seller_id', auth()->user()->seller->id)
       ->where('orders.status', 'paid')
-      ->orderBy('orders.created_at', 'desc')
+      ->groupBy('product_id')
+      ->orderBy('total', 'desc')
       ->take(5)
       ->get();
+
+  $products = \App\Models\Products::where('seller_id', auth()->user()->seller->id)->get();
 ?>
 
 
@@ -74,7 +73,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
     <?php if (isset($component)) { $__componentOriginal762af387888d73777fd7dc09ca774a195ec71e43 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\GreetingsCard::class, ['greetings' => $greetings,'description' => $descriptionGreetings,'label' => $label,'value' => $value,'actionLabel' => $actionLabel]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\GreetingsCard::class, ['greetings' => $greetings,'description' => $descriptionGreetings,'label' => $label,'value' => $value,'actionLabel' => $actionLabel,'route' => $route]); ?>
 <?php $component->withName('greetings-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -163,7 +162,7 @@
 
     
     <?php if (isset($component)) { $__componentOriginalb9783c6f7c28aed40cbc0e3f994fe6ef23b75a4c = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TopCustomersCard::class, ['datas' => $customers,'title' => 'Pelanggan Teratas']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TopCustomersCard::class, ['datas' => $topCustomers,'title' => 'Pelanggan Teratas']); ?>
 <?php $component->withName('top-customers-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -175,7 +174,7 @@
 <?php unset($__componentOriginalb9783c6f7c28aed40cbc0e3f994fe6ef23b75a4c); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginal4980b8428731110d8ba140e84171140e339b1ec2 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TopProductsCard::class, ['datas' => $products,'title' => 'Penjualan Produk Teratas']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TopProductsCard::class, ['datas' => $topProducts,'title' => 'Penjualan Produk Teratas']); ?>
 <?php $component->withName('top-products-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -187,7 +186,18 @@
 <?php unset($__componentOriginal4980b8428731110d8ba140e84171140e339b1ec2); ?>
 <?php endif; ?>
 
-    
+    <?php if (isset($component)) { $__componentOriginala144b9ccba1c3788af5830dac49395e08912d6fe = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\ProductTableCard::class, ['datas' => $products]); ?>
+<?php $component->withName('product-table-card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginala144b9ccba1c3788af5830dac49395e08912d6fe)): ?>
+<?php $component = $__componentOriginala144b9ccba1c3788af5830dac49395e08912d6fe; ?>
+<?php unset($__componentOriginala144b9ccba1c3788af5830dac49395e08912d6fe); ?>
+<?php endif; ?>
    <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>

@@ -90,7 +90,7 @@
             </tr>
           @endforeach
         </tbody>
-        <tfoot class="table-light">
+        {{-- <tfoot class="table-light">
           <tr>
             <th class="text-truncate">UUID</th>
             <th class="text-truncate">User</th>
@@ -100,7 +100,7 @@
             <th class="text-truncate">Email Verifikasi</th>
             <th class="text-truncate">Status</th>
           </tr>
-        </tfoot>
+        </tfoot> --}}
       </table>
     </div>
   </div>

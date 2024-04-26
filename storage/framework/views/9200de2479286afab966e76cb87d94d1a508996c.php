@@ -24,7 +24,7 @@
             </div>
             <div class="">
               <div class="d-flex flex-row align-items-start justify-content-start gap-1">
-                <span class="text-dark text-capitalize fw-medium"><?php echo e($data->full_name); ?></span>
+                <span class="text-dark text-capitalize fw-medium"><?php echo e($data->customer->full_name); ?></span>
               </div>
               <?php if(Auth::user()->role_id == 1): ?>
                 <small><?php echo e($data->user->email); ?></small>

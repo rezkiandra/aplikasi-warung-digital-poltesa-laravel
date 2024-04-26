@@ -24,7 +24,7 @@
             </div>
             <div class="">
               <div class="d-flex flex-row align-items-start justify-content-start gap-1">
-                <span class="text-dark text-capitalize fw-medium">{{ $data->full_name }}</span>
+                <span class="text-dark text-capitalize fw-medium">{{ $data->customer->full_name }}</span>
               </div>
               @if (Auth::user()->role_id == 1)
                 <small>{{ $data->user->email }}</small>
