@@ -32,26 +32,16 @@
       ->where('status', 'cancelled')
       ->count();
 
-  // Top Card Content
-  // $topCustomers = \App\Models\Order::selectRaw('customer_id, count(*) as total')
-  //     ->join('products', 'orders.product_id', '=', 'products.id', 'left')
-  //     ->where('products.seller_id', auth()->user()->seller->id)
-  //     ->where('orders.status', 'paid')
-  //     ->groupBy('customer_id')
-  //     ->orderBy('total', 'desc')
-  //     ->take(5)
-  //     ->get();
+  $topProducts = \App\Models\Order::selectRaw('product_id, sum(quantity) as total')
+      ->join('products', 'orders.product_id', '=', 'products.id', 'left')
+      ->where('orders.customer_id', auth()->user()->customer->id)
+      ->where('orders.status', 'paid')
+      ->groupBy('product_id')
+      ->orderBy('total', 'desc')
+      ->take(5)
+      ->get();
 
-  // $topProducts = \App\Models\Order::selectRaw('product_id, sum(quantity) as total')
-  //     ->join('products', 'orders.product_id', '=', 'products.id', 'left')
-  //     ->where('products.seller_id', auth()->user()->seller->id)
-  //     ->where('orders.status', 'paid')
-  //     ->groupBy('product_id')
-  //     ->orderBy('total', 'desc')
-  //     ->take(5)
-  //     ->get();
-
-  // $products = \App\Models\Products::where('seller_id', auth()->user()->seller->id)->paginate(6);
+  $orders = \App\Models\Order::where('customer_id', auth()->user()->customer->id)->paginate(8);
 @endphp
 
 @extends('layouts.authenticated')
@@ -67,19 +57,18 @@
       <x-transaction-item-card :label="'Pesanan Dibatalkan'" :value="$totalCancelled" :variant="'danger'" :icon="'basket-outline'" />
     </x-transactions-card>
 
-    {{-- <x-bar-graph-card /> --}}
     <x-earnings-card :title="$titleSpent" :description="$descriptionSpent" :earnings="$spentValue" />
-    {{-- <x-four-card>
-      <x-graph-card-content />
-      <x-graph-card-content />
-      <x-graph-card-content />
-      <x-graph-card-content />
-    </x-four-card> --}}
+    {{-- <x-bar-graph-card /> --}}
 
     {{-- <x-top-sellers-card :datas="$sellers" :title="'Penjual Teratas'" /> --}}
-    {{-- <x-top-customers-card :datas="$topCustomers" :title="'Pelanggan Teratas'" />
-    <x-top-products-card :datas="$topProducts" :title="'Penjualan Produk Teratas'" /> --}}
+    {{-- <x-top-customers-card :datas="$topCustomers" :title="'Pelanggan Teratas'" /> --}}
+    <x-top-products-card :datas="$topProducts" :title="'Pembelian Produk Teratas'" />
 
-    {{-- <x-product-table-card :datas="$products" /> --}}
+    <x-four-card>
+      <x-graph-card-content />
+      <x-graph-card-content />
+    </x-four-card>
+
+    <x-order-table-card :datas="$orders" />
   </x-content-card>
 @endsection

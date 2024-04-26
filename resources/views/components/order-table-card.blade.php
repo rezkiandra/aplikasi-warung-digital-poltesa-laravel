@@ -9,7 +9,7 @@
             <th class="text-truncate">Quantity</th>
             <th class="text-truncate">Harga Total</th>
             <th class="text-truncate">Tanggal Pemesanan</th>
-            <th class="text-truncate">Tanggal Dibayar</th>
+            <th class="text-truncate">Status</th>
           </tr>
         </thead>
         <tbody>
@@ -20,82 +20,49 @@
               </td>
               <td>
                 <div class="d-flex align-items-center">
-                  <div>
-                    <h6 class="mb-1 text-truncate">{{ $data->customer->full_name }}</h6>
-                    <small class="text-truncate badge bg-label-info rounded">{{ $data->slug }}</small>
+                  <div class="d-flex align-items-center">
+                    <div class="avatar-wrapper me-3">
+                      <div class="avatar rounded-2 bg-label-secondary">
+                        <img src="{{ asset('storage/' . $data->product->image) }}" class="rounded-2">
+                      </div>
+                    </div>
+                    <div class="">
+                      <div class="d-flex flex-row align-items-start justify-content-start gap-1">
+                        <span class="text-dark text-capitalize fw-medium">{{ $data->product->name }}</span>
+                      </div>
+                      <small class="text-truncate badge bg-label-primary rounded">{{ $data->product->slug }}</small>
+                    </div>
                   </div>
                 </div>
               </td>
-              <td class="text-truncate">{{ $data->email }}</td>
-              <td class="text-truncate">
-                @if ($data->role_id == 2)
-                  <span class="badge bg-label-info text-uppercase">{{ $data->role->role_name }}</span>
-                @elseif ($data->role_id == 3)
-                  <span class="badge bg-label-primary text-uppercase">{{ $data->role->role_name }}</span>
-                @endif
+              <td class="text-truncate">{{ $data->quantity }} pcs</td>
+              <td class="text-truncate">Rp{{ number_format($data->total_price, 2, ',', '.') }}</td>
+              <td class="text-truncate fw-medium">
+                <span class="badge bg-label-info rounded">{{ date('M d, H:i', strtotime($data->created_at)) }}
+                  {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
+                </span>
               </td>
-              <td class="text-truncate fw-medium">{{ date('M d, H:i', strtotime($data->created_at)) }}
-                {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}</td>
-              <td class="text-truncate">{{ date('M d, H:i', strtotime($data->email_verified_at)) }}
-                {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}</td>
-              <td>
-                @if ($data->role_id == 1)
-                  @if ($data->seller && $data->seller->status == 'active')
-                    <span class="badge bg-label-success rounded-pill text-uppercase">
-                      {{ $data->seller->status }}
-                    </span>
-                  @elseif($data->seller && $data->seller->status == 'pending')
-                    <span class="badge bg-label-warning rounded-pill text-uppercase">
-                      {{ $data->seller->status }}
-                    </span>
-                  @elseif($data->seller && $data->seller->status == 'inactive')
-                    <span class="badge bg-label-danger rounded-pill text-uppercase">
-                      {{ $data->seller->status }}
-                    </span>
-                  @endif
-                @elseif ($data->role_id == 2)
-                  @if ($data->seller && $data->seller->status == 'active')
-                    <span class="badge bg-label-success rounded-pill text-uppercase">
-                      {{ $data->seller->status }}
-                    </span>
-                  @elseif($data->seller && $data->seller->status == 'pending')
-                    <span class="badge bg-label-warning rounded-pill text-uppercase">
-                      {{ $data->seller->status }}
-                    </span>
-                  @elseif($data->seller && $data->seller->status == 'inactive')
-                    <span class="badge bg-label-danger rounded-pill text-uppercase">
-                      {{ $data->seller->status }}
-                    </span>
-                  @endif
-                @elseif ($data->role_id == 3)
-                  @if ($data->customer && $data->customer->status == 'active')
-                    <span class="badge bg-label-success rounded-pill text-uppercase">
-                      {{ $data->customer->status }}
-                    </span>
-                  @elseif($data->customer && $data->customer->status == 'pending')
-                    <span class="badge bg-label-warning rounded-pill text-uppercase">
-                      {{ $data->customer->status }}
-                    </span>
-                  @elseif($data->customer && $data->customer->status == 'inactive')
-                    <span class="badge bg-label-danger rounded-pill text-uppercase">
-                      {{ $data->customer->status }}
-                    </span>
-                  @endif
+              <td class="text-truncate">
+                @if ($data->status == 'paid')
+                  <span class="badge bg-label-success rounded text-uppercase">{{ $data->status }}</span>
+                @elseif ($data->status == 'unpaid')
+                  <span class="badge bg-label-danger rounded text-uppercase">{{ $data->status }}</span>
+                @elseif ($data->status == 'cancelled')
+                  <span class="badge bg-label-dark rounded text-uppercase">{{ $data->status }}</span>
                 @endif
               </td>
             </tr>
           @endforeach
         </tbody>
-        <tfoot class="table-light">
+        {{-- <tfoot class="table-light">
           <tr>
             <th class="text-truncate">ID Pesanan</th>
             <th class="text-truncate">Produk</th>
             <th class="text-truncate">Quantity</th>
             <th class="text-truncate">Harga Total</th>
             <th class="text-truncate">Tanggal Pemesanan</th>
-            <th class="text-truncate">Tanggal Dibayar</th>
           </tr>
-        </tfoot>
+        </tfoot> --}}
       </table>
     </div>
   </div>
