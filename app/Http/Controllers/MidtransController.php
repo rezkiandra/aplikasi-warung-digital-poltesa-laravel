@@ -92,8 +92,10 @@ class MidtransController extends Controller
   public function cancelPayment(string $uuid)
   {
     $order = Order::where('uuid', $uuid)->first();
-    $order->status = 'cancelled';
     $order->product->stock += $order->quantity;
+    $order->product->update();
+
+    $order->status = 'cancelled';
     $order->save();
 
     return view('customer.cancel-payment', compact('order'));
@@ -109,7 +111,7 @@ class MidtransController extends Controller
 
     if ($hashed === $request->signature_key) {
       // Logika untuk menangani callback jika signature key valid
-      if($request->status_code === '200') {
+      if ($request->status_code === '200') {
         $order = Order::where('uuid', $request->order_id)->first();
         $order->status = 'paid';
         // Mendapatkan metode pembayaran

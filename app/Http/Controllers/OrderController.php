@@ -42,7 +42,10 @@ class OrderController extends Controller
       'status' => 'unpaid'
     ]);
 
-    Alert::toast('Successfully updated an order', 'success');
+    $order->product->increment('stock', $order->quantity);
+    $order->product->update();
+
+    Alert::toast('Successfully repurhased product', 'success');
     return redirect()->route('customer.orders');
   }
 }
