@@ -60,7 +60,7 @@
       ->take(5)
       ->get();
 
-  $products = \App\Models\Products::where('seller_id', auth()->user()->seller->id)->get();
+  $products = \App\Models\Products::where('seller_id', auth()->user()->seller->id)->paginate(6);
 ?>
 
 

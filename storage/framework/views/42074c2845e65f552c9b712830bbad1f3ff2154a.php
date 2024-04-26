@@ -3,15 +3,13 @@
 ?>
 
 
-
 <?php $__env->startSection('title', 'Checkout'); ?>
-
 <?php $__env->startSection('content'); ?>
   <div class="bs-stepper-content rounded-0">
     <div id="checkout-cart" class="content fv-plugins-bootstrap5 fv-plugins-framework active dstepper-block">
       <div class="row">
         <!-- Cart left -->
-        <h5>My Shopping Bag (2 Items)</h5>
+        <h5>Checkout Pesanan</h5>
         <div class="col-xl-8 mb-4 mb-xl-0">
           <ul class="list-group mb-4">
             <li class="list-group-item">
@@ -32,9 +30,7 @@
                           class="badge bg-label-primary rounded-pill mt-2 mt-sm-0"><?php echo e($order->product->seller->full_name); ?></span>
                       </div>
                       <div class="text-muted mb-1 mb-lg-2 d-lg-flex align-items-center small">
-                        <span class="me-lg-1 me-0">Stok:</span>
-                        <span class="me-1 text-primary"><?php echo e($order->product->stock); ?></span>
-                        <span class="badge bg-label-info rounded-pill mt-2 mt-sm-0">In Stock</span>
+                        
                       </div>
                       <input type="number" class="form-control form-control-sm mb-2 disabled readonly" disabled
                         value="<?php echo e($order->quantity); ?>">
@@ -69,11 +65,7 @@
                 </div>
               </div>
             </div>
-            <div class="bg-lightest rounded p-4 mb-4">
-              <h6 class="mb-2">Buying gift for a loved one?</h6>
-              <p class="mb-2">Gift wrap and personalized message on card, Only for $2.</p>
-              <a href="javascript:void(0)" class="fw-medium">Add a gift wrap</a>
-            </div>
+            
             <dl class="row mb-0">
               <dt class="col-6 fw-normal text-heading">Subtotal</dt>
               <dd class="col-6 text-end">Rp<?php echo e(number_format($order->product->price * $order->quantity, 0, '.', '.')); ?>

@@ -1,12 +1,15 @@
+<?php
+  $fee = 0;
+?>
 
-<?php $__env->startSection('title', 'Cart'); ?>
+<?php $__env->startSection('title', 'Keranjang'); ?>
 <?php $__env->startSection('content'); ?>
-  <h4 class="mb-1">Cart</h4>
-  <p class="mb-3">List of products in your cart</p>
+  <h4 class="mb-1">Keranjang Produk</h4>
+  <p class="mb-3">Daftar produk yang ada di keranjang belanja anda</p>
 
   <div class="card p-3">
     <div class="col-lg-12 mb-4">
-      <h5>My Shopping Bag (<?php echo e($carts->count()); ?> Items)</h5>
+      <h5>Keranjang produk saya (<?php echo e($carts->count()); ?> item)</h5>
       <ul class="list-group mb-4">
         <?php $__currentLoopData = $carts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cart): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           <li class="list-group-item" data-price="<?php echo e($cart->product->price); ?>" data-product-id="<?php echo e($cart->product_id); ?>">
@@ -31,13 +34,13 @@
                     <div class="text-muted mb-1 mb-lg-2 d-lg-flex align-items-center small">
                       <span class="me-lg-1 me-0">Stok:</span>
                       <span class="me-1 text-primary"><?php echo e($cart->product->stock); ?></span>
-                      <span class="badge bg-label-info rounded-pill mt-2 mt-sm-0">In Stock</span>
+                      <span class="badge bg-label-info rounded-pill mt-2 mt-sm-0">Stok tersedia</span>
                     </div>
                     <div class="d-flex gap-1">
                       <form action="<?php echo e(route('cart.destroy', $cart->id)); ?>" method="POST">
                         <?php echo csrf_field(); ?>
                         <?php echo method_field('DELETE'); ?>
-                        <button type="submit" class="btn btn-sm">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">
                           <i class="mdi mdi-trash-can-outline text-danger"></i>
                         </button>
                       </form>
@@ -50,7 +53,7 @@
                   <div class="mt-lg-0 mt-2">
                     
                     <span class="text-body"
-                      id="totalPrice">Rp<?php echo e(number_format($cart->product->price * $cart->quantity + 1, 0, '.', '.')); ?>
+                      id="totalPrice">Rp<?php echo e(number_format($cart->product->price * $cart->quantity + $fee, 0, '.', '.')); ?>
 
                     </span>
                   </div>
@@ -59,7 +62,7 @@
                     <input type="hidden" name="product_id" value="<?php echo e($cart->product_id); ?>">
                     <input type="hidden" name="quantity" id="quantity" value="<?php echo e($cart->quantity); ?>">
                     <input type="hidden" name="total_price"
-                      value="<?php echo e($cart->product->price * $cart->quantity + 1); ?>">
+                      value="<?php echo e($cart->product->price * $cart->quantity + $fee); ?>">
                     <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Beli Sekarang','id' => 'btn-buy','type' => 'submit','variant' => 'outline-primary btn-sm']); ?>
 <?php $component->withName('submit-button'); ?>

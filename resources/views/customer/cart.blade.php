@@ -1,12 +1,15 @@
+@php
+  $fee = 0;
+@endphp
 @extends('layouts.authenticated')
-@section('title', 'Cart')
+@section('title', 'Keranjang')
 @section('content')
-  <h4 class="mb-1">Cart</h4>
-  <p class="mb-3">List of products in your cart</p>
+  <h4 class="mb-1">Keranjang Produk</h4>
+  <p class="mb-3">Daftar produk yang ada di keranjang belanja anda</p>
 
   <div class="card p-3">
     <div class="col-lg-12 mb-4">
-      <h5>My Shopping Bag ({{ $carts->count() }} Items)</h5>
+      <h5>Keranjang produk saya ({{ $carts->count() }} item)</h5>
       <ul class="list-group mb-4">
         @foreach ($carts as $cart)
           <li class="list-group-item" data-price="{{ $cart->product->price }}" data-product-id="{{ $cart->product_id }}">
@@ -31,13 +34,13 @@
                     <div class="text-muted mb-1 mb-lg-2 d-lg-flex align-items-center small">
                       <span class="me-lg-1 me-0">Stok:</span>
                       <span class="me-1 text-primary">{{ $cart->product->stock }}</span>
-                      <span class="badge bg-label-info rounded-pill mt-2 mt-sm-0">In Stock</span>
+                      <span class="badge bg-label-info rounded-pill mt-2 mt-sm-0">Stok tersedia</span>
                     </div>
                     <div class="d-flex gap-1">
                       <form action="{{ route('cart.destroy', $cart->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">
                           <i class="mdi mdi-trash-can-outline text-danger"></i>
                         </button>
                       </form>
@@ -50,7 +53,7 @@
                   <div class="mt-lg-0 mt-2">
                     {{-- <s class="text-primary">$299 /</s> --}}
                     <span class="text-body"
-                      id="totalPrice">Rp{{ number_format($cart->product->price * $cart->quantity + 1, 0, '.', '.') }}
+                      id="totalPrice">Rp{{ number_format($cart->product->price * $cart->quantity + $fee, 0, '.', '.') }}
                     </span>
                   </div>
                   <form action="{{ route('order.store') }}" method="POST" id="form">
@@ -58,7 +61,7 @@
                     <input type="hidden" name="product_id" value="{{ $cart->product_id }}">
                     <input type="hidden" name="quantity" id="quantity" value="{{ $cart->quantity }}">
                     <input type="hidden" name="total_price"
-                      value="{{ $cart->product->price * $cart->quantity + 1 }}">
+                      value="{{ $cart->product->price * $cart->quantity + $fee }}">
                     <x-submit-button :label="'Beli Sekarang'" id="btn-buy" :type="'submit'" :variant="'outline-primary btn-sm'" />
                   </form>
                 </div>

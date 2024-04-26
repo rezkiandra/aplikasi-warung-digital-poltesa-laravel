@@ -4,16 +4,16 @@
 
 
 
-<?php $__env->startSection('title', 'Edit Product'); ?>
+<?php $__env->startSection('title', 'Edit Produk'); ?>
 
 <?php $__env->startSection('content'); ?>
   <div class="d-lg-flex justify-content-between gap-4">
-    <div class="card-body">
+    <div class="card-body mb-lg-0 mb-4">
       <img src="<?php echo e(asset('storage/' . $product->image)); ?>" alt="" class="img-fluid rounded" width="100%">
     </div>
 
     <?php if (isset($component)) { $__componentOriginalceb32ab743a10e309928ba02699759a8f4b56f39 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\EditForm::class, ['title' => 'Edit specific product','action' => route('seller.update.product', $product->uuid),'route' => route('seller.products'),'class' => 'col-lg-9']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\EditForm::class, ['title' => 'Edit spesifik produk','action' => route('seller.update.product', $product->uuid),'route' => route('seller.products'),'class' => 'col-lg-9']); ?>
 <?php $component->withName('edit-form'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -27,7 +27,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
             <?php if (isset($component)) { $__componentOriginale1bb2929f8b9df6873fa722ef130c57617d11754 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Product Name','name' => 'name','type' => 'text','placeholder' => 'Baju kemeja, Kue ulang tahun, dsb','value' => $product->name]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Nama Produk','name' => 'name','type' => 'text','placeholder' => 'Baju kemeja, Kue ulang tahun, dsb','value' => $product->name]); ?>
 <?php $component->withName('input-form-label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -54,7 +54,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
             <?php if (isset($component)) { $__componentOriginale1bb2929f8b9df6873fa722ef130c57617d11754 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Price','name' => 'price','type' => 'text','value' => $product->price]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Harga','name' => 'price','type' => 'text','value' => $product->price]); ?>
 <?php $component->withName('input-form-label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -81,7 +81,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
             <?php if (isset($component)) { $__componentOriginale1bb2929f8b9df6873fa722ef130c57617d11754 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Stock','name' => 'stock','type' => 'text','value' => $product->stock]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Stok','name' => 'stock','type' => 'text','value' => $product->stock]); ?>
 <?php $component->withName('input-form-label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -132,7 +132,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
             <?php if (isset($component)) { $__componentOriginale1bb2929f8b9df6873fa722ef130c57617d11754 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Description','name' => 'description','type' => 'textarea','height' => '120px','value' => $product->description,'placeholder' => 'This product contain 1000mg vitamin c']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Deskripsi','name' => 'description','type' => 'textarea','height' => '120px','value' => $product->description,'placeholder' => 'Produk ini menggunakan bahan premium...']); ?>
 <?php $component->withName('input-form-label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -159,7 +159,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
             <?php if (isset($component)) { $__componentOriginale1bb2929f8b9df6873fa722ef130c57617d11754 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Image','name' => 'image','type' => 'file','value' => $product->image]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Gambar','name' => 'image','type' => 'file','value' => $product->image]); ?>
 <?php $component->withName('input-form-label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -179,7 +179,7 @@
         </div>
       </div>
       <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Submit','type' => 'submit','variant' => 'primary','icon' => 'check-circle-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Simpan','type' => 'submit','variant' => 'primary','icon' => 'check-circle-outline']); ?>
 <?php $component->withName('submit-button'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

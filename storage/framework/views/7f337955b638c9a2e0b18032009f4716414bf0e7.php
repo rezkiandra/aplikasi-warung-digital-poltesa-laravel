@@ -3,13 +3,13 @@
   <div class="table-responsive text-nowrap">
     <table class="table table-hover table-responsive">
       <thead>
-        <th>No</th>
-        <th>Products</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Stock</th>
-        <th>Publish On</th>
-        <th>Actions</th>
+        <th>ID</th>
+        <th>Produk</th>
+        <th>Deskripsi</th>
+        <th>Harga</th>
+        <th>Stok</th>
+        <th>Dipublish Pada</th>
+        <th>Aksi</th>
       </thead>
       <tbody>
         <?php $__currentLoopData = $datas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -111,13 +111,13 @@
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
       </tbody>
       <tfoot class="table-border-bottom-0">
-        <th>No</th>
-        <th>Products</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Stock</th>
-        <th>Publish On</th>
-        <th>Actions</th>
+        <th>ID</th>
+        <th>Produk</th>
+        <th>Deskripsi</th>
+        <th>Harga</th>
+        <th>Stok</th>
+        <th>Dipublish Pada</th>
+        <th>Aksi</th>
       </tfoot>
     </table>
   </div>

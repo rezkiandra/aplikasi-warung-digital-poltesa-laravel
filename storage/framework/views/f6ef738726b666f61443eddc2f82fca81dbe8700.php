@@ -63,14 +63,14 @@
 ?>
 
 
-<?php $__env->startSection('title', 'Products'); ?>
+<?php $__env->startSection('title', 'Produk'); ?>
 
 <?php $__env->startSection('content'); ?>
-  <h4 class="mb-1">Product list</h4>
-  <p class="mb-3">A product will be purchased by customers</p>
+  <h4 class="mb-1">Daftar Produk</h4>
+  <p class="mb-3">Sebuah produk akan dibeli oleh pelanggan</p>
   <?php if($currentSeller->status == 'active'): ?>
     <?php if (isset($component)) { $__componentOriginald4c8f106e1e33ab85c5d037c2504e2574c1b0975 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\Alert::class, ['type' => 'primary','message' => 'Your account is active. And you can add new product','icon' => 'account-check-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\Alert::class, ['type' => 'primary','message' => 'Status anda sebagai penjual telah aktif. Anda dapat mengelola berbagai produk!','icon' => 'account-check-outline']); ?>
 <?php $component->withName('alert'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -82,7 +82,7 @@
 <?php unset($__componentOriginald4c8f106e1e33ab85c5d037c2504e2574c1b0975); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginal884241e53d2640b5f4918f6ac6f391c8aaea60a8 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\BasicButton::class, ['label' => 'Add new product','icon' => 'plus','class' => 'w-0 text-uppercase mb-3','variant' => 'primary','href' => route('seller.create.product')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\BasicButton::class, ['label' => 'Tambah Produk','icon' => 'plus','class' => 'w-0 text-uppercase mb-3','variant' => 'primary','href' => route('seller.create.product')]); ?>
 <?php $component->withName('basic-button'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -95,7 +95,7 @@
 <?php endif; ?>
   <?php elseif($currentSeller->status == 'pending'): ?>
     <?php if (isset($component)) { $__componentOriginald4c8f106e1e33ab85c5d037c2504e2574c1b0975 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\Alert::class, ['type' => 'warning','message' => 'Your account is pending. Please wait for the admin to approve your account.','icon' => 'account-search-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\Alert::class, ['type' => 'warning','message' => 'Status anda sebagai penjual masih pending. Silahkan hubungi admin untuk menyetujui sebagai penjual!','icon' => 'account-search-outline']); ?>
 <?php $component->withName('alert'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -108,7 +108,7 @@
 <?php endif; ?>
   <?php elseif($currentSeller->status == 'inactive'): ?>
     <?php if (isset($component)) { $__componentOriginald4c8f106e1e33ab85c5d037c2504e2574c1b0975 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\Alert::class, ['type' => 'danger','message' => 'Your account is inactive. Please contact the admin to reactive your account.','icon' => 'account-off-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\Alert::class, ['type' => 'danger','message' => 'Status anda sebagai penjual sudah tidak aktif. Silahkan hubungi admin untuk mengaktifkan kembali sebagai penjual!.','icon' => 'account-off-outline']); ?>
 <?php $component->withName('alert'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -128,13 +128,13 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
     <?php if (isset($component)) { $__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalProductCurrentSeller,'label' => 'Products','icon' => 'cart-outline','variant' => 'primary','percentage' => $productPercentageCurrentSeller
+<?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalProductCurrentSeller,'label' => 'Produk','icon' => 'cart-outline','variant' => 'primary','percentage' => $productPercentageCurrentSeller
           ? '+' . $productPercentageCurrentSeller . '%'
-          : '-' . $productPrePercentageCurrentSeller . '%','class' => 'border-end']); ?>
+          : '-' . $productPrePercentageCurrentSeller . '%','class' => 'border-end','description' => 'Jumlah Produk']); ?>
 <?php $component->withName('product-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes(['totalOrders' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('Total products')]); ?>
+<?php $component->withAttributes([]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5)): ?>
@@ -143,13 +143,13 @@
 <?php endif; ?>
 
     <?php if (isset($component)) { $__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalProductTopSaleCurrentSeller,'label' => 'Top Sale','icon' => 'shopping-outline','variant' => 'info','percentage' => $productPercentageTopSaleCurrentSeller
+<?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalProductTopSaleCurrentSeller,'label' => 'Produk Teratas','icon' => 'shopping-outline','variant' => 'info','percentage' => $productPercentageTopSaleCurrentSeller
           ? '+' . $productPercentageTopSaleCurrentSeller . '%'
           : '-' . $productPrePercentageTopSaleCurrentSeller . '%','class' => 'border-end']); ?>
 <?php $component->withName('product-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes(['totalOrders' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('Total top sale')]); ?>
+<?php $component->withAttributes([]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5)): ?>
@@ -158,13 +158,13 @@
 <?php endif; ?>
 
     <?php if (isset($component)) { $__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalProductDiscountCurrentSeller,'label' => 'Discount','icon' => 'wallet-giftcard','variant' => 'success','percentage' => $productPercentageDiscountCurrentSeller
+<?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalProductDiscountCurrentSeller,'label' => 'Produk Diskon','icon' => 'wallet-giftcard','variant' => 'success','percentage' => $productPercentageDiscountCurrentSeller
           ? '+' . $totalProductDiscountCurrentSeller . '%'
           : '-' . $productPrePercentageDiscountCurrentSeller . '%','class' => 'border-end']); ?>
 <?php $component->withName('product-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes(['totalOrders' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('Total discount')]); ?>
+<?php $component->withAttributes([]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5)): ?>
@@ -173,13 +173,13 @@
 <?php endif; ?>
 
     <?php if (isset($component)) { $__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalProductOutOfStockCurrentSeller,'label' => 'Out of Stock','icon' => 'sale-outline','variant' => 'dark','percentage' => $productPercentageOutOfStockCurrentSeller
+<?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalProductOutOfStockCurrentSeller,'label' => 'Produk Habis','icon' => 'sale-outline','variant' => 'dark','percentage' => $productPercentageOutOfStockCurrentSeller
           ? '+' . $totalProductOutOfStockCurrentSeller . '%'
           : '-' . $productPrePentageOutOfStockCurrentSeller . '%']); ?>
 <?php $component->withName('product-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes(['totalOrders' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('Total out of stock')]); ?>
+<?php $component->withAttributes([]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5)): ?>
@@ -194,7 +194,7 @@
 <?php endif; ?>
 
   <?php if (isset($component)) { $__componentOriginal6c16c6e9de925c598ffb6e0e1874d16063528663 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\ProductsTabelSeller::class, ['title' => 'List of products','datas' => $products]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\ProductsTabelSeller::class, ['title' => 'Data Produk','datas' => $products]); ?>
 <?php $component->withName('products-tabel-seller'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

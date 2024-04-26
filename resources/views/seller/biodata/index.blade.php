@@ -8,11 +8,11 @@
 @endphp
 
 @extends('layouts.authenticated')
-@section('title', 'Add Biodata')
+@section('title', 'Biodata')
 @section('content')
   @if (!$currentSeller)
-    <x-alert :type="'warning'" :message="'Your biodata is not added yet. Please add your biodata first'" :icon="'account-off-outline'" />
-    <x-create-form :title="'Add biodata'" :action="route('seller.store.biodata')" :route="route('seller.biodata')">
+    <x-alert :type="'warning'" :message="'Biodata anda belum dilengkapi. Silahkan lengkapi terlebih dahulu!'" :icon="'account-off-outline'" />
+    <x-create-form :title="'Tambah biodata'" :action="route('seller.store.biodata')" :route="route('seller.biodata')">
       <div class="row">
         <div class="col-lg-4">
           <x-form-floating>
@@ -65,22 +65,22 @@
     </x-create-form>
   @else
     @foreach ($seller as $data)
-      <x-alert :type="'success'" :message="'Your biodata is added. And you can edit your biodata'" :icon="'account-off-outline'" />
-      <div class="row">
-        <div class="col-lg-4">
+      <x-alert :type="'primary'" :message="'Biodata anda sudah lengkap. Anda juga bisa mengedit biodata!'" :icon="'account-outline'" />
+      <div class="row gap-lg-0 gap-4">
+        <div class="col-lg-4 mb-lg-0 mb-4">
           <div class="card">
             <div class="card-body d-flex flex-column justify-content-center">
               <div class="text-center">
-                <img src="{{ asset('storage/' . $data->image) }}" alt="" class="img-fluid rounded-circle w-50"
+                <img src="{{ asset('storage/' . $data->image) }}" alt="" class="img-fluid rounded-circle"
                   width="200">
               </div>
-              <div class="mt-4 text-center fw-medium text-capitalize">
+              <div class="mt-3 text-center fw-medium text-capitalize">
                 <h5 class="mb-3">{{ $data->full_name }}</h5>
                 <p class="mb-1">{{ $data->gender }}</p>
                 <p class="mb-1">{{ $data->phone_number }}</p>
                 <p class="mb-1">{{ $data->address }}</p>
                 <p class="mb-1 text-lowercase">{{ $data->user->email }}</p>
-                <p class="mb-4">{{ $data->account_number }}</p>
+                <p class="mb-3">{{ $data->account_number }}</p>
               </div>
             </div>
           </div>

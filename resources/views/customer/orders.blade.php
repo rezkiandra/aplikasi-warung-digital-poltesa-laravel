@@ -13,16 +13,16 @@
 
 
 @extends('layouts.authenticated')
-@section('title', 'Orders')
+@section('title', 'Pesanan')
 @section('content')
-  <h4 class="mb-1">Orders</h4>
-  <p class="mb-3">List of orders</p>
+  <h4 class="mb-1">Pesanan</h4>
+  <p class="mb-3">Daftar pesanan anda yang selesai, belum dibayar, dan dibatalkan</p>
 
   <x-detail-order>
-    <x-detail-order-item :label="'Total Orders'" :icon="'wallet-giftcard'" :class="'border-end'" :variant="'primary'" :condition="$countOrder" />
-    <x-detail-order-item :label="'Unpaid'" :icon="'wallet-outline'" :class="'border-end'" :variant="'danger'" :condition="$countUnpaid" />
-    <x-detail-order-item :label="'Completed'" :icon="'check-all'" :class="'border-end'" :variant="'success'" :condition="$countPaid" />
-    <x-detail-order-item :label="'Cancelled'" :icon="'alert-circle-outline'" :variant="'dark'" :condition="$countCancelled" />
+    <x-detail-order-item :label="'Jumlah Pesanan'" :icon="'wallet-giftcard'" :class="'border-end'" :variant="'primary'" :condition="$countOrder" />
+    <x-detail-order-item :label="'Pesanan Belum Bayar'" :icon="'wallet-outline'" :class="'border-end'" :variant="'danger'" :condition="$countUnpaid" />
+    <x-detail-order-item :label="'Pesanan Selesai'" :icon="'check-all'" :class="'border-end'" :variant="'success'" :condition="$countPaid" />
+    <x-detail-order-item :label="'Pesanan Dibatalkan'" :icon="'alert-circle-outline'" :variant="'dark'" :condition="$countCancelled" />
   </x-detail-order>
 
   <x-order-tabel :orders="$orders" />

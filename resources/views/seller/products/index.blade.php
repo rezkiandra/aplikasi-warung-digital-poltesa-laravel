@@ -63,41 +63,41 @@
 @endphp
 
 @extends('layouts.authenticated')
-@section('title', 'Products')
+@section('title', 'Produk')
 
 @section('content')
-  <h4 class="mb-1">Product list</h4>
-  <p class="mb-3">A product will be purchased by customers</p>
+  <h4 class="mb-1">Daftar Produk</h4>
+  <p class="mb-3">Sebuah produk akan dibeli oleh pelanggan</p>
   @if ($currentSeller->status == 'active')
-    <x-alert :type="'primary'" :message="'Your account is active. And you can add new product'" :icon="'account-check-outline'" />
-    <x-basic-button :label="'Add new product'" :icon="'plus'" :class="'w-0 text-uppercase mb-3'" :variant="'primary'" :href="route('seller.create.product')" />
+    <x-alert :type="'primary'" :message="'Status anda sebagai penjual telah aktif. Anda dapat mengelola berbagai produk!'" :icon="'account-check-outline'" />
+    <x-basic-button :label="'Tambah Produk'" :icon="'plus'" :class="'w-0 text-uppercase mb-3'" :variant="'primary'" :href="route('seller.create.product')" />
   @elseif($currentSeller->status == 'pending')
-    <x-alert :type="'warning'" :message="'Your account is pending. Please wait for the admin to approve your account.'" :icon="'account-search-outline'" />
+    <x-alert :type="'warning'" :message="'Status anda sebagai penjual masih pending. Silahkan hubungi admin untuk menyetujui sebagai penjual!'" :icon="'account-search-outline'" />
   @elseif ($currentSeller->status == 'inactive')
-    <x-alert :type="'danger'" :message="'Your account is inactive. Please contact the admin to reactive your account.'" :icon="'account-off-outline'" />
+    <x-alert :type="'danger'" :message="'Status anda sebagai penjual sudah tidak aktif. Silahkan hubungi admin untuk mengaktifkan kembali sebagai penjual!.'" :icon="'account-off-outline'" />
   @endif
 
   <x-product-separator>
-    <x-product-card :datas="$products" :condition="$totalProductCurrentSeller" :label="'Products'" :icon="'cart-outline'" :variant="'primary'"
+    <x-product-card :datas="$products" :condition="$totalProductCurrentSeller" :label="'Produk'" :icon="'cart-outline'" :variant="'primary'"
       :percentage="$productPercentageCurrentSeller
           ? '+' . $productPercentageCurrentSeller . '%'
-          : '-' . $productPrePercentageCurrentSeller . '%'" :class="'border-end'" :totalOrders="'Total products'" />
+          : '-' . $productPrePercentageCurrentSeller . '%'" :class="'border-end'" :description="'Jumlah Produk'" />
 
-    <x-product-card :datas="$products" :condition="$totalProductTopSaleCurrentSeller" :label="'Top Sale'" :icon="'shopping-outline'" :variant="'info'"
+    <x-product-card :datas="$products" :condition="$totalProductTopSaleCurrentSeller" :label="'Produk Teratas'" :icon="'shopping-outline'" :variant="'info'"
       :percentage="$productPercentageTopSaleCurrentSeller
           ? '+' . $productPercentageTopSaleCurrentSeller . '%'
-          : '-' . $productPrePercentageTopSaleCurrentSeller . '%'" :class="'border-end'" :totalOrders="'Total top sale'" />
+          : '-' . $productPrePercentageTopSaleCurrentSeller . '%'" :class="'border-end'" />
 
-    <x-product-card :datas="$products" :condition="$totalProductDiscountCurrentSeller" :label="'Discount'" :icon="'wallet-giftcard'" :variant="'success'"
+    <x-product-card :datas="$products" :condition="$totalProductDiscountCurrentSeller" :label="'Produk Diskon'" :icon="'wallet-giftcard'" :variant="'success'"
       :percentage="$productPercentageDiscountCurrentSeller
           ? '+' . $totalProductDiscountCurrentSeller . '%'
-          : '-' . $productPrePercentageDiscountCurrentSeller . '%'" :class="'border-end'" :totalOrders="'Total discount'" />
+          : '-' . $productPrePercentageDiscountCurrentSeller . '%'" :class="'border-end'" />
 
-    <x-product-card :datas="$products" :condition="$totalProductOutOfStockCurrentSeller" :label="'Out of Stock'" :icon="'sale-outline'" :variant="'dark'"
+    <x-product-card :datas="$products" :condition="$totalProductOutOfStockCurrentSeller" :label="'Produk Habis'" :icon="'sale-outline'" :variant="'dark'"
       :percentage="$productPercentageOutOfStockCurrentSeller
           ? '+' . $totalProductOutOfStockCurrentSeller . '%'
-          : '-' . $productPrePentageOutOfStockCurrentSeller . '%'" :totalOrders="'Total out of stock'" />
+          : '-' . $productPrePentageOutOfStockCurrentSeller . '%'" />
   </x-product-separator>
 
-  <x-products-tabel-seller :title="'List of products'" :datas="$products" />
+  <x-products-tabel-seller :title="'Data Produk'" :datas="$products" />
 @endsection

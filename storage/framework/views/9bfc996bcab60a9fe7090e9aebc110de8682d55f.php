@@ -8,11 +8,11 @@
 ?>
 
 
-<?php $__env->startSection('title', 'Add Biodata'); ?>
+<?php $__env->startSection('title', 'Biodata'); ?>
 <?php $__env->startSection('content'); ?>
   <?php if(!$currentSeller): ?>
     <?php if (isset($component)) { $__componentOriginald4c8f106e1e33ab85c5d037c2504e2574c1b0975 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\Alert::class, ['type' => 'warning','message' => 'Your biodata is not added yet. Please add your biodata first','icon' => 'account-off-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\Alert::class, ['type' => 'warning','message' => 'Biodata anda belum dilengkapi. Silahkan lengkapi terlebih dahulu!','icon' => 'account-off-outline']); ?>
 <?php $component->withName('alert'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -242,7 +242,7 @@
   <?php else: ?>
     <?php $__currentLoopData = $seller; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <?php if (isset($component)) { $__componentOriginald4c8f106e1e33ab85c5d037c2504e2574c1b0975 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\Alert::class, ['type' => 'success','message' => 'Your biodata is added. And you can edit your biodata','icon' => 'account-off-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\Alert::class, ['type' => 'primary','message' => 'Biodata anda sudah lengkap. Anda juga bisa mengedit biodata!','icon' => 'account-outline']); ?>
 <?php $component->withName('alert'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -253,21 +253,21 @@
 <?php $component = $__componentOriginald4c8f106e1e33ab85c5d037c2504e2574c1b0975; ?>
 <?php unset($__componentOriginald4c8f106e1e33ab85c5d037c2504e2574c1b0975); ?>
 <?php endif; ?>
-      <div class="row">
+      <div class="row gap-lg-0 gap-4">
         <div class="col-lg-4">
           <div class="card">
             <div class="card-body d-flex flex-column justify-content-center">
               <div class="text-center">
-                <img src="<?php echo e(asset('storage/' . $data->image)); ?>" alt="" class="img-fluid rounded-circle w-50"
+                <img src="<?php echo e(asset('storage/' . $data->image)); ?>" alt="" class="img-fluid rounded-circle"
                   width="200">
               </div>
-              <div class="mt-4 text-center fw-medium text-capitalize">
+              <div class="mt-3 text-center fw-medium text-capitalize">
                 <h5 class="mb-3"><?php echo e($data->full_name); ?></h5>
                 <p class="mb-1"><?php echo e($data->gender); ?></p>
                 <p class="mb-1"><?php echo e($data->phone_number); ?></p>
                 <p class="mb-1"><?php echo e($data->address); ?></p>
                 <p class="mb-1 text-lowercase"><?php echo e($data->user->email); ?></p>
-                <p class="mb-4"><?php echo e($data->account_number); ?></p>
+                <p class="mb-3"><?php echo e($data->account_number); ?></p>
               </div>
             </div>
           </div>
