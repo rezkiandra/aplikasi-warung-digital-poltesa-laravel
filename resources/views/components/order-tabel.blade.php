@@ -57,19 +57,11 @@
               </span>
             </td>
             <td>
-              @if (Auth::user()->role_id == 1)
-                <h6
-                  class="mb-0 w-px-100 d-flex align-items-center @if ($data->status == 'unpaid') text-warning @elseif ($data->status == 'canceled') text-dark @elseif($data->status == 'paid') text-success @endif text-uppercase">
-                  <i class="mdi mdi-circle fs-tiny me-1"></i>
-                  {{ $data->status }}
-                </h6>
-              @elseif(Auth::user()->role_id == 2)
-                <h6
-                  class="mb-0 w-px-100 d-flex align-items-center @if ($data->status == 'unpaid') text-warning @elseif ($data->status == 'canceled') text-dark @elseif($data->status == 'paid') text-success @endif text-uppercase">
-                  <i class="mdi mdi-circle fs-tiny me-1"></i>
-                  {{ $data->status }}
-                </h6>
-              @endif
+              <h6
+                class="mb-0 w-px-100 d-flex align-items-center @if ($data->status == 'unpaid') text-warning @elseif ($data->status == 'canceled') text-dark @elseif($data->status == 'paid') text-success @endif text-uppercase">
+                <i class="mdi mdi-circle fs-tiny me-1"></i>
+                {{ $data->status }}
+              </h6>
             </td>
             <td class="">
               <span class="badge bg-label-info">{{ date('d M Y, H:i', strtotime($data->updated_at)) }}

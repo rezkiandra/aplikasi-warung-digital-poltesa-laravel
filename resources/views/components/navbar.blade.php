@@ -24,9 +24,13 @@
         <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
           <div class="avatar avatar-online">
             @if (Auth::user()->role_id == 1)
-              <img src="{{ asset('materio/assets/img/avatars/3.png') }}" alt class="w-px-40 h-auto rounded-circle" />
+              <img src="{{ asset('materio/assets/img/favicon/favicon.ico') }}" alt
+                class="w-px-40 h-auto rounded-circle" />
             @elseif (Auth::user()->role_id == 2)
               <img src="{{ asset('storage/' . Auth::user()->seller->image) }}" alt
+                class="w-px-40 h-auto rounded-circle" />
+            @elseif (Auth::user()->role_id == 3)
+              <img src="{{ asset('storage/' . Auth::user()->customer->image) }}" alt
                 class="w-px-40 h-auto rounded-circle" />
             @endif
           </div>
@@ -38,10 +42,13 @@
                 <div class="flex-shrink-0 me-2 pe-1">
                   <div class="avatar avatar-online">
                     @if (Auth::user()->role_id == 1)
-                      <img src="{{ asset('materio/assets/img/avatars/3.png') }}" alt
+                      <img src="{{ asset('materio/assets/img/favicon/favicon.ico') }}" alt
                         class="w-px-40 h-auto rounded-circle" />
                     @elseif(Auth::user()->role_id == 2)
                       <img src="{{ asset('storage/' . Auth::user()->seller->image) }}" alt
+                        class="w-px-40 h-auto rounded-circle" />
+                    @elseif(Auth::user()->role_id == 3)
+                      <img src="{{ asset('storage/' . Auth::user()->customer->image) }}" alt
                         class="w-px-40 h-auto rounded-circle" />
                     @endif
                   </div>

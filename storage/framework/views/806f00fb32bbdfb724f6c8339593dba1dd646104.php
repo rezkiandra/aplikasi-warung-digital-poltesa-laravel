@@ -221,68 +221,6 @@
     </div>
   </div>
 </div>
-<?php if($customer): ?>
-  <div class="d-lg-flex d-md-flex d-flex justify-content-between align-items-start pt-1 pt-lg-3">
-    <div class="position-absolute">
-      <span class="badge bg-primary text-white d-lg-flex align-items-centers text-uppercase px-4">On Sale</span>
-    </div>
-    <div class="row">
-      <div class="col-lg-4 col-md-6">
-        <img src="<?php echo e(asset('storage/' . $product->image)); ?>" alt=""
-          class="img-fluid rounded shadow hover-shadow">
-      </div>
-
-      <div class="col-lg-8 px-lg-5 col-md-6 mt-lg-0 mt-3 mt-md-0">
-        <h4 class="fw-medium"><?php echo e($product->name); ?></h4>
-        <div class="d-flex d-lg-flex d-md-flex align-items-center gap-4">
-          <p class="d-lg-flex d-flex align-items-center">
-            <i class="mdi mdi-cart-outline me-2"></i>
-            <span class="text-dark">Terjual</span>
-            <span
-              class="ms-1 text-secondary"><?php echo e(\App\Models\Order::where('product_id', $product->id)->sum('quantity')); ?></span>
-          </p>
-          <p class="d-lg-flex align-items-center gap-1">
-            <i class="mdi mdi-star text-warning"></i>
-            <span class="text-dark">4.5</span>
-            <span class="text-secondary">(1.822 rating)</span>
-          </p>
-        </div>
-        <h4 class="mb-3 fw-bold">
-          Rp<?php echo e(number_format($product->price, 0, ',', '.')); ?>
-
-        </h4>
-        <hr class="bg-light">
-
-        <div class="mb-1">
-          <span class="text-secondary">Dipublish pada:</span>
-          <span class="text-dark"><?php echo e(date('M d, H:i', strtotime($product->created_at))); ?>
-
-            <?php echo e($product->created_at->format('H:i') > '12:00' ? 'PM' : 'AM'); ?>
-
-          </span>
-        </div>
-        <div class="mb-1">
-          <span class="text-secondary">Kondisi:<span>
-              <span class="text-dark">Baru</span>
-        </div>
-        <div class="mb-1">
-          <span class="text-secondary">Minimal pemesanan:<span>
-              <span class="text-dark">1 Buah</span>
-        </div>
-        <div class="mb-1">
-          <span class="text-secondary">Penjual:<span>
-              <span class="badge bg-label-primary">Terverifikasi</span>
-        </div>
-        <hr class="bg-light">
-
-        <div class="pb-3">
-          <p class="text-secondary mb-1">Deskripsi:</p>
-          <span class="text-dark text-capitalize"><?php echo e($product->description); ?></span>
-        </div>
-      </div>
-    </div>
-  </div>
-<?php endif; ?>
 
 
 <?php $__env->startPush('scripts'); ?>

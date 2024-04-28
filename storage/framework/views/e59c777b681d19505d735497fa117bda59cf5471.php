@@ -8,7 +8,6 @@
       </div>
     </div>
   </div>
-
   <div class="info-container">
     <h5 class="border-bottom text-uppercase pb-3">DETAILS</h5>
     <ul class="list-unstyled mb-4">
@@ -19,7 +18,7 @@
       <li class="mb-2">
         <span class="h6 me-1">Role:</span>
         <span
-          class="badge text-capitalize <?php if($role == 'Admin'): ?> bg-label-danger <?php elseif($role == 'Seller'): ?> bg-label-info <?php elseif($role == 'Customer'): ?> bg-label-primary <?php endif; ?> rounded-pill"><?php echo e($role); ?></span>
+          class="badge text-uppercase <?php if($role == 'Admin'): ?> bg-label-danger <?php elseif($role == 'Seller'): ?> bg-label-info <?php elseif($role == 'Customer'): ?> bg-label-primary <?php endif; ?> rounded"><?php echo e($role); ?></span>
       </li>
     </ul>
     <div class="d-flex justify-content-center">

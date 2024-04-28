@@ -57,7 +57,6 @@ class CustomerController extends Controller
 
   public function cart()
   {
-    // $carts = ProductsCart::where('customer_id', Auth::user()->customer->id)->get();
     if (Auth::user()->customer) {
       $carts = ProductsCart::where('customer_id', Auth::user()->customer->id)->get();
     } else {
@@ -68,8 +67,9 @@ class CustomerController extends Controller
 
   public function orders()
   {
-    if(Auth::user()->customer) {
-      $orders = Order::where('customer_id', Auth::user()->customer->id)->get();
+    if (Auth::user()->customer) {
+      // $orders = Order::where('customer_id', Auth::user()->customer->id)->get();
+      $orders = Order::with('product')->where('customer_id', Auth::user()->customer->id)->get();
     } else {
       $orders = collect([]);
     }

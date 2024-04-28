@@ -1,4 +1,22 @@
 @php
+  $id = '#';
+  if ($user->customer) {
+      $image = asset('storage/' . $user->customer->image);
+  } elseif ($user->seller) {
+      $image = asset('storage/' . $user->seller->image);
+  } else {
+      $image = asset('materio/assets/img/favicon/favicon.ico');
+  }
+  $username = $user->name;
+  $email = $user->email;
+  $role = $user->role->role_name;
+  $type = 'button';
+  $href = route('admin.edit.user', $user->uuid);
+  $variant = 'primary';
+  $icon = 'pencil-outline';
+  $label = 'Edit Pengguna';
+  $class = 'btn-sm';
+
   $totalProducts = \App\Models\Products::where('seller_id', $user->id)->count();
   $totalEarnings = number_format(
       \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
@@ -23,9 +41,9 @@
   <div class="row">
     <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
       <div class="card mb-4">
-        <x-detail-user :image="asset('materio/assets/img/avatars/3.png')" :id="'#' . $user_id" :username="$user->name" :email="$user->email" :role="$user->role->role_name"
-          :type="'button'" :href="route('admin.edit.user', $user->uuid)" :variant="'primary'" :icon="'pencil-outline'" :label="'Edit Details'"
-          :class="'btn-sm'" />
+        <x-detail-user :id="$id . $user_id" :image="$image" :username="$username" :email="$email" :role="$role"
+          :type="$type" :href="$href" :variant="$variant" :icon="$icon" :label="$label" :class="$class"
+          :totalProducts="$totalProducts" :totalEarnings="$totalEarnings" />
       </div>
     </div>
   </div>

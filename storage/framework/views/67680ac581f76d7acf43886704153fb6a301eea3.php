@@ -41,6 +41,13 @@
       ->take(5)
       ->get();
 
+  // Graph Content
+  $labelCart = 'Keranjang Produk';
+  $valueCart = \App\Models\ProductsCart::where('customer_id', auth()->user()->customer->id)->count();
+
+  $labelWishlist = 'Wishlist Produk';
+  $valueWishlist = \App\Models\ProductsCart::where('customer_id', auth()->user()->customer->id)->count();
+
   $orders = \App\Models\Order::where('customer_id', auth()->user()->customer->id)->paginate(8);
 ?>
 
@@ -143,7 +150,7 @@
     
     
     <?php if (isset($component)) { $__componentOriginal4980b8428731110d8ba140e84171140e339b1ec2 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TopProductsCard::class, ['datas' => $topProducts,'title' => 'Pembelian Produk Teratas']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TopProductsCard::class, ['datas' => $topProducts,'title' => 'Pembelian Produk Teratas 🎉']); ?>
 <?php $component->withName('top-products-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -162,7 +169,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
       <?php if (isset($component)) { $__componentOriginalb3dcfc1c5f48c14f32a36a87486cee280756d469 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\GraphCardContent::class, []); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\GraphCardContent::class, ['label' => $labelCart,'value' => $valueCart,'icon' => 'cart-outline','variant' => 'info']); ?>
 <?php $component->withName('graph-card-content'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -174,7 +181,7 @@
 <?php unset($__componentOriginalb3dcfc1c5f48c14f32a36a87486cee280756d469); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginalb3dcfc1c5f48c14f32a36a87486cee280756d469 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\GraphCardContent::class, []); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\GraphCardContent::class, ['label' => $labelCart,'value' => $valueCart,'icon' => 'star-outline','variant' => 'warning']); ?>
 <?php $component->withName('graph-card-content'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

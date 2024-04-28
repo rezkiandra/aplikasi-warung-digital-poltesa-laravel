@@ -41,6 +41,13 @@
       ->take(5)
       ->get();
 
+  // Graph Content
+  $labelCart = 'Keranjang Produk';
+  $valueCart = \App\Models\ProductsCart::where('customer_id', auth()->user()->customer->id)->count();
+
+  $labelWishlist = 'Wishlist Produk';
+  $valueWishlist = \App\Models\ProductsCart::where('customer_id', auth()->user()->customer->id)->count();
+
   $orders = \App\Models\Order::where('customer_id', auth()->user()->customer->id)->paginate(8);
 @endphp
 
@@ -48,8 +55,7 @@
 @section('title', 'Dashboard')
 @section('content')
   <x-content-card>
-    <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel"
-      :route="$route" />
+    <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel" :route="$route" />
     <x-transactions-card :title="$title" :description="$description">
       <x-transaction-item-card :label="'Jumlah Pesanan'" :value="$totalOrders" :variant="'info'" :icon="'account-group-outline'" />
       <x-transaction-item-card :label="'Pesanan Selesai'" :value="$totalPaid" :variant="'success'" :icon="'account-multiple-outline'" />
@@ -65,8 +71,8 @@
     <x-top-products-card :datas="$topProducts" :title="'Pembelian Produk Teratas 🎉'" />
 
     <x-four-card>
-      <x-graph-card-content />
-      <x-graph-card-content />
+      <x-graph-card-content :label="$labelCart" :value="$valueCart" :icon="'cart-outline'" :variant="'info'" />
+      <x-graph-card-content :label="$labelCart" :value="$valueCart" :icon="'star-outline'" :variant="'warning'" />
     </x-four-card>
 
     <x-order-table-card :datas="$orders" />
