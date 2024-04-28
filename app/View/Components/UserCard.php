@@ -30,6 +30,6 @@ class UserCard extends Component
    */
   public function render()
   {
-    return view('components.user.user-card');
+    return view('components.user-card');
   }
 }
