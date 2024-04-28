@@ -1,13 +1,13 @@
 @php
-  $totalEarnings = \App\Models\Order::join('products', 'products.id', '=', 'orders.product_id', 'left')
-      ->join('sellers', 'sellers.id', '=', 'products.seller_id', 'left')
-      ->orderBy('price', 'desc')
-      ->sum('price');
+  $totalEarnings = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
+      ->join('sellers', 'products.seller_id', '=', 'sellers.id', 'left')
+      ->orderBy('orders.total_price', 'desc')
+      ->sum('total_price');
 @endphp
 
 <div class="col-xl-4 col-md-6">
   <div class="card">
-    <div class="card-header d-flex align-items-center justify-content-between">
+    <div class="card-header d-flex align-items-center justify-content-start">
       <h5 class="card-title m-0 me-2">{{ $title }}</h5>
     </div>
     <div class="card-body">
@@ -16,14 +16,14 @@
           <div class="d-flex align-items-center">
             <div class="avatar-wrapper me-3">
               <div class="avatar rounded-2 bg-label-secondary">
-                <img src="{{ asset('storage/' . $data->image) }}" class="rounded-2">
+                <img src="{{ asset('storage/' . $data->seller->image) }}" class="rounded-2">
               </div>
             </div>
             <div class="">
               <div class="d-flex flex-row align-items-start justify-content-start gap-1">
-                <span class="text-dark text-capitalize fw-medium">{{ $data->full_name }}</span>
+                <span class="text-dark text-capitalize fw-medium">{{ $data->seller->full_name }}</span>
               </div>
-              <small>{{ $data->user->email }}</small>
+              <small>{{ $data->seller->user->email }}</small>
             </div>
           </div>
           <div class="text-end">

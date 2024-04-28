@@ -9,15 +9,19 @@
             <th class="text-truncate">Email</th>
             <th class="text-truncate">Role</th>
             <th class="text-truncate">Dibuat Pada</th>
-            <th class="text-truncate">Email Verifikasi</th>
-            <th class="text-truncate">Status</th>
           </tr>
         </thead>
         <tbody>
           @foreach ($datas as $data)
             <tr>
               <td class="text-truncate">
-                <span class="badge bg-label-primary text-uppercase">#{{ Str::substr($data->uuid, 0, 4) }}</span>
+                @if ($data->role_id == 1)
+                  <span class="badge bg-label-danger text-uppercase">#{{ Str::substr($data->uuid, 0, 4) }}</span>
+                @elseif ($data->role_id == 2)
+                  <span class="badge bg-label-info text-uppercase">#{{ Str::substr($data->uuid, 0, 4) }}</span>
+                @elseif ($data->role_id == 3)
+                  <span class="badge bg-label-primary text-uppercase">#{{ Str::substr($data->uuid, 0, 4) }}</span>
+                @endif
               </td>
               <td>
                 <div class="d-flex align-items-center">
@@ -26,13 +30,21 @@
                   </div> --}}
                   <div>
                     <h6 class="mb-1 text-truncate">{{ $data->name }}</h6>
-                    <small class="text-truncate badge bg-label-info rounded">{{ $data->slug }}</small>
+                    @if ($data->role_id == 1)
+                      <small class="text-truncate badge bg-label-danger rounded">{{ $data->slug }}</small>
+                    @elseif ($data->role_id == 2)
+                      <small class="text-truncate badge bg-label-info rounded">{{ $data->slug }}</small>
+                    @elseif ($data->role_id == 3)
+                      <small class="text-truncate badge bg-label-primary rounded">{{ $data->slug }}</small>
+                    @endif
                   </div>
                 </div>
               </td>
               <td class="text-truncate">{{ $data->email }}</td>
               <td class="text-truncate">
-                @if ($data->role_id == 2)
+                @if ($data->role_id == 1)
+                  <span class="badge bg-label-danger text-uppercase">{{ $data->role->role_name }}</span>
+                @elseif ($data->role_id == 2)
                   <span class="badge bg-label-info text-uppercase">{{ $data->role->role_name }}</span>
                 @elseif ($data->role_id == 3)
                   <span class="badge bg-label-primary text-uppercase">{{ $data->role->role_name }}</span>
@@ -40,9 +52,7 @@
               </td>
               <td class="text-truncate fw-medium">{{ date('M d, H:i', strtotime($data->created_at)) }}
                 {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}</td>
-              <td class="text-truncate">{{ date('M d, H:i', strtotime($data->email_verified_at)) }}
-                {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}</td>
-              <td>
+              {{-- <td>
                 @if ($data->role_id == 1)
                   @if ($data->seller && $data->seller->status == 'active')
                     <span class="badge bg-label-success rounded-pill text-uppercase">
@@ -86,7 +96,7 @@
                     </span>
                   @endif
                 @endif
-              </td>
+              </td> --}}
             </tr>
           @endforeach
         </tbody>
@@ -97,7 +107,6 @@
             <th class="text-truncate">Email</th>
             <th class="text-truncate">Role</th>
             <th class="text-truncate">Dibuat Pada</th>
-            <th class="text-truncate">Email Verifikasi</th>
             <th class="text-truncate">Status</th>
           </tr>
         </tfoot> --}}

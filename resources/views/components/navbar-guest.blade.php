@@ -58,14 +58,6 @@
             <a class="nav-link fw-medium {{ request()->routeIs('guest.home', 'customer.home') ? 'active text-primary' : 'text-dark' }}"
               href="@if ($user_role == 3) {{ route('customer.home') }} @else {{ route('guest.home') }} @endif">Beranda</a>
           </li>
-          {{-- <li class="nav-item my-lg-0 my-2">
-            <a class="nav-link fw-medium {{ request()->routeIs('login') ? 'active text-primary' : 'text-dark' }}"
-              href="{{ route('login') }}">Features</a>
-          </li>
-          <li class="nav-item my-lg-0 my-2">
-            <a class="nav-link fw-medium text-dark {{ request()->routeIs('register') ? 'active text-primary' : 'text-dark' }}"
-              href="{{ route('register') }}">Services</a>
-          </li> --}}
           <li class="nav-item my-lg-0 my-2">
             <a class="nav-link fw-medium text-dark {{ request()->routeIs('guest.products', 'customer.products', 'guest.*.product', 'customer.*.product') ? 'active text-primary' : 'text-dark' }}"
               href="@if ($user_role == 3) {{ route('customer.products') }} @else {{ route('guest.products') }} @endif">Produk</a>

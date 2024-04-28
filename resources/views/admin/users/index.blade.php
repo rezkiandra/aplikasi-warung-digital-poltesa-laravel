@@ -1,5 +1,5 @@
 @php
-  $users = \App\Models\User::paginate(10);
+  $users = \App\Models\User::orderBy('role_id', 'asc')->paginate(10);
   $totalUsers = \App\Models\User::count();
   $totalAdmins = \App\Models\User::join('roles', 'users.role_id', '=', 'roles.id', 'left')
       ->where('roles.role_name', 'Admin')
@@ -23,7 +23,10 @@
   $sellerPercentage = $sellerPercentage > 100 ? 100 : $sellerPercentage;
   $sellerPrePercentage = \App\Models\User::count();
 
-  $customerPercentage = round((\App\Models\User::where('role_id', 3)->count() ?? 0 / \App\Models\User::count()) * 100, 2);
+  $customerPercentage = round(
+      (\App\Models\User::where('role_id', 3)->count() ?? 0 / \App\Models\User::count()) * 100,
+      2,
+  );
   $customerPercentage = $customerPercentage > 100 ? 100 : $customerPercentage;
   $customerPrePercentage = \App\Models\User::count();
 @endphp
@@ -40,8 +43,10 @@
       :description="'Jumlah Pengguna'" :percentage="$userPercentage ? '+' . $userPercentage . '%' : '-' . $userPrePercentage . '%'" />
     <x-user-card :datas="$users" :label="'Role Admin'" :icon="'laptop'" :variant="'danger'" :condition="$totalAdmins"
       :percentage="$adminPercentage ? '+' . $adminPercentage . '%' : '-' . $adminPrePercentage . '%'" />
-    <x-user-card :datas="$users" :label="'Role Seller'" :icon="'store-outline'" :variant="'info'" :condition="$totalSellers" :percentage="$sellerPercentage ? '+' . $sellerPercentage . '%' : '-' . $sellerPrePercentage . '%'" />
-    <x-user-card :datas="$users" :label="'Role Customer'" :icon="'account-outline'" :variant="'warning'" :condition="$totalCustomers" :percentage="$customerPercentage ? '+' . $customerPercentage . '%' : '-' . $customerPrePercentage . '%'" />
+    <x-user-card :datas="$users" :label="'Role Seller'" :icon="'store-outline'" :variant="'info'" :condition="$totalSellers"
+      :percentage="$sellerPercentage ? '+' . $sellerPercentage . '%' : '-' . $sellerPrePercentage . '%'" />
+    <x-user-card :datas="$users" :label="'Role Customer'" :icon="'account-outline'" :variant="'warning'" :condition="$totalCustomers"
+      :percentage="$customerPercentage ? '+' . $customerPercentage . '%' : '-' . $customerPrePercentage . '%'" />
   </div>
 
   <x-user-table :title="'Data Pengguna'" :datas="$users" :fields="['No', 'Username / Email - Slug', 'Role', 'Dibuat Pada', 'Aksi']" />

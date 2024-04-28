@@ -58,7 +58,6 @@
             <a class="nav-link fw-medium <?php echo e(request()->routeIs('guest.home', 'customer.home') ? 'active text-primary' : 'text-dark'); ?>"
               href="<?php if($user_role == 3): ?> <?php echo e(route('customer.home')); ?> <?php else: ?> <?php echo e(route('guest.home')); ?> <?php endif; ?>">Beranda</a>
           </li>
-          
           <li class="nav-item my-lg-0 my-2">
             <a class="nav-link fw-medium text-dark <?php echo e(request()->routeIs('guest.products', 'customer.products', 'guest.*.product', 'customer.*.product') ? 'active text-primary' : 'text-dark'); ?>"
               href="<?php if($user_role == 3): ?> <?php echo e(route('customer.products')); ?> <?php else: ?> <?php echo e(route('guest.products')); ?> <?php endif; ?>">Produk</a>

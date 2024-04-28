@@ -4,6 +4,7 @@
       <thead>
         <tr>
           <th>ID</th>
+          <th>Pelanggan</th>
           <th>Produk</th>
           <th>Total</th>
           <th>Status</th>
@@ -18,6 +19,21 @@
               
               <span
                 class="badge rounded p-1 bg-label-primary text-uppercase">#<?php echo e(Str::substr($data->uuid, 0, 5)); ?></span>
+            </td>
+            <td>
+              <div class="d-flex justify-content-start align-items-center user-name">
+                <div class="avatar-wrapper me-3">
+                  <div class="avatar avatar-sm">
+                    <img src="<?php echo e(asset('storage/' . $data->customer->image)); ?>" alt="Avatar" class="rounded">
+                  </div>
+                </div>
+                <div class="d-flex flex-column">
+                  <a href="pages-profile-user.html" class="text-truncate text-heading">
+                    <span class="fw-medium"><?php echo e($data->customer->full_name); ?></span>
+                  </a>
+                  <small class="text-truncate"><?php echo e($data->customer->user->email); ?></small>
+                </div>
+              </div>
             </td>
             <td>
               <div class="d-flex justify-content-start align-items-center user-name">
@@ -41,12 +57,21 @@
               </span>
             </td>
             <td>
-              <h6
-                class="mb-0 w-px-100 d-flex align-items-center <?php if($data->status == 'unpaid'): ?> text-warning <?php elseif($data->status == 'canceled'): ?> text-dark <?php elseif($data->status == 'paid'): ?> text-success <?php endif; ?> text-capitalize">
-                <i class="mdi mdi-circle fs-tiny me-1"></i>
-                <?php echo e($data->status); ?>
+              <?php if(Auth::user()->role_id == 1): ?>
+                <h6
+                  class="mb-0 w-px-100 d-flex align-items-center <?php if($data->status == 'unpaid'): ?> text-warning <?php elseif($data->status == 'canceled'): ?> text-dark <?php elseif($data->status == 'paid'): ?> text-success <?php endif; ?> text-uppercase">
+                  <i class="mdi mdi-circle fs-tiny me-1"></i>
+                  <?php echo e($data->status); ?>
 
-              </h6>
+                </h6>
+              <?php elseif(Auth::user()->role_id == 2): ?>
+                <h6
+                  class="mb-0 w-px-100 d-flex align-items-center <?php if($data->status == 'unpaid'): ?> text-warning <?php elseif($data->status == 'canceled'): ?> text-dark <?php elseif($data->status == 'paid'): ?> text-success <?php endif; ?> text-uppercase">
+                  <i class="mdi mdi-circle fs-tiny me-1"></i>
+                  <?php echo e($data->status); ?>
+
+                </h6>
+              <?php endif; ?>
             </td>
             <td class="">
               <span class="badge bg-label-info"><?php echo e(date('d M Y, H:i', strtotime($data->updated_at))); ?>
@@ -98,6 +123,18 @@
 <?php $component = $__componentOriginal449bfa6e40fc6b9502e7641b2b70c69491540e98; ?>
 <?php unset($__componentOriginal449bfa6e40fc6b9502e7641b2b70c69491540e98); ?>
 <?php endif; ?>
+                      <?php if (isset($component)) { $__componentOriginal449bfa6e40fc6b9502e7641b2b70c69491540e98 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\DropdownItem::class, ['label' => 'Cetak','variant' => 'warning','icon' => 'file-outline','route' => route('midtrans.detail', $data->uuid)]); ?>
+<?php $component->withName('dropdown-item'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal449bfa6e40fc6b9502e7641b2b70c69491540e98)): ?>
+<?php $component = $__componentOriginal449bfa6e40fc6b9502e7641b2b70c69491540e98; ?>
+<?php unset($__componentOriginal449bfa6e40fc6b9502e7641b2b70c69491540e98); ?>
+<?php endif; ?>
                     <?php elseif($data->status == 'cancelled'): ?>
                       <?php if (isset($component)) { $__componentOriginal449bfa6e40fc6b9502e7641b2b70c69491540e98 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\DropdownItem::class, ['label' => 'Detail','variant' => 'dark','icon' => 'eye-outline','route' => route('midtrans.detail', $data->uuid)]); ?>
@@ -129,6 +166,7 @@
       <tfoot>
         <tr>
           <th>ID</th>
+          <th>Pelanggan</th>
           <th>Produk</th>
           <th>Total</th>
           <th>Status</th>

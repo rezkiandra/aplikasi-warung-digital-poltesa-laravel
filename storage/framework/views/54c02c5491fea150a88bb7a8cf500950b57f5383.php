@@ -1,5 +1,5 @@
 <?php
-  $users = \App\Models\User::paginate(10);
+  $users = \App\Models\User::orderBy('role_id', 'asc')->paginate(10);
   $totalUsers = \App\Models\User::count();
   $totalAdmins = \App\Models\User::join('roles', 'users.role_id', '=', 'roles.id', 'left')
       ->where('roles.role_name', 'Admin')
@@ -23,7 +23,10 @@
   $sellerPercentage = $sellerPercentage > 100 ? 100 : $sellerPercentage;
   $sellerPrePercentage = \App\Models\User::count();
 
-  $customerPercentage = round((\App\Models\User::where('role_id', 3)->count() ?? 0 / \App\Models\User::count()) * 100, 2);
+  $customerPercentage = round(
+      (\App\Models\User::where('role_id', 3)->count() ?? 0 / \App\Models\User::count()) * 100,
+      2,
+  );
   $customerPercentage = $customerPercentage > 100 ? 100 : $customerPercentage;
   $customerPrePercentage = \App\Models\User::count();
 ?>

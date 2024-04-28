@@ -15,7 +15,7 @@ class CustomerRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'user_id' => 'required|unique:Roles,role_name',
+      'user_id' => 'required|unique:customers,full_name',
       'full_name' => 'required|unique:customers,id|max:30',
       'address' => 'required',
       'phone_number' => 'required|numeric|regex:/^\d{8,13}$/|min:8',
@@ -23,7 +23,7 @@ class CustomerRequest extends FormRequest
       'bank_account_id' => 'required',
       'image' => 'required_if:image,null|mimes:png,jpg,jpeg',
       'account_number' => 'required|unique:customers,id|numeric|min:8',
-      'status' => 'required_if:status,null|in:active,inactive,pending',
+      'status' => 'required:status,null|in:active,inactive,pending',
     ];
   }
 
@@ -57,7 +57,7 @@ class CustomerRequest extends FormRequest
       'account_number.numeric' => 'Nomor rekening dalam bentuk angka',
       'account_number.min' => 'Nomor rekening minimal 8 karakter',
 
-      'status.required_if' => 'Status diperlukan',
+      'status.required' => 'Status diperlukan',
       'status.in' => 'Status tidak valid',
     ];
   }

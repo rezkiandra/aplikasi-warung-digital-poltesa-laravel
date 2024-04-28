@@ -24,7 +24,7 @@
 <?php unset($__componentOriginald4c8f106e1e33ab85c5d037c2504e2574c1b0975); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginal2f5fe581eb9b2c453c66c3c24186f5ca3109252c = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\CreateForm::class, ['title' => 'Add biodata','action' => route('seller.store.biodata'),'route' => route('seller.biodata')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\CreateForm::class, ['title' => 'Tambah biodata','action' => route('seller.store.biodata'),'route' => route('seller.biodata')]); ?>
 <?php $component->withName('create-form'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -254,7 +254,7 @@
 <?php unset($__componentOriginald4c8f106e1e33ab85c5d037c2504e2574c1b0975); ?>
 <?php endif; ?>
       <div class="row gap-lg-0 gap-4">
-        <div class="col-lg-4">
+        <div class="col-lg-4 mb-lg-0 mb-4">
           <div class="card">
             <div class="card-body d-flex flex-column justify-content-center">
               <div class="text-center">

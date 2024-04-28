@@ -14,10 +14,10 @@
 
 @extends('layouts.authenticated')
 
-@section('title', 'Add User')
+@section('title', 'Tambah Pengguna')
 
 @section('content')
-  <x-create-form :title="'Add new user'" :action="route('admin.store.user')" :route="route('admin.users')">
+  <x-create-form :title="'Tambah pengguna baru'" :action="route('admin.store.user')" :route="route('admin.users')">
     <div class="row">
       <div class="col-lg-4">
         <x-form-floating>
@@ -49,7 +49,7 @@
       <div class="col-lg-4">
         <x-form-floating>
           <x-input-form-label :label="'Role'" :name="'role_id'" :type="'select'" :options="$role"
-            :select="'Choose role'" :value="old('role_id')" />
+            :select="'Pilih Role'" :value="old('role_id')" />
         </x-form-floating>
       </div>
     </div>

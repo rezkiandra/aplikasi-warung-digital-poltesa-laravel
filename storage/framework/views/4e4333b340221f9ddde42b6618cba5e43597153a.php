@@ -6,6 +6,7 @@
   $label = 'Total Pengguna';
   $value = \App\Models\User::count();
   $actionLabel = 'Selengkapnya';
+  $route = route('admin.users');
 
   // Transaction Card
   $title = 'Data Master';
@@ -18,10 +19,31 @@
   $totalOrder = \App\Models\Order::count();
 
   // Top Card Content
-  $sellers = \App\Models\Seller::take(5)->get();
-  $customers = \App\Models\Customer::take(5)->get();
-  $products = \App\Models\Products::take(5)->get();
-  $users = \App\Models\User::where('role_id', '!=', 1)->take(8)->get();
+  $topSellers = \App\Models\Order::selectRaw('seller_id, count(*) as total')
+      ->join('products', 'orders.product_id', '=', 'products.id', 'left')
+      ->join('sellers', 'products.seller_id', '=', 'sellers.id', 'left')
+      ->where('orders.status', 'paid')
+      ->groupBy('seller_id')
+      ->orderBy('orders.total_price', 'desc')
+      ->take(5)
+      ->get();
+
+  $topCustomers = \App\Models\Order::selectRaw('customer_id, count(*) as total')
+      ->where('orders.status', 'paid')
+      ->groupBy('customer_id')
+      ->orderBy('total', 'desc')
+      ->take(5)
+      ->get();
+
+  $topProducts = \App\Models\Order::selectRaw('product_id, count(*) as total')
+      ->join('products', 'orders.product_id', '=', 'products.id', 'left')
+      ->where('orders.status', 'paid')
+      ->groupBy('product_id')
+      ->orderBy('total', 'desc')
+      ->take(5)
+      ->get();
+
+  $users = \App\Models\User::orderBy('role_id', 'asc')->paginate(8);
 ?>
 
 
@@ -35,7 +57,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
     <?php if (isset($component)) { $__componentOriginal762af387888d73777fd7dc09ca774a195ec71e43 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\GreetingsCard::class, ['greetings' => $greetings,'description' => $descriptionGreetings,'label' => $label,'value' => $value,'actionLabel' => $actionLabel]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\GreetingsCard::class, ['greetings' => $greetings,'description' => $descriptionGreetings,'label' => $label,'value' => $value,'actionLabel' => $actionLabel,'route' => $route]); ?>
 <?php $component->withName('greetings-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -53,7 +75,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
       <?php if (isset($component)) { $__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Seller','value' => $totalSeller,'variant' => 'info','icon' => 'account-group-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Penjual','value' => $totalSeller,'variant' => 'info','icon' => 'account-group-outline']); ?>
 <?php $component->withName('transaction-item-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -65,7 +87,7 @@
 <?php unset($__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Customer','value' => $totalCustomer,'variant' => 'success','icon' => 'account-multiple-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Pelanggan','value' => $totalCustomer,'variant' => 'success','icon' => 'account-multiple-outline']); ?>
 <?php $component->withName('transaction-item-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -77,7 +99,7 @@
 <?php unset($__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Product','value' => $totalProduct,'variant' => 'warning','icon' => 'package']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Produk','value' => $totalProduct,'variant' => 'warning','icon' => 'package']); ?>
 <?php $component->withName('transaction-item-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -89,7 +111,7 @@
 <?php unset($__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Order','value' => $totalOrder,'variant' => 'danger','icon' => 'basket-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Pesanan','value' => $totalOrder,'variant' => 'danger','icon' => 'basket-outline']); ?>
 <?php $component->withName('transaction-item-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -110,7 +132,7 @@
     
 
     <?php if (isset($component)) { $__componentOriginal5d689d0efd7f7c0b8d44bda7e143fd11b0ffef95 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TopSellersCard::class, ['datas' => $sellers,'title' => 'Penjual Teratas']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TopSellersCard::class, ['datas' => $topSellers,'title' => 'Penjual Teratas 🎉']); ?>
 <?php $component->withName('top-sellers-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -122,7 +144,7 @@
 <?php unset($__componentOriginal5d689d0efd7f7c0b8d44bda7e143fd11b0ffef95); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginalb9783c6f7c28aed40cbc0e3f994fe6ef23b75a4c = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TopCustomersCard::class, ['datas' => $customers,'title' => 'Pelanggan Teratas']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TopCustomersCard::class, ['datas' => $topCustomers,'title' => 'Pelanggan Teratas 🎉']); ?>
 <?php $component->withName('top-customers-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -134,7 +156,7 @@
 <?php unset($__componentOriginalb9783c6f7c28aed40cbc0e3f994fe6ef23b75a4c); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginal4980b8428731110d8ba140e84171140e339b1ec2 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TopProductsCard::class, ['datas' => $products,'title' => 'Penjualan Produk Teratas']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TopProductsCard::class, ['datas' => $topProducts,'title' => 'Penjualan Produk Teratas 🎉']); ?>
 <?php $component->withName('top-products-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

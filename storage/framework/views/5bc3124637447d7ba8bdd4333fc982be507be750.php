@@ -14,11 +14,11 @@
 
 
 
-<?php $__env->startSection('title', 'Add User'); ?>
+<?php $__env->startSection('title', 'Tambah Pengguna'); ?>
 
 <?php $__env->startSection('content'); ?>
   <?php if (isset($component)) { $__componentOriginal2f5fe581eb9b2c453c66c3c24186f5ca3109252c = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\CreateForm::class, ['title' => 'Add new user','action' => route('admin.store.user'),'route' => route('admin.users')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\CreateForm::class, ['title' => 'Tambah pengguna baru','action' => route('admin.store.user'),'route' => route('admin.users')]); ?>
 <?php $component->withName('create-form'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -140,7 +140,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
           <?php if (isset($component)) { $__componentOriginale1bb2929f8b9df6873fa722ef130c57617d11754 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Role','name' => 'role_id','type' => 'select','options' => $role,'select' => 'Choose role','value' => old('role_id')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Role','name' => 'role_id','type' => 'select','options' => $role,'select' => 'Pilih Role','value' => old('role_id')]); ?>
 <?php $component->withName('input-form-label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

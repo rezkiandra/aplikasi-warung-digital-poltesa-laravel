@@ -161,19 +161,20 @@ Route::middleware('auth', 'checkRole:Seller')->group(function () {
     ->prefix('seller/dashboard')
     ->group(function () {
       Route::get('/', 'dashboard')->name('seller.dashboard');
+      Route::get('/list-orders', 'orders')->name('seller.orders');
       Route::get('/settings', 'settings')->name('seller.settings');
     });
-  Route::controller(OrderController::class)
-    ->prefix('seller/dashboard')
-    ->group(function () {
-      Route::get('/list-orders', 'index')->name('seller.orders');
-      Route::get('/order/create', 'create')->name('seller.create.order');
-      Route::post('order/store', 'store')->name('seller.store.order');
-      Route::get('/order/edit/{order}', 'edit')->name('seller.edit.order');
-      Route::get('/order/detail/{order}', 'show')->name('seller.detail.order');
-      Route::put('/order/update/{order}', 'update')->name('seller.update.order');
-      Route::delete('/order/destroy/{order}', 'destroy')->name('seller.destroy.order');
-    });
+  // Route::controller(OrderController::class)
+  //   ->prefix('seller/dashboard')
+  //   ->group(function () {
+  //     Route::get('/list-orders', 'index')->name('seller.orders');
+  //     Route::post('order/store', 'store')->name('seller.store.order');
+  //     Route::put('/order/update/{order}', 'update')->name('seller.update.order');
+  //     Route::get('/order/create', 'create')->name('seller.create.order');
+  //     Route::get('/order/edit/{order}', 'edit')->name('seller.edit.order');
+  //     Route::get('/order/detail/{order}', 'show')->name('seller.detail.order');
+  //     Route::delete('/order/destroy/{order}', 'destroy')->name('seller.destroy.order');
+  //   });
   Route::middleware('checkBiodata')->group(function () {
     Route::controller(ProductsController::class)
       ->prefix('seller/dashboards')

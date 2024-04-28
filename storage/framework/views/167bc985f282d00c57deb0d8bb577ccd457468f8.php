@@ -41,7 +41,6 @@
       ->count();
 
   // Top Card Content
-  // get top buying customers
   $topCustomers = \App\Models\Order::selectRaw('customer_id, count(*) as total')
       ->join('products', 'orders.product_id', '=', 'products.id', 'left')
       ->where('products.seller_id', auth()->user()->seller->id)
@@ -51,7 +50,7 @@
       ->take(5)
       ->get();
 
-  $topProducts = \App\Models\Order::selectRaw('product_id, sum(quantity) as total')
+  $topProducts = \App\Models\Order::selectRaw('product_id, count(*) as total')
       ->join('products', 'orders.product_id', '=', 'products.id', 'left')
       ->where('products.seller_id', auth()->user()->seller->id)
       ->where('orders.status', 'paid')
@@ -162,7 +161,7 @@
 
     
     <?php if (isset($component)) { $__componentOriginalb9783c6f7c28aed40cbc0e3f994fe6ef23b75a4c = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TopCustomersCard::class, ['datas' => $topCustomers,'title' => 'Pelanggan Teratas']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TopCustomersCard::class, ['datas' => $topCustomers,'title' => 'Pelanggan Teratas 🎉']); ?>
 <?php $component->withName('top-customers-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -174,7 +173,7 @@
 <?php unset($__componentOriginalb9783c6f7c28aed40cbc0e3f994fe6ef23b75a4c); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginal4980b8428731110d8ba140e84171140e339b1ec2 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TopProductsCard::class, ['datas' => $topProducts,'title' => 'Penjualan Produk Teratas']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TopProductsCard::class, ['datas' => $topProducts,'title' => 'Penjualan Produk Teratas 🎉']); ?>
 <?php $component->withName('top-products-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

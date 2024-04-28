@@ -1,5 +1,5 @@
-<?php $__env->startSection('title', 'Beranda'); ?>
 
+<?php $__env->startSection('title', 'Beranda'); ?>
 <?php $__env->startPush('styles'); ?>
   <style>
     #detail {
@@ -7,7 +7,6 @@
     }
   </style>
 <?php $__env->stopPush(); ?>
-
 <?php $__env->startSection('content'); ?>
   <section id="hero" class="mb-5 pb-5">
     <div class="container mt-lg-5 mt-1 pt-4">

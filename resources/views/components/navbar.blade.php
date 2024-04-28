@@ -1,4 +1,5 @@
-<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-white border-bottom"
+<nav
+  class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-white border-bottom"
   id="layout-navbar">
   <div class="layout-menu-toggle navbar-nav align-items-xl-center px-3 me-xl-0 d-xl-none">
     <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
@@ -11,7 +12,7 @@
     <div class="navbar-nav align-items-center">
       <div class="nav-item d-flex align-items-center">
         <i class="mdi mdi-magnify mdi-24px me-2"></i>
-        <input type="text" class="form-control border-0 shadow-none bg-body" placeholder="Search..."
+        <input type="text" class="form-control border-0 shadow-none bg-body" placeholder="Telusuri..."
           aria-label="Search..." />
       </div>
     </div>
@@ -22,7 +23,12 @@
       <li class="nav-item navbar-dropdown dropdown-user dropdown">
         <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
           <div class="avatar avatar-online">
-            <img src="{{ asset('materio/assets/img/avatars/3.png') }}" alt class="w-px-40 h-auto rounded-circle" />
+            @if (Auth::user()->role_id == 1)
+              <img src="{{ asset('materio/assets/img/avatars/3.png') }}" alt class="w-px-40 h-auto rounded-circle" />
+            @elseif (Auth::user()->role_id == 2)
+              <img src="{{ asset('storage/' . Auth::user()->seller->image) }}" alt
+                class="w-px-40 h-auto rounded-circle" />
+            @endif
           </div>
         </a>
         <ul class="dropdown-menu dropdown-menu-end mt-3 py-2">
@@ -31,8 +37,13 @@
               <div class="d-flex align-items-center">
                 <div class="flex-shrink-0 me-2 pe-1">
                   <div class="avatar avatar-online">
-                    <img src="{{ asset('materio/assets/img/avatars/3.png') }}" alt
-                      class="w-px-40 h-auto rounded-circle" />
+                    @if (Auth::user()->role_id == 1)
+                      <img src="{{ asset('materio/assets/img/avatars/3.png') }}" alt
+                        class="w-px-40 h-auto rounded-circle" />
+                    @elseif(Auth::user()->role_id == 2)
+                      <img src="{{ asset('storage/' . Auth::user()->seller->image) }}" alt
+                        class="w-px-40 h-auto rounded-circle" />
+                    @endif
                   </div>
                 </div>
                 <div class="flex-grow-1">

@@ -41,7 +41,6 @@
       ->count();
 
   // Top Card Content
-  // get top buying customers
   $topCustomers = \App\Models\Order::selectRaw('customer_id, count(*) as total')
       ->join('products', 'orders.product_id', '=', 'products.id', 'left')
       ->where('products.seller_id', auth()->user()->seller->id)
@@ -51,7 +50,7 @@
       ->take(5)
       ->get();
 
-  $topProducts = \App\Models\Order::selectRaw('product_id, sum(quantity) as total')
+  $topProducts = \App\Models\Order::selectRaw('product_id, count(*) as total')
       ->join('products', 'orders.product_id', '=', 'products.id', 'left')
       ->where('products.seller_id', auth()->user()->seller->id)
       ->where('orders.status', 'paid')
@@ -67,7 +66,8 @@
 @section('title', 'Dashboard')
 @section('content')
   <x-content-card>
-    <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel" :route="$route" />
+    <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel"
+      :route="$route" />
     <x-transactions-card :title="$title" :description="$description">
       <x-transaction-item-card :label="'Jumlah Pesanan'" :value="$totalOrders" :variant="'info'" :icon="'account-group-outline'" />
       <x-transaction-item-card :label="'Pesanan Selesai'" :value="$totalPaid" :variant="'success'" :icon="'account-multiple-outline'" />
@@ -84,9 +84,9 @@
       <x-graph-card-content />
     </x-four-card> --}}
 
-    {{-- <x-top-sellers-card :datas="$sellers" :title="'Penjual Teratas'" /> --}}
-    <x-top-customers-card :datas="$topCustomers" :title="'Pelanggan Teratas'" />
-    <x-top-products-card :datas="$topProducts" :title="'Penjualan Produk Teratas'" />
+    {{-- <x-top-sellers-card :datas="$sellers" :title="'Penjual Teratas 🎉'" /> --}}
+    <x-top-customers-card :datas="$topCustomers" :title="'Pelanggan Teratas 🎉'" />
+    <x-top-products-card :datas="$topProducts" :title="'Penjualan Produk Teratas 🎉'" />
 
     <x-product-table-card :datas="$products" />
   </x-content-card>

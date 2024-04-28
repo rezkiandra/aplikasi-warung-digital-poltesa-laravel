@@ -1,6 +1,6 @@
 
 
-<?php $__env->startSection('title', 'Edit Product'); ?>
+<?php $__env->startSection('title', 'Detail Product'); ?>
 
 <?php $__env->startSection('content'); ?>
   <?php if (isset($component)) { $__componentOriginal92a94ac4e359e812306e5de71cf3220aef818777 = $component; } ?>

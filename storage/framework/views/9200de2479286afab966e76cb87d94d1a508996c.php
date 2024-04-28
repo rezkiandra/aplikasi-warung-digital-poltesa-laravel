@@ -15,22 +15,14 @@
           <div class="d-flex align-items-center">
             <div class="avatar-wrapper me-3">
               <div class="avatar rounded-2 bg-label-secondary">
-                <?php if(Auth::user()->role_id == 1): ?>
-                  <img src="<?php echo e(asset('storage/' . $data->image)); ?>" class="rounded-2">
-                <?php elseif(Auth::user()->role_id == 2): ?>
-                  <img src="<?php echo e(asset('storage/' . $data->customer->image)); ?>" class="rounded-2">
-                <?php endif; ?>
+                <img src="<?php echo e(asset('storage/' . $data->customer->image)); ?>" class="rounded-2">
               </div>
             </div>
             <div class="">
               <div class="d-flex flex-row align-items-start justify-content-start gap-1">
                 <span class="text-dark text-capitalize fw-medium"><?php echo e($data->customer->full_name); ?></span>
               </div>
-              <?php if(Auth::user()->role_id == 1): ?>
-                <small><?php echo e($data->user->email); ?></small>
-              <?php elseif(Auth::user()->role_id == 2): ?>
-                <small><?php echo e($data->customer->user->email); ?></small>
-              <?php endif; ?>
+              <small><?php echo e($data->customer->user->email); ?></small>
             </div>
           </div>
           <div class="text-end">

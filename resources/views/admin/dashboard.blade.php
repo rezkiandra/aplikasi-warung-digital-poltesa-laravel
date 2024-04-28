@@ -19,10 +19,31 @@
   $totalOrder = \App\Models\Order::count();
 
   // Top Card Content
-  $sellers = \App\Models\Seller::take(5)->get();
-  $customers = \App\Models\Customer::take(5)->get();
-  $products = \App\Models\Products::take(5)->get();
-  $users = \App\Models\User::where('role_id', '!=', 1)->take(8)->get();
+  $topSellers = \App\Models\Order::selectRaw('seller_id, count(*) as total')
+      ->join('products', 'orders.product_id', '=', 'products.id', 'left')
+      ->join('sellers', 'products.seller_id', '=', 'sellers.id', 'left')
+      ->where('orders.status', 'paid')
+      ->groupBy('seller_id')
+      ->orderBy('orders.total_price', 'desc')
+      ->take(5)
+      ->get();
+
+  $topCustomers = \App\Models\Order::selectRaw('customer_id, count(*) as total')
+      ->where('orders.status', 'paid')
+      ->groupBy('customer_id')
+      ->orderBy('total', 'desc')
+      ->take(5)
+      ->get();
+
+  $topProducts = \App\Models\Order::selectRaw('product_id, count(*) as total')
+      ->join('products', 'orders.product_id', '=', 'products.id', 'left')
+      ->where('orders.status', 'paid')
+      ->groupBy('product_id')
+      ->orderBy('total', 'desc')
+      ->take(5)
+      ->get();
+
+  $users = \App\Models\User::orderBy('role_id', 'asc')->paginate(8);
 @endphp
 
 @extends('layouts.authenticated')
@@ -30,12 +51,13 @@
 
 @section('content')
   <x-content-card>
-    <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel" :route="$route" />
+    <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel"
+      :route="$route" />
     <x-transactions-card :title="$title" :description="$description">
-      <x-transaction-item-card :label="'Seller'" :value="$totalSeller" :variant="'info'" :icon="'account-group-outline'" />
-      <x-transaction-item-card :label="'Customer'" :value="$totalCustomer" :variant="'success'" :icon="'account-multiple-outline'" />
-      <x-transaction-item-card :label="'Product'" :value="$totalProduct" :variant="'warning'" :icon="'package'" />
-      <x-transaction-item-card :label="'Order'" :value="$totalOrder" :variant="'danger'" :icon="'basket-outline'" />
+      <x-transaction-item-card :label="'Penjual'" :value="$totalSeller" :variant="'info'" :icon="'account-group-outline'" />
+      <x-transaction-item-card :label="'Pelanggan'" :value="$totalCustomer" :variant="'success'" :icon="'account-multiple-outline'" />
+      <x-transaction-item-card :label="'Produk'" :value="$totalProduct" :variant="'warning'" :icon="'package'" />
+      <x-transaction-item-card :label="'Pesanan'" :value="$totalOrder" :variant="'danger'" :icon="'basket-outline'" />
     </x-transactions-card>
 
     {{-- <x-bar-graph-card />
@@ -47,9 +69,9 @@
       <x-graph-card-content />
     </x-four-card> --}}
 
-    <x-top-sellers-card :datas="$sellers" :title="'Penjual Teratas'" />
-    <x-top-customers-card :datas="$customers" :title="'Pelanggan Teratas'" />
-    <x-top-products-card :datas="$products" :title="'Penjualan Produk Teratas'" />
+    <x-top-sellers-card :datas="$topSellers" :title="'Penjual Teratas 🎉'" />
+    <x-top-customers-card :datas="$topCustomers" :title="'Pelanggan Teratas 🎉'" />
+    <x-top-products-card :datas="$topProducts" :title="'Penjualan Produk Teratas 🎉'" />
 
     <x-user-table-card :datas="$users" />
   </x-content-card>

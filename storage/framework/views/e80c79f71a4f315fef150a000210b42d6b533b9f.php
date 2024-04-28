@@ -32,7 +32,7 @@
                   <span
                     class="text-nowrap text-heading fw-medium"><?php echo e(\App\Models\Products::where('seller_id', $data->id)->count()); ?>
 
-                    product</span>
+                    buah</span>
                   <small class="text-truncate d-none d-sm-block">
                     <span
                       class="fw-medium">Rp.<?php echo e(number_format(\App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->join('sellers', 'products.seller_id', '=', 'sellers.id', 'left')->where('sellers.id', $data->id)->sum('products.price'),2,',','.')); ?></span>

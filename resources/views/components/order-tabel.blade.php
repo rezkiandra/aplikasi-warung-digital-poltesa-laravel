@@ -4,6 +4,7 @@
       <thead>
         <tr>
           <th>ID</th>
+          <th>Pelanggan</th>
           <th>Produk</th>
           <th>Total</th>
           <th>Status</th>
@@ -18,6 +19,21 @@
               {{-- <span class="rounded p-1 bg-label-primary">#{{ rand(1000, 9999) }}</span> --}}
               <span
                 class="badge rounded p-1 bg-label-primary text-uppercase">#{{ Str::substr($data->uuid, 0, 5) }}</span>
+            </td>
+            <td>
+              <div class="d-flex justify-content-start align-items-center user-name">
+                <div class="avatar-wrapper me-3">
+                  <div class="avatar avatar-sm">
+                    <img src="{{ asset('storage/' . $data->customer->image) }}" alt="Avatar" class="rounded">
+                  </div>
+                </div>
+                <div class="d-flex flex-column">
+                  <a href="pages-profile-user.html" class="text-truncate text-heading">
+                    <span class="fw-medium">{{ $data->customer->full_name }}</span>
+                  </a>
+                  <small class="text-truncate">{{ $data->customer->user->email }}</small>
+                </div>
+              </div>
             </td>
             <td>
               <div class="d-flex justify-content-start align-items-center user-name">
@@ -41,11 +57,19 @@
               </span>
             </td>
             <td>
-              <h6
-                class="mb-0 w-px-100 d-flex align-items-center @if ($data->status == 'unpaid') text-warning @elseif ($data->status == 'canceled') text-dark @elseif($data->status == 'paid') text-success @endif text-capitalize">
-                <i class="mdi mdi-circle fs-tiny me-1"></i>
-                {{ $data->status }}
-              </h6>
+              @if (Auth::user()->role_id == 1)
+                <h6
+                  class="mb-0 w-px-100 d-flex align-items-center @if ($data->status == 'unpaid') text-warning @elseif ($data->status == 'canceled') text-dark @elseif($data->status == 'paid') text-success @endif text-uppercase">
+                  <i class="mdi mdi-circle fs-tiny me-1"></i>
+                  {{ $data->status }}
+                </h6>
+              @elseif(Auth::user()->role_id == 2)
+                <h6
+                  class="mb-0 w-px-100 d-flex align-items-center @if ($data->status == 'unpaid') text-warning @elseif ($data->status == 'canceled') text-dark @elseif($data->status == 'paid') text-success @endif text-uppercase">
+                  <i class="mdi mdi-circle fs-tiny me-1"></i>
+                  {{ $data->status }}
+                </h6>
+              @endif
             </td>
             <td class="">
               <span class="badge bg-label-info">{{ date('d M Y, H:i', strtotime($data->updated_at)) }}
@@ -63,6 +87,7 @@
                       <x-dropdown-item :label="'Batal'" :variant="'danger'" :icon="'trash-can-outline'" :route="route('midtrans.cancelled', $data->uuid)" />
                     @elseif($data->status == 'paid')
                       <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
+                      <x-dropdown-item :label="'Cetak'" :variant="'warning'" :icon="'file-outline'" :route="route('midtrans.detail', $data->uuid)" />
                     @elseif ($data->status == 'cancelled')
                       <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
                       <form action="{{ route('order.update', $data->uuid) }}" method="POST">
@@ -83,6 +108,7 @@
       <tfoot>
         <tr>
           <th>ID</th>
+          <th>Pelanggan</th>
           <th>Produk</th>
           <th>Total</th>
           <th>Status</th>

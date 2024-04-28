@@ -36,12 +36,12 @@
 
                 </span>
                 <?php if(Auth::user()->role_id == 1): ?>
-                  <small class="fw-medium d-flex align-items-center">
+                  <span class="fw-medium d-flex align-items-center">
                     <span class="badge bg-label-primary rounded">
-                      <?php echo e($data->seller->full_name); ?> - <?php echo e($data->seller->user->email); ?>
+                      <?php echo e($data->seller->full_name); ?>
 
                     </span>
-                  </small>
+                  </span>
                 <?php endif; ?>
               </div>
             </td>

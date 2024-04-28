@@ -67,7 +67,7 @@
     @if (Auth::user()->role_id == 1)
       <x-sidebar-item :label="'Pesanan'" :route="route('admin.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('admin.orders', 'admin.*.order')" />
     @elseif(Auth::user()->role_id == 2)
-      {{-- <x-sidebar-item :label="'Pesanan'" :route="route('seller.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('seller.orders', 'seller.*.order')" /> --}}
+      <x-sidebar-item :label="'Pesanan'" :route="route('seller.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('seller.orders', 'seller.*.order')" />
     @endif
 
     @if (Auth::user()->role_id == 1)

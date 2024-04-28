@@ -58,7 +58,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
       <?php if (isset($component)) { $__componentOriginal975c49134212f8552006a5fffb48497b4f040dbf = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\DetailCard::class, ['title' => 'Wishlist','count' => '4','countDescription' => 'items wishlist produk','icon' => 'star-outline','variant' => 'warning']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\DetailCard::class, ['title' => 'Wishlist','count' => '0','countDescription' => 'items wishlist produk','icon' => 'star-outline','variant' => 'warning']); ?>
 <?php $component->withName('detail-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

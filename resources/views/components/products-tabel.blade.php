@@ -35,11 +35,11 @@
                   {{ $data->category->name }}
                 </span>
                 @if (Auth::user()->role_id == 1)
-                  <small class="fw-medium d-flex align-items-center">
+                  <span class="fw-medium d-flex align-items-center">
                     <span class="badge bg-label-primary rounded">
-                      {{ $data->seller->full_name }} - {{ $data->seller->user->email }}
+                      {{ $data->seller->full_name }}
                     </span>
-                  </small>
+                  </span>
                 @endif
               </div>
             </td>

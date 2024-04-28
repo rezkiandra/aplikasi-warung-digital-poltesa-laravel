@@ -115,7 +115,7 @@ class UserController extends Controller
       'phone_number' => $request->phone_number,
       'gender' => $request->gender,
       'bank_account_id' => $request->bank_account_id,
-      'image' => $request->image->store('sellers', 'public'),
+      'image' => $request->image->store('customers', 'public'),
       'account_number' => $request->account_number,
       'status' => $request->status,
     ]);

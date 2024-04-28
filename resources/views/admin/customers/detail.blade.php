@@ -33,7 +33,7 @@
     </div>
 
     <x-detail-card-content>
-      <x-detail-card :title="'Wishlist'" :count="'4'" :countDescription="'items wishlist produk'" :icon="'star-outline'" :variant="'warning'" />
+      <x-detail-card :title="'Wishlist'" :count="'0'" :countDescription="'items wishlist produk'" :icon="'star-outline'" :variant="'warning'" />
       <x-detail-card :title="'Keranjang'" :count="$totalCarts" :countDescription="'items keranjang produk'" :icon="'cart-outline'" :variant="'info'" />
       <x-detail-card :title="'Keranjang'" :count="$totalCarts" :countDescription="'items keranjang produk'" :icon="'cart-outline'" :variant="'info'" />
       <x-orders-customer-detail :datas="$orders" />

@@ -60,9 +60,9 @@
     <x-earnings-card :title="$titleSpent" :description="$descriptionSpent" :earnings="$spentValue" />
     {{-- <x-bar-graph-card /> --}}
 
-    {{-- <x-top-sellers-card :datas="$sellers" :title="'Penjual Teratas'" /> --}}
-    {{-- <x-top-customers-card :datas="$topCustomers" :title="'Pelanggan Teratas'" /> --}}
-    <x-top-products-card :datas="$topProducts" :title="'Pembelian Produk Teratas'" />
+    {{-- <x-top-sellers-card :datas="$sellers" :title="'Penjual Teratas 🎉'" /> --}}
+    {{-- <x-top-customers-card :datas="$topCustomers" :title="'Pelanggan Teratas 🎉'" /> --}}
+    <x-top-products-card :datas="$topProducts" :title="'Pembelian Produk Teratas 🎉'" />
 
     <x-four-card>
       <x-graph-card-content />
