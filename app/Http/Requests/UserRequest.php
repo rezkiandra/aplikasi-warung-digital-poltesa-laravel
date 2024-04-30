@@ -19,7 +19,7 @@ class UserRequest extends FormRequest
       'email' => 'required_if:email,null|unique:users,id|email',
       'role_id' => 'required_if:role_id,null',
       'password' => 'required_if:password,null|min:6|max:20',
-      'new_password' => 'required_if:new_password,null|min:6|max:20',
+      'new_password' => 'required_if:new_password,notnull|min:6|max:20',
       'konfirmasi' => 'required_if:konfirmasi,notnull|same:new_password|',
     ];
   }

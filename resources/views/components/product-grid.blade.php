@@ -1,14 +1,7 @@
-@php
-  $user_role = Auth::user()->role_id ?? '';
-@endphp
-
 @foreach ($datas as $data)
   <div class="col-lg-3 col-md-4 col-6 pb-3 pb-lg-3">
     <div class="card h-100 cursor-pointer"
-      @if ($user_role == 1) onclick="window.location.href='{{ route('admin.detail.product', $data->slug) }}'" 
-      @elseif ($user_role == 2) onclick="window.location.href='{{ route('seller.detail.product', $data->slug) }}'"
-      @elseif ($user_role == 3) onclick="window.location.href='{{ route('customer.detail.product', $data->slug) }}'"
-      @else onclick="window.location.href='{{ route('guest.detail.product', $data->slug) }}'" @endif>
+      onclick="window.location.href='{{ route('guest.detail.product', $data->slug) }}'">
       <div class="position-absolute">
         <span class="badge bg-primary text-white d-lg-flex align-items-centers text-uppercase px-4">On Sale</span>
       </div>

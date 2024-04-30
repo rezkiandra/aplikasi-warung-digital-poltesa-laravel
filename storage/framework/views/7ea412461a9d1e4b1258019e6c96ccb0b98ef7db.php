@@ -25,7 +25,15 @@
               </td>
               <td>
                 <div class="d-flex align-items-center">
-                  
+                  <div class="avatar avatar-sm me-3">
+                    <?php if($data->seller): ?>
+                      <img src="<?php echo e(asset('storage/' . $data->seller->image)); ?>" alt="Avatar" class="rounded">
+                    <?php elseif($data->customer): ?>
+                      <img src="<?php echo e(asset('storage/' . $data->customer->image)); ?>" alt="Avatar" class="rounded">
+                    <?php else: ?>
+                      <img src="<?php echo e(asset('materio/assets/img/favicon/favicon.ico')); ?>" alt="Avatar" class="rounded">
+                    <?php endif; ?>
+                  </div>
                   <div>
                     <h6 class="mb-1 text-truncate"><?php echo e($data->name); ?></h6>
                     <?php if($data->role_id == 1): ?>

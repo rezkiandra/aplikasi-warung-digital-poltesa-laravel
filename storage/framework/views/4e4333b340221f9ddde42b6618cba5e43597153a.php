@@ -43,7 +43,7 @@
       ->take(5)
       ->get();
 
-  $users = \App\Models\User::orderBy('role_id', 'asc')->paginate(8);
+  $users = \App\Models\User::with('seller', 'customer')->orderBy('role_id', 'asc')->paginate(8);
 ?>
 
 

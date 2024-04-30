@@ -3,7 +3,7 @@
 ?>
 
 <?php $__currentLoopData = $datas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-  <div class="col-lg-2 col-md-4 col-6 pb-3 pb-lg-3">
+  <div class="col-lg-3 col-md-4 col-6 pb-3 pb-lg-3">
     <div class="card h-100 cursor-pointer"
       <?php if($user_role == 1): ?> onclick="window.location.href='<?php echo e(route('admin.detail.product', $data->slug)); ?>'" 
       <?php elseif($user_role == 2): ?> onclick="window.location.href='<?php echo e(route('seller.detail.product', $data->slug)); ?>'"
@@ -14,7 +14,7 @@
       </div>
       <img class="card-img-top img-fluid" alt="Card image cap" src="<?php echo e(asset('storage/' . $data->image)); ?>" width="100%">
       <div class="card-body d-flex flex-column justify-content-between">
-        <small class="card-title text-dark fw-medium mb-3"><?php echo e($data->name); ?></small>
+        <span class="card-title text-dark fw-medium mb-3"><?php echo e($data->name); ?></span>
         <div class="card-text d-flex align-items-center justify-content-between">
           <small class="badge rounded p-1 bg-label-primary">
             Rp<?php echo e(number_format($data->price, 0, ',', '.')); ?>

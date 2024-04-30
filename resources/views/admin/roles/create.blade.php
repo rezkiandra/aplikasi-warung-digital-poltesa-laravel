@@ -1,13 +1,13 @@
 @extends('layouts.authenticated')
 
-@section('title', 'Add Role')
+@section('title', 'Tambah Role')
 
 @section('content')
-  <x-create-form :title="'Add new role'" :action="route('admin.store.role')" :route="route('admin.roles')">
+  <x-create-form :title="'Tambah role baru'" :action="route('admin.store.role')" :route="route('admin.roles')">
     <x-form-floating>
-      <x-input-form-label :label="'Role Name'" :name="'role_name'" :type="'text'" :placeholder="'Ex: Admin, Superadmin, Editor, etc'" :value="old('role_name')" />
+      <x-input-form-label :label="'Nama Role'" :name="'role_name'" :type="'text'" :placeholder="'Superadmin, Editor, Maintainer'" :value="old('role_name')" />
     </x-form-floating>
 
-    <x-submit-button :label="'Submit'" :type="'submit'" :variant="'primary'" :icon="'check-circle-outline'" />
+    <x-submit-button :label="'Simpan'" :type="'submit'" :variant="'primary'" :icon="'check-circle-outline'" />
   </x-create-form>
 @endsection

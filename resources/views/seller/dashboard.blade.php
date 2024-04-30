@@ -20,7 +20,7 @@
       ->take(5)
       ->get();
   $titleEarnings = 'Total Pendapatan';
-  $earningsValue = 'Rp' . number_format($earnings->sum('total_price'), 2, '.', ',');
+  $earningsValue = 'Rp' . number_format($earnings->sum('total_price'), 0, ',', ',');
   $descriptionEarnings = 'Total pendapatan dibulan ini';
 
   // Transaction Item Card

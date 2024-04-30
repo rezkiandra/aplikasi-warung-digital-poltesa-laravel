@@ -25,9 +25,15 @@
               </td>
               <td>
                 <div class="d-flex align-items-center">
-                  {{-- <div class="avatar avatar-sm me-3">
-                    <img src="{{ asset('storage/' . $data->image) }}" alt="Avatar" class="rounded-circle">
-                  </div> --}}
+                  <div class="avatar avatar-sm me-3">
+                    @if ($data->seller)
+                      <img src="{{ asset('storage/' . $data->seller->image) }}" alt="Avatar" class="rounded">
+                    @elseif ($data->customer)
+                      <img src="{{ asset('storage/' . $data->customer->image) }}" alt="Avatar" class="rounded">
+                    @else
+                      <img src="{{ asset('materio/assets/img/favicon/favicon.ico') }}" alt="Avatar" class="rounded">
+                    @endif
+                  </div>
                   <div>
                     <h6 class="mb-1 text-truncate">{{ $data->name }}</h6>
                     @if ($data->role_id == 1)

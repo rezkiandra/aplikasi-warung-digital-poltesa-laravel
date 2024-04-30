@@ -1,13 +1,13 @@
 @extends('layouts.authenticated')
 
-@section('title', 'Add Category')
+@section('title', 'Tambah Kategori')
 
 @section('content')
-  <x-create-form :title="'Add new category'" :action="route('admin.store.category')" :route="route('admin.product_category')">
+  <x-create-form :title="'Tambah kategori baru'" :action="route('admin.store.category')" :route="route('admin.product_category')">
     <x-form-floating>
-      <x-input-form-label :label="'Category Name'" :name="'name'" :type="'text'" :placeholder="'Ex: Food, Fashion, Electronic, etc'" :value="old('name')" />
+      <x-input-form-label :label="'Nama Kategori'" :name="'name'" :type="'text'" :placeholder="'Makanan, Pakaian, Elektronik, Aksesoris'" :value="old('name')" />
     </x-form-floating>
 
-    <x-submit-button :label="'Submit'" :type="'submit'" :variant="'primary'" :icon="'check-circle-outline'" />
+    <x-submit-button :label="'Simpan'" :type="'submit'" :variant="'primary'" :icon="'check-circle-outline'" />
   </x-create-form>
 @endsection

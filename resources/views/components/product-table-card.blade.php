@@ -35,7 +35,7 @@
               <td class="text-truncate">
                 <div class="d-flex align-items-center">
                   <div>
-                    <h6 class="mb-1 text-truncate">Rp{{ number_format($data->price, 2, ',', '.') }}</h6>
+                    <h6 class="mb-1 text-truncate">Rp{{ number_format($data->price, 0, ',', '.') }}</h6>
                     <small class="text-truncate badge bg-label-info rounded">tersisa {{ $data->stock }} pcs</small>
                   </div>
                 </div>

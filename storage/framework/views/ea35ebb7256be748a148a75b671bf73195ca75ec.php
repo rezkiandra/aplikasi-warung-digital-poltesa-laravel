@@ -3,7 +3,7 @@
 <?php $__env->startSection('title', 'Detail Produk'); ?>
 
 <?php $__env->startSection('content'); ?>
-  <div class="container mt-5 pt-5">
+  <div class="container-fluid mt-5 pt-5">
     <?php if (isset($component)) { $__componentOriginal92a94ac4e359e812306e5de71cf3220aef818777 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\DetailProduct::class, ['product' => $product]); ?>
 <?php $component->withName('detail-product'); ?>

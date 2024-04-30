@@ -1,5 +1,5 @@
 <?php
-  $user = \App\Models\User::where('role_id', '3')->first();
+  $userCustomer = \App\Models\User::where('uuid', Auth::user()->uuid)->first();
 ?>
 
 
@@ -10,7 +10,7 @@
 
   <div class="d-lg-flex justify-content-between gap-4">
     <?php if (isset($component)) { $__componentOriginalceb32ab743a10e309928ba02699759a8f4b56f39 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\EditForm::class, ['title' => 'Edit data admin','action' => route('admin.update.user', $user->uuid),'route' => route('admin.users'),'class' => 'col-lg-12']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\EditForm::class, ['title' => 'Edit data profile','action' => route('customer.update.profile', $userCustomer->uuid),'route' => route('customer.settings'),'class' => 'col-lg-12']); ?>
 <?php $component->withName('edit-form'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -24,7 +24,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
             <?php if (isset($component)) { $__componentOriginale1bb2929f8b9df6873fa722ef130c57617d11754 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Username','name' => 'name','type' => 'text','value' => $user->name]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Username','name' => 'name','type' => 'text','value' => $userCustomer->name]); ?>
 <?php $component->withName('input-form-label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -51,7 +51,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
             <?php if (isset($component)) { $__componentOriginale1bb2929f8b9df6873fa722ef130c57617d11754 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Email','name' => 'email','type' => 'text','value' => $user->email]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Email','name' => 'email','type' => 'text','value' => $userCustomer->email]); ?>
 <?php $component->withName('input-form-label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -78,7 +78,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
             <?php if (isset($component)) { $__componentOriginale1bb2929f8b9df6873fa722ef130c57617d11754 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Password Lama','name' => 'password','type' => 'text','value' => $user->password]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Password Lama','name' => 'password','type' => 'text','value' => $userCustomer->password]); ?>
 <?php $component->withName('input-form-label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

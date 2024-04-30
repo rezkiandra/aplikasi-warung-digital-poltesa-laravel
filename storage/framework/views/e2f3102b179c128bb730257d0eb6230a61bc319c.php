@@ -1,5 +1,5 @@
 <footer class="bg-dark footer">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row gx-0 gy-4 g-md-5">
       <div class="col-lg-5">
         <a href="landing-page.html" class="app-brand-link mb-4">

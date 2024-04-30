@@ -1,7 +1,5 @@
 @php
-  $totalOrders = \App\Models\Order::join('customers', 'customers.id', '=', 'orders.customer_id', 'left')
-      ->orderBy('customer_id', 'desc')
-      ->sum('quantity');
+  $totalOrders = \App\Models\Order::with('customer')->groupBy('customer_id')->sum('quantity');
 @endphp
 
 <div class="col-xl-4 col-md-6">

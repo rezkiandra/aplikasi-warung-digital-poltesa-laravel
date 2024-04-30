@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Midtrans\Snap;
+use App\Models\User;
 use Midtrans\Config;
 use App\Models\Order;
 use App\Models\Customer;
@@ -10,8 +11,10 @@ use App\Models\Products;
 use Illuminate\Support\Str;
 use App\Models\ProductsCart;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\BiodataRequest;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -79,6 +82,22 @@ class CustomerController extends Controller
   public function settings()
   {
     return view('customer.settings');
+  }
+
+  public function updateProfile(UserRequest $request, string $uuid)
+  {
+    $userCustomer = User::where('uuid', $uuid)->firstOrFail();
+    $userCustomer->update([
+      'uuid' => Str::uuid('id'),
+      'name' => $request->name,
+      'slug' => Str::slug($request->name),
+      'email' => $request->email,
+      'role_id' => $userCustomer->role_id,
+      'password' => $userCustomer->password ?? Hash::make($request->new_password),
+    ]);
+
+    Alert::toast('Berhasil update profile', 'success');
+    return redirect()->back();
   }
 
   public function store(BiodataRequest $request)

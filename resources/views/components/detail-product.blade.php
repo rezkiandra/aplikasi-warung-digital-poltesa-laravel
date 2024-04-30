@@ -1,7 +1,6 @@
 @php
   $customer = auth()->user()->customer ?? '';
   $seller = auth()->user()->seller ?? '';
-  $admin = auth()->user()->role_id == 1;
   $fee = 0;
 @endphp
 

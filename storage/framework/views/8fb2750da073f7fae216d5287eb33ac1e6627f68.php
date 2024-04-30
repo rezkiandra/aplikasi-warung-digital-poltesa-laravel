@@ -1,10 +1,10 @@
 
 
-<?php $__env->startSection('title', 'Create Category'); ?>
+<?php $__env->startSection('title', 'Tambah Kategori'); ?>
 
 <?php $__env->startSection('content'); ?>
   <?php if (isset($component)) { $__componentOriginal2f5fe581eb9b2c453c66c3c24186f5ca3109252c = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\CreateForm::class, ['title' => 'Create new category','action' => route('admin.store.category'),'route' => route('admin.product_category')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\CreateForm::class, ['title' => 'Tambah kategori baru','action' => route('admin.store.category'),'route' => route('admin.product_category')]); ?>
 <?php $component->withName('create-form'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -16,7 +16,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
       <?php if (isset($component)) { $__componentOriginale1bb2929f8b9df6873fa722ef130c57617d11754 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Category Name','name' => 'name','type' => 'text','placeholder' => 'Ex: Food, Fashion, Electronic, etc','value' => old('name')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Nama Kategori','name' => 'name','type' => 'text','placeholder' => 'Makanan, Pakaian, Elektronik, Aksesoris','value' => old('name')]); ?>
 <?php $component->withName('input-form-label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -35,7 +35,7 @@
 <?php endif; ?>
 
     <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Submit','type' => 'submit','variant' => 'primary','icon' => 'check-circle-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Simpan','type' => 'submit','variant' => 'primary','icon' => 'check-circle-outline']); ?>
 <?php $component->withName('submit-button'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

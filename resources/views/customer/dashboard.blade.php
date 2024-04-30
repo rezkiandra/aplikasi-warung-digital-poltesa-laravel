@@ -10,7 +10,7 @@
 
   // Transaction Card
   $title = 'Pesanan';
-  $description = 'Total pesanan dibulan ini';
+  $description = 'Total pesanan akhir ini';
 
   // Earnings Card
   $spent = \App\Models\Order::where('customer_id', auth()->user()->customer->id)
@@ -18,7 +18,7 @@
       ->get();
   $titleSpent = 'Total Pengeluaran';
   $spentValue = 'Rp' . number_format($spent->sum('total_price'), 2, '.', ',');
-  $descriptionSpent = 'Total pengeluaran dibulan ini';
+  $descriptionSpent = 'Total pengeluaran akhir ini';
 
   // Transaction Item Card
   $totalOrders = \App\Models\Order::where('customer_id', auth()->user()->customer->id)->count();

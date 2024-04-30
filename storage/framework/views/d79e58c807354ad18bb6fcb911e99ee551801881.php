@@ -58,11 +58,11 @@
             </td>
             <td>
               <h6
-                  class="mb-0 w-px-100 d-flex align-items-center <?php if($data->status == 'unpaid'): ?> text-warning <?php elseif($data->status == 'canceled'): ?> text-dark <?php elseif($data->status == 'paid'): ?> text-success <?php endif; ?> text-uppercase">
-                  <i class="mdi mdi-circle fs-tiny me-1"></i>
-                  <?php echo e($data->status); ?>
+                class="mb-0 w-px-100 d-flex align-items-center <?php if($data->status == 'unpaid'): ?> text-warning <?php elseif($data->status == 'canceled'): ?> text-dark <?php elseif($data->status == 'paid'): ?> text-success <?php endif; ?> text-uppercase">
+                <i class="mdi mdi-circle fs-tiny me-1"></i>
+                <?php echo e($data->status); ?>
 
-                </h6>
+              </h6>
             </td>
             <td class="">
               <span class="badge bg-label-info"><?php echo e(date('d M Y, H:i', strtotime($data->updated_at))); ?>

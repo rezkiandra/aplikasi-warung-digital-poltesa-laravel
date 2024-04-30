@@ -163,6 +163,7 @@ Route::middleware('auth', 'checkRole:Seller')->group(function () {
       Route::get('/', 'dashboard')->name('seller.dashboard');
       Route::get('/list-orders', 'orders')->name('seller.orders');
       Route::get('/settings', 'settings')->name('seller.settings');
+      Route::put('/settings/edit-profile/{seller}', 'updateProfile')->name('seller.update.profile');
     });
   // Route::controller(OrderController::class)
   //   ->prefix('seller/dashboard')
@@ -208,6 +209,7 @@ Route::middleware('auth', 'checkRole:Customer')->group(function () {
       Route::get('/cart', 'cart')->name('customer.cart');
       Route::get('/orders', 'orders')->name('customer.orders');
       Route::get('/settings', 'settings')->name('customer.settings');
+      Route::put('/settings/edit-profile/{customer}', 'updateProfile')->name('customer.update.profile');
       Route::get('/biodata', 'biodata')->name('customer.biodata');
       Route::post('biodata/store', 'store')->name('customer.store.biodata');
       Route::put('/biodata/update/{biodata}', 'update')->name('customer.update.biodata');

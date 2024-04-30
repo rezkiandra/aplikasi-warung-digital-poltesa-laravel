@@ -2,7 +2,7 @@
   $user_role = Auth::user()->role_id ?? '';
 ?>
 
-<div class="container fixed-top mt-3">
+<div class="container-fluid fixed-top mt-3">
   <nav class="layout-navbar shadow bg-white rounded border">
     <div class="navbar navbar-expand-lg landing-navbar border-top-0 px-3 px-md-4 bg-white rounded">
       <div class="navbar-brand app-brand demo d-flex py-0 py-lg-2 me-4">

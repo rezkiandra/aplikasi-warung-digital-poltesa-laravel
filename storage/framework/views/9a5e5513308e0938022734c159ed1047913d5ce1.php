@@ -14,7 +14,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
       <?php if (isset($component)) { $__componentOriginale1bb2929f8b9df6873fa722ef130c57617d11754 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Role Name','name' => 'role_name','type' => 'text','placeholder' => 'Ex: Admin, Superadmin, Editor, etc','value' => $role->role_name]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Nama Role','name' => 'role_name','type' => 'text','placeholder' => 'Superadmin, Editor, Maintainer','value' => $role->role_name]); ?>
 <?php $component->withName('input-form-label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
