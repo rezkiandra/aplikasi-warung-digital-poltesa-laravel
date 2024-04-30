@@ -3,9 +3,7 @@
 @endphp
 
 @extends('layouts.guest')
-
-@section('title', 'Products')
-
+@section('title', 'Produk')
 @section('content')
   <section id="hero" class="mb-5 pb-5">
     <div class="container-fluid mt-lg-5 mt-4 pt-4">

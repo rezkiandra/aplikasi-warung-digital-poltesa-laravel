@@ -21,7 +21,7 @@ class ProductsRequest extends FormRequest
       'price' => 'required|numeric|',
       'stock' => 'required|numeric|',
       'category_id' => 'required',
-      'image' => 'required_if:image,null|mimes:png,jpg,jpeg',
+      'image' => 'required_if:image,null|mimes:png,jpg,jpeg,webp',
     ];
   }
 
@@ -45,7 +45,7 @@ class ProductsRequest extends FormRequest
       'category_id.required' => 'Kategori diperlukan',
 
       'image.required_if' => 'Gambar diperlukan',
-      'image.mimes' => 'Gambar dalam format jpg, png, jpeg',
+      'image.mimes' => 'Gambar dalam format jpg, png, jpeg, webp',
       // 'image.size' => 'Gambar maksimal 2 MB',
     ];
   }

@@ -24,7 +24,8 @@
       ->join('sellers', 'products.seller_id', '=', 'sellers.id', 'left')
       ->where('orders.status', 'paid')
       ->groupBy('seller_id')
-      ->orderBy('orders.total_price', 'desc')
+      ->selectRaw('SUM(orders.total_price) as total_price')
+      ->orderBy('total_price', 'desc')
       ->take(5)
       ->get();
 

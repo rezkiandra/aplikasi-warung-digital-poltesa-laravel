@@ -1,10 +1,3 @@
-<?php
-  $totalEarnings = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->join('sellers', 'products.seller_id', '=', 'sellers.id', 'left')
-      ->orderBy('orders.total_price', 'desc')
-      ->sum('total_price');
-?>
-
 <div class="col-xl-4 col-md-6">
   <div class="card">
     <div class="card-header d-flex align-items-center justify-content-start">
@@ -27,12 +20,14 @@
             </div>
           </div>
           <div class="text-end">
-            <h6 class="mb-0">Rp<?php echo e(number_format($totalEarnings, 0, '.', ',')); ?></h6>
+            <h6 class="mb-0">
+              Rp<?php echo e(number_format($data->total_price, 0, ',', '.')); ?>
+
+            </h6>
             <small>Pendapatan</small>
           </div>
         </div>
       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
   </div>
-</div>
-<?php /**PATH C:\Users\USER\Desktop\warungdigital\resources\views/components/top-sellers-card.blade.php ENDPATH**/ ?>
+</div><?php /**PATH C:\Users\USER\Desktop\warungdigital\resources\views/components/top-sellers-card.blade.php ENDPATH**/ ?>

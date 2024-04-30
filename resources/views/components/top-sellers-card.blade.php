@@ -1,10 +1,3 @@
-@php
-  $totalEarnings = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->join('sellers', 'products.seller_id', '=', 'sellers.id', 'left')
-      ->orderBy('orders.total_price', 'desc')
-      ->sum('total_price');
-@endphp
-
 <div class="col-xl-4 col-md-6">
   <div class="card">
     <div class="card-header d-flex align-items-center justify-content-start">
@@ -27,7 +20,9 @@
             </div>
           </div>
           <div class="text-end">
-            <h6 class="mb-0">Rp{{ number_format($totalEarnings, 0, '.', ',') }}</h6>
+            <h6 class="mb-0">
+              Rp{{ number_format($data->total_price, 0, ',', '.') }}
+            </h6>
             <small>Pendapatan</small>
           </div>
         </div>

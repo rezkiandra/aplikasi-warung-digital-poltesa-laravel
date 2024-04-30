@@ -30,7 +30,7 @@
                       <img src="{{ asset('storage/' . $data->seller->image) }}" alt="Avatar" class="rounded">
                     @elseif ($data->customer)
                       <img src="{{ asset('storage/' . $data->customer->image) }}" alt="Avatar" class="rounded">
-                    @else
+                    @elseif($data->role_id == 1)
                       <img src="{{ asset('materio/assets/img/favicon/favicon.ico') }}" alt="Avatar" class="rounded">
                     @endif
                   </div>
@@ -56,8 +56,10 @@
                   <span class="badge bg-label-primary text-uppercase">{{ $data->role->role_name }}</span>
                 @endif
               </td>
-              <td class="text-truncate fw-medium">{{ date('M d, H:i', strtotime($data->created_at)) }}
-                {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}</td>
+              <td class="text-truncate fw-medium">
+                <span class="badge bg-label-success rounded">{{ date('M d, H:i', strtotime($data->created_at)) }}
+                  {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}</span>
+              </td>
               {{-- <td>
                 @if ($data->role_id == 1)
                   @if ($data->seller && $data->seller->status == 'active')

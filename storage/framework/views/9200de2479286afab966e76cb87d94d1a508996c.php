@@ -1,7 +1,3 @@
-<?php
-  $totalOrders = \App\Models\Order::with('customer')->groupBy('customer_id')->sum('quantity');
-?>
-
 <div class="col-xl-4 col-md-6">
   <div class="card">
     <div class="card-header d-flex align-items-center justify-content-between">
@@ -24,7 +20,7 @@
             </div>
           </div>
           <div class="text-end">
-            <h6 class="mb-0"><?php echo e($totalOrders); ?></h6>
+            <h6 class="mb-0"><?php echo e($data->total); ?></h6>
             <small>Pesanan</small>
           </div>
         </div>

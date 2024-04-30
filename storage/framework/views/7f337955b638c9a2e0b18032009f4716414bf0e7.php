@@ -5,7 +5,7 @@
       <thead>
         <th>ID</th>
         <th>Produk</th>
-        <th>Deskripsi</th>
+        <th>Kategori</th>
         <th>Harga</th>
         <th>Stok</th>
         <th>Dipublish Pada</th>
@@ -30,22 +30,8 @@
                 </div>
               </div>
             </td>
-            <td class="sorting_1">
-              <div class="d-flex flex-column justify-content-start product-name">
-                <span class="fw-medium d-flex align-items-center">
-                  <span class="d-flex justify-content-center align-items-center">
-                    <i class="mdi mdi-tshirt-crew text-info me-1"></i>
-                  </span>
-                  <?php echo e($data->category->name); ?>
-
-                </span>
-                <?php if(Auth::user()->role_id == 1): ?>
-                  <small class="fw-medium d-flex align-items-center">
-                    <?php echo e($data->seller->full_name); ?> - <?php echo e($data->seller->user->email); ?>
-
-                  </small>
-                <?php endif; ?>
-              </div>
+            <td>
+              <span class="fw-medium badge bg-label-primary rounded text-uppercase"><?php echo e($data->category->name); ?></span>
             </td>
             <td>
               <span class="fw-medium">Rp.<?php echo e(number_format($data->price, 2, ',', '.')); ?></span>
@@ -113,7 +99,7 @@
       <tfoot class="table-border-bottom-0">
         <th>ID</th>
         <th>Produk</th>
-        <th>Deskripsi</th>
+        <th>Kategori</th>
         <th>Harga</th>
         <th>Stok</th>
         <th>Dipublish Pada</th>

@@ -30,7 +30,7 @@
                       <img src="<?php echo e(asset('storage/' . $data->seller->image)); ?>" alt="Avatar" class="rounded">
                     <?php elseif($data->customer): ?>
                       <img src="<?php echo e(asset('storage/' . $data->customer->image)); ?>" alt="Avatar" class="rounded">
-                    <?php else: ?>
+                    <?php elseif($data->role_id == 1): ?>
                       <img src="<?php echo e(asset('materio/assets/img/favicon/favicon.ico')); ?>" alt="Avatar" class="rounded">
                     <?php endif; ?>
                   </div>
@@ -56,9 +56,11 @@
                   <span class="badge bg-label-primary text-uppercase"><?php echo e($data->role->role_name); ?></span>
                 <?php endif; ?>
               </td>
-              <td class="text-truncate fw-medium"><?php echo e(date('M d, H:i', strtotime($data->created_at))); ?>
+              <td class="text-truncate fw-medium">
+                <span class="badge bg-label-success rounded"><?php echo e(date('M d, H:i', strtotime($data->created_at))); ?>
 
-                <?php echo e($data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM'); ?></td>
+                  <?php echo e($data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM'); ?></span>
+              </td>
               
             </tr>
           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

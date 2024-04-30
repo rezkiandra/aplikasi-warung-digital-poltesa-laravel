@@ -3,9 +3,7 @@
 ?>
 
 
-
-<?php $__env->startSection('title', 'Products'); ?>
-
+<?php $__env->startSection('title', 'Produk'); ?>
 <?php $__env->startSection('content'); ?>
   <section id="hero" class="mb-5 pb-5">
     <div class="container-fluid mt-lg-5 mt-4 pt-4">
