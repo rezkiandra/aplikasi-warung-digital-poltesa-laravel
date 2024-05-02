@@ -41,7 +41,7 @@ class CustomerController extends Controller
 
   public function products()
   {
-    $products = Products::all();
+    $products = Products::orderBy('category_id', 'asc')->get();
     return view('customer.products', compact('products'));
   }
 

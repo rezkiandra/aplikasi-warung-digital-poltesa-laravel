@@ -86,6 +86,7 @@
     @elseif (Auth::user()->role_id == 3)
       <x-divider :label="'Pengaturan'" />
       <x-sidebar-item :label="'Pengaturan'" :route="route('customer.settings')" :icon="'account-cog-outline'" :active="request()->routeIs('customer.settings')" />
+      <x-sidebar-item :label="'Halaman Utama'" :route="route('customer.home')" :icon="'arrow-left-circle-outline'" :active="request()->routeIs('customer.home')" />
     @endif
   </ul>
 </aside>

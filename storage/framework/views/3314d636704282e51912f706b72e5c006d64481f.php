@@ -64,8 +64,7 @@
           </li>
           <?php if(auth()->guard()->check()): ?>
             <li class="nav-item my-lg-0 my-2">
-              <a class="nav-link fw-medium text-dark"
-                href="<?php echo e(route('customer.dashboard')); ?>">Dashboard</a>
+              <a class="nav-link fw-medium text-dark" href="<?php echo e(route('customer.dashboard')); ?>">Dashboard</a>
             </li>
             <li class="nav-item my-lg-0 my-2">
               <small

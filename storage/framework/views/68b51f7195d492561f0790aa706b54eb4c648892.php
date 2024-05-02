@@ -28,7 +28,7 @@
       <a href="<?php echo e(route('guest.products')); ?>" class="btn btn-sm btn-outline-primary mb-4">View All</a>
     </section>
     <?php if (isset($component)) { $__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\GridCard::class, []); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\GridCard::class, ['class' => 'mb-5']); ?>
 <?php $component->withName('grid-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -71,7 +71,7 @@
       <a href="<?php echo e(route('guest.products')); ?>" class="btn btn-sm btn-outline-primary mb-4">View All</a>
     </section>
     <?php if (isset($component)) { $__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\GridCard::class, []); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\GridCard::class, ['class' => 'mb-5 pb-5']); ?>
 <?php $component->withName('grid-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

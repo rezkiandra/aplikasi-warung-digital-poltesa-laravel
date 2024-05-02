@@ -64,8 +64,7 @@
           </li>
           @auth
             <li class="nav-item my-lg-0 my-2">
-              <a class="nav-link fw-medium text-dark"
-                href="{{ route('customer.dashboard') }}">Dashboard</a>
+              <a class="nav-link fw-medium text-dark" href="{{ route('customer.dashboard') }}">Dashboard</a>
             </li>
             <li class="nav-item my-lg-0 my-2">
               <small

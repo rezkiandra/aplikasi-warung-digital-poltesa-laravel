@@ -7,8 +7,8 @@
   }
 @endphp
 
-<h5 class="fw-medium mt-5 mt-lg-5 mb-3">Produk Serupa</h5>
-<div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+<h5 class="fw-medium mt-2 mt-lg-5 mb-3 text-uppercase">Produk Serupa</h5>
+<div class="row row-cols-1 row-cols-md-3 g-3 mb-5 pb-0 pb-lg-5">
   @foreach ($relatedProducts as $data)
     <div class="col-lg-2 col-md-4 col-6 pb-3 pb-lg-3">
       <div class="card h-100 cursor-pointer"

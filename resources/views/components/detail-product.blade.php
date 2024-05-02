@@ -20,12 +20,12 @@
   <div class="position-absolute">
     <span class="badge bg-primary text-white d-lg-flex align-items-centers text-uppercase px-4">On Sale</span>
   </div>
-  <div class="row">
+  <div class="row mb-4">
     <div class="col-lg-4 col-md-6">
       <img src="{{ asset('storage/' . $product->image) }}" alt="" class="img-fluid rounded shadow hover-shadow">
     </div>
 
-    <div class="col-lg-5 px-lg-5 col-md-6 mt-lg-0 mt-3 mt-md-0">
+    <div class="col-lg-5 px-lg-3 col-md-6 mt-lg-0 mt-3 mt-md-0">
       <h4 class="fw-medium">{{ $product->name }}</h4>
       <div class="d-flex d-lg-flex d-md-flex align-items-center gap-4">
         <p class="d-lg-flex d-flex align-items-center">

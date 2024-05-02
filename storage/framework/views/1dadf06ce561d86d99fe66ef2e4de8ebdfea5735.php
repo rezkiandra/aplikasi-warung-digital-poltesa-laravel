@@ -477,6 +477,18 @@
 <?php $component = $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394; ?>
 <?php unset($__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394); ?>
 <?php endif; ?>
+      <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Halaman Utama','route' => route('customer.home'),'icon' => 'arrow-left-circle-outline','active' => request()->routeIs('customer.home')]); ?>
+<?php $component->withName('sidebar-item'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394)): ?>
+<?php $component = $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394; ?>
+<?php unset($__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394); ?>
+<?php endif; ?>
     <?php endif; ?>
   </ul>
 </aside>
