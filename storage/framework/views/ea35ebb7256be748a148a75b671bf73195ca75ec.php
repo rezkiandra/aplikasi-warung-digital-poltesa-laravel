@@ -1,7 +1,14 @@
 
-
 <?php $__env->startSection('title', 'Detail Produk'); ?>
-
+<?php $__env->startPush('styles'); ?>
+  <style>
+    .card:hover {
+      opacity: .9;
+      transition: .2s;
+      transform: scale(.99);
+    }
+  </style>
+<?php $__env->stopPush(); ?>
 <?php $__env->startSection('content'); ?>
   <div class="container-fluid mt-5 pt-5">
     <?php if (isset($component)) { $__componentOriginal92a94ac4e359e812306e5de71cf3220aef818777 = $component; } ?>

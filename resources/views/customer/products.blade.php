@@ -3,8 +3,7 @@
 @endphp
 
 @extends('layouts.guest')
-
-@section('title', 'Products')
+@section('title', 'Produk')
 
 @section('content')
   <section id="hero" class="mb-5 pb-5">
@@ -17,7 +16,7 @@
 
     <div class="container-fluid">
       <x-grid-card>
-        <x-grid-card-item :datas="$products" />
+        <x-product-grid :datas="$products" />
       </x-grid-card>
     </div>
   </section>

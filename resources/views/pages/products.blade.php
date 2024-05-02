@@ -15,7 +15,7 @@
 
     <div class="container-fluid">
       <x-grid-card>
-        <x-grid-card-item :datas="$products" />
+        <x-product-grid :datas="$products" />
       </x-grid-card>
     </div>
   </section>

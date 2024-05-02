@@ -20,17 +20,17 @@
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
-        <?php if (isset($component)) { $__componentOriginalf76d4cb7c448d76b73205d0a98bd867a3d5c6b95 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\GridCardItem::class, ['datas' => $products]); ?>
-<?php $component->withName('grid-card-item'); ?>
+        <?php if (isset($component)) { $__componentOriginalb7c8a2c1fc2b8ded9c60b45d3eb870d1c3408e01 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\ProductGrid::class, ['datas' => $products]); ?>
+<?php $component->withName('product-grid'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginalf76d4cb7c448d76b73205d0a98bd867a3d5c6b95)): ?>
-<?php $component = $__componentOriginalf76d4cb7c448d76b73205d0a98bd867a3d5c6b95; ?>
-<?php unset($__componentOriginalf76d4cb7c448d76b73205d0a98bd867a3d5c6b95); ?>
+<?php if (isset($__componentOriginalb7c8a2c1fc2b8ded9c60b45d3eb870d1c3408e01)): ?>
+<?php $component = $__componentOriginalb7c8a2c1fc2b8ded9c60b45d3eb870d1c3408e01; ?>
+<?php unset($__componentOriginalb7c8a2c1fc2b8ded9c60b45d3eb870d1c3408e01); ?>
 <?php endif; ?>
        <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>

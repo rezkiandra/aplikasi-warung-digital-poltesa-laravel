@@ -40,4 +40,9 @@ class Products extends Model
   {
     return $this->belongsTo(Order::class);
   }
+
+  public function wishlist()
+  {
+    return $this->belongsTo(Wishlist::class);
+  }
 }

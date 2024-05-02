@@ -11,6 +11,7 @@ use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\ProductsCartController;
@@ -30,8 +31,6 @@ Route::controller(GuestController::class)
     Route::get('/', 'index')->name('guest.home');
     Route::get('/products', 'products')->name('guest.products');
     Route::get('/product/detail/{product}', 'product')->name('guest.detail.product');
-    Route::get('/gallery', 'index')->name('guest.gallery');
-    Route::get('/testimonials', 'index')->name('guest.testimonials');
   });
 
 Route::middleware('auth', 'mustLogin', 'checkCustomer')->group(function () {
@@ -43,9 +42,15 @@ Route::middleware('auth', 'mustLogin', 'checkCustomer')->group(function () {
       Route::put('/cart', 'update')->name('cart.update');
       Route::delete('/cart/{cart}', 'destroy')->name('cart.destroy');
     });
-});
 
-Route::middleware('auth', 'mustLogin', 'checkCustomer')->group(function () {
+  Route::controller(WishlistController::class)
+    ->prefix('customer')
+    ->group(function () {
+      Route::get('/wishlist', 'index')->name('wishlist');
+      Route::post('/add-wishlist', 'store')->name('wishlist.store');
+      Route::delete('/wishlist/{wishlist}', 'destroy')->name('wishlist.destroy');
+    });
+
   Route::controller(OrderController::class)
     ->prefix('customer')
     ->group(function () {
@@ -64,8 +69,27 @@ Route::middleware('auth', 'mustLogin', 'checkCustomer')->group(function () {
 
       Route::post('/midtrans/callback', 'callbackHandler')->name('midtrans.callback');
     });
-});
 
+  Route::controller(CustomerController::class)
+    ->prefix('customer/dashboard')
+    ->group(function () {
+      Route::get('/', 'dashboard')->name('customer.dashboard');
+      Route::get('/cart', 'cart')->name('customer.cart');
+      Route::get('/orders', 'orders')->name('customer.orders');
+      Route::get('/settings', 'settings')->name('customer.settings');
+      Route::put('/settings/edit-profile/{customer}', 'updateProfile')->name('customer.update.profile');
+      Route::get('/biodata', 'biodata')->name('customer.biodata');
+      Route::post('biodata/store', 'store')->name('customer.store.biodata');
+      Route::put('/biodata/update/{biodata}', 'update')->name('customer.update.biodata');
+    });
+  Route::controller(CustomerController::class)
+    ->prefix('customer')
+    ->group(function () {
+      Route::get('/home', 'index')->name('customer.home');
+      Route::get('/products', 'products')->name('customer.products');
+      Route::get('/product/detail/{product}', 'product')->name('customer.detail.product');
+    });
+});
 
 Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
   Route::controller(AdminController::class)
@@ -165,6 +189,15 @@ Route::middleware('auth', 'checkRole:Seller')->group(function () {
       Route::get('/settings', 'settings')->name('seller.settings');
       Route::put('/settings/edit-profile/{seller}', 'updateProfile')->name('seller.update.profile');
     });
+
+  Route::controller(BiodataController::class)
+    ->prefix('seller/dashboard')
+    ->group(function () {
+      Route::get('/biodata', 'index')->name('seller.biodata');
+      Route::post('biodata/store', 'store')->name('seller.store.biodata');
+      Route::put('/biodata/update/{biodata}', 'update')->name('seller.update.biodata');
+    });
+
   // Route::controller(OrderController::class)
   //   ->prefix('seller/dashboard')
   //   ->group(function () {
@@ -176,6 +209,7 @@ Route::middleware('auth', 'checkRole:Seller')->group(function () {
   //     Route::get('/order/detail/{order}', 'show')->name('seller.detail.order');
   //     Route::delete('/order/destroy/{order}', 'destroy')->name('seller.destroy.order');
   //   });
+
   Route::middleware('checkBiodata')->group(function () {
     Route::controller(ProductsController::class)
       ->prefix('seller/dashboards')
@@ -190,38 +224,5 @@ Route::middleware('auth', 'checkRole:Seller')->group(function () {
       });
   });
 });
-
-Route::middleware('auth', 'checkRole:Seller')->group(function () {
-  Route::controller(BiodataController::class)
-    ->prefix('seller/dashboard')
-    ->group(function () {
-      Route::get('/biodata', 'index')->name('seller.biodata');
-      Route::post('biodata/store', 'store')->name('seller.store.biodata');
-      Route::put('/biodata/update/{biodata}', 'update')->name('seller.update.biodata');
-    });
-});
-
-Route::middleware('auth', 'checkRole:Customer')->group(function () {
-  Route::controller(CustomerController::class)
-    ->prefix('customer/dashboard')
-    ->group(function () {
-      Route::get('/', 'dashboard')->name('customer.dashboard');
-      Route::get('/cart', 'cart')->name('customer.cart');
-      Route::get('/orders', 'orders')->name('customer.orders');
-      Route::get('/settings', 'settings')->name('customer.settings');
-      Route::put('/settings/edit-profile/{customer}', 'updateProfile')->name('customer.update.profile');
-      Route::get('/biodata', 'biodata')->name('customer.biodata');
-      Route::post('biodata/store', 'store')->name('customer.store.biodata');
-      Route::put('/biodata/update/{biodata}', 'update')->name('customer.update.biodata');
-    });
-  Route::controller(CustomerController::class)
-    ->prefix('customer')
-    ->group(function () {
-      Route::get('/home', 'index')->name('customer.home');
-      Route::get('/products', 'products')->name('customer.products');
-      Route::get('/product/detail/{product}', 'product')->name('customer.detail.product');
-    });
-});
-
 
 require __DIR__ . '/auth.php';

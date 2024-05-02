@@ -91,7 +91,7 @@
 <?php unset($__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Pesanan Selesai','value' => $totalPaid,'variant' => 'success','icon' => 'account-multiple-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Selesai','value' => $totalPaid,'variant' => 'success','icon' => 'account-multiple-outline']); ?>
 <?php $component->withName('transaction-item-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -103,7 +103,7 @@
 <?php unset($__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Pesanan Belum Dibayar','value' => $totalUnpaid,'variant' => 'warning','icon' => 'package']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Belum Dibayar','value' => $totalUnpaid,'variant' => 'warning','icon' => 'package']); ?>
 <?php $component->withName('transaction-item-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -115,7 +115,7 @@
 <?php unset($__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Pesanan Dibatalkan','value' => $totalCancelled,'variant' => 'danger','icon' => 'basket-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Dibatalkan','value' => $totalCancelled,'variant' => 'danger','icon' => 'basket-outline']); ?>
 <?php $component->withName('transaction-item-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

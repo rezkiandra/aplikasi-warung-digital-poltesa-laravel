@@ -58,9 +58,9 @@
     <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel" :route="$route" />
     <x-transactions-card :title="$title" :description="$description">
       <x-transaction-item-card :label="'Jumlah Pesanan'" :value="$totalOrders" :variant="'info'" :icon="'account-group-outline'" />
-      <x-transaction-item-card :label="'Pesanan Selesai'" :value="$totalPaid" :variant="'success'" :icon="'account-multiple-outline'" />
-      <x-transaction-item-card :label="'Pesanan Belum Dibayar'" :value="$totalUnpaid" :variant="'warning'" :icon="'package'" />
-      <x-transaction-item-card :label="'Pesanan Dibatalkan'" :value="$totalCancelled" :variant="'danger'" :icon="'basket-outline'" />
+      <x-transaction-item-card :label="'Selesai'" :value="$totalPaid" :variant="'success'" :icon="'account-multiple-outline'" />
+      <x-transaction-item-card :label="'Belum Dibayar'" :value="$totalUnpaid" :variant="'warning'" :icon="'package'" />
+      <x-transaction-item-card :label="'Dibatalkan'" :value="$totalCancelled" :variant="'danger'" :icon="'basket-outline'" />
     </x-transactions-card>
 
     <x-earnings-card :title="$titleSpent" :description="$descriptionSpent" :earnings="$spentValue" />

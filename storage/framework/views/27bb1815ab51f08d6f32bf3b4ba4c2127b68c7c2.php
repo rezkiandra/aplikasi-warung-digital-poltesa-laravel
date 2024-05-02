@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&ampdisplay=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&ampdisplay=swap"
       rel="stylesheet" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,9 +26,13 @@
 
     <script src="<?php echo e(asset('materio/assets/vendor/js/helpers.js')); ?>"></script>
     <script src="<?php echo e(asset('materio/assets/js/config.js')); ?>"></script>
-    <?php echo $__env->yieldPushContent('styles'); ?>
-
     <title><?php echo $__env->yieldContent('title'); ?> - Warung Digital</title>
+    <style>
+      * {
+        font-family: Poppins;
+      }
+    </style>
+    <?php echo $__env->yieldPushContent('styles'); ?>
   </head>
 
   <body>

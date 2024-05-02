@@ -32,4 +32,9 @@ class Customer extends Model
   {
     return $this->belongsTo(BankAccount::class);
   }
+
+  public function wishlist()
+  {
+    return $this->hasMany(Wishlist::class);
+  }
 }

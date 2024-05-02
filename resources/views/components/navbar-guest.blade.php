@@ -2,8 +2,8 @@
   $user_role = Auth::user()->role_id ?? '';
 @endphp
 
-<div class="container-fluid fixed-top mt-3">
-  <nav class="layout-navbar shadow bg-white rounded border">
+<div class="fixed-top">
+  <nav class="layout-navbar shadow bg-white border">
     <div class="navbar navbar-expand-lg landing-navbar border-top-0 px-3 px-md-4 bg-white rounded">
       <div class="navbar-brand app-brand demo d-flex py-0 py-lg-2 me-4">
         <button class="navbar-toggler border-0 px-0 me-4 d-inline-block d-lg-none" type="button" data-bs-toggle="collapse"
@@ -53,7 +53,7 @@
           data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
           aria-expanded="false" aria-label="Toggle navigation">
         </button>
-        <ul class="navbar-nav d-lg-flex align-items-center justify-content-between gap-4 d-inline">
+        <ul class="navbar-nav d-lg-flex align-items-center justify-content-between gap-4 d-inline text-uppercase">
           <li class="nav-item my-lg-0 my-2">
             <a class="nav-link fw-medium {{ request()->routeIs('guest.home', 'customer.home') ? 'active text-primary' : 'text-dark' }}"
               href="@if ($user_role == 3) {{ route('customer.home') }} @else {{ route('guest.home') }} @endif">Beranda</a>
@@ -64,17 +64,17 @@
           </li>
           @auth
             <li class="nav-item my-lg-0 my-2">
-              <a class="nav-link fw-medium text-dark text-capitalize"
+              <a class="nav-link fw-medium text-dark"
                 href="{{ route('customer.dashboard') }}">Dashboard</a>
             </li>
             <li class="nav-item my-lg-0 my-2">
               <small
-                class="cursor-pointer bg-label-primary px-2 px-lg-2 rounded rounded-lg nav-link fw-medium text-dark text-capitalize">{{ Auth::user()->name }}</small>
+                class="cursor-pointer bg-label-primary px-2 px-lg-2 rounded rounded-lg nav-link fw-medium text-dark">{{ Auth::user()->name }}</small>
             </li>
           @endauth
         </ul>
       </div>
-      <ul class="navbar-nav d-flex d-lg-flex d-md-flex align-items-center ms-auto">
+      <ul class="navbar-nav d-flex d-lg-flex d-md-flex align-items-center ms-auto text-uppercase">
         <li>
           @guest
             <a href="{{ route('login') }}" class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4">

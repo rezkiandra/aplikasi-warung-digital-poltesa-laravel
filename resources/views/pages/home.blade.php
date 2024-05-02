@@ -10,33 +10,25 @@
 @section('title', 'Beranda')
 
 @section('content')
-  <main class="mb-5 pb-5">
-    <div class="container-fluid mt-lg-5 mt-4 pt-4">
-      <section class="product">
-        <div class="mt-3 pt-5 pt-lg-4 pt-md-5 d-flex align-items-center justify-content-between">
-          <div class="title">
-            <h4 class="text-dark text-uppercase mb-2">Kategori Pakaian</h4>
-            <h6 class="fw-normal">Menampilkan {{ $totalFashionProduct }} produk</h6>
-          </div>
-          <a href="{{ route('guest.products') }}" class="btn btn-sm btn-primary">View All</a>
-        </div>
-        <x-grid-card>
-          <x-product-grid :datas="$fashionProduct" />
-        </x-grid-card>
-      </section>
+  <x-banner-image :image="asset('img/banner1.webp')" :title="'Fashion'" :class="'pt-lg-5 pt-5 mt-lg-4 mt-4'" />
+  <main class="container-fluid">
+    <section class="mt-3 pt-3 pt-lg-4 pt-md-5 d-flex align-items-center justify-content-between">
+      <h4 class="text-dark text-uppercase">Kategori Pakaian</h4>
+      <a href="{{ route('guest.products') }}" class="btn btn-sm btn-outline-primary mb-4">View All</a>
+    </section>
+    <x-grid-card>
+      <x-product-grid :datas="$fashionProduct" />
+    </x-grid-card>
+  </main>
 
-      <section class="product">
-        <div class="mt-3 pt-5 pt-lg-4 pt-md-5 d-flex align-items-center justify-content-between">
-          <div class="title">
-            <h4 class="text-dark text-uppercase mb-2">Kategori Parfume</h4>
-            <h6 class="fw-normal">Menampilkan {{ $totalFashionProduct }} produk</h6>
-          </div>
-          <a href="{{ route('guest.products') }}" class="btn btn-sm btn-primary">View All</a>
-        </div>
-        <x-grid-card>
-          <x-product-grid :datas="$parfumeProduct" />
-        </x-grid-card>
-      </section>
-    </div>
+  <x-banner-image :image="asset('img/banner2.webp')" :title="'Parfume'" :class="''" />
+  <main class="container-fluid">
+    <section class="mt-3 pt-3 pt-lg-4 pt-md-5 d-flex align-items-center justify-content-between">
+      <h4 class="text-dark text-uppercase mb-4">Kategori Parfume</h4>
+      <a href="{{ route('guest.products') }}" class="btn btn-sm btn-outline-primary mb-4">View All</a>
+    </section>
+    <x-grid-card>
+      <x-product-grid :datas="$parfumeProduct" />
+    </x-grid-card>
   </main>
 @endsection

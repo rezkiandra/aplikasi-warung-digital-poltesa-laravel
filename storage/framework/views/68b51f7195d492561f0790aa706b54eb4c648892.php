@@ -10,23 +10,30 @@
 <?php $__env->startSection('title', 'Beranda'); ?>
 
 <?php $__env->startSection('content'); ?>
-  <main class="mb-5 pb-5">
-    <div class="container-fluid mt-lg-5 mt-4 pt-4">
-      <section class="product">
-        <div class="mt-3 pt-5 pt-lg-4 pt-md-5 d-flex align-items-center justify-content-between">
-          <div class="title">
-            <h4 class="text-dark text-uppercase mb-2">Kategori Pakaian</h4>
-            <h6 class="fw-normal">Menampilkan <?php echo e($totalFashionProduct); ?> produk</h6>
-          </div>
-          <a href="<?php echo e(route('guest.products')); ?>" class="btn btn-sm btn-primary">View All</a>
-        </div>
-        <?php if (isset($component)) { $__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62 = $component; } ?>
+  <?php if (isset($component)) { $__componentOriginal39095e96dc654356da7e4dc53d8b3e5955e2d4c5 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\BannerImage::class, ['image' => asset('img/banner1.webp'),'title' => 'Fashion','class' => 'pt-lg-5 pt-5 mt-lg-4 mt-4']); ?>
+<?php $component->withName('banner-image'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal39095e96dc654356da7e4dc53d8b3e5955e2d4c5)): ?>
+<?php $component = $__componentOriginal39095e96dc654356da7e4dc53d8b3e5955e2d4c5; ?>
+<?php unset($__componentOriginal39095e96dc654356da7e4dc53d8b3e5955e2d4c5); ?>
+<?php endif; ?>
+  <main class="container-fluid">
+    <section class="mt-3 pt-3 pt-lg-4 pt-md-5 d-flex align-items-center justify-content-between">
+      <h4 class="text-dark text-uppercase">Kategori Pakaian</h4>
+      <a href="<?php echo e(route('guest.products')); ?>" class="btn btn-sm btn-outline-primary mb-4">View All</a>
+    </section>
+    <?php if (isset($component)) { $__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\GridCard::class, []); ?>
 <?php $component->withName('grid-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
-          <?php if (isset($component)) { $__componentOriginalb7c8a2c1fc2b8ded9c60b45d3eb870d1c3408e01 = $component; } ?>
+      <?php if (isset($component)) { $__componentOriginalb7c8a2c1fc2b8ded9c60b45d3eb870d1c3408e01 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\ProductGrid::class, ['datas' => $fashionProduct]); ?>
 <?php $component->withName('product-grid'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -38,29 +45,38 @@
 <?php $component = $__componentOriginalb7c8a2c1fc2b8ded9c60b45d3eb870d1c3408e01; ?>
 <?php unset($__componentOriginalb7c8a2c1fc2b8ded9c60b45d3eb870d1c3408e01); ?>
 <?php endif; ?>
-         <?php echo $__env->renderComponent(); ?>
+     <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62)): ?>
 <?php $component = $__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62; ?>
 <?php unset($__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62); ?>
 <?php endif; ?>
-      </section>
+  </main>
 
-      <section class="product">
-        <div class="mt-3 pt-5 pt-lg-4 pt-md-5 d-flex align-items-center justify-content-between">
-          <div class="title">
-            <h4 class="text-dark text-uppercase mb-2">Kategori Parfume</h4>
-            <h6 class="fw-normal">Menampilkan <?php echo e($totalFashionProduct); ?> produk</h6>
-          </div>
-          <a href="<?php echo e(route('guest.products')); ?>" class="btn btn-sm btn-primary">View All</a>
-        </div>
-        <?php if (isset($component)) { $__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62 = $component; } ?>
+  <?php if (isset($component)) { $__componentOriginal39095e96dc654356da7e4dc53d8b3e5955e2d4c5 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\BannerImage::class, ['image' => asset('img/banner2.webp'),'title' => 'Parfume','class' => '']); ?>
+<?php $component->withName('banner-image'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal39095e96dc654356da7e4dc53d8b3e5955e2d4c5)): ?>
+<?php $component = $__componentOriginal39095e96dc654356da7e4dc53d8b3e5955e2d4c5; ?>
+<?php unset($__componentOriginal39095e96dc654356da7e4dc53d8b3e5955e2d4c5); ?>
+<?php endif; ?>
+  <main class="container-fluid">
+    <section class="mt-3 pt-3 pt-lg-4 pt-md-5 d-flex align-items-center justify-content-between">
+      <h4 class="text-dark text-uppercase mb-4">Kategori Parfume</h4>
+      <a href="<?php echo e(route('guest.products')); ?>" class="btn btn-sm btn-outline-primary mb-4">View All</a>
+    </section>
+    <?php if (isset($component)) { $__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\GridCard::class, []); ?>
 <?php $component->withName('grid-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
-          <?php if (isset($component)) { $__componentOriginalb7c8a2c1fc2b8ded9c60b45d3eb870d1c3408e01 = $component; } ?>
+      <?php if (isset($component)) { $__componentOriginalb7c8a2c1fc2b8ded9c60b45d3eb870d1c3408e01 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\ProductGrid::class, ['datas' => $parfumeProduct]); ?>
 <?php $component->withName('product-grid'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -72,14 +88,12 @@
 <?php $component = $__componentOriginalb7c8a2c1fc2b8ded9c60b45d3eb870d1c3408e01; ?>
 <?php unset($__componentOriginalb7c8a2c1fc2b8ded9c60b45d3eb870d1c3408e01); ?>
 <?php endif; ?>
-         <?php echo $__env->renderComponent(); ?>
+     <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62)): ?>
 <?php $component = $__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62; ?>
 <?php unset($__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62); ?>
 <?php endif; ?>
-      </section>
-    </div>
   </main>
 <?php $__env->stopSection(); ?>
 
