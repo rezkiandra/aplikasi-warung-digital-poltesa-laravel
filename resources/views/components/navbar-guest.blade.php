@@ -90,6 +90,14 @@
                 @endif
               </span>
             </a>
+            <a href="{{ route('customer.wishlist') }}" class="me-4">
+              <i class="mdi mdi-heart-outline mdi-24px"></i>
+              <span class="position-absolute fs-tiny badge rounded-pill bg-danger" style="margin-left: -10px">
+                @if (Auth::user()->role_id == 3)
+                  {{ \App\Models\Wishlist::where('customer_id', Auth::user()->customer->id)->count() }}
+                @endif
+              </span>
+            </a>
             <div class="fw-medium btn btn-primary">
               <i class="mdi mdi-logout me-0 me-lg-2 me-md-2"></i>
               <a href="{{ route('logout') }}" class="d-none d-lg-inline d-md-inline text-white text-uppercase">Logout</a>

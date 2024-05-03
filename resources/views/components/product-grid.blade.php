@@ -10,19 +10,15 @@
 @push('styles')
   <style>
     .card:hover {
-      opacity: .95;
+      /* opacity: .95; */
       transition: .2s;
       transform: scale(.99);
-    }
-
-    .card .card-title:hover {
-      opacity: 1;
     }
   </style>
 @endpush
 
 @foreach ($datas as $data)
-  <div class="col-lg-3 col-md-4 col-6 pb-3 pb-lg-3">
+  <div class="col-lg-3 col-md-4 col-6 pb-3 pb-lg-3" data-aos="fade-up" data-aos-duration="1000">
     <div class="card cursor-pointer"
       @if ($user_role == 1) onclick="window.location.href='{{ route('admin.detail.product', $data->slug) }}'" 
       @elseif ($user_role == 2) onclick="window.location.href='{{ route('seller.detail.product', $data->slug) }}'"
@@ -75,26 +71,3 @@
     </div>
   </div>
 @endforeach
-
-@push('scripts')
-  <script>
-    const customerId = {{ auth()->user()->customer->id ?? '' }}
-    const productId = {{ $data->id }}
-
-    $(document).on('click', '#wishlist', function() {
-      $.ajax({
-        url: "{{ route('wishlist.store') }}",
-        method: "POST",
-        data: {
-          customer_id: customerId,
-          product_id: productId
-        },
-        success: function(response) {
-          if (response == 'success') {
-            $('#wishlist').toggleClass('text-danger')
-          }
-        }
-      });
-    });
-  </script>
-@endpush

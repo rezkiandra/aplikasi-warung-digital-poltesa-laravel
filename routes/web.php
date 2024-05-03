@@ -37,7 +37,6 @@ Route::middleware('auth', 'mustLogin', 'checkCustomer')->group(function () {
   Route::controller(ProductsCartController::class)
     ->prefix('customer')
     ->group(function () {
-      Route::get('/cart', 'index')->name('cart');
       Route::post('/cart', 'store')->name('cart.store');
       Route::put('/cart', 'update')->name('cart.update');
       Route::delete('/cart/{cart}', 'destroy')->name('cart.destroy');
@@ -46,7 +45,6 @@ Route::middleware('auth', 'mustLogin', 'checkCustomer')->group(function () {
   Route::controller(WishlistController::class)
     ->prefix('customer')
     ->group(function () {
-      Route::get('/wishlist', 'index')->name('wishlist');
       Route::post('/add-wishlist', 'store')->name('wishlist.store');
       Route::delete('/wishlist/{wishlist}', 'destroy')->name('wishlist.destroy');
     });
@@ -74,6 +72,7 @@ Route::middleware('auth', 'mustLogin', 'checkCustomer')->group(function () {
     ->prefix('customer/dashboard')
     ->group(function () {
       Route::get('/', 'dashboard')->name('customer.dashboard');
+      Route::get('/wishlist', 'wishlist')->name('customer.wishlist');
       Route::get('/cart', 'cart')->name('customer.cart');
       Route::get('/orders', 'orders')->name('customer.orders');
       Route::get('/settings', 'settings')->name('customer.settings');

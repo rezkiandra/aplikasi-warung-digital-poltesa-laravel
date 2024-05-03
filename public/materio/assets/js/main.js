@@ -133,7 +133,7 @@ let menu, animate;
 	});
 
 	// Auto update layout based on screen size
-	window.Helpers.setAutoUpdate(true);
+	// window.Helpers.setAutoUpdate(true);
 
 	// Toggle Password Visibility
 	window.Helpers.initPasswordToggle();

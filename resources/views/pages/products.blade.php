@@ -20,3 +20,26 @@
     </div>
   </section>
 @endsection
+
+@push('scripts')
+  <script>
+    const customerId = {{ auth()->user()->customer->id ?? '' }}
+    const productId = {{ $data->id ?? '' }}
+
+    $(document).on('click', '#wishlist', function() {
+      $.ajax({
+        url: "{{ route('wishlist.store') }}",
+        method: "POST",
+        data: {
+          customer_id: customerId,
+          product_id: productId
+        },
+        success: function(response) {
+          if (response == 'success') {
+            $('#wishlist').toggleClass('text-danger')
+          }
+        }
+      });
+    });
+  </script>
+@endpush

@@ -2,9 +2,12 @@
   $customer_id = optional(Auth::user()->customer)->id;
   if (Auth::user()->role_id == 3 && $customer_id) {
       $cartCount = \App\Models\ProductsCart::where('customer_id', $customer_id)->count();
+      $wishlistCount = \App\Models\Wishlist::where('customer_id', $customer_id)->count();
       $cartCount = $cartCount != 0 ? $cartCount : '';
+      $wishlistCount = $wishlistCount != 0 ? $wishlistCount : '';
   } else {
       $cartCount = '';
+      $wishlistCount = '';
   }
 @endphp
 
@@ -61,6 +64,7 @@
       </x-sidebar-dropdown>
     @elseif(Auth::user()->role_id == 3)
       <x-sidebar-item :label="'Keranjang'" :badge="$cartCount" :route="route('customer.cart')" :icon="'cart-outline'" :active="request()->routeIs('customer.cart')" />
+      <x-sidebar-item :label="'Wishlist'" :badge="$wishlistCount" :route="route('customer.wishlist')" :icon="'heart-outline'" :active="request()->routeIs('customer.wishlist')" />
       <x-sidebar-item :label="'Pesanan'" :route="route('customer.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('customer.orders', 'midtrans.checkout')" />
     @endif
 
