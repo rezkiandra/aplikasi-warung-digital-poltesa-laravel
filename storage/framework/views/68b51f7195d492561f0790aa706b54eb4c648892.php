@@ -24,7 +24,7 @@
 <?php endif; ?>
   <main class="container-fluid">
     <section class="mt-3 pt-3 pt-lg-4 pt-md-5 d-flex align-items-center justify-content-between">
-      <h4 class="text-dark text-uppercase">Kategori Pakaian</h4>
+      <h3 class="text-dark text-uppercase">Kategori Pakaian</h3>
       <a href="<?php echo e(route('guest.products')); ?>" class="btn btn-sm btn-outline-primary mb-4">View All</a>
     </section>
     <?php if (isset($component)) { $__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62 = $component; } ?>
@@ -67,7 +67,7 @@
 <?php endif; ?>
   <main class="container-fluid">
     <section class="mt-3 pt-3 pt-lg-4 pt-md-5 d-flex align-items-center justify-content-between">
-      <h4 class="text-dark text-uppercase mb-4">Kategori Parfume</h4>
+      <h3 class="text-dark text-uppercase mb-4">Kategori Parfume</h3>
       <a href="<?php echo e(route('guest.products')); ?>" class="btn btn-sm btn-outline-primary mb-4">View All</a>
     </section>
     <?php if (isset($component)) { $__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62 = $component; } ?>

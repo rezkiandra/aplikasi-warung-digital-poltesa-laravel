@@ -13,8 +13,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "midtrans/midtrans-php": "^2.5",
-        "realrashid/sweet-alert": "^7.1",
-        "yajra/laravel-datatables-oracle": "^9.0"
+        "realrashid/sweet-alert": "^7.1"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
