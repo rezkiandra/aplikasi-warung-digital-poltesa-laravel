@@ -2,9 +2,12 @@
   $customer_id = optional(Auth::user()->customer)->id;
   if (Auth::user()->role_id == 3 && $customer_id) {
       $cartCount = \App\Models\ProductsCart::where('customer_id', $customer_id)->count();
+      $wishlistCount = \App\Models\Wishlist::where('customer_id', $customer_id)->count();
       $cartCount = $cartCount != 0 ? $cartCount : '';
+      $wishlistCount = $wishlistCount != 0 ? $wishlistCount : '';
   } else {
       $cartCount = '';
+      $wishlistCount = '';
   }
 ?>
 
@@ -310,6 +313,18 @@
 <?php unset($__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Wishlist','badge' => $wishlistCount,'route' => route('customer.wishlist'),'icon' => 'heart-outline','active' => request()->routeIs('customer.wishlist')]); ?>
+<?php $component->withName('sidebar-item'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394)): ?>
+<?php $component = $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394; ?>
+<?php unset($__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394); ?>
+<?php endif; ?>
+      <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Pesanan','route' => route('customer.orders'),'icon' => 'hand-coin-outline','active' => request()->routeIs('customer.orders', 'midtrans.checkout')]); ?>
 <?php $component->withName('sidebar-item'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -467,6 +482,18 @@
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Pengaturan','route' => route('customer.settings'),'icon' => 'account-cog-outline','active' => request()->routeIs('customer.settings')]); ?>
+<?php $component->withName('sidebar-item'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394)): ?>
+<?php $component = $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394; ?>
+<?php unset($__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394); ?>
+<?php endif; ?>
+      <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Halaman Utama','route' => route('customer.home'),'icon' => 'arrow-left-circle-outline','active' => request()->routeIs('customer.home')]); ?>
 <?php $component->withName('sidebar-item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

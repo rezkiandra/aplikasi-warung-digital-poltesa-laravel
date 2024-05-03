@@ -122,22 +122,7 @@
 <?php $component = $__componentOriginal449bfa6e40fc6b9502e7641b2b70c69491540e98; ?>
 <?php unset($__componentOriginal449bfa6e40fc6b9502e7641b2b70c69491540e98); ?>
 <?php endif; ?>
-                    <form action="<?php echo e(route('admin.destroy.seller', $data->uuid)); ?>" method="POST">
-                      <?php echo csrf_field(); ?>
-                      <?php echo method_field('DELETE'); ?>
-                      <?php if (isset($component)) { $__componentOriginald4808ebc7c3433bc77b986e62d0056fde61922a0 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\DeleteButton::class, ['label' => 'Delete']); ?>
-<?php $component->withName('delete-button'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes([]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginald4808ebc7c3433bc77b986e62d0056fde61922a0)): ?>
-<?php $component = $__componentOriginald4808ebc7c3433bc77b986e62d0056fde61922a0; ?>
-<?php unset($__componentOriginald4808ebc7c3433bc77b986e62d0056fde61922a0); ?>
-<?php endif; ?>
-                    </form>
+                    
                   </div>
                 </div>
               </div>

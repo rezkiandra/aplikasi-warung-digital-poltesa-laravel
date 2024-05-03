@@ -16,6 +16,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\BiodataRequest;
+use App\Models\Wishlist;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -41,7 +42,7 @@ class CustomerController extends Controller
 
   public function products()
   {
-    $products = Products::all();
+    $products = Products::orderBy('category_id', 'asc')->get();
     return view('customer.products', compact('products'));
   }
 
@@ -66,6 +67,16 @@ class CustomerController extends Controller
       $carts = collect([]);
     }
     return view('customer.cart', compact('carts'));
+  }
+
+  public function wishlist()
+  {
+    if (Auth::user()->customer) {
+      $wishlists = Wishlist::where('customer_id', Auth::user()->customer->id)->get();
+    } else {
+      $wishlists = collect([]);
+    }
+    return view('customer.wishlist', compact('wishlists'));
   }
 
   public function orders()

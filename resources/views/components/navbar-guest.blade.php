@@ -64,8 +64,7 @@
           </li>
           @auth
             <li class="nav-item my-lg-0 my-2">
-              <a class="nav-link fw-medium text-dark"
-                href="{{ route('customer.dashboard') }}">Dashboard</a>
+              <a class="nav-link fw-medium text-dark" href="{{ route('customer.dashboard') }}">Dashboard</a>
             </li>
             <li class="nav-item my-lg-0 my-2">
               <small
@@ -88,6 +87,14 @@
               <span class="position-absolute fs-tiny badge rounded-pill bg-danger" style="margin-left: -10px">
                 @if (Auth::user()->role_id == 3)
                   {{ \App\Models\ProductsCart::where('customer_id', Auth::user()->customer->id)->count() }}
+                @endif
+              </span>
+            </a>
+            <a href="{{ route('customer.wishlist') }}" class="me-4">
+              <i class="mdi mdi-heart-outline mdi-24px"></i>
+              <span class="position-absolute fs-tiny badge rounded-pill bg-danger" style="margin-left: -10px">
+                @if (Auth::user()->role_id == 3)
+                  {{ \App\Models\Wishlist::where('customer_id', Auth::user()->customer->id)->count() }}
                 @endif
               </span>
             </a>

@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class CreateForm extends Component
+class CreateCategory extends Component
 {
 	public $title, $action, $route;
 	/**

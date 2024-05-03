@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="<?php echo e(asset('materio/assets/css/demo.css')); ?>" />
     <link rel="stylesheet" href="<?php echo e(asset('materio/assets/vendor/css/theme-default.css')); ?>"
       class="template-customizer-theme-css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <title><?php echo $__env->yieldContent('title'); ?> - Warung Digital</title>
     <?php echo $__env->yieldPushContent('styles'); ?>
@@ -40,10 +41,15 @@
 
     <script src="<?php echo e(asset('materio/assets/vendor/libs/jquery/jquery.js')); ?>"></script>
     <script src="<?php echo e(asset('materio/assets/vendor/js/bootstrap.js')); ?>"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
     
     
     
     <?php echo $__env->yieldPushContent('scripts'); ?>
+    <script>
+      AOS.init();
+    </script>
   </body>
 
 </html>

@@ -31,7 +31,7 @@ class AuthController extends Controller
 
     if (Auth::attempt($credentials)) {
       $request->session()->regenerate();
-      Alert::toast('Signin successfully!', 'success');
+      Alert::toast('Login Berhasil!', 'success');
 
       if (Auth::user()->role_id === 1) {
         return redirect()->route('admin.dashboard');
@@ -55,7 +55,7 @@ class AuthController extends Controller
       'password' => $request->password,
     ]);
 
-    Alert::toast('Signup successfully!', 'success');
+    Alert::toast('Registrasi Berhasil!', 'success');
     Auth::user()->role_id == 2
       ? redirect()->route('seller.dashboard')
       : redirect()->route('customer.dashboard');
@@ -63,9 +63,9 @@ class AuthController extends Controller
 
   public function logout(Request $request)
   {
+    Auth::logout();
     $request->session()->invalidate();
     $request->session()->regenerateToken();
-
     Alert::toast('Logout successfully!', 'info');
     return redirect()->route('login');
   }

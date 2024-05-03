@@ -7,8 +7,8 @@
   }
 ?>
 
-<h5 class="fw-medium mt-5 mt-lg-5 mb-3">Produk Serupa</h5>
-<div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+<h5 class="fw-medium mt-2 mt-lg-5 mb-3 text-uppercase">Produk Serupa</h5>
+<div class="row row-cols-1 row-cols-md-3 g-3 mb-5 pb-0 pb-lg-5">
   <?php $__currentLoopData = $relatedProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <div class="col-lg-2 col-md-4 col-6 pb-3 pb-lg-3">
       <div class="card h-100 cursor-pointer"
@@ -17,9 +17,7 @@
           <?php elseif($user_role == 3): ?> onclick="window.location.href='<?php echo e(route('customer.detail.product', $data->slug)); ?>'"
           <?php else: ?> onclick="window.location.href='<?php echo e(route('guest.detail.product', $data->slug)); ?>'" <?php endif; ?>>
         <div class="position-absolute end-0 top-0 p-2">
-          
           <?php if(auth()->guard()->check()): ?>
-            
             <?php if(Auth::user()->customer->wishlist->contains('product_id', $data->id)): ?>
               <form action="<?php echo e(route('wishlist.destroy', $wishlistUUID)); ?>" method="POST" class="bg-white rounded-circle">
                 <?php echo csrf_field(); ?>
