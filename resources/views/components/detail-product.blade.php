@@ -1,4 +1,7 @@
 @php
+  if (Auth::check()) {
+      $admin = auth()->user()->role_id == 1;
+  }
   $customer = auth()->user()->customer ?? '';
   $seller = auth()->user()->seller ?? '';
   $fee = 0;
@@ -18,7 +21,11 @@
 
 <div class="d-lg-flex d-md-flex d-flex justify-content-between align-items-start pt-1 pt-lg-3">
   <div class="position-absolute">
-    <span class="badge bg-primary text-white d-lg-flex align-items-centers text-uppercase px-4">On Sale</span>
+    @if ($product->stock != 0)
+      <span class="badge bg-primary text-white d-lg-flex align-items-centers text-uppercase px-4">On Sale</span>
+    @else
+      <span class="badge bg-danger text-white d-lg-flex align-items-centers text-uppercase px-4">Out Of Stock</span>
+    @endif
   </div>
   <div class="row mb-4">
     <div class="col-lg-4 col-md-6">
@@ -110,6 +117,27 @@
         </dl>
         <div class="d-grid gap-2">
           @if ($customer)
+            @if ($customer->wishlist()->where('product_id', $product->id)->exists())
+              <form action="{{ route('wishlist.destroy', $product->uuid) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <x-submit-button :label="'Hapus Wishlist'" :type="'submit'" :class="'btn-outline-danger w-100 mb-2'" :icon="'heart'"
+                  :variant="'danger'" />
+              </form>
+            @else
+              <form action="{{ route('wishlist.store') }}" method="POST">
+                @csrf
+                <input type="hidden" name="customer_id" value="{{ $customer->id }}">
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                @if ($product->stock == 0)
+                  <x-submit-button :label="'Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2 disabled'"
+                    aria-disabled="true" :icon="'heart-outline me-2'" :variant="'danger'" />
+                @else
+                  <x-submit-button :label="'Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2'"
+                    :icon="'heart-outline me-2'" :variant="'danger'" />
+                @endif
+              </form>
+            @endif
             <form action="{{ route('cart.store') }}" method="POST">
               @csrf
               <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -126,7 +154,8 @@
               @csrf
               <input type="hidden" name="product_id" value="{{ $product->id }}">
               <input type="hidden" name="quantity" id="newQuantityOrder" value="1">
-              <input type="hidden" name="total_price" id="newTotalPriceOrder" value="{{ $product->price + $fee }}">
+              <input type="hidden" name="total_price" id="newTotalPriceOrder"
+                value="{{ $product->price + $fee }}">
               @if ($product->stock == 0)
                 <x-submit-button :label="'Beli'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100 disabled'"
                   aria-disabled="true" :icon="'basket-outline me-2'" :variant="'primary'" />

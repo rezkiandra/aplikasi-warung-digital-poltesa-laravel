@@ -1,4 +1,5 @@
-<div class="alert alert-<?php echo e($type); ?> alert-dismissible d-flex gap-2 align-items-center border-<?php echo e($type); ?>" role="alert">
+<div class="alert alert-<?php echo e($type); ?> alert-dismissible d-flex gap-2 align-items-center border-<?php echo e($type); ?>"
+  role="alert">
   <i class="mdi mdi-<?php echo e($icon); ?>"></i>
   <?php echo e($message); ?>
 

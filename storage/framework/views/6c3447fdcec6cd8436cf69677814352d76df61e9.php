@@ -2,6 +2,7 @@
   $totalOrder = \App\Models\Order::where('customer_id', $customer->id)->count();
   $spentCost = number_format(\App\Models\Order::where('customer_id', $customer->id)->sum('total_price'), 0, ',', '.');
   $totalCarts = \App\Models\ProductsCart::where('customer_id', $customer->id)->count();
+  $totalWishlist = \App\Models\Wishlist::where('customer_id', $customer->id)->count();
   $orders = \App\Models\Order::where('customer_id', $customer->id)
       ->take(6)
       ->orderBy('updated_at', 'desc')
@@ -34,7 +35,7 @@
 <?php endif; ?>
 
   <div class="row">
-    <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
+    <div class="col-xl-4 col-lg-5 col-md-5">
       <div class="card mb-4">
         <?php if (isset($component)) { $__componentOriginal34646d07716c22cb42a594afac6c2c121cba48cf = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\DetailForm::class, ['image' => asset('storage/' . $customer->image),'name' => $customer->full_name,'id' => '#' . $customer_id,'phone' => $customer->phone_number,'address' => $customer->address,'status' => $customer->status,'totalOrder' => $totalOrder,'labelOrder' => 'Pesanan','spentCost' => 'Rp' . $spentCost,'labelCost' => 'Pembelian','username' => $username,'email' => $email,'type' => 'button','href' => route('admin.edit.customer', $customer->uuid),'variant' => 'primary','icon' => 'pencil-outline','label' => 'Edit Details','class' => 'btn-sm']); ?>
@@ -58,7 +59,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
       <?php if (isset($component)) { $__componentOriginal975c49134212f8552006a5fffb48497b4f040dbf = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\DetailCard::class, ['title' => 'Wishlist','count' => '0','countDescription' => 'items wishlist produk','icon' => 'star-outline','variant' => 'warning']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\DetailCard::class, ['title' => 'Wishlist','count' => $totalWishlist,'countDescription' => 'items produk','icon' => 'star-outline','variant' => 'warning']); ?>
 <?php $component->withName('detail-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -70,7 +71,7 @@
 <?php unset($__componentOriginal975c49134212f8552006a5fffb48497b4f040dbf); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal975c49134212f8552006a5fffb48497b4f040dbf = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\DetailCard::class, ['title' => 'Keranjang','count' => $totalCarts,'countDescription' => 'items keranjang produk','icon' => 'cart-outline','variant' => 'info']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\DetailCard::class, ['title' => 'Keranjang','count' => $totalCarts,'countDescription' => 'items produk','icon' => 'cart-outline','variant' => 'info']); ?>
 <?php $component->withName('detail-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -82,7 +83,7 @@
 <?php unset($__componentOriginal975c49134212f8552006a5fffb48497b4f040dbf); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal975c49134212f8552006a5fffb48497b4f040dbf = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\DetailCard::class, ['title' => 'Keranjang','count' => $totalCarts,'countDescription' => 'items keranjang produk','icon' => 'cart-outline','variant' => 'info']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\DetailCard::class, ['title' => 'Keranjang','count' => $totalCarts,'countDescription' => 'items produk','icon' => 'cart-outline','variant' => 'info']); ?>
 <?php $component->withName('detail-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

@@ -1,3 +1,8 @@
+<?php
+  $relatedProducts = \App\Models\Products::where('category_id', $product->category_id)
+      ->where('id', '!=', $product->id)
+      ->get();
+?>
 
 <?php $__env->startSection('title', 'Detail Produk'); ?>
 <?php $__env->startPush('styles'); ?>

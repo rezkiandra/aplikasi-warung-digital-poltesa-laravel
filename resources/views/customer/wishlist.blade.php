@@ -6,6 +6,15 @@
           ->toArray();
   }
 @endphp
+@push('styles')
+  <style>
+    .card:hover {
+      /* opacity: .95; */
+      transition: .2s;
+      transform: scale(.99);
+    }
+  </style>
+@endpush
 @extends('layouts.authenticated')
 @section('title', 'Wishlist')
 @section('content')
@@ -15,10 +24,12 @@
     <x-grid-card>
       @foreach ($wishlists as $data)
         <div class="col-lg-3 col-md-4 col-6 pb-3 pb-lg-3" data-aos="fade-up" data-aos-duration="1000">
-          <div class="card cursor-pointer">
+          <div class="card cursor-pointer"
+            onclick="window.location.href='{{ route('customer.detail.product', $data->product->slug) }}'">
             <div class="position-absolute end-0 top-0 p-2">
               @if (Auth::user()->customer->wishlist->contains('product_id', $data->product->id))
-                <form action="{{ route('wishlist.destroy', $wishlistUUID) }}" method="POST" class="bg-white rounded-circle">
+                <form action="{{ route('wishlist.destroy', $wishlistUUID) }}" method="POST"
+                  class="bg-white rounded-circle">
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="btn small p-1">

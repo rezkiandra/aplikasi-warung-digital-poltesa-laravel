@@ -46,7 +46,7 @@
   $valueCart = \App\Models\ProductsCart::where('customer_id', auth()->user()->customer->id)->count();
 
   $labelWishlist = 'Wishlist Produk';
-  $valueWishlist = \App\Models\ProductsCart::where('customer_id', auth()->user()->customer->id)->count();
+  $valueWishlist = \App\Models\Wishlist::where('customer_id', auth()->user()->customer->id)->count();
 
   $orders = \App\Models\Order::where('customer_id', auth()->user()->customer->id)->paginate(8);
 @endphp
@@ -72,7 +72,7 @@
 
     <x-four-card>
       <x-graph-card-content :label="$labelCart" :value="$valueCart" :icon="'cart-outline'" :variant="'info'" />
-      <x-graph-card-content :label="$labelCart" :value="$valueCart" :icon="'star-outline'" :variant="'warning'" />
+      <x-graph-card-content :label="$labelWishlist" :value="$valueWishlist" :icon="'star-outline'" :variant="'warning'" />
     </x-four-card>
 
     <x-order-table-card :datas="$orders" />

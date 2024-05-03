@@ -17,14 +17,19 @@ class WishlistController extends Controller
 
   public function store(Request $request)
   {
-    Wishlist::create([
-      'uuid' => Str::uuid('id'),
-      'customer_id' => $request->customer_id,
-      'product_id' => $request->product_id
-    ]);
+    if (Wishlist::where('customer_id', $request->customer_id)->where('product_id', $request->product_id)->exists()) {
+      Alert::toast('Sudah ditambahkan di wishlist', 'info');
+      return redirect()->back();
+    } else {
+      Wishlist::create([
+        'uuid' => Str::uuid('id'),
+        'customer_id' => $request->customer_id,
+        'product_id' => $request->product_id
+      ]);
 
-    Alert::toast('Berhasil tambah wishlist', 'success');
-    return redirect()->back();
+      Alert::toast('Berhasil tambah wishlist', 'success');
+      return redirect()->back();
+    }
   }
 
   public function destroy(string $uuid)

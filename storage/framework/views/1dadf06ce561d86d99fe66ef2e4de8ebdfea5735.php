@@ -431,7 +431,7 @@
 <?php unset($__componentOriginal8091966d9bf2c7b150ac53fb28cd0da5c6248f06); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Pengaturan','route' => route('admin.settings'),'icon' => 'account-cog-outline','active' => request()->routeIs('admin.settings')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Profil Pengguna','route' => route('admin.settings'),'icon' => 'account-cog-outline','active' => request()->routeIs('admin.settings')]); ?>
 <?php $component->withName('sidebar-item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -456,7 +456,7 @@
 <?php unset($__componentOriginal8091966d9bf2c7b150ac53fb28cd0da5c6248f06); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Pengaturan','route' => route('seller.settings'),'icon' => 'account-cog-outline','active' => request()->routeIs('seller.settings')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Profil Pengguna','route' => route('seller.settings'),'icon' => 'account-cog-outline','active' => request()->routeIs('seller.settings')]); ?>
 <?php $component->withName('sidebar-item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -481,7 +481,7 @@
 <?php unset($__componentOriginal8091966d9bf2c7b150ac53fb28cd0da5c6248f06); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Pengaturan','route' => route('customer.settings'),'icon' => 'account-cog-outline','active' => request()->routeIs('customer.settings')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Profil Pengguna','route' => route('customer.settings'),'icon' => 'account-cog-outline','active' => request()->routeIs('customer.settings')]); ?>
 <?php $component->withName('sidebar-item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

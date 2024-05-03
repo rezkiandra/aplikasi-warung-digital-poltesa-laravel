@@ -20,7 +20,7 @@
                 </div>
                 <div class="d-flex flex-column">
                   <span class="text-nowrap text-heading fw-medium text-capitalize">{{ $data->full_name }}</span>
-                  <small class="text-truncate d-none d-sm-block">
+                  <small class="text-truncate">
                     <span class="fw-medium">{{ $data->user->email }} - {{ $data->user->name }}</span>
                   </small>
                 </div>
@@ -32,9 +32,9 @@
                   <span
                     class="text-nowrap text-heading fw-medium">{{ \App\Models\Products::where('seller_id', $data->id)->count() }}
                     buah</span>
-                  <small class="text-truncate d-none d-sm-block">
-                    <span
-                      class="fw-medium">Rp.{{ number_format(\App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->join('sellers', 'products.seller_id', '=', 'sellers.id', 'left')->where('sellers.id', $data->id)->sum('products.price'),2,',','.') }}</span>
+                  <small class="text-truncate">
+                    <span class="fw-medium">Rp
+                      {{ number_format(\App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->join('sellers', 'products.seller_id', '=', 'sellers.id', 'left')->where('sellers.id', $data->id)->sum('products.price'),0,',','.') }}</span>
                   </small>
                 </div>
               </div>
@@ -50,7 +50,7 @@
                     @endif
                     {{ $data->gender }}
                   </span>
-                  <small class="text-truncate d-none d-sm-block">
+                  <small class="text-truncate">
                     <span class="fw-medium text-capitalize">
                       {{ $data->address }}
                     </span>
@@ -90,7 +90,7 @@
             </td>
             <td>
               <span
-                class="fw-medium badge rounded-pill bg-label-info">{{ date('M d, H:i', strtotime($data->created_at)) }}
+                class="fw-medium badge rounded bg-label-info">{{ date('M d, H:i', strtotime($data->created_at)) }}
                 {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
               </span>
             </td>
