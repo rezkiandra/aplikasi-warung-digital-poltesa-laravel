@@ -1,6 +1,6 @@
 @php
-  $user_role = Auth::user()->role_id ?? '';
-  if (Auth::check()) {
+  $user_role = auth()->user()->role_id ?? '';
+  if (Auth::check() && Auth::user()->role_id == 3) {
       $wishlistUUID = \App\Models\Wishlist::where('customer_id', auth()->user()->customer->id)
           ->pluck('uuid')
           ->toArray();
@@ -41,9 +41,9 @@
           @guest
             <form action="{{ route('wishlist.store') }}" class="text-dark bg-white rounded-circle p-1" method="POST">
               @csrf
-              {{-- <input type="hidden" name="customer_id" value="{{ Auth::user()->customer->id }}">
-                <input type="hidden" name="product_id" value="{{ $data->id }}"> --}}
-              <i class="mdi mdi-heart-outline"></i>
+              <button type="submit" id="wishlist" class="btn small p-1">
+                <i class="mdi mdi-heart-outline text-dark"></i>
+              </button>
             </form>
           @endguest
         </div>

@@ -46,7 +46,7 @@
   $valueCart = \App\Models\ProductsCart::where('customer_id', auth()->user()->customer->id)->count();
 
   $labelWishlist = 'Wishlist Produk';
-  $valueWishlist = \App\Models\ProductsCart::where('customer_id', auth()->user()->customer->id)->count();
+  $valueWishlist = \App\Models\Wishlist::where('customer_id', auth()->user()->customer->id)->count();
 
   $orders = \App\Models\Order::where('customer_id', auth()->user()->customer->id)->paginate(8);
 ?>
@@ -181,7 +181,7 @@
 <?php unset($__componentOriginalb3dcfc1c5f48c14f32a36a87486cee280756d469); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginalb3dcfc1c5f48c14f32a36a87486cee280756d469 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\GraphCardContent::class, ['label' => $labelCart,'value' => $valueCart,'icon' => 'star-outline','variant' => 'warning']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\GraphCardContent::class, ['label' => $labelWishlist,'value' => $valueWishlist,'icon' => 'star-outline','variant' => 'warning']); ?>
 <?php $component->withName('graph-card-content'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

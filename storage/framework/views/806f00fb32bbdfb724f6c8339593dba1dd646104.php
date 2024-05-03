@@ -1,4 +1,7 @@
 <?php
+  if (Auth::check()) {
+      $admin = auth()->user()->role_id == 1;
+  }
   $customer = auth()->user()->customer ?? '';
   $seller = auth()->user()->seller ?? '';
   $fee = 0;
@@ -51,7 +54,11 @@
 
 <div class="d-lg-flex d-md-flex d-flex justify-content-between align-items-start pt-1 pt-lg-3">
   <div class="position-absolute">
-    <span class="badge bg-primary text-white d-lg-flex align-items-centers text-uppercase px-4">On Sale</span>
+    <?php if($product->stock != 0): ?>
+      <span class="badge bg-primary text-white d-lg-flex align-items-centers text-uppercase px-4">On Sale</span>
+    <?php else: ?>
+      <span class="badge bg-danger text-white d-lg-flex align-items-centers text-uppercase px-4">Out Of Stock</span>
+    <?php endif; ?>
   </div>
   <div class="row mb-4">
     <div class="col-lg-4 col-md-6">
@@ -148,6 +155,57 @@
         </dl>
         <div class="d-grid gap-2">
           <?php if($customer): ?>
+            <?php if($customer->wishlist()->where('product_id', $product->id)->exists()): ?>
+              <form action="<?php echo e(route('wishlist.destroy', $product->uuid)); ?>" method="POST">
+                <?php echo csrf_field(); ?>
+                <?php echo method_field('DELETE'); ?>
+                <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Hapus Wishlist','type' => 'submit','class' => 'btn-outline-danger w-100 mb-2','icon' => 'heart','variant' => 'danger']); ?>
+<?php $component->withName('submit-button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342)): ?>
+<?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
+<?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
+<?php endif; ?>
+              </form>
+            <?php else: ?>
+              <form action="<?php echo e(route('wishlist.store')); ?>" method="POST">
+                <?php echo csrf_field(); ?>
+                <input type="hidden" name="customer_id" value="<?php echo e($customer->id); ?>">
+                <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
+                <?php if($product->stock == 0): ?>
+                  <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Wishlist','id' => 'btn-wishlist','type' => 'submit','class' => 'btn-outline-danger w-100 mb-2 disabled','icon' => 'heart-outline me-2','variant' => 'danger']); ?>
+<?php $component->withName('submit-button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes(['aria-disabled' => 'true']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342)): ?>
+<?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
+<?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
+<?php endif; ?>
+                <?php else: ?>
+                  <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Wishlist','id' => 'btn-wishlist','type' => 'submit','class' => 'btn-outline-danger w-100 mb-2','icon' => 'heart-outline me-2','variant' => 'danger']); ?>
+<?php $component->withName('submit-button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342)): ?>
+<?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
+<?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
+<?php endif; ?>
+                <?php endif; ?>
+              </form>
+            <?php endif; ?>
             <form action="<?php echo e(route('cart.store')); ?>" method="POST">
               <?php echo csrf_field(); ?>
               <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
@@ -184,7 +242,8 @@
               <?php echo csrf_field(); ?>
               <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
               <input type="hidden" name="quantity" id="newQuantityOrder" value="1">
-              <input type="hidden" name="total_price" id="newTotalPriceOrder" value="<?php echo e($product->price + $fee); ?>">
+              <input type="hidden" name="total_price" id="newTotalPriceOrder"
+                value="<?php echo e($product->price + $fee); ?>">
               <?php if($product->stock == 0): ?>
                 <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Beli','id' => 'btn-buy','type' => 'submit','class' => 'btn-primary w-100 disabled','icon' => 'basket-outline me-2','variant' => 'primary']); ?>

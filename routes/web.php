@@ -46,7 +46,7 @@ Route::middleware('auth', 'mustLogin', 'checkCustomer')->group(function () {
     ->prefix('customer')
     ->group(function () {
       Route::post('/add-wishlist', 'store')->name('wishlist.store');
-      Route::delete('/wishlist/{wishlist}', 'destroy')->name('wishlist.destroy');
+      Route::delete('/delete-wishlist/{wishlist}', 'destroy')->name('wishlist.destroy');
     });
 
   Route::controller(OrderController::class)

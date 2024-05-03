@@ -83,13 +83,13 @@
 
     @if (Auth::user()->role_id == 1)
       <x-divider :label="'Pengaturan'" />
-      <x-sidebar-item :label="'Pengaturan'" :route="route('admin.settings')" :icon="'account-cog-outline'" :active="request()->routeIs('admin.settings')" />
+      <x-sidebar-item :label="'Profil Pengguna'" :route="route('admin.settings')" :icon="'account-cog-outline'" :active="request()->routeIs('admin.settings')" />
     @elseif (Auth::user()->role_id == 2)
       <x-divider :label="'Pengaturan'" />
-      <x-sidebar-item :label="'Pengaturan'" :route="route('seller.settings')" :icon="'account-cog-outline'" :active="request()->routeIs('seller.settings')" />
+      <x-sidebar-item :label="'Profil Pengguna'" :route="route('seller.settings')" :icon="'account-cog-outline'" :active="request()->routeIs('seller.settings')" />
     @elseif (Auth::user()->role_id == 3)
       <x-divider :label="'Pengaturan'" />
-      <x-sidebar-item :label="'Pengaturan'" :route="route('customer.settings')" :icon="'account-cog-outline'" :active="request()->routeIs('customer.settings')" />
+      <x-sidebar-item :label="'Profil Pengguna'" :route="route('customer.settings')" :icon="'account-cog-outline'" :active="request()->routeIs('customer.settings')" />
       <x-sidebar-item :label="'Halaman Utama'" :route="route('customer.home')" :icon="'arrow-left-circle-outline'" :active="request()->routeIs('customer.home')" />
     @endif
   </ul>

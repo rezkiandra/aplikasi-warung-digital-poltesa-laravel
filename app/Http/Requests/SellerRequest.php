@@ -15,7 +15,7 @@ class SellerRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'user_id' => 'required|unique:Sellers,full_name',
+      'user_id' => 'required|unique:sellers,id',
       'full_name' => 'required|unique:sellers,id|max:30',
       'address' => 'required',
       'phone_number' => 'required|numeric|regex:/^\d{8,13}$/|min:8',

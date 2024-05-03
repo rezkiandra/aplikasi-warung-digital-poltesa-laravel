@@ -1,7 +1,7 @@
 <div class="card-body">
   <div class="customer-avatar-section">
     <div class="d-flex align-items-center flex-column">
-      <img class="img-fluid rounded mb-3 mt-4" src="{{ $image }}" height="120" width="120" alt="User avatar">
+      <img class="img-fluid rounded mb-3 mt-3" src="{{ $image }}" height="120" width="120" alt="User avatar">
       <div class="customer-info text-center mb-4">
         <h5 class="mb-1 text-capitalize">{{ $name }}</h5>
         <span>{{ $id }}</span>

@@ -19,7 +19,7 @@
               <div class="d-flex justify-content-start align-items-center product-name">
                 <div class="d-flex flex-column">
                   <span class="text-nowrap text-heading fw-medium text-capitalize">{{ $data->name }}</span>
-                  <small class="text-truncate d-none d-sm-block">
+                  <small class="text-truncate">
                     <span class="fw-medium">{{ $data->email }} - <span
                         class="badge rounded-pill bg-label-primary">{{ $data->slug }}</span></span>
                   </small>

@@ -20,7 +20,7 @@
                 </div>
                 <div class="d-flex flex-column">
                   <span class="text-nowrap text-heading fw-medium text-capitalize"><?php echo e($data->full_name); ?></span>
-                  <small class="text-truncate d-none d-sm-block">
+                  <small class="text-truncate">
                     <span class="fw-medium"><?php echo e($data->user->email); ?> - <?php echo e($data->user->name); ?></span>
                   </small>
                 </div>
@@ -33,9 +33,9 @@
                     class="text-nowrap text-heading fw-medium"><?php echo e(\App\Models\Products::where('seller_id', $data->id)->count()); ?>
 
                     buah</span>
-                  <small class="text-truncate d-none d-sm-block">
-                    <span
-                      class="fw-medium">Rp.<?php echo e(number_format(\App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->join('sellers', 'products.seller_id', '=', 'sellers.id', 'left')->where('sellers.id', $data->id)->sum('products.price'),2,',','.')); ?></span>
+                  <small class="text-truncate">
+                    <span class="fw-medium">Rp
+                      <?php echo e(number_format(\App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->join('sellers', 'products.seller_id', '=', 'sellers.id', 'left')->where('sellers.id', $data->id)->sum('products.price'),0,',','.')); ?></span>
                   </small>
                 </div>
               </div>
@@ -52,7 +52,7 @@
                     <?php echo e($data->gender); ?>
 
                   </span>
-                  <small class="text-truncate d-none d-sm-block">
+                  <small class="text-truncate">
                     <span class="fw-medium text-capitalize">
                       <?php echo e($data->address); ?>
 
@@ -94,7 +94,7 @@
             </td>
             <td>
               <span
-                class="fw-medium badge rounded-pill bg-label-info"><?php echo e(date('M d, H:i', strtotime($data->created_at))); ?>
+                class="fw-medium badge rounded bg-label-info"><?php echo e(date('M d, H:i', strtotime($data->created_at))); ?>
 
                 <?php echo e($data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM'); ?>
 

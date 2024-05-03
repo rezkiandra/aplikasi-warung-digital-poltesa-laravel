@@ -1,5 +1,9 @@
 <?php
-  $user = \App\Models\User::where('role_id', '2')->pluck('name', 'id')->toArray();
+  $user = \App\Models\User::where('role_id', '2')
+      ->join('sellers', 'users.id', '=', 'sellers.user_id', 'left')
+      ->where('sellers.user_id', null)
+      ->pluck('name', 'users.id')
+      ->toArray();
   $gender = [
       'laki-laki' => 'laki-laki',
       'perempuan' => 'perempuan',

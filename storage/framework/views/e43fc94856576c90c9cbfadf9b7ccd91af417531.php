@@ -44,10 +44,10 @@
 <?php endif; ?>
 
   <div class="row">
-    <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
+    <div class="col-xl-4 col-lg-5 col-md-5">
       <div class="card mb-4">
         <?php if (isset($component)) { $__componentOriginal34646d07716c22cb42a594afac6c2c121cba48cf = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\DetailForm::class, ['image' => asset('storage/' . $seller->image),'name' => $seller->full_name,'id' => '#' . $seller_id,'phone' => $seller->phone_number,'address' => $seller->address,'status' => $seller->status,'totalOrder' => $totalProducts,'labelOrder' => 'Produk','spentCost' => 'Rp' . $totalEarnings,'labelCost' => 'Pendapatan','username' => $username,'email' => $email,'type' => 'button','href' => route('admin.edit.seller', $seller->uuid),'variant' => 'primary','icon' => 'pencil-outline','label' => 'Edit Details','class' => 'btn-sm']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\DetailForm::class, ['image' => asset('storage/' . $seller->image),'name' => $seller->full_name,'id' => '#' . $seller_id,'phone' => $seller->phone_number,'address' => $seller->address,'status' => $seller->status,'totalOrder' => $totalProducts,'labelOrder' => 'Produk','spentCost' => 'Rp ' . $totalEarnings,'labelCost' => 'Pendapatan','username' => $username,'email' => $email,'type' => 'button','href' => route('admin.edit.seller', $seller->uuid),'variant' => 'primary','icon' => 'pencil-outline','label' => 'Edit Details','class' => 'btn-sm']); ?>
 <?php $component->withName('detail-form'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
