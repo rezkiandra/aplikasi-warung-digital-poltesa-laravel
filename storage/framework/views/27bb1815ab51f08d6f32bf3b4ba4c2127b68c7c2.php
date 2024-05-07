@@ -8,14 +8,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&ampdisplay=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&ampdisplay=swap"
+      rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="icon" type="image/x-icon" href="<?php echo e(asset('materio/assets/img/favicon/favicon.ico')); ?>" />
     <link rel="stylesheet" href="<?php echo e(asset('materio/assets/vendor/fonts/materialdesignicons.css')); ?>" />
     <link rel="stylesheet" href="<?php echo e(asset('materio/assets/vendor/libs/node-waves/node-waves.css')); ?>" />
-    <link rel="stylesheet" href="<?php echo e(asset('materio/assets/vendor/css/core.css')); ?>" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="<?php echo e(asset('materio/assets/vendor/css/theme-default.css')); ?>" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="<?php echo e(asset('materio/assets/vendor/css/core.css')); ?>"
+      class="template-customizer-core-css" />
+    <link rel="stylesheet" href="<?php echo e(asset('materio/assets/vendor/css/theme-default.css')); ?>"
+      class="template-customizer-theme-css" />
     <link rel="stylesheet" href="<?php echo e(asset('materio/assets/css/demo.css')); ?>" />
     <link rel="stylesheet" href="<?php echo e(asset('materio/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')); ?>" />
 
@@ -31,7 +34,6 @@
   </head>
 
   <body>
-    <?php echo $__env->make('sweetalert::alert', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -48,6 +50,7 @@
           
           <div class="content-wrapper">
             <div class="container-xxl flex-grow-1 container-p-y">
+              <?php echo $__env->make('sweetalert::alert', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
               <?php echo $__env->yieldContent('content'); ?>
             </div>
             <?php echo $__env->make('components.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

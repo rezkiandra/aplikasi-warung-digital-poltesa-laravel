@@ -231,9 +231,9 @@ class UserController extends Controller
     return redirect()->route('admin.users');
   }
 
-  public function destroyUser(string $slug)
+  public function destroyUser(string $uuid)
   {
-    $user = User::where('slug', $slug)->firstOrFail();
+    $user = User::where('uuid', $uuid)->firstOrFail();
     $user->delete();
 
     Alert::toast('Successfully deleted user', 'success');

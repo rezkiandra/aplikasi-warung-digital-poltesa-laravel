@@ -1,5 +1,6 @@
 @php
   $products = \App\Models\Products::paginate(10);
+  $totalProducts = $products->count();
   $categories = \App\Models\ProductCategory::pluck('name', 'id')->toArray();
   $productPercentage = round((\App\Models\Products::count() ?? 0 / \App\Models\ProductCategory::count()) * 100, 2);
   $productPrePercentage = \App\Models\Products::count();
@@ -24,7 +25,7 @@
   @endif
 
   <x-product-separator>
-    <x-product-card :datas="$products" :condition="$totalOrders" :label="'Produk'" :icon="'cart-outline'" :variant="'primary'"
+    <x-product-card :datas="$products" :condition="$totalProducts" :label="'Produk'" :icon="'cart-outline'" :variant="'primary'"
       :percentage="$productPercentage ? '+' . $productPercentage . '%' : '-' . $productPrePercentage . '%'" :class="'border-end'" :description="'Jumlah Produk'" />
     <x-product-card :datas="$products" :condition="$totalTopSale" :label="'Produk Teratas'" :icon="'shopping-outline'" :variant="'info'"
       :percentage="$totalTopSale ? '+' . $totalTopSale . '%' : '-' . $totalTopSale . '%'" :class="'border-end'" />

@@ -10,9 +10,12 @@
 @push('styles')
   <style>
     .card:hover {
-      /* opacity: .95; */
       transition: .2s;
       transform: scale(.99);
+    }
+
+    .card {
+      transition: .2s;
     }
   </style>
 @endpush

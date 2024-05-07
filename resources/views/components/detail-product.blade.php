@@ -165,6 +165,44 @@
               @endif
             </form>
           @else
+            <form action="{{ route('wishlist.store') }}" method="POST">
+              @csrf
+              <input type="hidden" name="customer_id" value="{{ $customer->id ?? '' }}">
+              <input type="hidden" name="product_id" value="{{ $product->id }}">
+              @if ($product->stock == 0)
+                <x-submit-button :label="'Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2 disabled'"
+                  aria-disabled="true" :icon="'heart-outline me-2'" :variant="'danger'" />
+              @else
+                <x-submit-button :label="'Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2'"
+                  :icon="'heart-outline me-2'" :variant="'danger'" />
+              @endif
+            </form>
+            <form action="{{ route('cart.store') }}" method="POST">
+              @csrf
+              <input type="hidden" name="product_id" value="{{ $product->id }}">
+              <input type="hidden" name="quantity" id="newQuantityCart" value="1">
+              @if ($product->stock == 0)
+                <x-submit-button :label="'Keranjang'" id="btn-cart" :type="'submit'" :class="'btn-outline-primary w-100 mb-2 disabled'"
+                  aria-disabled="true" :icon="'cart-outline me-2'" :variant="'primary'" />
+              @else
+                <x-submit-button :label="'Keranjang'" id="btn-cart" :type="'submit'" :class="'btn-outline-primary w-100 mb-2'"
+                  :icon="'cart-outline me-2'" :variant="'primary'" />
+              @endif
+            </form>
+            <form action="{{ route('order.store') }}" method="POST">
+              @csrf
+              <input type="hidden" name="product_id" value="{{ $product->id }}">
+              <input type="hidden" name="quantity" id="newQuantityOrder" value="1">
+              <input type="hidden" name="total_price" id="newTotalPriceOrder"
+                value="{{ $product->price + $fee }}">
+              @if ($product->stock == 0)
+                <x-submit-button :label="'Beli'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100 disabled'"
+                  aria-disabled="true" :icon="'basket-outline me-2'" :variant="'primary'" />
+              @else
+                <x-submit-button :label="'Beli'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100'"
+                  :icon="'basket-outline me-2'" :variant="'primary'" />
+              @endif
+            </form>
           @endif
         </div>
       </div>

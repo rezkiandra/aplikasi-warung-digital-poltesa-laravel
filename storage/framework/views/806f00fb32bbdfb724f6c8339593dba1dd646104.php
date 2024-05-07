@@ -273,6 +273,104 @@
               <?php endif; ?>
             </form>
           <?php else: ?>
+            <form action="<?php echo e(route('wishlist.store')); ?>" method="POST">
+              <?php echo csrf_field(); ?>
+              <input type="hidden" name="customer_id" value="<?php echo e($customer->id ?? ''); ?>">
+              <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
+              <?php if($product->stock == 0): ?>
+                <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Wishlist','id' => 'btn-wishlist','type' => 'submit','class' => 'btn-outline-danger w-100 mb-2 disabled','icon' => 'heart-outline me-2','variant' => 'danger']); ?>
+<?php $component->withName('submit-button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes(['aria-disabled' => 'true']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342)): ?>
+<?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
+<?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
+<?php endif; ?>
+              <?php else: ?>
+                <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Wishlist','id' => 'btn-wishlist','type' => 'submit','class' => 'btn-outline-danger w-100 mb-2','icon' => 'heart-outline me-2','variant' => 'danger']); ?>
+<?php $component->withName('submit-button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342)): ?>
+<?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
+<?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
+<?php endif; ?>
+              <?php endif; ?>
+            </form>
+            <form action="<?php echo e(route('cart.store')); ?>" method="POST">
+              <?php echo csrf_field(); ?>
+              <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
+              <input type="hidden" name="quantity" id="newQuantityCart" value="1">
+              <?php if($product->stock == 0): ?>
+                <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Keranjang','id' => 'btn-cart','type' => 'submit','class' => 'btn-outline-primary w-100 mb-2 disabled','icon' => 'cart-outline me-2','variant' => 'primary']); ?>
+<?php $component->withName('submit-button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes(['aria-disabled' => 'true']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342)): ?>
+<?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
+<?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
+<?php endif; ?>
+              <?php else: ?>
+                <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Keranjang','id' => 'btn-cart','type' => 'submit','class' => 'btn-outline-primary w-100 mb-2','icon' => 'cart-outline me-2','variant' => 'primary']); ?>
+<?php $component->withName('submit-button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342)): ?>
+<?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
+<?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
+<?php endif; ?>
+              <?php endif; ?>
+            </form>
+            <form action="<?php echo e(route('order.store')); ?>" method="POST">
+              <?php echo csrf_field(); ?>
+              <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
+              <input type="hidden" name="quantity" id="newQuantityOrder" value="1">
+              <input type="hidden" name="total_price" id="newTotalPriceOrder"
+                value="<?php echo e($product->price + $fee); ?>">
+              <?php if($product->stock == 0): ?>
+                <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Beli','id' => 'btn-buy','type' => 'submit','class' => 'btn-primary w-100 disabled','icon' => 'basket-outline me-2','variant' => 'primary']); ?>
+<?php $component->withName('submit-button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes(['aria-disabled' => 'true']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342)): ?>
+<?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
+<?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
+<?php endif; ?>
+              <?php else: ?>
+                <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Beli','id' => 'btn-buy','type' => 'submit','class' => 'btn-primary w-100','icon' => 'basket-outline me-2','variant' => 'primary']); ?>
+<?php $component->withName('submit-button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342)): ?>
+<?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
+<?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
+<?php endif; ?>
+              <?php endif; ?>
+            </form>
           <?php endif; ?>
         </div>
       </div>
