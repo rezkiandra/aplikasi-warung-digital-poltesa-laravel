@@ -133,20 +133,8 @@
 <?php unset($__componentOriginal6be6a6f593f4a75730d4c4dfa7fb83ab590bc6e0); ?>
 <?php endif; ?>
 
-    <?php if (isset($component)) { $__componentOriginal03c2e6da6a642d1648f01f77a5dc9f80f8933d84 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\EarningsCard::class, ['title' => $titleSpent,'description' => $descriptionSpent,'earnings' => $spentValue]); ?>
-<?php $component->withName('earnings-card'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes([]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginal03c2e6da6a642d1648f01f77a5dc9f80f8933d84)): ?>
-<?php $component = $__componentOriginal03c2e6da6a642d1648f01f77a5dc9f80f8933d84; ?>
-<?php unset($__componentOriginal03c2e6da6a642d1648f01f77a5dc9f80f8933d84); ?>
-<?php endif; ?>
     
-
+    
     
     
     <?php if (isset($component)) { $__componentOriginal4980b8428731110d8ba140e84171140e339b1ec2 = $component; } ?>
@@ -160,6 +148,18 @@
 <?php if (isset($__componentOriginal4980b8428731110d8ba140e84171140e339b1ec2)): ?>
 <?php $component = $__componentOriginal4980b8428731110d8ba140e84171140e339b1ec2; ?>
 <?php unset($__componentOriginal4980b8428731110d8ba140e84171140e339b1ec2); ?>
+<?php endif; ?>
+    <?php if (isset($component)) { $__componentOriginal03c2e6da6a642d1648f01f77a5dc9f80f8933d84 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\EarningsCard::class, ['title' => $titleSpent,'description' => $descriptionSpent,'earnings' => $spentValue]); ?>
+<?php $component->withName('earnings-card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal03c2e6da6a642d1648f01f77a5dc9f80f8933d84)): ?>
+<?php $component = $__componentOriginal03c2e6da6a642d1648f01f77a5dc9f80f8933d84; ?>
+<?php unset($__componentOriginal03c2e6da6a642d1648f01f77a5dc9f80f8933d84); ?>
 <?php endif; ?>
 
     <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>

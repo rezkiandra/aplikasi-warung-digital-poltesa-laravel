@@ -123,8 +123,7 @@
   <script>
     const ctaBtn = document.getElementById('CtaBtn');
     ctaBtn.addEventListener('click', function() {
-      window.location.href = '#products';
-      window.scrollTo(0, 0);
+      window.location.href = '<?php echo e(route('guest.products')); ?>';
     })
   </script>
 <?php $__env->stopPush(); ?>

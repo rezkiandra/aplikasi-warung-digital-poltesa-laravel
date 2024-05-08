@@ -63,10 +63,10 @@ Route::middleware('auth', 'mustLogin', 'checkCustomer')->group(function () {
       Route::get('/order/checkout/{order}', 'processPayment')->name('midtrans.checkout');
       Route::get('/detail-transaction/{transaction}', 'detailPayment')->name('midtrans.detail');
       Route::get('/success-transaction/{order}', 'successPayment')->name('midtrans.success');
+      Route::get('/pending-transaction/{order}', 'pendingPayment')->name('midtrans.pending');
       Route::get('/failed-transaction/{order}', 'failedPayment')->name('midtrans.failed');
       Route::get('/cancel-transaction/{order}', 'cancelPayment')->name('midtrans.cancelled');
-
-      Route::post('/midtrans-callback', 'callbackHandler')->name('midtrans.callback');
+      Route::post('/midtrans-callback', 'callback')->name('midtrans.callback');
     });
 
   Route::controller(CustomerController::class)

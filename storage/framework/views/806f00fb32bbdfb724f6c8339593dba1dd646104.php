@@ -84,7 +84,7 @@
         </p>
       </div>
       <h4 class="mb-3 fw-bold">
-        Rp<?php echo e(number_format($product->price, 0, ',', '.')); ?>
+        Rp <?php echo e(number_format($product->price, 0, ',', '.')); ?>
 
       </h4>
       <hr class="bg-light">
@@ -140,12 +140,12 @@
         <h6>Detail Harga</h6>
         <dl class="row mb-0">
           <dt class="col-6 fw-normal text-heading">Sub Total</dt>
-          <dd class="col-6 text-end" id="subtotal">Rp<?php echo e(number_format($product->price, 0, ',', '.')); ?></dd>
+          <dd class="col-6 text-end" id="subtotal">Rp <?php echo e(number_format($product->price, 0, ',', '.')); ?></dd>
 
           <dt class="col-6 fw-normal text-heading">Biaya Layanan</dt>
           <dd class="col-6 text-end">
             <i class="mdi mdi-truck-fast-outline me-1"></i>
-            Rp<?php echo e(number_format($fee, 0, ',', '.')); ?>
+            Rp <?php echo e(number_format($fee, 0, ',', '.')); ?>
 
           </dd>
         </dl>
@@ -153,7 +153,7 @@
         <dl class="row my-3">
           <dt class="col-6 text-heading">Total</dt>
           <dd class="col-6 fw-medium text-end mb-0 text-heading" id="total">
-            Rp<?php echo e(number_format($product->price + $fee, 0, ',', '.')); ?>
+            Rp <?php echo e(number_format($product->price + $fee, 0, ',', '.')); ?>
 
         </dl>
         <div class="d-grid gap-2">

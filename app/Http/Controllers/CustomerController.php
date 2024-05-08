@@ -40,9 +40,17 @@ class CustomerController extends Controller
     return view('customer.dashboard');
   }
 
-  public function products()
+  public function products(Request $request)
   {
-    $products = Products::orderBy('category_id', 'asc')->get();
+    $filter = $request->input('filter');
+    $query = Products::query();
+
+    if ($filter) {
+      $products = $query->where('category_id', $filter)->get();
+    } else {
+      $products = Products::orderBy('category_id', 'asc')->get();
+    }
+
     return view('customer.products', compact('products'));
   }
 

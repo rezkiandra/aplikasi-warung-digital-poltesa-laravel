@@ -8,7 +8,6 @@
   <div class="bs-stepper-content rounded-0">
     <div id="checkout-cart" class="content fv-plugins-bootstrap5 fv-plugins-framework active dstepper-block">
       <div class="row">
-        <!-- Cart left -->
         <h5>Checkout Pesanan</h5>
         <div class="col-xl-8 mb-4 mb-xl-0">
           <ul class="list-group mb-4">
@@ -65,7 +64,6 @@
                 </div>
               </div>
             </div>
-            
             <dl class="row mb-0">
               <dt class="col-6 fw-normal text-heading">Subtotal</dt>
               <dd class="col-6 text-end">Rp<?php echo e(number_format($order->product->price * $order->quantity, 0, '.', '.')); ?>
@@ -112,7 +110,7 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('scripts'); ?>
-  <script src="https://app.midtrans.com/snap/snap.js" data-client-key="<?php echo e(config('midtrans.client_key')); ?>"></script>
+  <script src="<?php echo e(config('midtrans.snap_url')); ?>" data-client-key="<?php echo e(config('midtrans.client_key')); ?>"></script>
   <script type="text/javascript">
     document.getElementById('pay-button').onclick = function() {
       snap.pay('<?php echo e($order->snap_token); ?>', {
@@ -120,10 +118,10 @@
           window.location.href = "<?php echo e(route('midtrans.success', $order->uuid)); ?>";
         },
         onPending: function(result) {
-          document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+          window.location.href = "<?php echo e(route('midtrans.pending', $order->uuid)); ?>";
         },
         onError: function(result) {
-          document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+          window.location.href = "<?php echo e(route('midtrans.failed', $order->uuid)); ?>";
         }
       });
     };

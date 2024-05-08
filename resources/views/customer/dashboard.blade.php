@@ -64,12 +64,8 @@
       <x-transaction-item-card :label="'Dibatalkan'" :value="$totalCancelled" :variant="'danger'" :icon="'basket-outline'" />
     </x-transactions-card>
 
-    <x-earnings-card :title="$titleSpent" :description="$descriptionSpent" :earnings="$spentValue" />
-    {{-- <x-bar-graph-card /> --}}
-
-    {{-- <x-top-sellers-card :datas="$sellers" :title="'Penjual Teratas 🎉'" /> --}}
-    {{-- <x-top-customers-card :datas="$topCustomers" :title="'Pelanggan Teratas 🎉'" /> --}}
     <x-top-products-card :datas="$topProducts" :title="'Pembelian Produk Teratas 🎉'" />
+    <x-earnings-card :title="$titleSpent" :description="$descriptionSpent" :earnings="$spentValue" />
 
     <x-four-card>
       <x-graph-card-content :label="$labelCart" :value="$valueCart" :icon="'cart-outline'" :variant="'info'" />
