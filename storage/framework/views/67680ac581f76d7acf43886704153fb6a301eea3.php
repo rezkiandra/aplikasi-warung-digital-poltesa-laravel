@@ -17,7 +17,7 @@
       ->where('status', 'paid')
       ->get();
   $titleSpent = 'Total Pengeluaran';
-  $spentValue = 'Rp' . number_format($spent->sum('total_price'), 2, '.', ',');
+  $spentValue = 'Rp ' . number_format($spent->sum('total_price'), 0, ',', '.');
   $descriptionSpent = 'Total pengeluaran akhir ini';
 
   // Transaction Item Card

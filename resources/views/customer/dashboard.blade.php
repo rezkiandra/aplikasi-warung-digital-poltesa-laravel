@@ -17,7 +17,7 @@
       ->where('status', 'paid')
       ->get();
   $titleSpent = 'Total Pengeluaran';
-  $spentValue = 'Rp' . number_format($spent->sum('total_price'), 2, '.', ',');
+  $spentValue = 'Rp ' . number_format($spent->sum('total_price'), 0, ',', '.');
   $descriptionSpent = 'Total pengeluaran akhir ini';
 
   // Transaction Item Card
@@ -55,7 +55,8 @@
 @section('title', 'Dashboard')
 @section('content')
   <x-content-card>
-    <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel" :route="$route" />
+    <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel"
+      :route="$route" />
     <x-transactions-card :title="$title" :description="$description">
       <x-transaction-item-card :label="'Jumlah Pesanan'" :value="$totalOrders" :variant="'info'" :icon="'account-group-outline'" />
       <x-transaction-item-card :label="'Selesai'" :value="$totalPaid" :variant="'success'" :icon="'account-multiple-outline'" />

@@ -1,6 +1,9 @@
 @php
   if (Auth::check()) {
       $admin = auth()->user()->role_id == 1;
+      $wishlistUUID = \App\Models\Wishlist::where('customer_id', auth()->user()->customer->id)
+          ->pluck('uuid')
+          ->toArray();
   }
   $customer = auth()->user()->customer ?? '';
   $seller = auth()->user()->seller ?? '';
@@ -118,7 +121,7 @@
         <div class="d-grid gap-2">
           @if ($customer)
             @if ($customer->wishlist()->where('product_id', $product->id)->exists())
-              <form action="{{ route('wishlist.destroy', $product->uuid) }}" method="POST">
+              <form action="{{ route('wishlist.destroy', $wishlistUUID) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <x-submit-button :label="'Hapus Wishlist'" :type="'submit'" :class="'btn-outline-danger w-100 mb-2'" :icon="'heart'"

@@ -5,7 +5,7 @@
 @extends('layouts.guest')
 @section('title', 'Produk')
 @section('content')
-  <section id="hero" class="mb-5 pb-5">
+  <section class="mb-5 pb-5" data-aos="fade" data-aos-duration="1000">
     <div class="container-fluid mt-lg-5 mt-4 pt-4">
       <div class="mt-2 pt-5 pt-lg-4 pt-md-5">
         <h3 class="text-dark text-uppercase mb-2">Produk Kami</h3>

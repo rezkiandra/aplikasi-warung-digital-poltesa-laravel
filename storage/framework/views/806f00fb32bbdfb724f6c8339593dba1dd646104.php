@@ -1,6 +1,9 @@
 <?php
   if (Auth::check()) {
       $admin = auth()->user()->role_id == 1;
+      $wishlistUUID = \App\Models\Wishlist::where('customer_id', auth()->user()->customer->id)
+          ->pluck('uuid')
+          ->toArray();
   }
   $customer = auth()->user()->customer ?? '';
   $seller = auth()->user()->seller ?? '';
@@ -156,7 +159,7 @@
         <div class="d-grid gap-2">
           <?php if($customer): ?>
             <?php if($customer->wishlist()->where('product_id', $product->id)->exists()): ?>
-              <form action="<?php echo e(route('wishlist.destroy', $product->uuid)); ?>" method="POST">
+              <form action="<?php echo e(route('wishlist.destroy', $wishlistUUID)); ?>" method="POST">
                 <?php echo csrf_field(); ?>
                 <?php echo method_field('DELETE'); ?>
                 <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>

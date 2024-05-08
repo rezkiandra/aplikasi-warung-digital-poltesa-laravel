@@ -10,6 +10,22 @@
 <?php $__env->startSection('title', 'Beranda'); ?>
 
 <?php $__env->startSection('content'); ?>
+  <div class="container-fluid mt-3 pt-5">
+    <div class="position-absolute end-0 p-4 bottom-0 z-index-2">
+      <button type="button" class="btn btn-sm btn-outline-primary">
+        <i class="mdi mdi-arrow-up mdi-24px"></i>
+      </button>
+    </div>
+    <div class="mt-3 pt-5 text-center">
+      <h1 class="text-primary mb-5" data-aos="fade-down" data-aos-duration="1000">Warung Digital POLTESA</h1>
+      <div class="box" data-aos="fade-down" data-aos-duration="1000">
+        <h4 class="text-dark mb-2">Toko Online Sederhana dan Terpercaya</h4>
+        <h5 class="text-dark mb-4">Transaksi Dengan Mudah Dan Cepat Serta Memberikan Pelayanan Terbaik</h5>
+        <button type="button" id="CtaBtn" class="btn btn-primary text-uppercase">Belanja Sekarang</button>
+      </div>
+    </div>
+  </div>
+
   <?php if (isset($component)) { $__componentOriginal39095e96dc654356da7e4dc53d8b3e5955e2d4c5 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\BannerImage::class, ['image' => asset('img/banner1.webp'),'title' => 'Fashion','class' => 'pt-lg-5 pt-5 mt-lg-4 mt-4']); ?>
 <?php $component->withName('banner-image'); ?>
@@ -96,5 +112,14 @@
 <?php endif; ?>
   </main>
 <?php $__env->stopSection(); ?>
+
+<?php $__env->startPush('scripts'); ?>
+  <script>
+    const ctaBtn = document.getElementById('CtaBtn');
+    ctaBtn.addEventListener('click', function() {
+      window.location.href = '<?php echo e(route('customer.products')); ?>';
+    })
+  </script>
+<?php $__env->stopPush(); ?>
 
 <?php echo $__env->make('layouts.guest', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\USER\Desktop\warungdigital\resources\views/customer/home.blade.php ENDPATH**/ ?>

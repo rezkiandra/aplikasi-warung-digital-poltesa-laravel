@@ -6,10 +6,9 @@
 @section('content')
   <h4 class="mb-1">Keranjang Produk</h4>
   <p class="mb-3">Daftar produk yang ada di keranjang belanja anda</p>
-
-  <div class="card p-3">
-    <div class="col-lg-12 mb-4">
-      <h5>Keranjang produk saya ({{ $carts->count() }} item)</h5>
+  <div class="col-lg-12 mb-4">
+    @if (!$carts->isEmpty())
+      <h6>Keranjang produk saya ({{ $carts->count() }} item)</h6>
       <ul class="list-group mb-4">
         @foreach ($carts as $cart)
           <li class="list-group-item" data-price="{{ $cart->product->price }}" data-product-id="{{ $cart->product_id }}">
@@ -50,10 +49,10 @@
                   </div>
                 </div>
                 <div class="col-md-4 d-flex flex-column align-items-end justify-content-center">
-                  <div class="mt-lg-0 mt-2">
-                    {{-- <s class="text-primary">$299 /</s> --}}
-                    <span class="text-body"
-                      id="totalPrice">Rp{{ number_format($cart->product->price * $cart->quantity + $fee, 0, '.', '.') }}
+                  <div class="mt-lg-0 mt-2 d-lg-flex align-items-center gap-2 mb-0 mb-lg-2 mb-md-2">
+                    <s class="text-primary">Rp 10.000</s>
+                    <span class="text-body" id="totalPrice">Rp
+                      {{ number_format($cart->product->price * $cart->quantity + $fee, 0, ',', '.') }}
                     </span>
                   </div>
                   <form action="{{ route('order.store') }}" method="POST" id="form">
@@ -70,7 +69,9 @@
           </li>
         @endforeach
       </ul>
-    </div>
+    @else
+      <p class="text-center">Tidak ada keranjang produk</p>
+    @endif
   </div>
 @endsection
 

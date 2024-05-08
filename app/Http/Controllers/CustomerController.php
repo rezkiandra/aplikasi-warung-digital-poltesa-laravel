@@ -46,6 +46,11 @@ class CustomerController extends Controller
     return view('customer.products', compact('products'));
   }
 
+  public function faq()
+  {
+    return view('customer.faq');
+  }
+
   public function product(string $slug)
   {
     $product = Products::where('slug', $slug)->firstOrFail();

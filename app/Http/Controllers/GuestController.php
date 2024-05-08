@@ -19,6 +19,11 @@ class GuestController extends Controller
     return view('pages.products', compact('products'));
   }
 
+  public function faq()
+  {
+    return view('pages.faq');
+  }
+
   public function product(string $slug)
   {
     $product = Products::where('slug', $slug)->firstOrFail();

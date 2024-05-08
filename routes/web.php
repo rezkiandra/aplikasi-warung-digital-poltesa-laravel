@@ -30,6 +30,7 @@ Route::controller(GuestController::class)
   ->group(function () {
     Route::get('/', 'index')->name('guest.home');
     Route::get('/products', 'products')->name('guest.products');
+    Route::get('/faq', 'faq')->name('guest.faq');
     Route::get('/detail-product/{product}', 'product')->name('guest.detail.product');
   });
 
@@ -86,6 +87,7 @@ Route::middleware('auth', 'mustLogin', 'checkCustomer')->group(function () {
     ->group(function () {
       Route::get('/home', 'index')->name('customer.home');
       Route::get('/products', 'products')->name('customer.products');
+      Route::get('/faq', 'faq')->name('customer.faq');
       Route::get('/detail-product/{product}', 'product')->name('customer.detail.product');
     });
 });
