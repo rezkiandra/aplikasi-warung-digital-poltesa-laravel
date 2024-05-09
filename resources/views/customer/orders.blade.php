@@ -19,10 +19,10 @@
   <p class="mb-3">Daftar pesanan anda yang selesai, belum dibayar, dan dibatalkan</p>
 
   <x-detail-order>
-    <x-detail-order-item :label="'Jumlah Pesanan'" :icon="'wallet-giftcard'" :class="'border-end'" :variant="'primary'" :condition="$countOrder" />
-    <x-detail-order-item :label="'Pesanan Belum Bayar'" :icon="'wallet-outline'" :class="'border-end'" :variant="'danger'" :condition="$countUnpaid" />
-    <x-detail-order-item :label="'Pesanan Selesai'" :icon="'check-all'" :class="'border-end'" :variant="'success'" :condition="$countPaid" />
-    <x-detail-order-item :label="'Pesanan Dibatalkan'" :icon="'alert-circle-outline'" :variant="'dark'" :condition="$countCancelled" />
+    <x-detail-order-item :label="'Total'" :icon="'basket-outline'" :class="'border-end'" :variant="'info'" :condition="$countOrder" />
+    <x-detail-order-item :label="'Selesai'" :icon="'basket-check-outline'" :class="'border-end'" :variant="'success'" :condition="$countPaid" />
+    <x-detail-order-item :label="'Belum Bayar'" :icon="'basket-off-outline'" :class="'border-end'" :variant="'danger'" :condition="$countUnpaid" />
+    <x-detail-order-item :label="'Dibatalkan'" :icon="'basket-remove-outline'" :class="'border-end'" :variant="'dark'" :condition="$countCancelled" />
   </x-detail-order>
 
   <x-order-tabel :orders="$orders" />

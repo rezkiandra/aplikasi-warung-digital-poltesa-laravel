@@ -1,7 +1,7 @@
 <?php
   // Greetings Card
   $message = 'Dashboard penjual berisi informasi produk penjual dan transaksi';
-  $greetings = 'Halo, ' . auth()->user()->name;
+  $greetings = 'Halo, ' . auth()->user()->customer->full_name;
   $descriptionGreetings = 'Selamat datang di dashboard customer';
   $label = 'Total Pesanan';
   $value = \App\Models\Order::where('customer_id', auth()->user()->customer->id)->count();
@@ -79,7 +79,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
       <?php if (isset($component)) { $__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Jumlah Pesanan','value' => $totalOrders,'variant' => 'info','icon' => 'account-group-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Total Pesanan','value' => $totalOrders,'variant' => 'info','icon' => 'basket-outline']); ?>
 <?php $component->withName('transaction-item-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -91,7 +91,7 @@
 <?php unset($__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Selesai','value' => $totalPaid,'variant' => 'success','icon' => 'account-multiple-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Selesai','value' => $totalPaid,'variant' => 'success','icon' => 'basket-check-outline']); ?>
 <?php $component->withName('transaction-item-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -103,7 +103,7 @@
 <?php unset($__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Belum Dibayar','value' => $totalUnpaid,'variant' => 'warning','icon' => 'package']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Belum Bayar','value' => $totalUnpaid,'variant' => 'warning','icon' => 'basket-off-outline']); ?>
 <?php $component->withName('transaction-item-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -115,7 +115,7 @@
 <?php unset($__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Dibatalkan','value' => $totalCancelled,'variant' => 'danger','icon' => 'basket-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Dibatalkan','value' => $totalCancelled,'variant' => 'danger','icon' => 'basket-remove-outline']); ?>
 <?php $component->withName('transaction-item-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -133,10 +133,6 @@
 <?php unset($__componentOriginal6be6a6f593f4a75730d4c4dfa7fb83ab590bc6e0); ?>
 <?php endif; ?>
 
-    
-    
-    
-    
     <?php if (isset($component)) { $__componentOriginal4980b8428731110d8ba140e84171140e339b1ec2 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\TopProductsCard::class, ['datas' => $topProducts,'title' => 'Pembelian Produk Teratas 🎉']); ?>
 <?php $component->withName('top-products-card'); ?>

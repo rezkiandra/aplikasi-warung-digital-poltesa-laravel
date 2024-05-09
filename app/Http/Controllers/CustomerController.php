@@ -22,14 +22,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class CustomerController extends Controller
 {
-  public function __construct()
-  {
-    Config::$serverKey = config('midtrans.sandbox_server_key');
-    Config::$isProduction = config('midtrans.is_production');
-    Config::$isSanitized = config('midtrans.is_sanitized');
-    Config::$is3ds = config('midtrans.is_3ds');
-  }
-
   public function index()
   {
     return view('customer.home');
@@ -110,13 +102,11 @@ class CustomerController extends Controller
   public function updateProfile(UserRequest $request, string $uuid)
   {
     $userCustomer = User::where('uuid', $uuid)->firstOrFail();
+
     $userCustomer->update([
-      'uuid' => Str::uuid('id'),
       'name' => $request->name,
-      'slug' => Str::slug($request->name),
       'email' => $request->email,
-      'role_id' => $userCustomer->role_id,
-      'password' => $userCustomer->password ?? Hash::make($request->new_password),
+      'password' => Hash::make($request->new_password) ?? $userCustomer->password,
     ]);
 
     Alert::toast('Berhasil update profile', 'success');

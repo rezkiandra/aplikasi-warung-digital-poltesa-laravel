@@ -7,6 +7,7 @@
       \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
           ->join('sellers', 'products.seller_id', '=', 'sellers.id', 'left')
           ->where('sellers.id', $seller->id)
+          ->where('orders.status', 'paid')
           ->sum('total_price'),
       0,
       ',',

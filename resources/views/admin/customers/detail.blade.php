@@ -1,6 +1,6 @@
 @php
   $totalOrder = \App\Models\Order::where('customer_id', $customer->id)->count();
-  $spentCost = number_format(\App\Models\Order::where('customer_id', $customer->id)->sum('total_price'), 0, ',', '.');
+  $spentCost = number_format(\App\Models\Order::where('customer_id', $customer->id)->where('orders.status', 'paid')->sum('total_price'), 0, ',', '.');
   $totalCarts = \App\Models\ProductsCart::where('customer_id', $customer->id)->count();
   $totalWishlist = \App\Models\Wishlist::where('customer_id', $customer->id)->count();
   $orders = \App\Models\Order::where('customer_id', $customer->id)
@@ -27,7 +27,7 @@
     <div class="col-xl-4 col-lg-5 col-md-5">
       <div class="card mb-4">
         <x-detail-form :image="asset('storage/' . $customer->image)" :name="$customer->full_name" :id="'#' . $customer_id" :phone="$customer->phone_number" :address="$customer->address"
-          :status="$customer->status" :totalOrder="$totalOrder" :labelOrder="'Pesanan'" :spentCost="'Rp' . $spentCost" :labelCost="'Pembelian'" :username="$username"
+          :status="$customer->status" :totalOrder="$totalOrder" :labelOrder="'Pesanan'" :spentCost="'Rp ' . $spentCost" :labelCost="'Pembelian'" :username="$username"
           :email="$email" :status="$customer->status" :type="'button'" :href="route('admin.edit.customer', $customer->uuid)" :variant="'primary'"
           :icon="'pencil-outline'" :label="'Edit Details'" :class="'btn-sm'" />
       </div>
@@ -35,7 +35,6 @@
 
     <x-detail-card-content>
       <x-detail-card :title="'Wishlist'" :count="$totalWishlist" :countDescription="'items produk'" :icon="'star-outline'" :variant="'warning'" />
-      <x-detail-card :title="'Keranjang'" :count="$totalCarts" :countDescription="'items produk'" :icon="'cart-outline'" :variant="'info'" />
       <x-detail-card :title="'Keranjang'" :count="$totalCarts" :countDescription="'items produk'" :icon="'cart-outline'" :variant="'info'" />
       <x-orders-customer-detail :datas="$orders" />
     </x-detail-card-content>

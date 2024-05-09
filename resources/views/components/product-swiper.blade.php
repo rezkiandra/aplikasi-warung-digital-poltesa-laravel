@@ -11,9 +11,9 @@
   </style>
 @endpush
 
-@foreach ($datas as $data)
-  <div class="row">
-    <div class="col-lg-3 col-md-4 col-6 pb-3 pb-lg-3">
+<div class="row">
+  @foreach ($datas as $data)
+    <div class="col-lg-2 col-md-4 col-6 pb-3 pb-lg-3">
       <div class="card cursor-pointer">
         <img class="card-img-top img-fluid" alt="Card image cap" src="{{ asset('storage/' . $data->image) }}"
           width="100%">
@@ -27,5 +27,5 @@
         </div>
       </div>
     </div>
-  </div>
-@endforeach
+  @endforeach
+</div>

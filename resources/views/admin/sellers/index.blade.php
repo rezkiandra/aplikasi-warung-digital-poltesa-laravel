@@ -45,5 +45,5 @@
           : '-' . $sellerPendingPrePercentage . '%'" />
   </div>
 
-  <x-seller-table :title="'Data Penjual'" :datas="$sellers" :fields="['No', 'Penjual', 'Produk', 'Gender / Alamat', 'Status / Nomor HP', 'Bank', 'Dibuat Pada', 'Aksi']" />
+  <x-seller-table :title="'Data Penjual'" :datas="$sellers" :fields="['No', 'Penjual', 'Gender / Alamat', 'Status / Nomor HP', 'Bank', 'Dibuat Pada', 'Aksi']" />
 @endsection

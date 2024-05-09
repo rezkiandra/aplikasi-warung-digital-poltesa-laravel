@@ -28,15 +28,15 @@
                     <div class="d-flex flex-row align-items-start justify-content-start gap-1">
                       <span class="text-dark text-capitalize fw-medium">{{ $data->name }}</span>
                     </div>
-                    <small class="text-truncate badge bg-label-info rounded">{{ $data->slug }}</small>
+                    <small class="text-truncate">{{ Str::limit($data->description, 50) }}</small>
                   </div>
                 </div>
               </td>
               <td class="text-truncate">
                 <div class="d-flex align-items-center">
                   <div>
-                    <h6 class="mb-1 text-truncate">Rp{{ number_format($data->price, 0, ',', '.') }}</h6>
-                    <small class="text-truncate badge bg-label-info rounded">tersisa {{ $data->stock }} pcs</small>
+                    <h6 class="mb-1 text-truncate">Rp {{ number_format($data->price, 0, ',', '.') }}</h6>
+                    <small class="text-truncate badge bg-label-info rounded">tersedia {{ $data->stock }} pcs</small>
                   </div>
                 </div>
               </td>

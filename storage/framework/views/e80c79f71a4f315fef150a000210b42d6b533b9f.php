@@ -29,20 +29,6 @@
             <td class="sorting_1">
               <div class="d-flex justify-content-start align-items-center product-name">
                 <div class="d-flex flex-column">
-                  <span
-                    class="text-nowrap text-heading fw-medium"><?php echo e(\App\Models\Products::where('seller_id', $data->id)->count()); ?>
-
-                    buah</span>
-                  <small class="text-truncate">
-                    <span class="fw-medium">Rp
-                      <?php echo e(number_format(\App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->join('sellers', 'products.seller_id', '=', 'sellers.id', 'left')->where('sellers.id', $data->id)->sum('products.price'),0,',','.')); ?></span>
-                  </small>
-                </div>
-              </div>
-            </td>
-            <td class="sorting_1">
-              <div class="d-flex justify-content-start align-items-center product-name">
-                <div class="d-flex flex-column">
                   <span class="text-nowrap text-heading fw-medium text-capitalize">
                     <?php if($data->gender == 'laki-laki'): ?>
                       <i class="mdi mdi-gender-male text-info"></i>
@@ -93,8 +79,7 @@
               </div>
             </td>
             <td>
-              <span
-                class="fw-medium badge rounded bg-label-info"><?php echo e(date('M d, H:i', strtotime($data->created_at))); ?>
+              <span class="fw-medium badge rounded bg-label-info"><?php echo e(date('M d, H:i', strtotime($data->created_at))); ?>
 
                 <?php echo e($data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM'); ?>
 

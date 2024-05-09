@@ -12,7 +12,7 @@ class BannerImage extends Component
    *
    * @return void
    */
-  public function __construct($image, $title, $class = '', $aos = '')
+  public function __construct($image, $title = '', $class = '', $aos = '')
   {
     $this->image = $image;
     $this->title = $title;

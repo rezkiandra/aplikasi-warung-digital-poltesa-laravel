@@ -1,5 +1,4 @@
 <?php
-  $allProduct = \App\Models\Products::all();
   $fashionProduct = \App\Models\Products::with('category')->where('category_id', 2)->get();
   $totalFashionProduct = $fashionProduct->count();
 
@@ -8,30 +7,13 @@
 ?>
 
 
-<?php $__env->startPush('styles'); ?>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<?php $__env->stopPush(); ?>
 <?php $__env->startSection('title', 'Beranda'); ?>
 
 <?php $__env->startSection('content'); ?>
-  <div class="container-fluid mt-3 pt-5">
-    <div class="position-absolute end-0 p-4 bottom-0 z-index-2">
-      <button type="button" class="btn btn-sm btn-outline-primary">
-        <i class="mdi mdi-arrow-up mdi-24px"></i>
-      </button>
-    </div>
-    <div class="mt-3 pt-5 text-center">
-      <h1 class="text-primary mb-5" data-aos="fade-down" data-aos-duration="1000">Warung Digital POLTESA</h1>
-      <div class="box" data-aos="fade-down" data-aos-duration="1000">
-        <h4 class="text-dark mb-2">Toko Online Sederhana dan Terpercaya</h4>
-        <h5 class="text-dark mb-4">Transaksi Dengan Mudah Dan Cepat Serta Memberikan Pelayanan Terbaik</h5>
-        <button type="button" id="CtaBtn" class="btn btn-primary text-uppercase">Belanja Sekarang</button>
-      </div>
-    </div>
-  </div>
+  
 
   <?php if (isset($component)) { $__componentOriginal39095e96dc654356da7e4dc53d8b3e5955e2d4c5 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\BannerImage::class, ['image' => asset('img/banner1.webp'),'title' => 'Fashion','class' => 'pt-lg-5 pt-5 mt-lg-4 mt-4','aos' => 'fade-up']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\BannerImage::class, ['image' => asset('img/banner1.webp'),'class' => 'pt-lg-5 pt-5 mt-lg-3 mt-4','aos' => 'fade-down']); ?>
 <?php $component->withName('banner-image'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -75,7 +57,7 @@
   </main>
 
   <?php if (isset($component)) { $__componentOriginal39095e96dc654356da7e4dc53d8b3e5955e2d4c5 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\BannerImage::class, ['image' => asset('img/banner2.webp'),'title' => 'Parfume','aos' => 'fade-up']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\BannerImage::class, ['image' => asset('img/banner2.webp'),'aos' => 'fade-up']); ?>
 <?php $component->withName('banner-image'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -120,7 +102,7 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('scripts'); ?>
-  <script>
+  <script type="text/javascript">
     const ctaBtn = document.getElementById('CtaBtn');
     ctaBtn.addEventListener('click', function() {
       window.location.href = '<?php echo e(route('guest.products')); ?>';

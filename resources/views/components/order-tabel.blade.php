@@ -46,14 +46,14 @@
                   <a href="pages-profile-user.html" class="text-truncate text-heading">
                     <span class="fw-medium">{{ $data->product->name }}</span>
                   </a>
-                  <small class="text-truncate">Rp{{ number_format($data->product->price, 0, ',', '.') }} -
+                  <small class="text-truncate">Rp {{ number_format($data->product->price, 0, ',', '.') }} -
                     {{ $data->quantity }} pcs</small>
                 </div>
               </div>
             </td>
             <td>
               <span class="mb-0 w-px-100 d-flex align-items-center">
-                <span class="fw-medium">Rp{{ number_format($data->total_price, 0, ',', '.') }}</span>
+                <span class="fw-medium">Rp {{ number_format($data->total_price, 0, ',', '.') }}</span>
               </span>
             </td>
             <td>
@@ -82,13 +82,15 @@
                       <x-dropdown-item :label="'Cetak'" :variant="'warning'" :icon="'file-outline'" :route="route('midtrans.detail', $data->uuid)" />
                     @elseif ($data->status == 'cancelled')
                       <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
-                      <form action="{{ route('order.update', $data->uuid) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <button type="submit" class="dropdown-item waves-effect text-primary">
-                          <i class="mdi mdi-cart-outline text-primary me-1"></i>Beli Kembali
-                        </button>
-                      </form>
+                      @if (auth()->user()->role_id === 3)
+                        <form action="{{ route('order.update', $data->uuid) }}" method="POST">
+                          @csrf
+                          @method('PUT')
+                          <button type="submit" class="dropdown-item waves-effect text-primary">
+                            <i class="mdi mdi-cart-outline text-primary me-1"></i>Beli Kembali
+                          </button>
+                        </form>
+                      @endif
                     @endif
                   </div>
                 </div>

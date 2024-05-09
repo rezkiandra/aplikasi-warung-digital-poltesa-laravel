@@ -3,9 +3,9 @@
 @endphp
 
 @extends('layouts.authenticated')
-@section('title', 'Pengaturan')
+@section('title', 'Profile')
 @section('content')
-  <h4 class="mb-1">Pengaturan</h4>
+  <h4 class="mb-1">Profile User</h4>
   <p class="mb-3">Pengaturan user role customer</p>
 
   <div class="d-lg-flex justify-content-between gap-4">
