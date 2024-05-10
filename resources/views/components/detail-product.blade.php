@@ -123,15 +123,15 @@
         </div>
         <div class="mb-1">
           <span class="text-secondary">Kondisi:<span>
-              <span class="text-dark">Baru</span>
+          <span class="text-dark">Baru</span>
         </div>
         <div class="mb-1">
           <span class="text-secondary">Minimal pemesanan:<span>
-              <span class="text-dark">1 Buah</span>
+          <span class="text-dark">1 Buah</span>
         </div>
         <div class="mb-1">
           <span class="text-secondary">Penjual:<span>
-              <span class="badge bg-label-primary">Terverifikasi</span>
+          <span class="badge bg-label-primary">Terverifikasi</span>
         </div>
         <hr class="bg-light">
 

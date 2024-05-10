@@ -19,7 +19,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
     <?php if (isset($component)) { $__componentOriginale6969076d4a8770d4356b03ef5c1f0fb4d210e4f = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\DetailOrderItem::class, ['label' => 'Jumlah Pesanan','icon' => 'wallet-giftcard','class' => 'border-end','variant' => 'primary','condition' => $totalOrders]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\DetailOrderItem::class, ['label' => 'Jumlah','icon' => 'basket-outline','class' => 'border-end','variant' => 'info','condition' => $totalOrders]); ?>
 <?php $component->withName('detail-order-item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -31,7 +31,7 @@
 <?php unset($__componentOriginale6969076d4a8770d4356b03ef5c1f0fb4d210e4f); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginale6969076d4a8770d4356b03ef5c1f0fb4d210e4f = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\DetailOrderItem::class, ['label' => 'Pesanan Belum Dibayar','icon' => 'wallet-outline','class' => 'border-end','variant' => 'danger','condition' => $totalUnpaid]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\DetailOrderItem::class, ['label' => 'Selesai','icon' => 'basket-check-outline','class' => 'border-end','variant' => 'success','condition' => $totalPaid]); ?>
 <?php $component->withName('detail-order-item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -43,7 +43,7 @@
 <?php unset($__componentOriginale6969076d4a8770d4356b03ef5c1f0fb4d210e4f); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginale6969076d4a8770d4356b03ef5c1f0fb4d210e4f = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\DetailOrderItem::class, ['label' => 'Pesanan Selesai','icon' => 'check-all','class' => 'border-end','variant' => 'success','condition' => $totalPaid]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\DetailOrderItem::class, ['label' => 'Belum Bayar','icon' => 'basket-off-outline','class' => 'border-end','variant' => 'danger','condition' => $totalUnpaid]); ?>
 <?php $component->withName('detail-order-item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -55,7 +55,7 @@
 <?php unset($__componentOriginale6969076d4a8770d4356b03ef5c1f0fb4d210e4f); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginale6969076d4a8770d4356b03ef5c1f0fb4d210e4f = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\DetailOrderItem::class, ['label' => 'Pesanan Dibatalkan','icon' => 'alert-circle-outline','variant' => 'dark','condition' => $totalCancelled]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\DetailOrderItem::class, ['label' => 'Dibatalkan','icon' => 'basket-remove-outline','variant' => 'dark','condition' => $totalCancelled]); ?>
 <?php $component->withName('detail-order-item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

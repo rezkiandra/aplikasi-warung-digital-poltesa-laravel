@@ -15,6 +15,7 @@
               <div class="">
                 <div class="row">
                   <div class="col-md-8 d-flex align-items-start gap-3">
+                    <input type="hidden" name="order_id" value="{{ $order->id }}">
                     <img src="{{ asset('storage/' . $order->product->image) }}" alt="google home" width="150"
                       class="rounded cursor-pointer"
                       onclick="window.location.href='{{ route('customer.detail.product', $order->product->slug) }}'">
@@ -90,8 +91,10 @@
                 Rp{{ number_format($order->product->price * $order->quantity + $fee, 0, '.', '.') }}</dd>
             </dl>
           </div>
-          <x-submit-button :label="'Bayar Sekarang'" :id="'pay-button'" :type="'submit'" :class="'btn-primary w-100'" :icon="'basket-outline me-2'"
-            :variant="'primary'" />
+          <button class="btn btn-primary waves-effect waves-light w-100" type="submit" id="pay-button">
+            <i class="tf-icons mdi mdi-basket-outline me-1"></i>
+            Bayar Sekarang
+          </button>
         </div>
       </div>
     </div>
@@ -104,7 +107,7 @@
     document.getElementById('pay-button').onclick = function() {
       snap.pay('{{ $order->snap_token }}', {
         onSuccess: function(result) {
-          window.location.href = "{{ route('midtrans.success', $order->uuid) }}";
+          window.location.href = "{{ route('midtrans.success', $order->uuid) }}"
         },
         onPending: function(result) {
           window.location.href = "{{ route('midtrans.pending', $order->uuid) }}";

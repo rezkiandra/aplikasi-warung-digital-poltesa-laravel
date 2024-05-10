@@ -57,34 +57,50 @@
                 Rp {{ number_format($data->price, 0, ',', '.') }}
               </small>
             </div>
-            {{-- <small class="d-flex align-items-center justify-content-end">
-          Terjual {{ \App\Models\Order::where('product_id', $data->id)->sum('quantity') }}
-        </small> --}}
           </div>
         </div>
       </div>
     @else
-      <div class="col-lg-3 col-md-4 col-6 pb-3 pb-lg-3">
-        <div class="card h-100 cursor-pointer"
-          @if ($user_role == 1) onclick="window.location.href='{{ route('admin.detail.product', $data->slug) }}'" 
+      @guest
+        <div class="col-lg-2 col-md-4 col-6 pb-3 pb-lg-3">
+          <div class="card h-100 cursor-pointer"
+            @if ($user_role == 1) onclick="window.location.href='{{ route('admin.detail.product', $data->slug) }}'" 
             @elseif ($user_role == 2) onclick="window.location.href='{{ route('seller.detail.product', $data->slug) }}'"
             @elseif ($user_role == 3) onclick="window.location.href='{{ route('customer.detail.product', $data->slug) }}'"
             @else onclick="window.location.href='{{ route('guest.detail.product', $data->slug) }}'" @endif>
-          <img class="card-img-top img-fluid" alt="Card image cap" src="{{ asset('storage/' . $data->image) }}"
-            width="100%">
-          <div class="p-2 d-flex flex-column justify-content-between">
-            <div class="d-lg-flex align-items-center justify-content-between mt-1">
-              <small class="card-title text-dark fw-medium">{{ $data->name }}</small>
-              <small class="card-title text-dark fw-medium">
-                Rp {{ number_format($data->price, 0, ',', '.') }}
-              </small>
+            <img class="card-img-top img-fluid" alt="Card image cap" src="{{ asset('storage/' . $data->image) }}"
+              width="100%">
+            <div class="p-2 d-flex flex-column justify-content-between">
+              <div class="d-lg-flex align-items-center justify-content-between mt-1">
+                <small class="card-title text-dark fw-medium">{{ $data->name }}</small>
+                <small class="card-title text-dark fw-medium">
+                  Rp {{ number_format($data->price, 0, ',', '.') }}
+                </small>
+              </div>
             </div>
-            {{-- <small class="d-flex align-items-center justify-content-end">
-            Terjual {{ \App\Models\Order::where('product_id', $data->id)->sum('quantity') }}
-          </small> --}}
           </div>
         </div>
-      </div>
+      @endguest
+      @auth
+        <div class="col-lg-3 col-md-4 col-6 pb-3 pb-lg-3">
+          <div class="card h-100 cursor-pointer"
+            @if ($user_role == 1) onclick="window.location.href='{{ route('admin.detail.product', $data->slug) }}'" 
+            @elseif ($user_role == 2) onclick="window.location.href='{{ route('seller.detail.product', $data->slug) }}'"
+            @elseif ($user_role == 3) onclick="window.location.href='{{ route('customer.detail.product', $data->slug) }}'"
+            @else onclick="window.location.href='{{ route('guest.detail.product', $data->slug) }}'" @endif>
+            <img class="card-img-top img-fluid" alt="Card image cap" src="{{ asset('storage/' . $data->image) }}"
+              width="100%">
+            <div class="p-2 d-flex flex-column justify-content-between">
+              <div class="d-lg-flex align-items-center justify-content-between mt-1">
+                <small class="card-title text-dark fw-medium">{{ $data->name }}</small>
+                <small class="card-title text-dark fw-medium">
+                  Rp {{ number_format($data->price, 0, ',', '.') }}
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      @endauth
     @endif
   @endforeach
 </div>

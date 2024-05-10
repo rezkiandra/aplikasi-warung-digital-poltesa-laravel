@@ -1,5 +1,24 @@
 @php
   $orders = \App\Models\Order::with('seller')->paginate(10);
+
+  $totalOrders = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
+      ->where('products.seller_id', auth()->user()->seller->id)
+      ->count();
+
+  $totalPaid = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
+      ->where('products.seller_id', auth()->user()->seller->id)
+      ->where('orders.status', 'paid')
+      ->count();
+
+  $totalUnpaid = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
+      ->where('products.seller_id', auth()->user()->seller->id)
+      ->where('orders.status', 'unpaid')
+      ->count();
+
+  $totalCancelled = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
+      ->where('products.seller_id', auth()->user()->seller->id)
+      ->where('orders.status', 'cancelled')
+      ->count();
 @endphp
 
 @extends('layouts.authenticated')
@@ -7,6 +26,13 @@
 @section('content')
   <h4 class="mb-1">Pesanan</h4>
   <p class="mb-3">Daftar pesanan pelanggan yang membeli produk anda</p>
+
+  <x-detail-order>
+    <x-detail-order-item :label="'Jumlah'" :icon="'basket-outline'" :class="'border-end'" :variant="'info'" :condition="$totalOrders" />
+    <x-detail-order-item :label="'Selesai'" :icon="'basket-check-outline'" :class="'border-end'" :variant="'success'" :condition="$totalPaid" />
+    <x-detail-order-item :label="'Belum Bayar'" :icon="'basket-off-outline'" :class="'border-end'" :variant="'danger'" :condition="$totalUnpaid" />
+    <x-detail-order-item :label="'Dibatalkan'" :icon="'basket-remove-outline'" :variant="'dark'" :condition="$totalCancelled" />
+  </x-detail-order>
 
   <x-order-tabel :orders="$orders" />
 @endsection

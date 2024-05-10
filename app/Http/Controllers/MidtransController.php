@@ -36,7 +36,7 @@ class MidtransController extends Controller
     $order = Order::where('uuid', $uuid)->first();
     $params = array(
       'transaction_details' => array(
-        'order_id' => Str::uuid(),
+        'order_id' => $order->uuid,
         'gross_amount' => $order->total_price
       ),
       'item_details' => array(
@@ -54,20 +54,10 @@ class MidtransController extends Controller
         'phone' => $order->customer->phone_number
       ),
     );
-    try {
-      $snapToken = Snap::getSnapToken($params);
-      $order->snap_token = $snapToken;
-      $order->save();
-    } catch (Exception $e) {
-      $responseBody = json_decode($e->getMessage(), true);
-      if (isset($responseBody['error_messages']) && in_array("transaction_details.order_id has already been taken", $responseBody['error_messages'])) {
-        Alert::toast('info', 'Terjadi kesalahan, Order ID sudah digunakan. Silakan coba lagi.');
-        return redirect()->back();
-      } else {
-        Alert::toast('info', 'Terjadi kesalahan saat memproses pembayaran. Silakan coba lagi.');
-        return redirect()->back();
-      }
-    }
+
+    $snapToken = Snap::getSnapToken($params);
+    $order->snap_token = $snapToken;
+    $order->save();
 
     return view('customer.checkout', compact('order', 'snapToken'));
   }
@@ -81,8 +71,19 @@ class MidtransController extends Controller
   public function successPayment(string $uuid)
   {
     $order = Order::where('uuid', $uuid)->firstOrFail();
-    $order->update(['status' => 'paid']);
     return view('customer.success-payment', compact('order'));
+  }
+
+  public function failedPayment(string $uuid)
+  {
+    $order = Order::where('uuid', $uuid)->firstOrFail();
+    return view('customer.failed-payment', compact('order'));
+  }
+
+  public function pendingPayment(string $uuid)
+  {
+    $order = Order::where('uuid', $uuid)->firstOrFail();
+    return view('customer.pending-payment', compact('order'));
   }
 
   public function cancelPayment(string $uuid)
@@ -94,19 +95,16 @@ class MidtransController extends Controller
 
   public function callback(Request $request)
   {
-    $order = Order::where('uuid', $request->order_id)->firstOrFail();
     $serverKey = config('midtrans.server_key');
     $hashed = hash('sha256', $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
 
     if ($hashed === $request->signature_key) {
-      if ($request->transaction === 'capture' || $request->transaction === 'settlement') {
-        $order->update(['status' => 'paid']);
-      } elseif ($request->transaction === 'pending') {
-        $order->update(['status' => 'pending']);
-      } elseif ($request->transaction === 'deny' || $request->transaction === 'cancel') {
-        $order->update(['status' => 'cancelled']);
-      } elseif ($request->transaction === 'expire') {
-        $order->update(['status' => 'expired']);
+      $order = Order::where('uuid', $request->order_id)->firstOrFail();
+      if ($request->transaction_status == 'capture' || $request->transaction_status == 'settlement') {
+        $order->update([
+          'status' => 'paid',
+          'payment_method' => $request->payment_type
+        ]);
       }
     }
   }

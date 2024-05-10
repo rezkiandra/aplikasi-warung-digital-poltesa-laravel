@@ -66,7 +66,6 @@ Route::middleware('auth', 'mustLogin', 'checkCustomer')->group(function () {
       Route::get('/pending-transaction/{order}', 'pendingPayment')->name('midtrans.pending');
       Route::get('/failed-transaction/{order}', 'failedPayment')->name('midtrans.failed');
       Route::get('/cancel-transaction/{order}', 'cancelPayment')->name('midtrans.cancelled');
-      Route::post('/midtrans-callback', 'callback')->name('midtrans.callback');
     });
 
   Route::controller(CustomerController::class)

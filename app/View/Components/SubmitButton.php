@@ -15,7 +15,7 @@ class SubmitButton extends Component
   /**
    * Create a new component instance.
    */
-  public function __construct($label = 'Submit', $type, $variant, $class = '', $icon = '', $id = '')
+  public function __construct($label = '', $type, $variant, $class = '', $icon = '', $id = '')
   {
     $this->label = $label;
     $this->type = $type;
