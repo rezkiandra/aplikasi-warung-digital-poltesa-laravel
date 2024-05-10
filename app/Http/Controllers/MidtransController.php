@@ -10,7 +10,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MidtransController extends Controller
 {
@@ -24,21 +24,17 @@ class MidtransController extends Controller
 
     // config midtrans sandbox
     // Config::$serverKey = config('midtrans.sandbox_server_key');
-    // Config::$isProduction = config('midtrans.sandbox_is_production');
-    // Config::$isSanitized = config('midtrans.sandbox_is_sanitized');
-    // Config::$is3ds = config('midtrans.sandbox_is_3ds');
+    // Config::$isProduction = config('midtrans.sandbox_is_production', false);
+    // Config::$isSanitized = config('midtrans.sandbox_is_sanitized', true);
+    // Config::$is3ds = config('midtrans.sandbox_is_3ds', true);
   }
 
   public function processPayment(string $uuid)
   {
     $order = Order::where('uuid', $uuid)->first();
-    // if ($order->status === 'paid') {
-    //   return redirect()->route('midtrans.success', $uuid)->with('message', 'Order sudah dibayar.');
-    // }
-
     $params = array(
       'transaction_details' => array(
-        'order_id' => rand(),
+        'order_id' => $order->uuid,
         'gross_amount' => $order->total_price
       ),
       'item_details' => array(
@@ -52,24 +48,14 @@ class MidtransController extends Controller
       'customer_details' => array(
         'first_name' => $order->customer->full_name,
         'email' => Auth::user()->email,
+        'address' => $order->customer->gender,
         'phone' => $order->customer->phone_number
       ),
     );
 
-    try {
-      $snapToken = Snap::getSnapToken($params);
-      $order->snap_token = $snapToken;
-      $order->save();
-    } catch (Exception $e) {
-      $responseBody = json_decode($e->getMessage(), true);
-      if (isset($responseBody['error_messages']) && in_array("transaction_details.order_id has already been taken", $responseBody['error_messages'])) {
-        echo "Order ID sudah digunakan";
-        return redirect()->back()->with('error', 'Terjadi kesalahan, order ID sudah digunakan. Silakan coba lagi.');
-      } else {
-        // Handle error lainnya
-        return redirect()->back()->with('error', 'Terjadi kesalahan saat memproses pembayaran. Silakan coba lagi.');
-      }
-    }
+    $snapToken = Snap::getSnapToken($params);
+    $order->snap_token = $snapToken;
+    $order->save();
 
     return view('customer.checkout', compact('order', 'snapToken'));
   }
@@ -80,45 +66,44 @@ class MidtransController extends Controller
     return view('customer.order-detail', compact('order'));
   }
 
-  public function successPayment(string $uuid)
-  {
-    $order = Order::where('uuid', $uuid)->first();
-    $order->status = 'paid';
-    $order->save();
-
-    return view('customer.success-payment', compact('order'));
-  }
-
   public function cancelPayment(string $uuid)
   {
-    $order = Order::where('uuid', $uuid)->first();
-    $order->product->stock += $order->quantity;
-    $order->product->update();
-
-    $order->status = 'cancelled';
-    $order->save();
-
+    $order = Order::where('uuid', $uuid)->firstOrFail();
+    $order->update(['status' => 'cancelled']);
     return view('customer.cancel-payment', compact('order'));
   }
 
-  public function callbackHandler(Request $request)
+  public function callback(Request $request)
   {
-    // Logika untuk menangani callback dari Midtrans
-    $data = $request->all(); // Mendapatkan data JSON yang dikirim oleh Midtrans
-
     $serverKey = config('midtrans.server_key');
-    $hashed = hash('sha256', $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
+    $hashed = hash('sha512', $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
 
     if ($hashed === $request->signature_key) {
-      // Logika untuk menangani callback jika signature key valid
-      if ($request->status_code === '200') {
-        $order = Order::where('uuid', $request->order_id)->first();
-        $order->status = 'paid';
-        // Mendapatkan metode pembayaran
-        $paymentMethod = $request->payment_type;
-        // Anda bisa melakukan logika tambahan dengan metode pembayaran, misalnya menyimpannya ke database
-        $order->payment_method = $paymentMethod; // Pastikan kolom payment_method sudah ada di tabel orders
-        $order->save();
+      $order = Order::where('uuid', $request->order_id)->firstOrFail();
+      if ($request->transaction_status == 'settlement' || $request->transaction_status == 'capture') {
+        $order->update([
+          'status' => 'paid',
+          'payment_method' => $request->payment_type,
+          'expiry_time' => $request->expiry_time,
+          'issuer' => $request->issuer,
+          'acquirer' => $request->acquirer
+        ]);
+      } elseif ($request->transaction_status == 'pending') {
+        $order->update([
+          'status' => 'pending',
+          'payment_method' => $request->payment_type,
+          'expiry_time' => $request->expiry_time,
+          'issuer' => $request->issuer,
+          'acquirer' => $request->acquirer
+        ]);
+      } elseif ($request->transaction_status == 'expire') {
+        $order->update([
+          'status' => 'expire',
+          'payment_method' => $request->payment_type,
+          'expiry_time' => $request->expiry_time,
+          'issuer' => $request->issuer,
+          'acquirer' => $request->acquirer
+        ]);
       }
     }
   }
