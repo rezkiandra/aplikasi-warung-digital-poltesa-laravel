@@ -4,11 +4,11 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>Pelanggan</th>
           <th>Produk</th>
           <th>Total</th>
           <th>Status</th>
           <th>Tanggal Pemesanan</th>
+          <th>Tanggal Pembayaran</th>
           <th>Aksi</th>
         </tr>
       </thead>
@@ -24,26 +24,12 @@
               <div class="d-flex justify-content-start align-items-center user-name">
                 <div class="avatar-wrapper me-3">
                   <div class="avatar avatar-sm">
-                    <img src="{{ asset('storage/' . $data->customer->image) }}" alt="Avatar" class="rounded">
-                  </div>
-                </div>
-                <div class="d-flex flex-column">
-                  <a href="pages-profile-user.html" class="text-truncate text-heading">
-                    <span class="fw-medium">{{ $data->customer->full_name }}</span>
-                  </a>
-                  <small class="text-truncate">{{ $data->customer->user->email }}</small>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="d-flex justify-content-start align-items-center user-name">
-                <div class="avatar-wrapper me-3">
-                  <div class="avatar avatar-sm">
                     <img src="{{ asset('storage/' . $data->product->image) }}" alt="Avatar" class="rounded">
                   </div>
                 </div>
                 <div class="d-flex flex-column">
-                  <a href="pages-profile-user.html" class="text-truncate text-heading">
+                  <a href="{{ route('customer.detail.product', $data->product->slug) }}"
+                    class="text-truncate text-heading">
                     <span class="fw-medium">{{ $data->product->name }}</span>
                   </a>
                   <small class="text-truncate">Rp {{ number_format($data->product->price, 0, ',', '.') }} -
@@ -64,7 +50,11 @@
               </h6>
             </td>
             <td class="">
-              <span class="badge bg-label-info">{{ date('d M Y, H:i', strtotime($data->updated_at)) }}
+              <span class="badge bg-label-info">{{ date('d M Y, H:i:s', strtotime($data->created_at)) }}
+                {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}</span>
+            </td>
+            <td class="">
+              <span class="badge bg-label-dark">{{ date('d M Y, H:i:s', strtotime($data->updated_at)) }}
                 {{ $data->updated_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}</span>
             </td>
             <td>
@@ -99,17 +89,8 @@
           </tr>
         @endforeach
       </tbody>
-      <tfoot>
-        <tr>
-          <th>ID</th>
-          <th>Pelanggan</th>
-          <th>Produk</th>
-          <th>Total</th>
-          <th>Status</th>
-          <th>Tanggal Pemesanan</th>
-          <th>Aksi</th>
-        </tr>
-      </tfoot>
     </table>
   </div>
+
+  <x-pagination :pages="$orders" />
 </div>

@@ -17,9 +17,11 @@ class Order extends Model
     'product_id',
     'quantity',
     'total_price',
-    'fee',
     'status',
     'payment_method',
+    'expiry_time',
+    'issuer',
+    'acquirer',
     'snap_token'
   ];
 

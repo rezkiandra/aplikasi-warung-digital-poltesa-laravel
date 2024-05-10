@@ -91,10 +91,8 @@
                 Rp{{ number_format($order->product->price * $order->quantity + $fee, 0, '.', '.') }}</dd>
             </dl>
           </div>
-          <button class="btn btn-primary waves-effect waves-light w-100" type="submit" id="pay-button">
-            <i class="tf-icons mdi mdi-basket-outline me-1"></i>
-            Bayar Sekarang
-          </button>
+          <x-submit-button :label="'Bayar Sekarang'" id="pay-button" :type="'submit'" :class="'w-100'" :variant="'primary'"
+            :icon="'basket-outline'" />
         </div>
       </div>
     </div>
@@ -107,13 +105,16 @@
     document.getElementById('pay-button').onclick = function() {
       snap.pay('{{ $order->snap_token }}', {
         onSuccess: function(result) {
-          window.location.href = "{{ route('midtrans.success', $order->uuid) }}"
+          window.location.href = "{{ route('midtrans.detail', $order->uuid) }}"
         },
         onPending: function(result) {
-          window.location.href = "{{ route('midtrans.pending', $order->uuid) }}";
+          window.location.href = "{{ route('midtrans.detail', $order->uuid) }}"
         },
         onError: function(result) {
-          window.location.href = "{{ route('midtrans.failed', $order->uuid) }}";
+          window.location.href = "{{ route('midtrans.detail', $order->uuid) }}"
+        },
+        onClose: function(result) {
+          window.location.href = "{{ route('midtrans.detail', $order->uuid) }}"
         }
       });
     };

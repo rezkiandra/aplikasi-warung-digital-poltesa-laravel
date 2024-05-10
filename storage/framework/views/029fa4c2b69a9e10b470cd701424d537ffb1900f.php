@@ -325,7 +325,7 @@
 <?php unset($__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Pesanan','route' => route('customer.orders'),'icon' => 'hand-coin-outline','active' => request()->routeIs('customer.orders', 'midtrans.checkout')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Pesanan','route' => route('customer.orders'),'icon' => 'hand-coin-outline','active' => request()->routeIs('customer.orders', 'midtrans.checkout', 'midtrans.detail')]); ?>
 <?php $component->withName('sidebar-item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
