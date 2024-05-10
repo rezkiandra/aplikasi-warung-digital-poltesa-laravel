@@ -1,7 +1,16 @@
 <?php
-  if (Auth::check()) {
-      $admin = auth()->user()->role_id == 1;
+  if (Auth::check() && Auth::user()->role_id == 3) {
+      $wishlistUUID = \App\Models\Wishlist::where('customer_id', auth()->user()->customer->id)
+          ->pluck('uuid')
+          ->toArray();
   }
+
+  if (Auth::check() && Auth::user()->role_id == 1) {
+      $admin = auth()->user()->role_id == 1;
+  } else {
+      $admin = false;
+  }
+
   $customer = auth()->user()->customer ?? '';
   $seller = auth()->user()->seller ?? '';
   $fee = 0;
@@ -60,106 +69,163 @@
       <span class="badge bg-danger text-white d-lg-flex align-items-centers text-uppercase px-4">Out Of Stock</span>
     <?php endif; ?>
   </div>
-  <div class="row mb-4">
-    <div class="col-lg-4 col-md-6">
-      <img src="<?php echo e(asset('storage/' . $product->image)); ?>" alt="" class="img-fluid rounded shadow hover-shadow">
-    </div>
-
-    <div class="col-lg-5 px-lg-3 col-md-6 mt-lg-0 mt-3 mt-md-0">
-      <h4 class="fw-medium"><?php echo e($product->name); ?></h4>
-      <div class="d-flex d-lg-flex d-md-flex align-items-center gap-4">
-        <p class="d-lg-flex d-flex align-items-center">
-          <i class="mdi mdi-cart-outline me-2"></i>
-          <span class="text-dark">Terjual</span>
-          <span
-            class="ms-1 text-secondary"><?php echo e(\App\Models\Order::where('product_id', $product->id)->sum('quantity')); ?></span>
-        </p>
-        <p class="d-lg-flex align-items-center gap-1">
-          <i class="mdi mdi-star text-warning"></i>
-          <span class="text-dark">4.5</span>
-          <span class="text-secondary">(1.822 rating)</span>
-        </p>
+  <?php if($admin): ?>
+    <div class="row mb-4">
+      <div class="col-lg-5 col-md-6">
+        <img src="<?php echo e(asset('storage/' . $product->image)); ?>" alt="" class="img-fluid rounded shadow hover-shadow">
       </div>
-      <h4 class="mb-3 fw-bold">
-        Rp<?php echo e(number_format($product->price, 0, ',', '.')); ?>
 
-      </h4>
-      <hr class="bg-light">
-
-      <div class="mb-1">
-        <span class="text-secondary">Dipublish pada:</span>
-        <span class="text-dark"><?php echo e(date('M d, H:i', strtotime($product->created_at))); ?>
-
-          <?php echo e($product->created_at->format('H:i') > '12:00' ? 'PM' : 'AM'); ?>
-
-        </span>
-      </div>
-      <div class="mb-1">
-        <span class="text-secondary">Kondisi:<span>
-            <span class="text-dark">Baru</span>
-      </div>
-      <div class="mb-1">
-        <span class="text-secondary">Minimal pemesanan:<span>
-            <span class="text-dark">1 Buah</span>
-      </div>
-      <div class="mb-1">
-        <span class="text-secondary">Penjual:<span>
-            <span class="badge bg-label-primary">Terverifikasi</span>
-      </div>
-      <hr class="bg-light">
-
-      <div class="pb-3">
-        <p class="text-secondary mb-1">Deskripsi:</p>
-        <span class="text-dark text-capitalize"><?php echo e($product->description); ?></span>
-      </div>
-    </div>
-
-    <div class="col-lg-3 mt-lg-0 mt-3">
-      <div class="bg-white border rounded p-3 mb-3">
-        <h6>Rincian Pesanan</h6>
-        <div class="text-muted mb-3">
-          <span class="">Kategori:</span>
-          <span class="text-dark"><?php echo e($product->category->name); ?></span>
+      <div class="col-lg-7 px-lg-3 col-md-6 mt-lg-0 mt-3 mt-md-0">
+        <h4 class="fw-medium"><?php echo e($product->name); ?></h4>
+        <div class="d-flex d-lg-flex d-md-flex align-items-center gap-4">
+          <p class="d-lg-flex d-flex align-items-center">
+            <i class="mdi mdi-cart-outline me-2"></i>
+            <span class="text-dark">Terjual</span>
+            <span
+              class="ms-1 text-secondary"><?php echo e(\App\Models\Order::where('product_id', $product->id)->sum('quantity')); ?></span>
+          </p>
+          <p class="d-lg-flex align-items-center gap-1">
+            <i class="mdi mdi-star text-warning"></i>
+            <span class="text-dark">4.5</span>
+            <span class="text-secondary">(1.822 rating)</span>
+          </p>
         </div>
-        <div class="text-muted mb-3">
-          <span class="">Stok:</span>
-          <span class="text-dark" id="stock"><?php echo e($product->stock == 0 ? 'Habis' : $product->stock); ?></span>
+        <h4 class="mb-3 fw-bold">
+          Rp <?php echo e(number_format($product->price, 0, ',', '.')); ?>
+
+        </h4>
+        <hr class="bg-light">
+
+        <div class="mb-1">
+          <span class="text-secondary">Dipublish pada:</span>
+          <span class="text-dark"><?php echo e(date('M d, H:i', strtotime($product->created_at))); ?>
+
+            <?php echo e($product->created_at->format('H:i') > '12:00' ? 'PM' : 'AM'); ?>
+
+          </span>
         </div>
-        <div class="mb-3">
-          <div class="d-flex">
-            <button class="btn btn-outline-primary" id="btn-decrement">-</button>
-            <input type="number" name="quantity" id="quantity" class="form-control text-center" value="1"
-              readonly min="1" max="<?php echo e($product->stock); ?>">
-            <button class="btn btn-primary" id="btn-increment">+</button>
+        <div class="mb-1">
+          <span class="text-secondary">Kondisi:<span>
+              <span class="text-dark">Baru</span>
+        </div>
+        <div class="mb-1">
+          <span class="text-secondary">Minimal pemesanan:<span>
+              <span class="text-dark">1 Buah</span>
+        </div>
+        <div class="mb-1">
+          <span class="text-secondary">Penjual:<span>
+              <span class="badge bg-label-primary">Terverifikasi</span>
+        </div>
+        <hr class="bg-light">
+
+        <div class="pb-3">
+          <p class="text-secondary mb-1">Deskripsi:</p>
+          <span class="text-dark text-capitalize"><?php echo e($product->description); ?></span>
+        </div>
+      </div>
+    </div>
+  <?php else: ?>
+    <div class="row mb-4">
+      <div class="col-lg-4 col-md-6">
+        <img src="<?php echo e(asset('storage/' . $product->image)); ?>" alt=""
+          class="img-fluid rounded shadow hover-shadow">
+      </div>
+
+      <div class="col-lg-5 px-lg-3 col-md-6 mt-lg-0 mt-3 mt-md-0">
+        <h4 class="fw-medium"><?php echo e($product->name); ?></h4>
+        <div class="d-flex d-lg-flex d-md-flex align-items-center gap-4">
+          <p class="d-lg-flex d-flex align-items-center">
+            <i class="mdi mdi-cart-outline me-2"></i>
+            <span class="text-dark">Terjual</span>
+            <span
+              class="ms-1 text-secondary"><?php echo e(\App\Models\Order::where('product_id', $product->id)->sum('quantity')); ?></span>
+          </p>
+          <p class="d-lg-flex align-items-center gap-1">
+            <i class="mdi mdi-star text-warning"></i>
+            <span class="text-dark">4.5</span>
+            <span class="text-secondary">(1.822 rating)</span>
+          </p>
+        </div>
+        <h4 class="mb-3 fw-bold">
+          Rp <?php echo e(number_format($product->price, 0, ',', '.')); ?>
+
+        </h4>
+        <hr class="bg-light">
+
+        <div class="mb-1">
+          <span class="text-secondary">Dipublish pada:</span>
+          <span class="text-dark"><?php echo e(date('M d, H:i', strtotime($product->created_at))); ?>
+
+            <?php echo e($product->created_at->format('H:i') > '12:00' ? 'PM' : 'AM'); ?>
+
+          </span>
+        </div>
+        <div class="mb-1">
+          <span class="text-secondary">Kondisi:<span>
+              <span class="text-dark">Baru</span>
+        </div>
+        <div class="mb-1">
+          <span class="text-secondary">Minimal pemesanan:<span>
+              <span class="text-dark">1 Buah</span>
+        </div>
+        <div class="mb-1">
+          <span class="text-secondary">Penjual:<span>
+              <span class="badge bg-label-primary">Terverifikasi</span>
+        </div>
+        <hr class="bg-light">
+
+        <div class="pb-3">
+          <p class="text-secondary mb-1">Deskripsi:</p>
+          <span class="text-dark text-capitalize"><?php echo e($product->description); ?></span>
+        </div>
+      </div>
+
+      <div class="col-lg-3 mt-lg-0 mt-3">
+        <div class="bg-white border rounded p-3 mb-3">
+          <h6>Rincian Pesanan</h6>
+          <div class="text-muted mb-3">
+            <span class="">Kategori:</span>
+            <span class="text-dark"><?php echo e($product->category->name); ?></span>
           </div>
-        </div>
-        <hr class="mx-n3">
-        <h6>Detail Harga</h6>
-        <dl class="row mb-0">
-          <dt class="col-6 fw-normal text-heading">Sub Total</dt>
-          <dd class="col-6 text-end" id="subtotal">Rp<?php echo e(number_format($product->price, 0, ',', '.')); ?></dd>
+          <div class="text-muted mb-3">
+            <span class="">Stok:</span>
+            <span class="text-dark" id="stock"><?php echo e($product->stock == 0 ? 'Habis' : $product->stock); ?></span>
+          </div>
+          <div class="mb-3">
+            <div class="d-flex">
+              <button class="btn btn-outline-primary" id="btn-decrement">-</button>
+              <input type="number" name="quantity" id="quantity" class="form-control text-center" value="1"
+                readonly min="1" max="<?php echo e($product->stock); ?>">
+              <button class="btn btn-primary" id="btn-increment">+</button>
+            </div>
+          </div>
+          <hr class="mx-n3">
+          <h6>Detail Harga</h6>
+          <dl class="row mb-0">
+            <dt class="col-6 fw-normal text-heading">Sub Total</dt>
+            <dd class="col-6 text-end" id="subtotal">Rp <?php echo e(number_format($product->price, 0, ',', '.')); ?></dd>
 
-          <dt class="col-6 fw-normal text-heading">Biaya Layanan</dt>
-          <dd class="col-6 text-end">
-            <i class="mdi mdi-truck-fast-outline me-1"></i>
-            Rp<?php echo e(number_format($fee, 0, ',', '.')); ?>
+            <dt class="col-6 fw-normal text-heading">Biaya Layanan</dt>
+            <dd class="col-6 text-end">
+              <i class="mdi mdi-truck-fast-outline me-1"></i>
+              Rp <?php echo e(number_format($fee, 0, ',', '.')); ?>
 
-          </dd>
-        </dl>
-        <hr class="mx-n3 my-2">
-        <dl class="row my-3">
-          <dt class="col-6 text-heading">Total</dt>
-          <dd class="col-6 fw-medium text-end mb-0 text-heading" id="total">
-            Rp<?php echo e(number_format($product->price + $fee, 0, ',', '.')); ?>
+            </dd>
+          </dl>
+          <hr class="mx-n3 my-2">
+          <dl class="row my-3">
+            <dt class="col-6 text-heading">Total</dt>
+            <dd class="col-6 fw-medium text-end mb-0 text-heading" id="total">
+              Rp <?php echo e(number_format($product->price + $fee, 0, ',', '.')); ?>
 
-        </dl>
-        <div class="d-grid gap-2">
-          <?php if($customer): ?>
-            <?php if($customer->wishlist()->where('product_id', $product->id)->exists()): ?>
-              <form action="<?php echo e(route('wishlist.destroy', $product->uuid)); ?>" method="POST">
-                <?php echo csrf_field(); ?>
-                <?php echo method_field('DELETE'); ?>
-                <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+          </dl>
+          <div class="d-grid gap-2">
+            <?php if($customer): ?>
+              <?php if($customer->wishlist()->where('product_id', $product->id)->exists()): ?>
+                <form action="<?php echo e(route('wishlist.destroy', $wishlistUUID)); ?>" method="POST">
+                  <?php echo csrf_field(); ?>
+                  <?php echo method_field('DELETE'); ?>
+                  <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Hapus Wishlist','type' => 'submit','class' => 'btn-outline-danger w-100 mb-2','icon' => 'heart','variant' => 'danger']); ?>
 <?php $component->withName('submit-button'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -171,11 +237,111 @@
 <?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
 <?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
 <?php endif; ?>
+                </form>
+              <?php else: ?>
+                <form action="<?php echo e(route('wishlist.store')); ?>" method="POST">
+                  <?php echo csrf_field(); ?>
+                  <input type="hidden" name="customer_id" value="<?php echo e($customer->id); ?>">
+                  <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
+                  <?php if($product->stock == 0): ?>
+                    <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Wishlist','id' => 'btn-wishlist','type' => 'submit','class' => 'btn-outline-danger w-100 mb-2 disabled','icon' => 'heart-outline me-2','variant' => 'danger']); ?>
+<?php $component->withName('submit-button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes(['aria-disabled' => 'true']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342)): ?>
+<?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
+<?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
+<?php endif; ?>
+                  <?php else: ?>
+                    <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Wishlist','id' => 'btn-wishlist','type' => 'submit','class' => 'btn-outline-danger w-100 mb-2','icon' => 'heart-outline me-2','variant' => 'danger']); ?>
+<?php $component->withName('submit-button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342)): ?>
+<?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
+<?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
+<?php endif; ?>
+                  <?php endif; ?>
+                </form>
+              <?php endif; ?>
+              <form action="<?php echo e(route('cart.store')); ?>" method="POST">
+                <?php echo csrf_field(); ?>
+                <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
+                <input type="hidden" name="quantity" id="newQuantityCart" value="1">
+                <?php if($product->stock == 0): ?>
+                  <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Keranjang','id' => 'btn-cart','type' => 'submit','class' => 'btn-outline-primary w-100 mb-2 disabled','icon' => 'cart-outline me-2','variant' => 'primary']); ?>
+<?php $component->withName('submit-button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes(['aria-disabled' => 'true']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342)): ?>
+<?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
+<?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
+<?php endif; ?>
+                <?php else: ?>
+                  <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Keranjang','id' => 'btn-cart','type' => 'submit','class' => 'btn-outline-primary w-100 mb-2','icon' => 'cart-outline me-2','variant' => 'primary']); ?>
+<?php $component->withName('submit-button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342)): ?>
+<?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
+<?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
+<?php endif; ?>
+                <?php endif; ?>
+              </form>
+              <form action="<?php echo e(route('order.store')); ?>" method="POST">
+                <?php echo csrf_field(); ?>
+                <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
+                <input type="hidden" name="quantity" id="newQuantityOrder" value="1">
+                <input type="hidden" name="total_price" id="newTotalPriceOrder"
+                  value="<?php echo e($product->price + $fee); ?>">
+                <?php if($product->stock == 0): ?>
+                  <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Beli','id' => 'btn-buy','type' => 'submit','class' => 'btn-primary w-100 disabled','icon' => 'basket-outline me-2','variant' => 'primary']); ?>
+<?php $component->withName('submit-button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes(['aria-disabled' => 'true']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342)): ?>
+<?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
+<?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
+<?php endif; ?>
+                <?php else: ?>
+                  <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Beli','id' => 'btn-buy','type' => 'submit','class' => 'btn-primary w-100','icon' => 'basket-outline me-2','variant' => 'primary']); ?>
+<?php $component->withName('submit-button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342)): ?>
+<?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
+<?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
+<?php endif; ?>
+                <?php endif; ?>
               </form>
             <?php else: ?>
               <form action="<?php echo e(route('wishlist.store')); ?>" method="POST">
                 <?php echo csrf_field(); ?>
-                <input type="hidden" name="customer_id" value="<?php echo e($customer->id); ?>">
+                <input type="hidden" name="customer_id" value="<?php echo e($customer->id ?? ''); ?>">
                 <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
                 <?php if($product->stock == 0): ?>
                   <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
@@ -205,13 +371,12 @@
 <?php endif; ?>
                 <?php endif; ?>
               </form>
-            <?php endif; ?>
-            <form action="<?php echo e(route('cart.store')); ?>" method="POST">
-              <?php echo csrf_field(); ?>
-              <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
-              <input type="hidden" name="quantity" id="newQuantityCart" value="1">
-              <?php if($product->stock == 0): ?>
-                <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+              <form action="<?php echo e(route('cart.store')); ?>" method="POST">
+                <?php echo csrf_field(); ?>
+                <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
+                <input type="hidden" name="quantity" id="newQuantityCart" value="1">
+                <?php if($product->stock == 0): ?>
+                  <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Keranjang','id' => 'btn-cart','type' => 'submit','class' => 'btn-outline-primary w-100 mb-2 disabled','icon' => 'cart-outline me-2','variant' => 'primary']); ?>
 <?php $component->withName('submit-button'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -223,8 +388,8 @@
 <?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
 <?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
 <?php endif; ?>
-              <?php else: ?>
-                <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+                <?php else: ?>
+                  <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Keranjang','id' => 'btn-cart','type' => 'submit','class' => 'btn-outline-primary w-100 mb-2','icon' => 'cart-outline me-2','variant' => 'primary']); ?>
 <?php $component->withName('submit-button'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -236,16 +401,16 @@
 <?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
 <?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
 <?php endif; ?>
-              <?php endif; ?>
-            </form>
-            <form action="<?php echo e(route('order.store')); ?>" method="POST">
-              <?php echo csrf_field(); ?>
-              <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
-              <input type="hidden" name="quantity" id="newQuantityOrder" value="1">
-              <input type="hidden" name="total_price" id="newTotalPriceOrder"
-                value="<?php echo e($product->price + $fee); ?>">
-              <?php if($product->stock == 0): ?>
-                <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+                <?php endif; ?>
+              </form>
+              <form action="<?php echo e(route('order.store')); ?>" method="POST">
+                <?php echo csrf_field(); ?>
+                <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
+                <input type="hidden" name="quantity" id="newQuantityOrder" value="1">
+                <input type="hidden" name="total_price" id="newTotalPriceOrder"
+                  value="<?php echo e($product->price + $fee); ?>">
+                <?php if($product->stock == 0): ?>
+                  <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Beli','id' => 'btn-buy','type' => 'submit','class' => 'btn-primary w-100 disabled','icon' => 'basket-outline me-2','variant' => 'primary']); ?>
 <?php $component->withName('submit-button'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -257,8 +422,8 @@
 <?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
 <?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
 <?php endif; ?>
-              <?php else: ?>
-                <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+                <?php else: ?>
+                  <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Beli','id' => 'btn-buy','type' => 'submit','class' => 'btn-primary w-100','icon' => 'basket-outline me-2','variant' => 'primary']); ?>
 <?php $component->withName('submit-button'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -270,14 +435,14 @@
 <?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
 <?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
 <?php endif; ?>
-              <?php endif; ?>
-            </form>
-          <?php else: ?>
-          <?php endif; ?>
+                <?php endif; ?>
+              </form>
+            <?php endif; ?>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  <?php endif; ?>
 </div>
 
 

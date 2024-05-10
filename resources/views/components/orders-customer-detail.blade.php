@@ -29,14 +29,14 @@
                     <a href="pages-profile-user.html" class="text-truncate text-heading">
                       <span class="fw-medium">{{ $data->product->name }}</span>
                     </a>
-                    <small class="text-truncate">Rp{{ number_format($data->product->price, 0, ',', '.') }} -
+                    <small class="text-truncate">Rp {{ number_format($data->product->price, 0, ',', '.') }} -
                       {{ $data->quantity }} pcs</small>
                   </div>
                 </div>
               </td>
               <td>
                 <span class="mb-0 w-px-100 d-flex align-items-center">
-                  <span class="fw-medium">Rp{{ number_format($data->total_price, 0, ',', '.') }}</span>
+                  <span class="fw-medium">Rp {{ number_format($data->total_price, 0, ',', '.') }}</span>
                 </span>
               </td>
               <td class="">
@@ -44,7 +44,7 @@
               </td>
               <td>
                 <h6
-                  class="mb-0 w-px-100 d-flex align-items-center @if ($data->status == 'unpaid') text-warning @elseif ($data->status == 'canceled') text-dark @elseif($data->status == 'paid') text-success @endif text-capitalize">
+                  class="mb-0 w-px-100 d-flex align-items-center @if ($data->status == 'unpaid') text-warning @elseif ($data->status == 'canceled') text-dark @elseif($data->status == 'paid') text-success @endif text-uppercase">
                   <i class="mdi mdi-circle fs-tiny me-1"></i>
                   {{ $data->status }}
                 </h6>

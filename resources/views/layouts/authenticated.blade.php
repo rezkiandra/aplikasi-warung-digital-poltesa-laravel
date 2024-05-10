@@ -10,7 +10,6 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&ampdisplay=swap"
       rel="stylesheet" />
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="icon" type="image/x-icon" href="{{ asset('materio/assets/img/favicon/favicon.ico') }}" />
@@ -22,7 +21,6 @@
       class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('materio/assets/css/demo.css') }}" />
     <link rel="stylesheet" href="{{ asset('materio/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
-    <link rel="stylesheet" href="{{ asset('materio/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
 
     <script src="{{ asset('materio/assets/vendor/js/helpers.js') }}"></script>
     <script src="{{ asset('materio/assets/js/config.js') }}"></script>
@@ -36,7 +34,6 @@
   </head>
 
   <body>
-    @include('sweetalert::alert')
     {{-- Layout wrapper --}}
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -53,6 +50,7 @@
           {{-- Content --}}
           <div class="content-wrapper">
             <div class="container-xxl flex-grow-1 container-p-y">
+              @include('sweetalert::alert')
               @yield('content')
             </div>
             @include('components.footer')
@@ -70,9 +68,9 @@
     <script src="{{ asset('materio/assets/vendor/libs/node-waves/node-waves.js') }}"></script>
     <script src="{{ asset('materio/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('materio/assets/vendor/js/menu.js') }}"></script>
-    <script src="{{ asset('materio/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
     <script src="{{ asset('materio/assets/js/main.js') }}"></script>
-    <script src="{{ asset('materio/assets/js/dashboards-analytics.js') }}"></script>
+    {{-- <script src="{{ asset('materio/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script> --}}
+    {{-- <script src="{{ asset('materio/assets/js/dashboards-analytics.js') }}"></script> --}}
     @stack('scripts')
   </body>
 

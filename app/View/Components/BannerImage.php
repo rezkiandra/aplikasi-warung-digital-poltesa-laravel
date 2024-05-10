@@ -6,17 +6,18 @@ use Illuminate\View\Component;
 
 class BannerImage extends Component
 {
-  public $image, $title, $class;
+  public $image, $title, $class, $aos;
   /**
    * Create a new component instance.
    *
    * @return void
    */
-  public function __construct($image, $title, $class = '')
+  public function __construct($image, $title = '', $class = '', $aos = '')
   {
     $this->image = $image;
     $this->title = $title;
     $this->class = $class;
+    $this->aos = $aos;
   }
 
   /**

@@ -8,9 +8,12 @@
 <?php $__env->startPush('styles'); ?>
   <style>
     .card:hover {
-      opacity: .9;
       transition: .2s;
       transform: scale(.99);
+    }
+
+    .card {
+      transition: .2s;
     }
   </style>
 <?php $__env->stopPush(); ?>

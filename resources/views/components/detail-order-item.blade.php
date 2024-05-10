@@ -1,4 +1,4 @@
-<div class="col-sm-6 col-lg-3">
+<div class="col-sm-6 col-6 col-lg-3">
   <div class="d-flex justify-content-between align-items-start card-widget-1 {{ $class }} pb-4 pb-sm-0">
     <div>
       <h4 class="mb-0">{{ $condition }}</h4>

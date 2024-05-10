@@ -28,6 +28,7 @@
 
       body {
         background: #F4F5FA;
+        scroll-behavior: smooth;
       }
     </style>
   </head>

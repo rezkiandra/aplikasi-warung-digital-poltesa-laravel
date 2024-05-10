@@ -62,6 +62,10 @@
             <a class="nav-link fw-medium text-dark {{ request()->routeIs('guest.products', 'customer.products', 'guest.*.product', 'customer.*.product') ? 'active text-primary' : 'text-dark' }}"
               href="@if ($user_role == 3) {{ route('customer.products') }} @else {{ route('guest.products') }} @endif">Produk</a>
           </li>
+          <li class="nav-item my-lg-0 my-2">
+            <a class="nav-link fw-medium {{ request()->routeIs('guest.faq', 'customer.faq') ? 'active text-primary' : 'text-dark' }}"
+              href="@if ($user_role == 3) {{ route('customer.faq') }} @else {{ route('guest.faq') }} @endif">Tentang</a>
+          </li>
           @auth
             <li class="nav-item my-lg-0 my-2">
               <a class="nav-link fw-medium text-dark" href="{{ route('customer.dashboard') }}">Dashboard</a>
@@ -100,7 +104,8 @@
             </a>
             <div class="fw-medium btn btn-primary">
               <i class="mdi mdi-logout me-0 me-lg-2 me-md-2"></i>
-              <a href="{{ route('logout') }}" class="d-none d-lg-inline d-md-inline text-white text-uppercase">Logout</a>
+              <a href="{{ route('logout') }}"
+                class="d-none d-lg-inline d-md-inline text-white text-uppercase">Logout</a>
             </div>
           @endauth
         </li>

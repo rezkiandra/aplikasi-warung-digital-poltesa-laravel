@@ -16,14 +16,22 @@
               <div class="d-flex flex-row align-items-start justify-content-start gap-1">
                 <span class="text-dark text-capitalize fw-medium"><?php echo e($data->product->name); ?></span>
               </div>
-              <small>Rp<?php echo e(number_format($data->product->price, 0, '.', ',')); ?></small>
+              <small>Rp <?php echo e(number_format($data->product->price, 0, ',', '.')); ?></small>
             </div>
           </div>
-          <div class="text-end">
-            <h6 class="mb-0">
-              <?php echo e($data->total); ?></h6>
-            <small>Terjual</small>
-          </div>
+          <?php if(Auth::user()->customer): ?>
+            <div class="text-end">
+              <h6 class="mb-0">
+                <?php echo e($data->total); ?></h6>
+              <small>Pcs</small>
+            </div>
+          <?php elseif(Auth::user()->seller): ?>
+            <div class="text-end">
+              <h6 class="mb-0">
+                <?php echo e($data->total); ?></h6>
+              <small>Terjual</small>
+            </div>
+          <?php endif; ?>
         </div>
       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>

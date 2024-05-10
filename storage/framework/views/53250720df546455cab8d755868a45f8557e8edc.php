@@ -12,7 +12,7 @@
 <?php $__env->startSection('content'); ?>
   <?php if(!$currentCustomer): ?>
     <?php if (isset($component)) { $__componentOriginald4c8f106e1e33ab85c5d037c2504e2574c1b0975 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\Alert::class, ['type' => 'primary','message' => 'Biodata anda belum lengkap. Silahkan lengkapi biodata anda terlebih dahulu!','icon' => 'account-off-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\Alert::class, ['type' => 'warning','message' => 'Biodata anda belum dilengkapi. Silahkan lengkapi terlebih dahulu!','icon' => 'account-off-outline']); ?>
 <?php $component->withName('alert'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -24,7 +24,7 @@
 <?php unset($__componentOriginald4c8f106e1e33ab85c5d037c2504e2574c1b0975); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginal2f5fe581eb9b2c453c66c3c24186f5ca3109252c = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\CreateForm::class, ['title' => 'Tambah Biodata','action' => route('customer.store.biodata'),'route' => route('customer.biodata')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\CreateForm::class, ['title' => 'Tambah biodata','action' => route('customer.store.biodata'),'route' => route('customer.biodata')]); ?>
 <?php $component->withName('create-form'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -242,7 +242,7 @@
   <?php else: ?>
     <?php $__currentLoopData = $customer; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <?php if (isset($component)) { $__componentOriginald4c8f106e1e33ab85c5d037c2504e2574c1b0975 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\Alert::class, ['type' => 'primary','message' => 'Biodata anda sudah lengkap. Anda juga bisa mengedit biodata!','icon' => 'account-off-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\Alert::class, ['type' => 'primary','message' => 'Biodata anda sudah lengkap. Anda juga bisa mengedit biodata!','icon' => 'account-outline']); ?>
 <?php $component->withName('alert'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -253,12 +253,12 @@
 <?php $component = $__componentOriginald4c8f106e1e33ab85c5d037c2504e2574c1b0975; ?>
 <?php unset($__componentOriginald4c8f106e1e33ab85c5d037c2504e2574c1b0975); ?>
 <?php endif; ?>
-      <div class="row">
+      <div class="row gap-lg-0 gap-4">
         <div class="col-lg-4 mb-lg-0 mb-4">
           <div class="card">
             <div class="card-body d-flex flex-column justify-content-center">
               <div class="text-center">
-                <img src="<?php echo e(asset('storage/' . $data->image)); ?>" alt="" class="img-fluid rounded-circle w-50"
+                <img src="<?php echo e(asset('storage/' . $data->image)); ?>" alt="" class="img-fluid rounded-circle"
                   width="200">
               </div>
               <div class="mt-3 text-center fw-medium text-capitalize">
@@ -274,7 +274,7 @@
         </div>
         <div class="col-lg-8">
           <?php if (isset($component)) { $__componentOriginalceb32ab743a10e309928ba02699759a8f4b56f39 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\EditForm::class, ['title' => 'Edit biodata','action' => route('seller.update.biodata', $data->uuid)]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\EditForm::class, ['title' => 'Edit biodata','action' => route('customer.update.biodata', $data->uuid)]); ?>
 <?php $component->withName('edit-form'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

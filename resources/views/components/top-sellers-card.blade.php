@@ -21,7 +21,7 @@
           </div>
           <div class="text-end">
             <h6 class="mb-0">
-              Rp{{ number_format($data->total_price, 0, ',', '.') }}
+              Rp {{ number_format($data->total_price, 0, ',', '.') }}
             </h6>
             <small>Pendapatan</small>
           </div>

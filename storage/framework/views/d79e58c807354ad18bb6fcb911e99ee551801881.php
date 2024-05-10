@@ -46,14 +46,14 @@
                   <a href="pages-profile-user.html" class="text-truncate text-heading">
                     <span class="fw-medium"><?php echo e($data->product->name); ?></span>
                   </a>
-                  <small class="text-truncate">Rp<?php echo e(number_format($data->product->price, 0, ',', '.')); ?> -
+                  <small class="text-truncate">Rp <?php echo e(number_format($data->product->price, 0, ',', '.')); ?> -
                     <?php echo e($data->quantity); ?> pcs</small>
                 </div>
               </div>
             </td>
             <td>
               <span class="mb-0 w-px-100 d-flex align-items-center">
-                <span class="fw-medium">Rp<?php echo e(number_format($data->total_price, 0, ',', '.')); ?></span>
+                <span class="fw-medium">Rp <?php echo e(number_format($data->total_price, 0, ',', '.')); ?></span>
               </span>
             </td>
             <td>
@@ -139,13 +139,15 @@
 <?php $component = $__componentOriginal449bfa6e40fc6b9502e7641b2b70c69491540e98; ?>
 <?php unset($__componentOriginal449bfa6e40fc6b9502e7641b2b70c69491540e98); ?>
 <?php endif; ?>
-                      <form action="<?php echo e(route('order.update', $data->uuid)); ?>" method="POST">
-                        <?php echo csrf_field(); ?>
-                        <?php echo method_field('PUT'); ?>
-                        <button type="submit" class="dropdown-item waves-effect text-primary">
-                          <i class="mdi mdi-cart-outline text-primary me-1"></i>Beli Kembali
-                        </button>
-                      </form>
+                      <?php if(auth()->user()->role_id === 3): ?>
+                        <form action="<?php echo e(route('order.update', $data->uuid)); ?>" method="POST">
+                          <?php echo csrf_field(); ?>
+                          <?php echo method_field('PUT'); ?>
+                          <button type="submit" class="dropdown-item waves-effect text-primary">
+                            <i class="mdi mdi-cart-outline text-primary me-1"></i>Beli Kembali
+                          </button>
+                        </form>
+                      <?php endif; ?>
                     <?php endif; ?>
                   </div>
                 </div>

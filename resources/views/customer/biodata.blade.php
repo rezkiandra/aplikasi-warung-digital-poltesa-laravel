@@ -11,8 +11,8 @@
 @section('title', 'Biodata')
 @section('content')
   @if (!$currentCustomer)
-    <x-alert :type="'primary'" :message="'Biodata anda belum lengkap. Silahkan lengkapi biodata anda terlebih dahulu!'" :icon="'account-off-outline'" />
-    <x-create-form :title="'Tambah Biodata'" :action="route('customer.store.biodata')" :route="route('customer.biodata')">
+    <x-alert :type="'warning'" :message="'Biodata anda belum dilengkapi. Silahkan lengkapi terlebih dahulu!'" :icon="'account-off-outline'" />
+    <x-create-form :title="'Tambah biodata'" :action="route('customer.store.biodata')" :route="route('customer.biodata')">
       <div class="row">
         <div class="col-lg-4">
           <x-form-floating>
@@ -65,13 +65,13 @@
     </x-create-form>
   @else
     @foreach ($customer as $data)
-      <x-alert :type="'primary'" :message="'Biodata anda sudah lengkap. Anda juga bisa mengedit biodata!'" :icon="'account-off-outline'" />
-      <div class="row">
+      <x-alert :type="'primary'" :message="'Biodata anda sudah lengkap. Anda juga bisa mengedit biodata!'" :icon="'account-outline'" />
+      <div class="row gap-lg-0 gap-4">
         <div class="col-lg-4 mb-lg-0 mb-4">
           <div class="card">
             <div class="card-body d-flex flex-column justify-content-center">
               <div class="text-center">
-                <img src="{{ asset('storage/' . $data->image) }}" alt="" class="img-fluid rounded-circle w-50"
+                <img src="{{ asset('storage/' . $data->image) }}" alt="" class="img-fluid rounded-circle"
                   width="200">
               </div>
               <div class="mt-3 text-center fw-medium text-capitalize">
@@ -86,7 +86,7 @@
           </div>
         </div>
         <div class="col-lg-8">
-          <x-edit-form :title="'Edit biodata'" :action="route('seller.update.biodata', $data->uuid)">
+          <x-edit-form :title="'Edit biodata'" :action="route('customer.update.biodata', $data->uuid)">
             <div class="row">
               <div class="col-lg-4">
                 <x-form-floating>

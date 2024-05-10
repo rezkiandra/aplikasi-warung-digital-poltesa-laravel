@@ -1,7 +1,7 @@
 @php
   // Greetings Card
   $message = 'Dashboard penjual berisi informasi produk penjual dan transaksi';
-  $greetings = 'Halo, ' . auth()->user()->name;
+  $greetings = 'Halo, ' . auth()->user()->customer->full_name;
   $descriptionGreetings = 'Selamat datang di dashboard customer';
   $label = 'Total Pesanan';
   $value = \App\Models\Order::where('customer_id', auth()->user()->customer->id)->count();
@@ -17,7 +17,7 @@
       ->where('status', 'paid')
       ->get();
   $titleSpent = 'Total Pengeluaran';
-  $spentValue = 'Rp' . number_format($spent->sum('total_price'), 2, '.', ',');
+  $spentValue = 'Rp ' . number_format($spent->sum('total_price'), 0, ',', '.');
   $descriptionSpent = 'Total pengeluaran akhir ini';
 
   // Transaction Item Card
@@ -55,20 +55,17 @@
 @section('title', 'Dashboard')
 @section('content')
   <x-content-card>
-    <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel" :route="$route" />
+    <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel"
+      :route="$route" />
     <x-transactions-card :title="$title" :description="$description">
-      <x-transaction-item-card :label="'Jumlah Pesanan'" :value="$totalOrders" :variant="'info'" :icon="'account-group-outline'" />
-      <x-transaction-item-card :label="'Selesai'" :value="$totalPaid" :variant="'success'" :icon="'account-multiple-outline'" />
-      <x-transaction-item-card :label="'Belum Dibayar'" :value="$totalUnpaid" :variant="'warning'" :icon="'package'" />
-      <x-transaction-item-card :label="'Dibatalkan'" :value="$totalCancelled" :variant="'danger'" :icon="'basket-outline'" />
+      <x-transaction-item-card :label="'Total Pesanan'" :value="$totalOrders" :variant="'info'" :icon="'basket-outline'" />
+      <x-transaction-item-card :label="'Selesai'" :value="$totalPaid" :variant="'success'" :icon="'basket-check-outline'" />
+      <x-transaction-item-card :label="'Belum Bayar'" :value="$totalUnpaid" :variant="'warning'" :icon="'basket-off-outline'" />
+      <x-transaction-item-card :label="'Dibatalkan'" :value="$totalCancelled" :variant="'danger'" :icon="'basket-remove-outline'" />
     </x-transactions-card>
 
-    <x-earnings-card :title="$titleSpent" :description="$descriptionSpent" :earnings="$spentValue" />
-    {{-- <x-bar-graph-card /> --}}
-
-    {{-- <x-top-sellers-card :datas="$sellers" :title="'Penjual Teratas 🎉'" /> --}}
-    {{-- <x-top-customers-card :datas="$topCustomers" :title="'Pelanggan Teratas 🎉'" /> --}}
     <x-top-products-card :datas="$topProducts" :title="'Pembelian Produk Teratas 🎉'" />
+    <x-earnings-card :title="$titleSpent" :description="$descriptionSpent" :earnings="$spentValue" />
 
     <x-four-card>
       <x-graph-card-content :label="$labelCart" :value="$valueCart" :icon="'cart-outline'" :variant="'info'" />

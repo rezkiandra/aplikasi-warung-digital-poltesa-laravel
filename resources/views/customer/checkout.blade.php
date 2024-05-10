@@ -8,7 +8,6 @@
   <div class="bs-stepper-content rounded-0">
     <div id="checkout-cart" class="content fv-plugins-bootstrap5 fv-plugins-framework active dstepper-block">
       <div class="row">
-        <!-- Cart left -->
         <h5>Checkout Pesanan</h5>
         <div class="col-xl-8 mb-4 mb-xl-0">
           <ul class="list-group mb-4">
@@ -16,6 +15,7 @@
               <div class="">
                 <div class="row">
                   <div class="col-md-8 d-flex align-items-start gap-3">
+                    <input type="hidden" name="order_id" value="{{ $order->id }}">
                     <img src="{{ asset('storage/' . $order->product->image) }}" alt="google home" width="150"
                       class="rounded cursor-pointer"
                       onclick="window.location.href='{{ route('customer.detail.product', $order->product->slug) }}'">
@@ -66,11 +66,6 @@
                 </div>
               </div>
             </div>
-            {{-- <div class="bg-lightest rounded p-4 mb-4">
-              <h6 class="mb-2">Buying gift for a loved one?</h6>
-              <p class="mb-2">Gift wrap and personalized message on card, Only for $2.</p>
-              <a href="javascript:void(0)" class="fw-medium">Add a gift wrap</a>
-            </div> --}}
             <dl class="row mb-0">
               <dt class="col-6 fw-normal text-heading">Subtotal</dt>
               <dd class="col-6 text-end">Rp{{ number_format($order->product->price * $order->quantity, 0, '.', '.') }}
@@ -96,8 +91,8 @@
                 Rp{{ number_format($order->product->price * $order->quantity + $fee, 0, '.', '.') }}</dd>
             </dl>
           </div>
-          <x-submit-button :label="'Bayar Sekarang'" :id="'pay-button'" :type="'submit'" :class="'btn-primary w-100'" :icon="'basket-outline me-2'"
-            :variant="'primary'" />
+          <x-submit-button :label="'Bayar Sekarang'" id="pay-button" :type="'submit'" :class="'w-100'" :variant="'primary'"
+            :icon="'basket-outline'" />
         </div>
       </div>
     </div>
@@ -105,18 +100,21 @@
 @endsection
 
 @push('scripts')
-  <script src="https://app.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}"></script>
+  <script src="{{ config('midtrans.snap_url') }}" data-client-key="{{ config('midtrans.client_key') }}"></script>
   <script type="text/javascript">
     document.getElementById('pay-button').onclick = function() {
       snap.pay('{{ $order->snap_token }}', {
         onSuccess: function(result) {
-          window.location.href = "{{ route('midtrans.success', $order->uuid) }}";
+          window.location.href = "{{ route('midtrans.detail', $order->uuid) }}"
         },
         onPending: function(result) {
-          document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+          window.location.href = "{{ route('midtrans.detail', $order->uuid) }}"
         },
         onError: function(result) {
-          document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+          window.location.href = "{{ route('midtrans.detail', $order->uuid) }}"
+        },
+        onClose: function(result) {
+          window.location.href = "{{ route('midtrans.detail', $order->uuid) }}"
         }
       });
     };

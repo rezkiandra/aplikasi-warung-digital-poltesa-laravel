@@ -29,14 +29,14 @@
                     <a href="pages-profile-user.html" class="text-truncate text-heading">
                       <span class="fw-medium"><?php echo e($data->product->name); ?></span>
                     </a>
-                    <small class="text-truncate">Rp<?php echo e(number_format($data->product->price, 0, ',', '.')); ?> -
+                    <small class="text-truncate">Rp <?php echo e(number_format($data->product->price, 0, ',', '.')); ?> -
                       <?php echo e($data->quantity); ?> pcs</small>
                   </div>
                 </div>
               </td>
               <td>
                 <span class="mb-0 w-px-100 d-flex align-items-center">
-                  <span class="fw-medium">Rp<?php echo e(number_format($data->total_price, 0, ',', '.')); ?></span>
+                  <span class="fw-medium">Rp <?php echo e(number_format($data->total_price, 0, ',', '.')); ?></span>
                 </span>
               </td>
               <td class="">
@@ -44,7 +44,7 @@
               </td>
               <td>
                 <h6
-                  class="mb-0 w-px-100 d-flex align-items-center <?php if($data->status == 'unpaid'): ?> text-warning <?php elseif($data->status == 'canceled'): ?> text-dark <?php elseif($data->status == 'paid'): ?> text-success <?php endif; ?> text-capitalize">
+                  class="mb-0 w-px-100 d-flex align-items-center <?php if($data->status == 'unpaid'): ?> text-warning <?php elseif($data->status == 'canceled'): ?> text-dark <?php elseif($data->status == 'paid'): ?> text-success <?php endif; ?> text-uppercase">
                   <i class="mdi mdi-circle fs-tiny me-1"></i>
                   <?php echo e($data->status); ?>
 

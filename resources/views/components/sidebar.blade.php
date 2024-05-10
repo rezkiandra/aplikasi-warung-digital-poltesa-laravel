@@ -65,7 +65,7 @@
     @elseif(Auth::user()->role_id == 3)
       <x-sidebar-item :label="'Keranjang'" :badge="$cartCount" :route="route('customer.cart')" :icon="'cart-outline'" :active="request()->routeIs('customer.cart')" />
       <x-sidebar-item :label="'Wishlist'" :badge="$wishlistCount" :route="route('customer.wishlist')" :icon="'heart-outline'" :active="request()->routeIs('customer.wishlist')" />
-      <x-sidebar-item :label="'Pesanan'" :route="route('customer.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('customer.orders', 'midtrans.checkout')" />
+      <x-sidebar-item :label="'Pesanan'" :route="route('customer.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('customer.orders', 'midtrans.checkout', 'midtrans.detail')" />
     @endif
 
     @if (Auth::user()->role_id == 1)

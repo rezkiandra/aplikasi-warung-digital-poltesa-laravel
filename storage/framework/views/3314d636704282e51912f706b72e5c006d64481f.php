@@ -62,6 +62,10 @@
             <a class="nav-link fw-medium text-dark <?php echo e(request()->routeIs('guest.products', 'customer.products', 'guest.*.product', 'customer.*.product') ? 'active text-primary' : 'text-dark'); ?>"
               href="<?php if($user_role == 3): ?> <?php echo e(route('customer.products')); ?> <?php else: ?> <?php echo e(route('guest.products')); ?> <?php endif; ?>">Produk</a>
           </li>
+          <li class="nav-item my-lg-0 my-2">
+            <a class="nav-link fw-medium <?php echo e(request()->routeIs('guest.faq', 'customer.faq') ? 'active text-primary' : 'text-dark'); ?>"
+              href="<?php if($user_role == 3): ?> <?php echo e(route('customer.faq')); ?> <?php else: ?> <?php echo e(route('guest.faq')); ?> <?php endif; ?>">Tentang</a>
+          </li>
           <?php if(auth()->guard()->check()): ?>
             <li class="nav-item my-lg-0 my-2">
               <a class="nav-link fw-medium text-dark" href="<?php echo e(route('customer.dashboard')); ?>">Dashboard</a>
@@ -102,7 +106,8 @@
             </a>
             <div class="fw-medium btn btn-primary">
               <i class="mdi mdi-logout me-0 me-lg-2 me-md-2"></i>
-              <a href="<?php echo e(route('logout')); ?>" class="d-none d-lg-inline d-md-inline text-white text-uppercase">Logout</a>
+              <a href="<?php echo e(route('logout')); ?>"
+                class="d-none d-lg-inline d-md-inline text-white text-uppercase">Logout</a>
             </div>
           <?php endif; ?>
         </li>

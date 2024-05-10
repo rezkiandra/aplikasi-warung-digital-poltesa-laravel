@@ -1,5 +1,6 @@
 <?php
   $products = \App\Models\Products::paginate(10);
+  $totalProducts = $products->count();
   $categories = \App\Models\ProductCategory::pluck('name', 'id')->toArray();
   $productPercentage = round((\App\Models\Products::count() ?? 0 / \App\Models\ProductCategory::count()) * 100, 2);
   $productPrePercentage = \App\Models\Products::count();
@@ -41,7 +42,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
     <?php if (isset($component)) { $__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalOrders,'label' => 'Produk','icon' => 'cart-outline','variant' => 'primary','percentage' => $productPercentage ? '+' . $productPercentage . '%' : '-' . $productPrePercentage . '%','class' => 'border-end','description' => 'Jumlah Produk']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalProducts,'label' => 'Produk','icon' => 'cart-outline','variant' => 'primary','percentage' => $productPercentage ? '+' . $productPercentage . '%' : '-' . $productPrePercentage . '%','class' => 'border-end','description' => 'Jumlah Produk']); ?>
 <?php $component->withName('product-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
