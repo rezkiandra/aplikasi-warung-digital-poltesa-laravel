@@ -29,7 +29,12 @@ class CustomerController extends Controller
 
   public function dashboard()
   {
-    return view('customer.dashboard');
+    if (Auth::user()->customer) {
+      $orders = Order::with('product')->where('customer_id', Auth::user()->customer->id)->orderBy('created_at', 'desc')->paginate(5);
+    } else {
+      $orders = collect([]);
+    }
+    return view('customer.dashboard', compact('orders'));
   }
 
   public function products(Request $request)
@@ -86,7 +91,7 @@ class CustomerController extends Controller
   public function orders()
   {
     if (Auth::user()->customer) {
-      $orders = Order::with('product')->where('customer_id', Auth::user()->customer->id)->orderBy('created_at', 'desc')->paginate(8);
+      $orders = Order::with('product')->where('customer_id', Auth::user()->customer->id)->orderBy('created_at', 'asc')->paginate(8);
     } else {
       $orders = collect([]);
     }

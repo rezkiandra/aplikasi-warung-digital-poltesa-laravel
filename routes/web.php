@@ -60,7 +60,7 @@ Route::middleware('auth', 'mustLogin', 'checkCustomer')->group(function () {
   Route::controller(MidtransController::class)
     ->prefix('customer')
     ->group(function () {
-      Route::get('/order/checkout/{order}', 'processPayment')->name('midtrans.checkout');
+      Route::get('/checkout/{order}', 'processPayment')->name('midtrans.checkout');
       Route::get('/detail-transaction/{order}', 'detailPayment')->name('midtrans.detail');
       Route::get('/cancel-transaction/{order}', 'cancelPayment')->name('midtrans.cancelled');
     });

@@ -2,10 +2,12 @@
   <div class="d-flex justify-content-between align-items-start card-widget-1 <?php echo e($class); ?> pb-3 pb-sm-0">
     <div>
       <p class="mb-2"><?php echo e($label); ?></p>
-      <h4 class="mb-2">$5,345.43</h4>
+      <div class="d-flex align-items-center">
+        <h4 class="mb-2 me-2 display-6"><?php echo e($condition); ?></h4>
+        <p class="text-<?php echo e($percentage > 0 ? 'success' : 'danger'); ?> mb-2"><?php echo e($percentage); ?></p>
+      </div>
       <p class="mb-0">
-        <span class="me-2">5k orders</span>
-        <span class="badge rounded-pill bg-label-<?php echo e($growth); ?>">+5.7%</span>
+        <span class="me-2"><?php echo e($description); ?></span>
       </p>
     </div>
     <div class="avatar me-sm-4">

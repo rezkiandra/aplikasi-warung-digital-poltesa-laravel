@@ -8,7 +8,6 @@
           <th>Total</th>
           <th>Status</th>
           <th>Tanggal Pemesanan</th>
-          <th>Tanggal Pembayaran</th>
           <th>Aksi</th>
         </tr>
       </thead>
@@ -44,7 +43,7 @@
             </td>
             <td>
               <h6
-                class="mb-0 w-px-100 d-flex align-items-center @if ($data->status == 'unpaid') text-warning @elseif ($data->status == 'canceled') text-dark @elseif($data->status == 'paid') text-success @endif text-uppercase">
+                class="mb-0 w-px-100 d-flex align-items-center @if ($data->status == 'unpaid') text-warning @elseif ($data->status == 'canceled') text-dark @elseif($data->status == 'paid') text-success @elseif($data->status == 'expire') text-danger @else text-dark @endif text-uppercase">
                 <i class="mdi mdi-circle fs-tiny me-1"></i>
                 {{ $data->status }}
               </h6>
@@ -52,10 +51,6 @@
             <td class="">
               <span class="badge bg-label-info">{{ date('d M Y, H:i:s', strtotime($data->created_at)) }}
                 {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}</span>
-            </td>
-            <td class="">
-              <span class="badge bg-label-dark">{{ date('d M Y, H:i:s', strtotime($data->updated_at)) }}
-                {{ $data->updated_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}</span>
             </td>
             <td>
               <div class="d-lg-flex flex-row gap-1">
@@ -71,6 +66,8 @@
                       <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
                       <x-dropdown-item :label="'Cetak'" :variant="'warning'" :icon="'file-outline'" :route="route('midtrans.detail', $data->uuid)" />
                     @elseif ($data->status == 'cancelled')
+                      <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
+                    @elseif ($data->status == 'expire')
                       <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
                       @if (auth()->user()->role_id === 3)
                         <form action="{{ route('order.update', $data->uuid) }}" method="POST">

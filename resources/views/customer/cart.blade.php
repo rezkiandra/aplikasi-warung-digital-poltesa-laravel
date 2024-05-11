@@ -61,7 +61,7 @@
                     <input type="hidden" name="quantity" id="quantity" value="{{ $cart->quantity }}">
                     <input type="hidden" name="total_price"
                       value="{{ $cart->product->price * $cart->quantity + $fee }}">
-                    <x-submit-button :label="'Beli Sekarang'" id="btn-buy" :type="'submit'" :variant="'outline-primary btn-sm'" />
+                    <x-submit-button :label="'Beli Sekarang'" id="btn-buy" :type="'submit'" :variant="'outline-primary btn-sm'" :icon="'basket-outline me-2'" />
                   </form>
                 </div>
               </div>

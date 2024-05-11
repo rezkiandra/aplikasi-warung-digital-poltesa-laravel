@@ -7,6 +7,7 @@ use Exception;
 use Midtrans\Snap;
 use Midtrans\Config;
 use App\Models\Order;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -17,16 +18,16 @@ class MidtransController extends Controller
   public function __construct()
   {
     // config midtrans production
-    Config::$serverKey = config('midtrans.server_key');
-    Config::$isProduction = config('midtrans.is_production', true);
-    Config::$isSanitized = config('midtrans.is_sanitized', true);
-    Config::$is3ds = config('midtrans.is_3ds', true);
+    // Config::$serverKey = config('midtrans.server_key');
+    // Config::$isProduction = config('midtrans.is_production', true);
+    // Config::$isSanitized = config('midtrans.is_sanitized', true);
+    // Config::$is3ds = config('midtrans.is_3ds', true);
 
     // config midtrans sandbox
-    // Config::$serverKey = config('midtrans.sandbox_server_key');
-    // Config::$isProduction = config('midtrans.sandbox_is_production', false);
-    // Config::$isSanitized = config('midtrans.sandbox_is_sanitized', true);
-    // Config::$is3ds = config('midtrans.sandbox_is_3ds', true);
+    Config::$serverKey = config('midtrans.sandbox_server_key');
+    Config::$isProduction = config('midtrans.sandbox_is_production', false);
+    Config::$isSanitized = config('midtrans.sandbox_is_sanitized', true);
+    Config::$is3ds = config('midtrans.sandbox_is_3ds', true);
   }
 
   public function processPayment(string $uuid)
@@ -48,16 +49,25 @@ class MidtransController extends Controller
       'customer_details' => array(
         'first_name' => $order->customer->full_name,
         'email' => Auth::user()->email,
-        'address' => $order->customer->gender,
+        'address' => $order->customer->full_name,
         'phone' => $order->customer->phone_number
       ),
     );
 
-    $snapToken = Snap::getSnapToken($params);
-    $order->snap_token = $snapToken;
-    $order->save();
+    try {
+      $snapToken = Snap::getSnapToken($params);
+      $order->snap_token = $snapToken;
+      $order->save();
+    } catch (Exception $e) {
+      $response_body = json_decode($e->getMessage(), true);
+      if (isset($response_body['error_message']) && in_array($response_body['error_message'], ['Expired token', 'Invalid token'])) {
+        return redirect()->route('customer.orders');
+      } elseif (isset($response_body['error_code']) && $response_body['error_code'] == 200) {
+        return redirect()->route('customer.orders');
+      }
+    }
 
-    return view('customer.checkout', compact('order', 'snapToken'));
+    return view('customer.order-detail', compact('order', 'snapToken'));
   }
 
   public function detailPayment(string $uuid)
@@ -70,7 +80,7 @@ class MidtransController extends Controller
   {
     $order = Order::where('uuid', $uuid)->firstOrFail();
     $order->update(['status' => 'cancelled']);
-    return view('customer.cancel-payment', compact('order'));
+    return view('customer.order-detail', compact('order'));
   }
 
   public function callback(Request $request)
@@ -78,33 +88,67 @@ class MidtransController extends Controller
     $serverKey = config('midtrans.server_key');
     $hashed = hash('sha512', $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
 
-    if ($hashed === $request->signature_key) {
-      $order = Order::where('uuid', $request->order_id)->firstOrFail();
-      if ($request->transaction_status == 'settlement' || $request->transaction_status == 'capture') {
-        $order->update([
-          'status' => 'paid',
-          'payment_method' => $request->payment_type,
-          'expiry_time' => $request->expiry_time,
-          'issuer' => $request->issuer,
-          'acquirer' => $request->acquirer
-        ]);
-      } elseif ($request->transaction_status == 'pending') {
-        $order->update([
-          'status' => 'pending',
-          'payment_method' => $request->payment_type,
-          'expiry_time' => $request->expiry_time,
-          'issuer' => $request->issuer,
-          'acquirer' => $request->acquirer
-        ]);
-      } elseif ($request->transaction_status == 'expire') {
-        $order->update([
-          'status' => 'expire',
-          'payment_method' => $request->payment_type,
-          'expiry_time' => $request->expiry_time,
-          'issuer' => $request->issuer,
-          'acquirer' => $request->acquirer
-        ]);
+    try {
+      if ($hashed === $request->signature_key || $request->fraud_status == 'accept') {
+        $order = Order::where('uuid', $request->order_id)->firstOrFail();
+        if ($request->transaction_status == 'settlement') {
+          $order->update([
+            'status' => 'paid',
+            'payment_method' => $request->payment_type,
+            'store' => $request->store,
+            'payment_code' => $request->payment_code,
+            'expiry_time' => $request->expiry_time,
+            'transaction_time' => $request->transaction_time,
+            'issuer' => $request->issuer,
+            'biller_code' => $request->biller_code,
+            'bill_key' => $request->bill_key,
+          ]);
+        } elseif ($request->transaction_status == 'pending') {
+          $order->update([
+            'status' => 'unpaid',
+            'payment_method' => $request->payment_type,
+            'store' => $request->store,
+            'payment_code' => $request->payment_code,
+            'expiry_time' => $request->expiry_time,
+            'transaction_time' => $request->transaction_time,
+            'issuer' => $request->issuer,
+            'biller_code' => $request->biller_code,
+            'bill_key' => $request->bill_key,
+          ]);
+        } elseif ($request->transaction_status == 'expire') {
+          $order->update([
+            'status' => 'expire',
+            'payment_method' => $request->payment_type,
+            'store' => $request->store,
+            'payment_code' => $request->payment_code,
+            'expiry_time' => $request->expiry_time,
+            'transaction_time' => $request->transaction_time,
+            'issuer' => $request->issuer,
+            'biller_code' => $request->biller_code,
+            'bill_key' => $request->bill_key,
+          ]);
+        } elseif ($request->transaction_status == 'cancel') {
+          $order->update([
+            'status' => 'cancelled',
+            'payment_method' => $request->payment_type,
+            'store' => $request->store,
+            // 'va_numbers' => array(
+            //   array(
+            //     'va_number' => $request->va_number,
+            //     'bank' => $request->bank
+            //   ),
+            // ),
+            'payment_code' => $request->payment_code,
+            'expiry_time' => $request->expiry_time,
+            'transaction_time' => $request->transaction_time,
+            'issuer' => $request->issuer,
+            'biller_code' => $request->biller_code,
+            'bill_key' => $request->bill_key,
+          ]);
+        }
       }
+    } catch (Exception $e) {
+      return $e;
     }
   }
 }

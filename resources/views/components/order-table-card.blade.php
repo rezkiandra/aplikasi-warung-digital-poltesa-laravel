@@ -30,7 +30,7 @@
                       <div class="d-flex flex-row align-items-start justify-content-start gap-1">
                         <span class="text-dark text-capitalize fw-medium">{{ $data->product->name }}</span>
                       </div>
-                      <small class="text-truncate badge bg-label-primary rounded">{{ $data->product->slug }}</small>
+                      <small class="text-truncate">{{ Str::limit($data->product->description, 50) }}</small>
                     </div>
                   </div>
                 </div>
@@ -54,16 +54,9 @@
             </tr>
           @endforeach
         </tbody>
-        {{-- <tfoot class="table-light">
-          <tr>
-            <th class="text-truncate">ID Pesanan</th>
-            <th class="text-truncate">Produk</th>
-            <th class="text-truncate">Quantity</th>
-            <th class="text-truncate">Harga Total</th>
-            <th class="text-truncate">Tanggal Pemesanan</th>
-          </tr>
-        </tfoot> --}}
       </table>
     </div>
+
+    <x-pagination :pages="$datas" />
   </div>
 </div>

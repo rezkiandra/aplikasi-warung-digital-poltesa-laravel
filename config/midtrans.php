@@ -10,7 +10,7 @@ return [
   'sandbox_client_key' => env('MIDTRANS_SB_CLIENT_KEY'),
   'sandbox_server_key' => env('MIDTRANS_SB_SERVER_KEY'),
 
-  'snap_url' => 'https://app.midtrans.com/snap/snap.js',
+  'snap_url' => 'https://app.sandbox.midtrans.com/snap/snap.js',
   'append_notif_url' => null,
   'overrideNotifUrl' => null,
   'payment_idempotency_key' => null,

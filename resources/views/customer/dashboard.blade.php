@@ -38,7 +38,7 @@
       ->where('orders.status', 'paid')
       ->groupBy('product_id')
       ->orderBy('total', 'desc')
-      ->take(5)
+      ->take(3)
       ->get();
 
   // Graph Content
@@ -47,8 +47,6 @@
 
   $labelWishlist = 'Wishlist Produk';
   $valueWishlist = \App\Models\Wishlist::where('customer_id', auth()->user()->customer->id)->count();
-
-  $orders = \App\Models\Order::where('customer_id', auth()->user()->customer->id)->paginate(8);
 @endphp
 
 @extends('layouts.authenticated')

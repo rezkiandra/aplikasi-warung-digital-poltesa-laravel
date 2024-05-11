@@ -37,15 +37,24 @@ class OrderController extends Controller
 
   public function update(string $uuid)
   {
-    $order = Order::where('uuid', $uuid)->firstOrFail();
-    $order->update([
-      'status' => 'unpaid'
+    $order = Order::where('uuid', $uuid)->first();
+
+    Order::create([
+      'uuid' => Str::uuid()->toString(),
+      'customer_id' => Auth::user()->customer->id,
+      'product_id' => $order->product_id,
+      'quantity' => $order->quantity,
+      'total_price' => $order->total_price,
+      'snap_token' => $order->snap_token,
     ]);
 
-    $order->product->increment('stock', $order->quantity);
-    $order->product->update();
+    $order->delete();
 
-    Alert::toast('Successfully repurhased product', 'success');
+    $product = Products::find($order->product_id);
+    $product->decrement('stock', $order->quantity);
+    $product->update();
+
+    Alert::toast('Berhasil membeli kembali produk', 'success');
     return redirect()->route('customer.orders');
   }
 }
