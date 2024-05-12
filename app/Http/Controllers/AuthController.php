@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SigninRequest;
 use App\Http\Requests\SignupRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthController extends Controller
@@ -41,7 +43,7 @@ class AuthController extends Controller
         return redirect()->route('customer.home');
       }
     } elseif ($request->password != User::where('password')) {
-      Alert::toast('Signin failed!', 'error');
+      Alert::toast('Login Gagal!', 'error');
       return redirect()->back()->withInput(['email' => $request->email])->withErrors(['password' => 'Password anda tidak sesuai',]);
     }
   }
@@ -49,16 +51,16 @@ class AuthController extends Controller
   public function signup(SignupRequest $request)
   {
     User::create([
+      'uuid' => Str::uuid('id'),
       'name' => $request->name,
+      'slug' => Str::slug($request->name),
       'email' => $request->email,
       'role_id' => 3,
-      'password' => $request->password,
+      'password' => Hash::make($request->password),
     ]);
 
     Alert::toast('Registrasi Berhasil!', 'success');
-    Auth::user()->role_id == 2
-      ? redirect()->route('seller.dashboard')
-      : redirect()->route('customer.dashboard');
+    return redirect()->route('login');
   }
 
   public function logout(Request $request)
@@ -66,7 +68,7 @@ class AuthController extends Controller
     Auth::logout();
     $request->session()->invalidate();
     $request->session()->regenerateToken();
-    Alert::toast('Logout successfully!', 'info');
+    Alert::toast('Logout Berhasil!', 'info');
     return redirect()->route('login');
   }
 }

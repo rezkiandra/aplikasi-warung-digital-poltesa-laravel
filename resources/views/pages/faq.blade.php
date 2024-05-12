@@ -89,9 +89,8 @@
                   <ol>
                     <li>Cash (Uang Tunai)</li>
                     <li>Bank Transfer (BRI, BCA, Mandiri)</li>
-                    <li>QRIS</li>
-                    <li>Dana</li>
-                    <li>Gopay</li>
+                    <li>QRIS (Dana, Gopay)</li>
+                    <li>ShopeePay / SPayLater</li>
                   </ol>
                 </div>
               </div>

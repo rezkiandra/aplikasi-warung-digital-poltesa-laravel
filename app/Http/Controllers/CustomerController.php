@@ -29,12 +29,13 @@ class CustomerController extends Controller
 
   public function dashboard()
   {
-    if (Auth::user()->customer) {
-      $orders = Order::with('product')->where('customer_id', Auth::user()->customer->id)->orderBy('created_at', 'desc')->paginate(5);
+    if (auth()->user()->customer) {
+      $orders = Order::with('product')->where('customer_id', Auth::user()->customer->id)->orderBy('created_at', 'desc')->paginate(6) ?? collect([]);
+      return view('customer.dashboard', compact('orders'));
     } else {
       $orders = collect([]);
+      return view('customer.anonymous', compact('orders'));
     }
-    return view('customer.dashboard', compact('orders'));
   }
 
   public function products(Request $request)
@@ -91,7 +92,7 @@ class CustomerController extends Controller
   public function orders()
   {
     if (Auth::user()->customer) {
-      $orders = Order::with('product')->where('customer_id', Auth::user()->customer->id)->orderBy('created_at', 'asc')->paginate(8);
+      $orders = Order::with('product')->where('customer_id', Auth::user()->customer->id)->orderBy('created_at', 'desc')->paginate(8);
     } else {
       $orders = collect([]);
     }
@@ -127,12 +128,10 @@ class CustomerController extends Controller
       'address' => $request->address,
       'phone_number' => $request->phone_number,
       'gender' => $request->gender,
-      'bank_account_id' => $request->bank_account_id,
       'image' => $request->image->store('customers', 'public'),
-      'account_number' => $request->account_number,
     ]);
 
-    Alert::toast('Successfully added biodata', 'success');
+    Alert::toast('Berhasil menambahkan biodata', 'success');
     return redirect()->route('customer.biodata');
   }
 
@@ -155,13 +154,11 @@ class CustomerController extends Controller
         'address' => $request->address,
         'phone_number' => $request->phone_number,
         'gender' => $request->gender,
-        'bank_account_id' => $request->bank_account_id,
-        'account_number' => $request->account_number,
         'status' => $customer->status,
       ]);
     }
 
-    Alert::toast('Successfully updated biodata', 'success');
+    Alert::toast('Berhasil mengupdate biodata', 'success');
     return redirect()->route('customer.biodata');
   }
 }

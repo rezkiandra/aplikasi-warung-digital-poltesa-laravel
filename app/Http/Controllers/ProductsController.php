@@ -15,7 +15,7 @@ class ProductsController extends Controller
 {
   public function index()
   {
-    $products = \App\Models\Products::where('seller_id', Auth::user()->seller->id)->paginate(10);
+    $products = Products::where('seller_id', Auth::user()->seller->id)->paginate(8);
     return view('seller.products.index', compact('products'));
   }
 
@@ -46,7 +46,7 @@ class ProductsController extends Controller
       'image' => $request->image->store('products', 'public'),
     ]);
 
-    Alert::toast('Successfully created new product', 'success');
+    Alert::toast('Berhasil menambahkan produk baru', 'success');
     return redirect()->route('seller.products');
   }
 
@@ -97,7 +97,7 @@ class ProductsController extends Controller
       ]);
     }
 
-    Alert::toast('Successfully updated product', 'success');
+    Alert::toast('Berhasil mengupdate produk', 'success');
     return redirect()->route('seller.products');
   }
 
@@ -113,7 +113,7 @@ class ProductsController extends Controller
       Storage::delete('public/' . $product->image);
     }
 
-    Alert::toast('Successfully deleted product', 'success');
+    Alert::toast('Berhasil menghapus produk', 'success');
     session()->flash('action', 'delete');
     return redirect()->route('seller.products');
   }

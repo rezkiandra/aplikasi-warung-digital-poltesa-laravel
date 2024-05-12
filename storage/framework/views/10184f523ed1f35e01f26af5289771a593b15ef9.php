@@ -34,28 +34,22 @@
   </head>
 
   <body>
-    
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-
-        
         <?php echo $__env->make('components.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-        
         <div class="layout-page">
-
-          
           <?php echo $__env->make('components.navbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-          
           <div class="content-wrapper">
-            <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="container flex-grow-1 container-p-y">
               <?php echo $__env->make('sweetalert::alert', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
               <?php echo $__env->yieldContent('content'); ?>
             </div>
             <?php echo $__env->make('components.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             <div class="content-backdrop fade"></div>
           </div>
+
         </div>
       </div>
       <div class="content-backdrop fade"></div>

@@ -34,7 +34,7 @@ class BiodataController extends Controller
       'account_number' => $request->account_number,
     ]);
 
-    Alert::toast('Successfully added biodata', 'success');
+    Alert::toast('Berhasil menambahkan biodata', 'success');
     return redirect()->route('seller.biodata');
   }
 
@@ -75,21 +75,7 @@ class BiodataController extends Controller
       ]);
     }
 
-    Alert::toast('Successfully updated seller', 'success');
+    Alert::toast('Berhasil mengupdate biodata', 'success');
     return redirect()->route('seller.biodata');
-  }
-
-  public function destroy(string $uuid)
-  {
-    $seller = Seller::where('uuid', $uuid)->firstOrFail();
-    $seller->delete();
-
-    if ($seller->image) {
-      Storage::delete('public/' . $seller->image);
-    }
-
-    Alert::toast('Successfully deleted seller', 'success');
-    session()->flash('action', 'delete');
-    return redirect()->route('admin.sellers');
   }
 }

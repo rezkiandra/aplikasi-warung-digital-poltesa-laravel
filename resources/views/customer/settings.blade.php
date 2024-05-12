@@ -41,7 +41,7 @@
         </div>
       </div>
 
-      <x-submit-button :label="'Simpan'" :type="'submit'" :variant="'primary'" :icon="'check-circle-outline'" />
+      <x-submit-button :label="'Update Profile'" :type="'submit'" :variant="'primary w-100'" :icon="'check-circle-outline me-2'" />
     </x-edit-form>
   </div>
 @endsection

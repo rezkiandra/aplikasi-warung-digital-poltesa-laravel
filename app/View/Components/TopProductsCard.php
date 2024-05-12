@@ -12,7 +12,7 @@ class TopProductsCard extends Component
    *
    * @return void
    */
-  public function __construct($datas, $title)
+  public function __construct($datas = '', $title)
   {
     $this->datas = $datas;
     $this->title = $title;

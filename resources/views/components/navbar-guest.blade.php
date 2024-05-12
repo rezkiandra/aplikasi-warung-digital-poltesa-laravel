@@ -89,16 +89,20 @@
             <a href="{{ route('customer.cart') }}" class="me-4">
               <i class="mdi mdi-cart-outline mdi-24px"></i>
               <span class="position-absolute fs-tiny badge rounded-pill bg-danger" style="margin-left: -10px">
-                @if (Auth::user()->role_id == 3)
+                @if (auth()->user()->customer)
                   {{ \App\Models\ProductsCart::where('customer_id', Auth::user()->customer->id)->count() }}
+                @else
+                  0
                 @endif
               </span>
             </a>
             <a href="{{ route('customer.wishlist') }}" class="me-4">
               <i class="mdi mdi-heart-outline mdi-24px"></i>
               <span class="position-absolute fs-tiny badge rounded-pill bg-danger" style="margin-left: -10px">
-                @if (Auth::user()->role_id == 3)
+                @if (auth()->user()->customer)
                   {{ \App\Models\Wishlist::where('customer_id', Auth::user()->customer->id)->count() }}
+                @else
+                  0
                 @endif
               </span>
             </a>

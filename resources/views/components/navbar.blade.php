@@ -1,5 +1,5 @@
 <nav
-  class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-white border-bottom"
+  class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-white border-bottom d-lg-none"
   id="layout-navbar">
   <div class="layout-menu-toggle navbar-nav align-items-xl-center px-3 me-xl-0 d-xl-none">
     <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
@@ -13,7 +13,7 @@
       <div class="nav-item d-flex align-items-center">
         <i class="mdi mdi-magnify mdi-24px me-2"></i>
         <input type="text" class="form-control border-0 shadow-none bg-body" placeholder="Telusuri..."
-          aria-label="Search..." />
+          aria-label="Telusuri..." />
       </div>
     </div>
     <!-- /Search -->
@@ -24,13 +24,11 @@
         <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
           <div class="avatar avatar-online">
             @if (Auth::user()->role_id == 1)
-              <img src="{{ asset('materio/assets/img/favicon/favicon.ico') }}" alt
-                class="w-px-40 h-auto rounded-circle" />
-            @elseif (Auth::user()->role_id == 2)
-              <img src="{{ asset('storage/' . Auth::user()->seller->image) }}" alt
-                class="w-px-40 h-auto rounded-circle" />
-            @elseif (Auth::user()->role_id == 3)
-              <img src="{{ asset('storage/' . Auth::user()->customer->image) }}" alt
+              <img src="{{ asset('materio/assets/img/favicon/favicon.ico') }}" class="w-px-40 h-auto rounded-circle" />
+            @elseif (Auth::user()->seller)
+              <img src="{{ asset('storage/' . Auth::user()->seller->image) }}" class="w-px-40 h-auto rounded-circle" />
+            @elseif (Auth::user()->customer)
+              <img src="{{ asset('storage/' . Auth::user()->customer->image) }}"
                 class="w-px-40 h-auto rounded-circle" />
             @endif
           </div>
@@ -42,13 +40,13 @@
                 <div class="flex-shrink-0 me-2 pe-1">
                   <div class="avatar avatar-online">
                     @if (Auth::user()->role_id == 1)
-                      <img src="{{ asset('materio/assets/img/favicon/favicon.ico') }}" alt
+                      <img src="{{ asset('materio/assets/img/favicon/favicon.ico') }}"
                         class="w-px-40 h-auto rounded-circle" />
-                    @elseif(Auth::user()->role_id == 2)
-                      <img src="{{ asset('storage/' . Auth::user()->seller->image) }}" alt
+                    @elseif(Auth::user()->seller)
+                      <img src="{{ asset('storage/' . Auth::user()->seller->image) }}"
                         class="w-px-40 h-auto rounded-circle" />
-                    @elseif(Auth::user()->role_id == 3)
-                      <img src="{{ asset('storage/' . Auth::user()->customer->image) }}" alt
+                    @elseif(Auth::user()->customer)
+                      <img src="{{ asset('storage/' . Auth::user()->customer->image) }}"
                         class="w-px-40 h-auto rounded-circle" />
                     @endif
                   </div>

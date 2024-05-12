@@ -46,8 +46,9 @@
     <x-detail-card-content>
       <x-detail-card :title="'Pesanan'" :count="$totalOrders" :countDescription="'items pesanan'" :icon="'star-outline'" :variant="'warning'" />
       <x-detail-card :title="'Produk'" :count="$totalProducts" :countDescription="'items produk'" :icon="'cart-outline'" :variant="'info'" />
-      <x-detail-card :title="'Produk'" :count="$totalProducts" :countDescription="'items produk'" :icon="'cart-outline'" :variant="'info'" />
-      <x-products-seller-detail :datas="$products" :title="'Produk terbaru'" />
+      @if ($products->count() > 0)
+        <x-products-seller-detail :datas="$products" :title="'Produk terbaru'" />
+      @endif
     </x-detail-card-content>
   </div>
 @endsection

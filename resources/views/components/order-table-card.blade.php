@@ -38,7 +38,7 @@
               <td class="text-truncate">{{ $data->quantity }} pcs</td>
               <td class="text-truncate">Rp {{ number_format($data->total_price, 0, ',', '.') }}</td>
               <td class="text-truncate fw-medium">
-                <span class="badge bg-label-info rounded">{{ date('M d, H:i', strtotime($data->created_at)) }}
+                <span class="badge bg-label-info rounded">{{ date('M d, H:i:s', strtotime($data->created_at)) }}
                   {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
                 </span>
               </td>
@@ -46,6 +46,8 @@
                 @if ($data->status == 'paid')
                   <span class="badge bg-label-success rounded text-uppercase">{{ $data->status }}</span>
                 @elseif ($data->status == 'unpaid')
+                  <span class="badge bg-label-warning rounded text-uppercase">{{ $data->status }}</span>
+                @elseif ($data->status == 'expire')
                   <span class="badge bg-label-danger rounded text-uppercase">{{ $data->status }}</span>
                 @elseif ($data->status == 'cancelled')
                   <span class="badge bg-label-dark rounded text-uppercase">{{ $data->status }}</span>

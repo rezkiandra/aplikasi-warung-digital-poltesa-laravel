@@ -226,6 +226,11 @@
         @if ($order->status === 'paid')
           <x-submit-button :label="'Preview'" :type="'submit'" :class="'w-100'" :variant="'outline-primary'" :icon="'note-search-outline me-2'" />
           <x-submit-button :label="'Cetak'" :type="'submit'" :class="'w-100'" :variant="'primary'" :icon="'file-download-outline me-2'" />
+        @elseif($order->status === 'unpaid' && $order->payment_method)
+          <x-submit-button :label="'Bayar Pesanan'" id="pay-button" :type="'submit'" :class="'w-100'" :variant="'primary'"
+            :icon="'basket-outline me-2'" />
+          <x-basic-button :href="route('midtrans.cancelled', $order->uuid)" :label="'Batalkan Pesanan'" :class="'w-100'" :variant="'dark'"
+            :icon="'basket-minus-outline me-2'" />
         @elseif($order->status === 'unpaid')
           <x-submit-button :label="'Bayar Pesanan'" id="pay-button" :type="'submit'" :class="'w-100'" :variant="'primary'"
             :icon="'basket-outline me-2'" />
@@ -326,10 +331,10 @@
               <p class="mb-1">Metode :
                 <span class="text-uppercase">{{ $order->payment_method }}</span>
               </p>
-              <p class="mb-1">Kode Bank :
+              <p class="mb-1">Kode Perusahaan :
                 <span class="text-capitalize">{{ $order->biller_code }}</span>
               </p>
-              <p class="mb-1">Kode Pembayaran :
+              <p class="mb-1">Nomor Virtual Account :
                 <span class="text-capitalize">{{ $order->bill_key }}</span>
               </p>
               <p class="mb-1">Tanggal Pemesanan :
@@ -351,7 +356,7 @@
               <p class="mb-1">Metode :
                 <span class="text-uppercase">{{ $order->payment_method }}</span>
               </p>
-              @if ($order->issuer && $order->acquirer)
+              @if ($order->store && $order->payment_code)
                 <p class="mb-1">Gerai :
                   <span class="text-capitalize">{{ $order->store }}</span>
                 </p>
@@ -408,6 +413,25 @@
               <p class="mb-1">Status :
                 <span class="text-uppercase badge bg-label-warning rounded">{{ $order->status }}</span>
               </p>
+            @elseif($order->biller_code && $order->bill_key)
+              <p class="mb-1">Metode :
+                <span class="text-capitalize">{{ $order->payment_method }}</span>
+              </p>
+              <p class="mb-1">Kode Perusahaan :
+                <span class="text-capitalize">{{ $order->biller_code }}</span>
+              </p>
+              <p class="mb-1">Nomor Virtual Account :
+                <span class="text-capitalize">{{ $order->bill_key }}</span>
+              </p>
+              <p class="mb-1">Tanggal Pemesanan :
+                <span
+                  class="text-uppercase badge bg-label-info rounded">{{ date('d M Y, H:i:s', strtotime($order->created_at)) }}
+                  {{ $order->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
+                </span>
+              </p>
+              <p class="mb-1">Status :
+                <span class="text-uppercase badge bg-label-warning rounded">{{ $order->status }}</span>
+              </p>
             @else
               <p class="mb-1">Tanggal Pemesanan :
                 <span
@@ -420,9 +444,35 @@
               </p>
             @endif
           @elseif($order->status == 'cancelled')
-            @if ($order->payment_method)
+            @if ($order->payment_method && $order->biller_code && $order->bill_key)
               <p class="mb-1">Metode :
                 <span class="text-uppercase">{{ $order->payment_method }}</span>
+              </p>
+              <p class="mb-1">Kode Perusahaan :
+                <span class="text-uppercase">{{ $order->biller_code }}</span>
+              </p>
+              <p class="mb-1">Nomor Virtual Account :
+                <span class="text-uppercase">{{ $order->bill_key }}</span>
+              </p>
+            @elseif ($order->payment_method && $order->store)
+              <p class="mb-1">Metode :
+                <span class="text-uppercase">{{ $order->payment_method }}</span>
+              </p>
+              <p class="mb-1">Gerai :
+                <span class="text-uppercase">{{ $order->store }}</span>
+              </p>
+              <p class="mb-1">Kode Pembayaran :
+                <span class="text-uppercase">{{ $order->payment_code }}</span>
+              </p>
+            @elseif ($order->payment_method && $order->issuer && $order->acquirer)
+              <p class="mb-1">Metode :
+                <span class="text-uppercase">{{ $order->payment_method }}</span>
+              </p>
+              <p class="mb-1">Acquirer :
+                <span class="text-uppercase">{{ $order->acquirer }}</span>
+              </p>
+              <p class="mb-1">Issuer :
+                <span class="text-uppercase">{{ $order->issuer }}</span>
               </p>
             @endif
             <p class="mb-1">Tanggal Pemesanan :
@@ -444,6 +494,28 @@
             <p class="mb-1">Metode :
               <span class="text-uppercase">{{ $order->payment_method }}</span>
             </p>
+            @if ($order->store)
+              <p class="mb-1">Gerai :
+                <span class="text-capitalize">{{ $order->store }}</span>
+              </p>
+              <p class="mb-1">Kode Pembayaran :
+                <span class="text-capitalize">{{ $order->payment_code }}</span>
+              </p>
+            @elseif($order->biller_code && $order->bill_key)
+              <p class="mb-1">Kode Perusahaan :
+                <span class="text-capitalize">{{ $order->biller_code }}</span>
+              </p>
+              <p class="mb-1">Nomor Virtual Account :
+                <span class="text-capitalize">{{ $order->bill_key }}</span>
+              </p>
+            @elseif($order->issuer && $order->acquirer)
+              <p class="mb-1">Acquirer :
+                <span class="text-capitalize">{{ $order->acquirer }}</span>
+              </p>
+              <p class="mb-1">Issuer :
+                <span class="text-capitalize">{{ $order->issuer }}</span>
+              </p>
+            @endif
             <p class="mb-1">Tanggal Pemesanan :
               <span
                 class="text-uppercase badge bg-label-info rounded">{{ date('d M Y, H:i:s', strtotime($order->transaction_time)) }}

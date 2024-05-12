@@ -19,7 +19,7 @@
 @section('content')
   <div class="d-lg-flex justify-content-between gap-4">
     <div class="col-lg-2 card-body">
-      <img src="{{ asset('storage/' . $seller->image) }}" alt="" class="img-fluid rounded" width="100%">
+      <img src="{{ asset('storage/' . $seller->image) }}" alt="" class="img-fluid rounded-circle" width="100%">
     </div>
 
     <x-edit-form :title="'Edit spesifik penjual'" :action="route('admin.update.seller', $seller->uuid)" :route="route('admin.sellers')" :class="'col-lg-10'">
@@ -27,12 +27,6 @@
         <div class="col-lg-4">
           <x-form-floating>
             <x-input-form-label :label="'Nama Penjual'" :name="'full_name'" :type="'text'" :value="$seller->full_name" />
-          </x-form-floating>
-        </div>
-
-        <div class="col-lg-4">
-          <x-form-floating>
-            <x-input-form-label :label="'Alamat'" :name="'address'" :type="'text'" :value="$seller->address" />
           </x-form-floating>
         </div>
 
@@ -58,7 +52,7 @@
 
         <div class="col-lg-4">
           <x-form-floating>
-            <select name="user_id" id="user_id" class="form-select">
+            <select name="user_id" id="user_id" class="form-select" readonly disabled>
               <option value="{{ $seller->user_id }}" selected>{{ $seller->user->name }}</option>
               @foreach ($user as $key => $value)
                 @if ($key == $seller->user_id)
@@ -88,12 +82,6 @@
 
         <div class="col-lg-4">
           <x-form-floating>
-            <x-input-form-label :label="'Profil'" :name="'image'" :type="'file'" :value="$seller->image" />
-          </x-form-floating>
-        </div>
-
-        <div class="col-lg-4">
-          <x-form-floating>
             <select name="status" id="status" class="form-select text-capitalize">
               <option value="{{ $seller->status }}" selected>{{ $seller->status }}</option>
               @foreach ($status as $key => $value)
@@ -106,14 +94,26 @@
           </x-form-floating>
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-lg-6">
           <x-form-floating>
             <x-input-form-label :label="'Nomor Rekening'" :name="'account_number'" :type="'text'" :value="$seller->account_number, old('account_number')" />
           </x-form-floating>
         </div>
+
+        <div class="col-lg-6">
+          <x-form-floating>
+            <x-input-form-label :label="'Profil'" :name="'image'" :type="'file'" :value="$seller->image" />
+          </x-form-floating>
+        </div>
+
+        <div class="col-lg-12">
+          <x-form-floating>
+            <x-input-form-label :label="'Alamat'" :name="'address'" :type="'textarea'" :value="$seller->address" />
+          </x-form-floating>
+        </div>
       </div>
 
-      <x-submit-button :label="'Simpan'" :type="'submit'" :variant="'primary'" :icon="'check-circle-outline'" />
+      <x-submit-button :label="'Simpan'" :type="'submit'" :variant="'primary w-100'" :icon="'check-circle-outline me-2'" />
     </x-edit-form>
   </div>
 @endsection

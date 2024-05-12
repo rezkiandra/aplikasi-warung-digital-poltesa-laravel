@@ -1,6 +1,7 @@
 @php
   $user_role = Auth::user()->role_id ?? '';
-  if (Auth::check()) {
+  $customer = auth()->user()->customer ?? '';
+  if (Auth::check() && $customer) {
       $wishlistUUID = \App\Models\Wishlist::where('customer_id', auth()->user()->customer->id)
           ->pluck('uuid')
           ->toArray();
@@ -29,7 +30,7 @@
       @else onclick="window.location.href='{{ route('guest.detail.product', $data->slug) }}'" @endif>
       <div class="position-absolute end-0 top-0 p-2">
         @auth
-          @if (Auth::user()->customer->wishlist->contains('product_id', $data->id))
+          @if ($customer)
             <form action="{{ route('wishlist.destroy', $wishlistUUID) }}" method="POST" class="bg-white rounded-circle">
               @csrf
               @method('DELETE')
@@ -40,7 +41,7 @@
           @else
             <form action="{{ route('wishlist.store') }}" method="POST" class="bg-white rounded-circle">
               @csrf
-              <input type="hidden" name="customer_id" value="{{ Auth::user()->customer->id }}">
+              <input type="hidden" name="customer_id" value="{{ Auth::user()->customer->id ?? '' }}">
               <input type="hidden" name="product_id" value="{{ $data->id }}">
               <button type="submit" id="wishlist" class="btn small p-1">
                 <i class="mdi mdi-heart-outline text-dark"></i>

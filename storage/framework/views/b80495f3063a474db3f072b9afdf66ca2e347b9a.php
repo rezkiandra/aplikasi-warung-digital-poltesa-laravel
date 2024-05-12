@@ -21,7 +21,7 @@
                 <div class="d-flex flex-column">
                   <span class="text-nowrap text-heading fw-medium text-capitalize"><?php echo e($data->full_name); ?></span>
                   <small class="text-truncate">
-                    <span class="fw-medium"><?php echo e($data->user->email); ?> - <?php echo e($data->user->name); ?></span>
+                    <span class="fw-medium"><?php echo e($data->user->email); ?></span>
                   </small>
                 </div>
               </div>
@@ -79,7 +79,7 @@
               </div>
             </td>
             <td>
-              <span class="fw-medium badge rounded bg-label-info"><?php echo e(date('M d, H:i', strtotime($data->created_at))); ?>
+              <span class="fw-medium badge rounded bg-label-info"><?php echo e(date('d M, H:i', strtotime($data->created_at))); ?>
 
                 <?php echo e($data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM'); ?>
 

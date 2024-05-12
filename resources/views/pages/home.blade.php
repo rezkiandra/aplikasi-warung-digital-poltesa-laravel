@@ -58,7 +58,7 @@
     <section class="mt-3 pt-3 pt-lg-4 pt-md-5 d-flex align-items-center justify-content-between" data-aos="fade-up"
       data-aos-duration="1000">
       <h3 class="text-dark text-uppercase">Kategori Pakaian</h3>
-      <a href="{{ route('guest.products') }}" class="btn btn-sm btn-outline-primary mb-4">View All</a>
+      <a href="{{ route('guest.products') }}" class="btn btn-sm btn-outline-primary mb-4">Lihat Semua</a>
     </section>
     <x-grid-card :class="'mb-5'">
       <x-product-grid :datas="$fashionProduct" />
@@ -70,7 +70,7 @@
     <section class="mt-3 pt-3 pt-lg-4 pt-md-5 d-flex align-items-center justify-content-between" data-aos="fade-up"
       data-aos-duration="1000">
       <h3 class="text-dark text-uppercase mb-4">Kategori Parfume</h3>
-      <a href="{{ route('guest.products') }}" class="btn btn-sm btn-outline-primary mb-4">View All</a>
+      <a href="{{ route('guest.products') }}" class="btn btn-sm btn-outline-primary mb-4">Lihat Semua</a>
     </section>
     <x-grid-card :class="'mb-5 pb-5'">
       <x-product-grid :datas="$parfumeProduct" />

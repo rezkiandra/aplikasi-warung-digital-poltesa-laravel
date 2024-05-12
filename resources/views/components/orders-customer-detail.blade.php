@@ -15,7 +15,6 @@
           @foreach ($datas as $data)
             <tr>
               <td class="text-primary">
-                {{-- <span class="rounded p-1 bg-label-primary">#{{ rand(1000, 9999) }}</span> --}}
                 <span class="badge rounded p-1 bg-label-primary text-uppercase">#{{ Str::substr($data->uuid, 0, 5) }}</span>
               </td>
               <td>

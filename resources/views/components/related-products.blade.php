@@ -1,13 +1,14 @@
 @php
   $user_role = auth()->user()->role_id ?? '';
-  if (Auth::check() && Auth::user()->role_id == 3) {
+  $customer = auth()->user()->customer ?? '';
+  if (Auth::check() && $customer) {
       $wishlistUUID = \App\Models\Wishlist::where('customer_id', auth()->user()->customer->id)
           ->pluck('uuid')
           ->toArray();
   }
 @endphp
 
-<h5 class="fw-medium mt-2 mt-lg-5 mb-3 text-uppercase">Produk Serupa</h5>
+<h5 class="fw-medium mt-2 mt-lg-5 mb-4 text-uppercase">Produk Kategori Sama Lainnya</h5>
 <div class="row row-cols-1 row-cols-md-3 g-3 mb-5 pb-0 pb-lg-5">
   @foreach ($relatedProducts as $data)
     @if ($user_role == 3)
@@ -19,7 +20,7 @@
           @else onclick="window.location.href='{{ route('guest.detail.product', $data->slug) }}'" @endif>
           <div class="position-absolute end-0 top-0 p-2">
             @auth
-              @if (Auth::user()->role_id == 3 && Auth::user()->customer->wishlist->contains('product_id', $data->id))
+              @if ($customer && $customer->wishlist->contains('product_id', $data->id))
                 <form action="{{ route('wishlist.destroy', $wishlistUUID) }}" method="POST" class="bg-white rounded-circle">
                   @csrf
                   @method('DELETE')
@@ -109,7 +110,7 @@
 @push('scripts')
   <script>
     const customerId = {{ Auth::user()->customer->id ?? '' }}
-    const productId = {{ $data->id }}
+    const productId = {{ $data->id ?? '' }}
 
     $(document).on('click', '#wishlist', function() {
       $.ajax({

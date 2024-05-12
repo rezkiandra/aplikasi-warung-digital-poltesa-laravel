@@ -13,9 +13,9 @@
   $type = 'button';
   $href = route('admin.edit.user', $user->uuid);
   $variant = 'primary';
-  $icon = 'pencil-outline';
+  $icon = 'pencil-outline me-2';
   $label = 'Edit Pengguna';
-  $class = 'btn-sm';
+  $class = 'btn-sm w-100';
 
   $totalProducts = \App\Models\Products::where('seller_id', $user->id)->count();
   $totalEarnings = number_format(

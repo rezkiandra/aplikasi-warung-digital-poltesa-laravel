@@ -1,21 +1,51 @@
+<?php
+  $customerCount = \App\Models\Customer::all()->count();
+  $activeCustomer = \App\Models\Customer::where('status', 'active')->count();
+  $inactiveCustomer = \App\Models\Customer::where('status', 'inactive')->count();
+  $pendingCustomer = \App\Models\Customer::where('status', 'pending')->count();
+  $customerPercentage = round((\App\Models\Customer::count() ?? 0 / \App\Models\Customer::count()) * 100, 2);
+  $customerPrePercentage = \App\Models\Customer::count();
+  $customerActivePercentage = round(
+      (\App\Models\Customer::where('status', 'active')->count() ?? 0 / \App\Models\Customer::count()) * 100,
+      2,
+  );
+  $customerActivePrePercentage = \App\Models\Customer::where('status', 'active')->count();
+  $customerInactivePercentage = round(
+      (\App\Models\Customer::where('status', 'inactive')->count() ?? 0 / \App\Models\Customer::count()) * 100,
+      2,
+  );
+  $customerInactivePrePercentage = \App\Models\Customer::where('status', 'inactive')->count();
+  $customerPendingPercentage = round(
+      (\App\Models\Customer::where('status', 'pending')->count() ?? 0 / \App\Models\Customer::count()) * 100,
+      2,
+  );
+  $customerPendingPrePercentage = \App\Models\Customer::where('status', 'pending')->count();
+?>
 
 
-<?php $__env->startSection('title', 'Customers'); ?>
-
+<?php $__env->startSection('title', 'Pelanggan'); ?>
 <?php $__env->startSection('content'); ?>
-  
-  
-
-  <h4 class="mb-1">Customer list</h4>
-  <p class="mb-3">A customer will purchase the products</p>
-
+  <h4 class="mb-1">Daftar Pelanggan</h4>
+  <p class="mb-3">Seorang pelanggan akan membeli berbagai macam produk yang tersedia</p>
+  <?php if (isset($component)) { $__componentOriginal884241e53d2640b5f4918f6ac6f391c8aaea60a8 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\BasicButton::class, ['label' => 'Tambah pelanggan','icon' => 'plus','class' => 'w-0 text-uppercase mb-4','variant' => 'primary','href' => route('admin.create.customer')]); ?>
+<?php $component->withName('basic-button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal884241e53d2640b5f4918f6ac6f391c8aaea60a8)): ?>
+<?php $component = $__componentOriginal884241e53d2640b5f4918f6ac6f391c8aaea60a8; ?>
+<?php unset($__componentOriginal884241e53d2640b5f4918f6ac6f391c8aaea60a8); ?>
+<?php endif; ?>
   <div class="row g-4 mb-4">
     <?php if (isset($component)) { $__componentOriginala863cd47245cc584b2bc16239844e17d2d05b0e3 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\CustomerCard::class, ['datas' => $customers,'label' => 'Session','icon' => 'account-outline','variant' => 'primary']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\CustomerCard::class, ['datas' => $customers,'label' => 'Sesi','description' => 'Jumlah Pelanggan','icon' => 'account-outline','variant' => 'primary','percentage' => $customerPercentage ? '+' . $customerPercentage . '%' : '-' . $customerPrePercentage . '%','condition' => $customerCount]); ?>
 <?php $component->withName('customer-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes([]); ?>
+<?php $component->withAttributes(['count' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($customerCount)]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginala863cd47245cc584b2bc16239844e17d2d05b0e3)): ?>
@@ -23,11 +53,13 @@
 <?php unset($__componentOriginala863cd47245cc584b2bc16239844e17d2d05b0e3); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginala863cd47245cc584b2bc16239844e17d2d05b0e3 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\CustomerCard::class, ['datas' => $customers,'label' => 'Paid customers','icon' => 'account-plus-outline','variant' => 'danger']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\CustomerCard::class, ['datas' => $customers,'label' => 'Pelanggan Aktif','icon' => 'account-check-outline','variant' => 'success','percentage' => $customerActivePercentage
+          ? '+' . $customerActivePercentage . '%'
+          : '-' . $customerActivePrePercentage . '%','condition' => $activeCustomer]); ?>
 <?php $component->withName('customer-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes([]); ?>
+<?php $component->withAttributes(['count' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($activeCustomer)]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginala863cd47245cc584b2bc16239844e17d2d05b0e3)): ?>
@@ -35,11 +67,13 @@
 <?php unset($__componentOriginala863cd47245cc584b2bc16239844e17d2d05b0e3); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginala863cd47245cc584b2bc16239844e17d2d05b0e3 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\CustomerCard::class, ['datas' => $customers,'label' => 'Active customers','icon' => 'account-check-outline','variant' => 'success']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\CustomerCard::class, ['datas' => $customers,'label' => 'Pelanggan Tidak Aktif','icon' => 'account-off-outline','variant' => 'danger','percentage' => $customerInactivePercentage
+          ? '+' . $customerInactivePercentage . '%'
+          : '-' . $customerInactivePrePercentage . '%','condition' => $inactiveCustomer]); ?>
 <?php $component->withName('customer-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes([]); ?>
+<?php $component->withAttributes(['count' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($inactiveCustomer)]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginala863cd47245cc584b2bc16239844e17d2d05b0e3)): ?>
@@ -47,11 +81,13 @@
 <?php unset($__componentOriginala863cd47245cc584b2bc16239844e17d2d05b0e3); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginala863cd47245cc584b2bc16239844e17d2d05b0e3 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\CustomerCard::class, ['datas' => $customers,'label' => 'Pending customers','icon' => 'account-search-outline','variant' => 'warning']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\CustomerCard::class, ['datas' => $customers,'label' => 'Pelanggan Pending','icon' => 'account-search-outline','variant' => 'warning','percentage' => $customerPendingPercentage
+          ? '+' . $customerPendingPercentage . '%'
+          : '-' . $customerPendingPrePercentage . '%','condition' => $pendingCustomer]); ?>
 <?php $component->withName('customer-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes([]); ?>
+<?php $component->withAttributes(['count' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($pendingCustomer)]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginala863cd47245cc584b2bc16239844e17d2d05b0e3)): ?>
@@ -59,9 +95,8 @@
 <?php unset($__componentOriginala863cd47245cc584b2bc16239844e17d2d05b0e3); ?>
 <?php endif; ?>
   </div>
-
   <?php if (isset($component)) { $__componentOriginalc6ba6500e6bfea952115c941efc7d1759239a6d5 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\CustomerTable::class, ['title' => 'List of customers','datas' => $customers,'fields' => ['No', 'Username', 'Created at', 'Updated at']]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\CustomerTable::class, ['title' => 'Data Pelanggan','datas' => $customers,'fields' => ['No', 'Pelanggan', 'Gender / Alamat', 'Status / Nomor HP', 'Dibuat Pada', 'Aksi']]); ?>
 <?php $component->withName('customer-table'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

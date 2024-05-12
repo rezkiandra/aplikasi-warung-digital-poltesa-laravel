@@ -61,8 +61,8 @@
       @include('components.basic-button', [
           'label' => 'Edit Details',
           'href' => $href,
-          'variant' => 'primary',
-          'icon' => 'pencil-outline',
+          'variant' => 'primary w-100',
+          'icon' => 'pencil-outline me-2',
       ])
     </div>
   </div>

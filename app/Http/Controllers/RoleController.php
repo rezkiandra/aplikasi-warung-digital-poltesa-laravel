@@ -23,7 +23,7 @@ class RoleController extends Controller
 			'slug' => Str::slug($request->role_name),
 		]);
 
-		Alert::toast('Successfully created new role', 'success');
+		Alert::toast('Berhasil menambahkan role baru', 'success');
 		return redirect()->route('admin.roles');
 	}
 
@@ -56,32 +56,19 @@ class RoleController extends Controller
 			'slug' => Str::slug($request->role_name),
 		]);
 
-		Alert::toast('Successfully updated role', 'success');
+		Alert::toast('Berhasil mengupdate role', 'success');
 		return redirect()->route('admin.roles');
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 */
-	public function destroy(string $slug)
+	public function destroy(string $uuid)
 	{
-		$role = Role::where('slug', $slug)->firstOrFail();
+		$role = Role::where('uuid', $uuid)->firstOrFail();
 		$role->delete();
 
-		Alert::toast('Successfully deleted role', 'success');
+		Alert::toast('Berhasil menghapus role', 'success');
 		return redirect()->route('admin.roles');
-
-		// Alert::warning('Warning', 'Are you sure you want to delete this level?')
-		// 	->showConfirmButton('Yes, Delete it', '#3085d6')
-		// 	->showCancelButton('No, Cancel');
-
-		// if (Alert::confirmed()) {
-		// 	$role->delete();
-		// 	Alert::toast('Successfully deleted level', 'success');
-		// } else {
-		// 	Alert::toast('Level not deleted', 'info');
-		// }
-
-		// return redirect()->route('admin.roles');
 	}
 }

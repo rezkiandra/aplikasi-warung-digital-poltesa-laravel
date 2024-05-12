@@ -34,28 +34,22 @@
   </head>
 
   <body>
-    {{-- Layout wrapper --}}
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-
-        {{-- Sidebar --}}
         @include('components.sidebar')
 
-        {{-- Layout container --}}
         <div class="layout-page">
-
-          {{-- Navbar --}}
           @include('components.navbar')
 
-          {{-- Content --}}
           <div class="content-wrapper">
-            <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="container flex-grow-1 container-p-y">
               @include('sweetalert::alert')
               @yield('content')
             </div>
             @include('components.footer')
             <div class="content-backdrop fade"></div>
           </div>
+
         </div>
       </div>
       <div class="content-backdrop fade"></div>

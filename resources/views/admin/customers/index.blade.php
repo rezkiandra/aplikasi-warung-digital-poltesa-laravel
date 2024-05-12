@@ -44,5 +44,5 @@
           ? '+' . $customerPendingPercentage . '%'
           : '-' . $customerPendingPrePercentage . '%'" :condition="$pendingCustomer" />
   </div>
-  <x-customer-table :title="'Data Pelanggan'" :datas="$customers" :fields="['No', 'Pelanggan', 'Gender / Alamat', 'Status / Nomor HP', 'Bank', 'Dibuat Pada', 'Aksi']" />
+  <x-customer-table :title="'Data Pelanggan'" :datas="$customers" :fields="['No', 'Pelanggan', 'Gender / Alamat', 'Status / Nomor HP', 'Dibuat Pada', 'Aksi']" />
 @endsection

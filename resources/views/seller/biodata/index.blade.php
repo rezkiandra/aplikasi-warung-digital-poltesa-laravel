@@ -78,9 +78,9 @@
                 <h5 class="mb-3">{{ $data->full_name }}</h5>
                 <p class="mb-1">{{ $data->gender }}</p>
                 <p class="mb-1">{{ $data->phone_number }}</p>
-                <p class="mb-1">{{ $data->address }}</p>
                 <p class="mb-1 text-lowercase">{{ $data->user->email }}</p>
-                <p class="mb-3">{{ $data->account_number }}</p>
+                <p class="mb-1">{{ $data->account_number }}</p>
+                <p class="mb-3">{{ $data->address }}</p>
               </div>
             </div>
           </div>
@@ -150,7 +150,7 @@
               </x-form-floating>
             </div>
 
-            <x-submit-button :label="'Submit'" :type="'submit'" :variant="'primary'" :icon="'check-circle-outline'" />
+            <x-submit-button :label="'Update Biodata'" :type="'submit'" :variant="'primary w-100'" :icon="'check-circle-outline me-2'" />
           </x-edit-form>
         </div>
       </div>

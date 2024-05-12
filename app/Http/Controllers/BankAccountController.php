@@ -29,7 +29,7 @@ class BankAccountController extends Controller
 			'slug' => Str::slug($request->bank_name),
 		]);
 
-		Alert::toast('Successfully created new bank', 'success');
+		Alert::toast('Berhasil menambahkan nama bank', 'success');
 		return redirect()->route('admin.bank_accounts');
 	}
 
@@ -62,15 +62,18 @@ class BankAccountController extends Controller
 			'slug' => Str::slug($request->bank_name),
 		]);
 
-		Alert::toast('Successfully updated bank', 'success');
+		Alert::toast('Berhasil mengubah nama bank', 'success');
 		return redirect()->route('admin.bank_accounts');
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 */
-	public function destroy(ProductCategory $productCategory)
-	{
-		//
-	}
+	public function destroy(string $uuid)
+  {
+    $bank = BankAccount::where('uuid', $uuid)->firstOrFail();
+    $bank->delete();
+    Alert::toast('Berhasil menghapus bank', 'success');
+    return redirect()->route('admin.bank_accounts');
+  }
 }

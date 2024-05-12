@@ -21,12 +21,12 @@ class CheckCustomer
     if ($customer && $this->hasRequiredInfoCustomer($customer)) {
       return $next($request);
     } else {
-      return redirect()->route('customer.biodata')->with('error', 'Lengkapi biodata terlebih dahulu jika ingin menambahkan produk');
+      return redirect()->route('customer.biodata');
     }
   }
 
   private function hasRequiredInfoCustomer($customer)
   {
-    return !empty($customer->full_name) && !empty($customer->address) && !empty($customer->phone_number) && !empty($customer->gender) && !empty($customer->bank_account_id) && !empty($customer->account_number) && !empty($customer->status);
+    return !empty($customer->full_name) && !empty($customer->address) && !empty($customer->phone_number) && !empty($customer->gender) && !empty($customer->status);
   }
 }

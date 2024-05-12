@@ -28,7 +28,7 @@
     <section class="mt-3 pt-3 pt-lg-4 pt-md-5 d-flex align-items-center justify-content-between" data-aos="fade-up"
       data-aos-duration="1000">
       <h3 class="text-dark text-uppercase">Kategori Pakaian</h3>
-      <a href="<?php echo e(route('guest.products')); ?>" class="btn btn-sm btn-outline-primary mb-4">View All</a>
+      <a href="<?php echo e(route('guest.products')); ?>" class="btn btn-sm btn-outline-primary mb-4">Lihat Semua</a>
     </section>
     <?php if (isset($component)) { $__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\GridCard::class, ['class' => 'mb-5']); ?>
@@ -72,7 +72,7 @@
     <section class="mt-3 pt-3 pt-lg-4 pt-md-5 d-flex align-items-center justify-content-between" data-aos="fade-up"
       data-aos-duration="1000">
       <h3 class="text-dark text-uppercase mb-4">Kategori Parfume</h3>
-      <a href="<?php echo e(route('guest.products')); ?>" class="btn btn-sm btn-outline-primary mb-4">View All</a>
+      <a href="<?php echo e(route('guest.products')); ?>" class="btn btn-sm btn-outline-primary mb-4">Lihat Semua</a>
     </section>
     <?php if (isset($component)) { $__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\GridCard::class, ['class' => 'mb-5 pb-5']); ?>

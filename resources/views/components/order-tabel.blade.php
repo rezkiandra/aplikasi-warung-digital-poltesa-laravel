@@ -5,7 +5,7 @@
         <tr>
           <th>ID</th>
           <th>Produk</th>
-          <th>Total</th>
+          <th>Total Harga</th>
           <th>Status</th>
           <th>Tanggal Pemesanan</th>
           <th>Aksi</th>
@@ -37,7 +37,7 @@
               </div>
             </td>
             <td>
-              <span class="mb-0 w-px-100 d-flex align-items-center">
+              <span class="mb-0 d-flex flex-column align-items-start">
                 <span class="fw-medium">Rp {{ number_format($data->total_price, 0, ',', '.') }}</span>
               </span>
             </td>
@@ -59,25 +59,24 @@
                     <i class="mdi mdi-dots-vertical"></i>
                   </button>
                   <div class="dropdown-menu">
-                    @if ($data->status == 'unpaid')
+                    @if ($data->status == 'unpaid' && $data->expiry_time)
+                      <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
+                      <x-dropdown-item :label="'Batal'" :variant="'danger'" :icon="'trash-can-outline'" :route="route('midtrans.cancelled', $data->uuid)" />
+                    @elseif ($data->status == 'unpaid')
                       <x-dropdown-item :label="'Bayar'" :variant="'primary'" :icon="'wallet-outline'" :route="route('midtrans.checkout', $data->uuid)" />
                       <x-dropdown-item :label="'Batal'" :variant="'danger'" :icon="'trash-can-outline'" :route="route('midtrans.cancelled', $data->uuid)" />
                     @elseif($data->status == 'paid')
                       <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
                       <x-dropdown-item :label="'Cetak'" :variant="'warning'" :icon="'file-outline'" :route="route('midtrans.detail', $data->uuid)" />
-                    @elseif ($data->status == 'cancelled')
+                    @elseif (($data->status == 'cancelled' || $data->status == 'expire') && auth()->user()->role_id === 3)
                       <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
-                    @elseif ($data->status == 'expire')
-                      <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
-                      @if (auth()->user()->role_id === 3)
-                        <form action="{{ route('order.update', $data->uuid) }}" method="POST">
-                          @csrf
-                          @method('PUT')
-                          <button type="submit" class="dropdown-item waves-effect text-primary">
-                            <i class="mdi mdi-cart-outline text-primary me-1"></i>Beli Kembali
-                          </button>
-                        </form>
-                      @endif
+                      <form action="{{ route('order.update', $data->uuid) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" class="dropdown-item waves-effect text-primary">
+                          <i class="mdi mdi-cart-outline text-primary me-1"></i>Beli Kembali
+                        </button>
+                      </form>
                     @endif
                   </div>
                 </div>

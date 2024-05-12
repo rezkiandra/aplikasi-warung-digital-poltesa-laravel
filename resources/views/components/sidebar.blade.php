@@ -60,12 +60,14 @@
     @elseif (Auth::user()->role_id == 2)
       <x-sidebar-dropdown :label="'Produk'" :route="route('admin.sellers')" :icon="'package-variant'" :active="request()->routeIs('admin.products', 'seller.products', 'admin.*.product', 'seller.*.product')">
         <x-sidebar-dropdown-item :label="'Tambah Produk'" :href="route('seller.create.product')" :active="request()->routeIs('seller.create.product')" />
-        <x-sidebar-dropdown-item :label="'Daftar Produk'" :href="route('seller.products')" :active="request()->routeIs('seller.products')" />
+        <x-sidebar-dropdown-item :label="'Daftar Produk'" :href="route('seller.products')" :active="request()->routeIs('seller.products', 'seller.detail.product', 'seller.edit.product')" />
       </x-sidebar-dropdown>
     @elseif(Auth::user()->role_id == 3)
       <x-sidebar-item :label="'Keranjang'" :badge="$cartCount" :route="route('customer.cart')" :icon="'cart-outline'" :active="request()->routeIs('customer.cart')" />
       <x-sidebar-item :label="'Wishlist'" :badge="$wishlistCount" :route="route('customer.wishlist')" :icon="'heart-outline'" :active="request()->routeIs('customer.wishlist')" />
-      <x-sidebar-item :label="'Pesanan'" :route="route('customer.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('customer.orders', 'midtrans.checkout', 'midtrans.detail')" />
+      @if (Auth::user()->customer)
+        <x-sidebar-item :label="'Pesanan'" :route="route('customer.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('customer.orders', 'midtrans.checkout', 'midtrans.detail')" />
+      @endif
     @endif
 
     @if (Auth::user()->role_id == 1)
@@ -92,5 +94,7 @@
       <x-sidebar-item :label="'Profil Pengguna'" :route="route('customer.settings')" :icon="'account-cog-outline'" :active="request()->routeIs('customer.settings')" />
       <x-sidebar-item :label="'Halaman Utama'" :route="route('customer.home')" :icon="'arrow-left-circle-outline'" :active="request()->routeIs('customer.home')" />
     @endif
+    <x-sidebar-item :label="'Logout'" :route="route('logout')" :icon="'power me-2'" :active="false'"
+      :active="request()->routeIs('logout')" />
   </ul>
 </aside>

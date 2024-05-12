@@ -1,5 +1,6 @@
 @php
-  if (Auth::check() && Auth::user()->role_id == 3) {
+  $customer = auth()->user()->customer ?? '';
+  if (Auth::check() && $customer) {
       $wishlistUUID = \App\Models\Wishlist::where('customer_id', auth()->user()->customer->id)
           ->pluck('uuid')
           ->toArray();
@@ -36,7 +37,7 @@
       <span class="badge bg-danger text-white d-lg-flex align-items-centers text-uppercase px-4">Out Of Stock</span>
     @endif
   </div>
-  @if ($admin)
+  @if ($admin || $seller)
     <div class="row mb-4">
       <div class="col-lg-5 col-md-6">
         <img src="{{ asset('storage/' . $product->image) }}" alt="" class="img-fluid rounded shadow hover-shadow">
@@ -64,7 +65,7 @@
 
         <div class="mb-1">
           <span class="text-secondary">Dipublish pada:</span>
-          <span class="text-dark">{{ date('M d, H:i', strtotime($product->created_at)) }}
+          <span class="text-dark">{{ date('d M, H:i', strtotime($product->created_at)) }}
             {{ $product->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
           </span>
         </div>
@@ -117,21 +118,21 @@
 
         <div class="mb-1">
           <span class="text-secondary">Dipublish pada:</span>
-          <span class="text-dark">{{ date('M d, H:i', strtotime($product->created_at)) }}
+          <span class="text-dark">{{ date('d M, H:i', strtotime($product->created_at)) }}
             {{ $product->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
           </span>
         </div>
         <div class="mb-1">
           <span class="text-secondary">Kondisi:<span>
-          <span class="text-dark">Baru</span>
+              <span class="text-dark">Baru</span>
         </div>
         <div class="mb-1">
           <span class="text-secondary">Minimal pemesanan:<span>
-          <span class="text-dark">1 Buah</span>
+              <span class="text-dark">1 Buah</span>
         </div>
         <div class="mb-1">
           <span class="text-secondary">Penjual:<span>
-          <span class="badge bg-label-primary">Terverifikasi</span>
+              <span class="badge bg-label-primary">Terverifikasi</span>
         </div>
         <hr class="bg-light">
 

@@ -282,7 +282,7 @@
 <?php unset($__componentOriginal33298f493885e4db4f550977ba1a0df320b07e43); ?>
 <?php endif; ?>
         <?php if (isset($component)) { $__componentOriginal33298f493885e4db4f550977ba1a0df320b07e43 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SidebarDropdownItem::class, ['label' => 'Daftar Produk','href' => route('seller.products'),'active' => request()->routeIs('seller.products')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SidebarDropdownItem::class, ['label' => 'Daftar Produk','href' => route('seller.products'),'active' => request()->routeIs('seller.products', 'seller.detail.product', 'seller.edit.product')]); ?>
 <?php $component->withName('sidebar-dropdown-item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -324,7 +324,8 @@
 <?php $component = $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394; ?>
 <?php unset($__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394); ?>
 <?php endif; ?>
-      <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
+      <?php if(Auth::user()->customer): ?>
+        <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Pesanan','route' => route('customer.orders'),'icon' => 'hand-coin-outline','active' => request()->routeIs('customer.orders', 'midtrans.checkout', 'midtrans.detail')]); ?>
 <?php $component->withName('sidebar-item'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -336,6 +337,7 @@
 <?php $component = $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394; ?>
 <?php unset($__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394); ?>
 <?php endif; ?>
+      <?php endif; ?>
     <?php endif; ?>
 
     <?php if(Auth::user()->role_id == 1): ?>
@@ -505,6 +507,18 @@
 <?php unset($__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394); ?>
 <?php endif; ?>
     <?php endif; ?>
+    <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Logout','route' => route('logout'),'icon' => 'power me-2','active' => request()->routeIs('logout')]); ?>
+<?php $component->withName('sidebar-item'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394)): ?>
+<?php $component = $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394; ?>
+<?php unset($__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394); ?>
+<?php endif; ?>
   </ul>
 </aside>
 <?php /**PATH C:\laragon\www\warungdigital\resources\views/components/sidebar.blade.php ENDPATH**/ ?>

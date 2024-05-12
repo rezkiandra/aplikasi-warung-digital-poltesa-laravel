@@ -23,15 +23,15 @@ class OrderController extends Controller
       'total_price' => $request->total_price,
     ]);
 
-    $product = Products::find($request->product_id);
-    $product->decrement('stock', $request->quantity);
-    $product->update();
+    // $product = Products::find($request->product_id);
+    // $product->decrement('stock', $request->quantity);
+    // $product->update();
 
     $productCart = ProductsCart::where('customer_id', Auth::user()->customer->id)
       ->where('product_id', $request->product_id);
     $productCart->delete();
 
-    Alert::toast('Successfully maked an order', 'success');
+    Alert::toast('Berhasil membuat pesanan baru', 'success');
     return redirect()->route('customer.orders');
   }
 
@@ -48,11 +48,10 @@ class OrderController extends Controller
       'snap_token' => $order->snap_token,
     ]);
 
-    $order->delete();
-
-    $product = Products::find($order->product_id);
-    $product->decrement('stock', $order->quantity);
-    $product->update();
+    // $order->delete();
+    // $product = Products::find($order->product_id);
+    // $product->decrement('stock', $order->quantity);
+    // $product->update();
 
     Alert::toast('Berhasil membeli kembali produk', 'success');
     return redirect()->route('customer.orders');

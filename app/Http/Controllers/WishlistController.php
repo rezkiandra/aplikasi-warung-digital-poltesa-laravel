@@ -27,7 +27,7 @@ class WishlistController extends Controller
         'product_id' => $request->product_id
       ]);
 
-      Alert::toast('Berhasil tambah wishlist', 'success');
+      Alert::toast('Berhasil menambahkan ke favorit', 'success');
       return redirect()->back();
     }
   }
@@ -37,7 +37,7 @@ class WishlistController extends Controller
     $wishlist = Wishlist::where('uuid', $uuid)->firstOrFail();
     $wishlist->delete();
 
-    Alert::toast('Berhasil hapus wishlist', 'success');
+    Alert::toast('Berhasil menghapus dari favorit', 'success');
     return redirect()->back();
   }
 }

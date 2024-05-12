@@ -21,12 +21,14 @@
   $descriptionSpent = 'Total pengeluaran akhir ini';
 
   // Transaction Item Card
-  $totalOrders = \App\Models\Order::where('customer_id', auth()->user()->customer->id)->count();
   $totalPaid = \App\Models\Order::where('customer_id', auth()->user()->customer->id)
       ->where('status', 'paid')
       ->count();
   $totalUnpaid = \App\Models\Order::where('customer_id', auth()->user()->customer->id)
       ->where('status', 'unpaid')
+      ->count();
+  $totalExpire = \App\Models\Order::where('customer_id', auth()->user()->customer->id)
+      ->where('status', 'expire')
       ->count();
   $totalCancelled = \App\Models\Order::where('customer_id', auth()->user()->customer->id)
       ->where('status', 'cancelled')
@@ -56,19 +58,18 @@
     <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel"
       :route="$route" />
     <x-transactions-card :title="$title" :description="$description">
-      <x-transaction-item-card :label="'Total Pesanan'" :value="$totalOrders" :variant="'info'" :icon="'basket-outline'" />
       <x-transaction-item-card :label="'Selesai'" :value="$totalPaid" :variant="'success'" :icon="'basket-check-outline'" />
       <x-transaction-item-card :label="'Belum Bayar'" :value="$totalUnpaid" :variant="'warning'" :icon="'basket-off-outline'" />
-      <x-transaction-item-card :label="'Dibatalkan'" :value="$totalCancelled" :variant="'danger'" :icon="'basket-remove-outline'" />
+      <x-transaction-item-card :label="'Kadaluarsa'" :value="$totalExpire" :variant="'danger'" :icon="'basket-remove-outline'" />
+      <x-transaction-item-card :label="'Dibatalkan'" :value="$totalCancelled" :variant="'dark'" :icon="'basket-minus-outline'" />
     </x-transactions-card>
 
-    <x-top-products-card :datas="$topProducts" :title="'Pembelian Produk Teratas 🎉'" />
     <x-earnings-card :title="$titleSpent" :description="$descriptionSpent" :earnings="$spentValue" />
-
     <x-four-card>
       <x-graph-card-content :label="$labelCart" :value="$valueCart" :icon="'cart-outline'" :variant="'info'" />
       <x-graph-card-content :label="$labelWishlist" :value="$valueWishlist" :icon="'star-outline'" :variant="'warning'" />
     </x-four-card>
+    <x-top-products-card :datas="$topProducts" :title="'Pembelian Produk Teratas 🎉'" />
 
     <x-order-table-card :datas="$orders" />
   </x-content-card>

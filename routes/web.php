@@ -34,7 +34,27 @@ Route::controller(GuestController::class)
     Route::get('/detail-product/{product}', 'product')->name('guest.detail.product');
   });
 
-Route::middleware('auth', 'mustLogin', 'checkCustomer')->group(function () {
+Route::middleware('auth', 'mustLogin')->group(function () {
+  Route::controller(CustomerController::class)
+    ->prefix('customer/dashboard')
+    ->group(function () {
+      Route::get('/home', 'index')->name('customer.home');
+      Route::get('/products', 'products')->name('customer.products');
+      Route::get('/wishlist', 'wishlist')->name('customer.wishlist');
+      Route::get('/faq', 'faq')->name('customer.faq');
+      Route::get('/cart', 'cart')->name('customer.cart');
+      Route::get('/orders', 'orders')->name('customer.orders');
+      Route::get('/', 'dashboard')->name('customer.dashboard');
+      Route::get('/biodata', 'biodata')->name('customer.biodata');
+      Route::get('/settings', 'settings')->name('customer.settings');
+      Route::post('store-biodata', 'store')->name('customer.store.biodata');
+      Route::put('/update-biodata/{biodata}', 'update')->name('customer.update.biodata');
+      Route::get('/detail-product/{product}', 'product')->name('customer.detail.product');
+      Route::put('/settings/edit-profile/{customer}', 'updateProfile')->name('customer.update.profile');
+    });
+});
+
+Route::middleware('checkCustomer')->group(function () {
   Route::controller(ProductsCartController::class)
     ->prefix('customer')
     ->group(function () {
@@ -63,28 +83,6 @@ Route::middleware('auth', 'mustLogin', 'checkCustomer')->group(function () {
       Route::get('/checkout/{order}', 'processPayment')->name('midtrans.checkout');
       Route::get('/detail-transaction/{order}', 'detailPayment')->name('midtrans.detail');
       Route::get('/cancel-transaction/{order}', 'cancelPayment')->name('midtrans.cancelled');
-    });
-
-  Route::controller(CustomerController::class)
-    ->prefix('customer/dashboard')
-    ->group(function () {
-      Route::get('/', 'dashboard')->name('customer.dashboard');
-      Route::get('/wishlist', 'wishlist')->name('customer.wishlist');
-      Route::get('/cart', 'cart')->name('customer.cart');
-      Route::get('/orders', 'orders')->name('customer.orders');
-      Route::get('/settings', 'settings')->name('customer.settings');
-      Route::put('/settings/edit-profile/{customer}', 'updateProfile')->name('customer.update.profile');
-      Route::get('/biodata', 'biodata')->name('customer.biodata');
-      Route::post('store-biodata', 'store')->name('customer.store.biodata');
-      Route::put('/update-biodata/{biodata}', 'update')->name('customer.update.biodata');
-    });
-  Route::controller(CustomerController::class)
-    ->prefix('customer')
-    ->group(function () {
-      Route::get('/home', 'index')->name('customer.home');
-      Route::get('/products', 'products')->name('customer.products');
-      Route::get('/faq', 'faq')->name('customer.faq');
-      Route::get('/detail-product/{product}', 'product')->name('customer.detail.product');
     });
 });
 

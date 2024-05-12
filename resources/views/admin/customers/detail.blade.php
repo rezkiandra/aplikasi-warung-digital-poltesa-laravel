@@ -1,6 +1,13 @@
 @php
   $totalOrder = \App\Models\Order::where('customer_id', $customer->id)->count();
-  $spentCost = number_format(\App\Models\Order::where('customer_id', $customer->id)->where('orders.status', 'paid')->sum('total_price'), 0, ',', '.');
+  $spentCost = number_format(
+      \App\Models\Order::where('customer_id', $customer->id)
+          ->where('orders.status', 'paid')
+          ->sum('total_price'),
+      0,
+      ',',
+      '.',
+  );
   $totalCarts = \App\Models\ProductsCart::where('customer_id', $customer->id)->count();
   $totalWishlist = \App\Models\Wishlist::where('customer_id', $customer->id)->count();
   $orders = \App\Models\Order::where('customer_id', $customer->id)
@@ -36,7 +43,9 @@
     <x-detail-card-content>
       <x-detail-card :title="'Wishlist'" :count="$totalWishlist" :countDescription="'items produk'" :icon="'star-outline'" :variant="'warning'" />
       <x-detail-card :title="'Keranjang'" :count="$totalCarts" :countDescription="'items produk'" :icon="'cart-outline'" :variant="'info'" />
-      <x-orders-customer-detail :datas="$orders" />
+      @if ($orders->count() > 0)
+        <x-orders-customer-detail :datas="$orders" />
+      @endif
     </x-detail-card-content>
   </div>
 @endsection

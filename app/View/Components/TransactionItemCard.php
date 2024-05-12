@@ -15,7 +15,7 @@ class TransactionItemCard extends Component
    *
    * @return void
    */
-  public function __construct($label, $value, $icon, $variant)
+  public function __construct($label, $value = 0, $icon, $variant)
   {
     $this->label = $label;
     $this->value = $value;

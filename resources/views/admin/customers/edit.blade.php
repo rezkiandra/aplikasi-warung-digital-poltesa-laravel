@@ -9,14 +9,13 @@
       'inactive' => 'inactive',
       'pending' => 'pending',
   ];
-  $bank = \App\Models\BankAccount::pluck('bank_name', 'id')->toArray();
 @endphp
 @extends('layouts.authenticated')
 @section('title', 'Edit Pelanggan')
 @section('content')
   <div class="d-lg-flex justify-content-between gap-4">
     <div class="col-lg-2 card-body">
-      <img src="{{ asset('storage/' . $customer->image) }}" alt="" class="img-fluid rounded" width="100%">
+      <img src="{{ asset('storage/' . $customer->image) }}" alt="" class="img-fluid rounded-circle" width="100%">
     </div>
 
     <x-edit-form :title="'Edit spesifik pelanggan'" :action="route('admin.update.customer', $customer->uuid)" :route="route('admin.customers')" :class="'col-lg-10'">
@@ -24,12 +23,6 @@
         <div class="col-lg-4">
           <x-form-floating>
             <x-input-form-label :label="'Nama Pelanggan'" :name="'full_name'" :type="'text'" :value="$customer->full_name" />
-          </x-form-floating>
-        </div>
-
-        <div class="col-lg-4">
-          <x-form-floating>
-            <x-input-form-label :label="'Alamat'" :name="'address'" :type="'text'" :value="$customer->address" />
           </x-form-floating>
         </div>
 
@@ -55,7 +48,7 @@
 
         <div class="col-lg-4">
           <x-form-floating>
-            <select name="user_id" id="user_id" class="form-select">
+            <select name="user_id" id="user_id" class="form-select" readonly disabled>
               <option value="{{ $customer->user_id }}" selected>{{ $customer->user->name }}</option>
               @foreach ($user as $key => $value)
                 @if ($key == $customer->user_id)
@@ -64,28 +57,6 @@
                 <option value="{{ $key }}">{{ $value }}</option>
               @endforeach
             </select>
-          </x-form-floating>
-        </div>
-
-        <div class="col-lg-4">
-          <x-form-floating>
-            <select name="bank_account_id" id="bank_account_id" class="form-select">
-              <option value="{{ $customer->bank_account_id }}" selected>
-                {{ \App\Models\Customer::join('bank_accounts', 'bank_accounts.id', '=', 'customers.bank_account_id', 'left')->where('customers.id', $customer->id)->first()->bank_name }}
-              </option>
-              @foreach ($bank as $key => $value)
-                @if ($key == $customer->bank_account_id)
-                  @continue
-                @endif
-                <option value="{{ $key }}">{{ $value }}</option>
-              @endforeach
-            </select>
-          </x-form-floating>
-        </div>
-
-        <div class="col-lg-4">
-          <x-form-floating>
-            <x-input-form-label :label="'Profil'" :name="'image'" :type="'file'" :value="$customer->image" />
           </x-form-floating>
         </div>
 
@@ -105,12 +76,18 @@
 
         <div class="col-lg-4">
           <x-form-floating>
-            <x-input-form-label :label="'Nomor Rekening'" :name="'account_number'" :type="'text'" :value="$customer->account_number, old('account_number')" />
+            <x-input-form-label :label="'Profil'" :name="'image'" :type="'file'" :value="$customer->image" />
+          </x-form-floating>
+        </div>
+
+        <div class="col-lg-12">
+          <x-form-floating>
+            <x-input-form-label :label="'Alamat'" :name="'address'" :type="'textarea'" :value="$customer->address" />
           </x-form-floating>
         </div>
       </div>
 
-      <x-submit-button :label="'Simpan'" :type="'submit'" :variant="'primary'" :icon="'check-circle-outline'" />
+      <x-submit-button :label="'Simpan'" :type="'submit'" :variant="'primary w-100'" :icon="'check-circle-outline me-2'" />
     </x-edit-form>
   </div>
 @endsection

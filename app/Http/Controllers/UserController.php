@@ -38,7 +38,7 @@ class UserController extends Controller
       'status' => $request->status,
     ]);
 
-    Alert::toast('Successfully created new seller', 'success');
+    Alert::toast('Berhasil menambahkan penjual', 'success');
     session()->flash('action', 'store');
     return redirect()->route('admin.sellers');
   }
@@ -81,7 +81,7 @@ class UserController extends Controller
       ]);
     }
 
-    Alert::toast('Successfully updated seller', 'success');
+    Alert::toast('Berhasil mengupdate biodata penjual', 'success');
     return redirect()->route('admin.sellers');
   }
 
@@ -94,7 +94,7 @@ class UserController extends Controller
       Storage::delete('public/' . $seller->image);
     }
 
-    Alert::toast('Successfully deleted seller', 'success');
+    Alert::toast('Berhasil menghapus penjual', 'success');
     session()->flash('action', 'delete');
     return redirect()->route('admin.sellers');
   }
@@ -114,13 +114,11 @@ class UserController extends Controller
       'address' => $request->address,
       'phone_number' => $request->phone_number,
       'gender' => $request->gender,
-      'bank_account_id' => $request->bank_account_id,
       'image' => $request->image->store('customers', 'public'),
-      'account_number' => $request->account_number,
       'status' => $request->status,
     ]);
 
-    Alert::toast('Successfully created new customer', 'success');
+    Alert::toast('Berhasil menambahkan pelanggan', 'success');
     session()->flash('action', 'store');
     return redirect()->route('admin.customers');
   }
@@ -157,13 +155,11 @@ class UserController extends Controller
         'address' => $request->address,
         'phone_number' => $request->phone_number,
         'gender' => $request->gender,
-        'bank_account_id' => $request->bank_account_id,
-        'account_number' => $request->account_number,
         'status' => $request->status,
       ]);
     }
 
-    Alert::toast('Successfully updated customer', 'success');
+    Alert::toast('Berhasil mengupdate biodata pelanggan', 'success');
     return redirect()->route('admin.customers');
   }
 
@@ -176,7 +172,7 @@ class UserController extends Controller
       Storage::delete('public/' . $customer->image);
     }
 
-    Alert::toast('Successfully deleted customer', 'success');
+    Alert::toast('Berhasil menghapus pelanggan', 'success');
     session()->flash('action', 'delete');
     return redirect()->route('admin.customers');
   }
@@ -197,7 +193,7 @@ class UserController extends Controller
       'password' => Hash::make($request->password),
     ]);
 
-    Alert::toast('Successfully created new user', 'success');
+    Alert::toast('Berhasil menambahkan pengguna', 'success');
     session()->flash('action', 'store');
     return redirect()->route('admin.users');
   }
@@ -227,7 +223,7 @@ class UserController extends Controller
       'password' => Hash::make($request->new_password) ?? $user->password,
     ]);
 
-    Alert::toast('Successfully updated customer', 'success');
+    Alert::toast('Berhasil mengupdate pengguna', 'success');
     return redirect()->route('admin.users');
   }
 
@@ -236,7 +232,7 @@ class UserController extends Controller
     $user = User::where('uuid', $uuid)->firstOrFail();
     $user->delete();
 
-    Alert::toast('Successfully deleted user', 'success');
+    Alert::toast('Berhasil menghapus penggunas', 'success');
     session()->flash('action', 'delete');
     return redirect()->route('admin.users');
   }

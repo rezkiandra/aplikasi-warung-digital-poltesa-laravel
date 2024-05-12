@@ -14,7 +14,7 @@ class AddAccountNumberColumnToCustomersTable extends Migration
   public function up()
   {
     Schema::table('customers', function (Blueprint $table) {
-      $table->string('account_number')->nullable()->after('image');
+      $table->string('account_number')->nullable()->after('gender');
     });
   }
 

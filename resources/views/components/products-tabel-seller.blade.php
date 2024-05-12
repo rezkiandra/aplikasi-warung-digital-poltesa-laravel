@@ -34,14 +34,14 @@
               <span class="fw-medium badge bg-label-primary rounded text-uppercase">{{ $data->category->name }}</span>
             </td>
             <td>
-              <span class="fw-medium">Rp.{{ number_format($data->price, 2, ',', '.') }}</span>
+              <span class="fw-medium">Rp {{ number_format($data->price, 0, ',', '.') }}</span>
             </td>
             <td>
               <span class="fw-medium">{{ $data->stock }} pcs</span>
             </td>
             <td>
               <span
-                class="fw-medium badge rounded-pill bg-label-info">{{ date('M d, H:i', strtotime($data->created_at)) }}
+                class="fw-medium badge rounded-pill bg-label-info">{{ date('d M, H:i', strtotime($data->created_at)) }}
                 {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
               </span>
             </td>
@@ -72,15 +72,6 @@
           </tr>
         @endforeach
       </tbody>
-      <tfoot class="table-border-bottom-0">
-        <th>ID</th>
-        <th>Produk</th>
-        <th>Kategori</th>
-        <th>Harga</th>
-        <th>Stok</th>
-        <th>Dipublish Pada</th>
-        <th>Aksi</th>
-      </tfoot>
     </table>
   </div>
 </div>

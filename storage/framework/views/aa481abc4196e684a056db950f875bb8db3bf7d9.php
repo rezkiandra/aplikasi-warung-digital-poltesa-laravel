@@ -1,80 +1,69 @@
-<div class="card mb-4">
-  <div class="card-body">
-    <div class="user-avatar-section">
-      <div class=" d-flex align-items-center flex-column">
-        <img class="img-fluid rounded mb-3 mt-4" src="../../assets/img/avatars/10.png" height="120" width="120"
-          alt="User avatar">
-        <div class="user-info text-center">
-          <h4>Violet Mendoza</h4>
-          <span class="badge bg-label-danger rounded-pill">Author</span>
-        </div>
+<div class="card-body">
+  <div class="customer-avatar-section">
+    <div class="d-flex align-items-center flex-column">
+      <img class="img-fluid rounded mb-3 mt-3" src="<?php echo e($image); ?>" height="120" width="120" alt="User avatar">
+      <div class="customer-info text-center mb-4">
+        <h5 class="mb-1 text-capitalize"><?php echo e($name); ?></h5>
+        <span><?php echo e($id); ?></span>
       </div>
     </div>
-    <div class="d-flex justify-content-between flex-wrap my-2 py-3">
-      <div class="d-flex align-items-center me-4 mt-3 gap-3">
-        <div class="avatar">
-          <div class="avatar-initial bg-label-primary rounded">
-            <i class="mdi mdi-check mdi-24px"></i>
-          </div>
-        </div>
-        <div>
-          <h4 class="mb-0">1.23k</h4>
-          <span>Tasks Done</span>
+  </div>
+  <div class="d-flex justify-content-around flex-wrap mb-4">
+    <div class="d-flex align-items-center gap-2">
+      <div class="avatar me-1">
+        <div class="avatar-initial rounded-3 bg-label-primary"><i class="mdi mdi mdi-cart-plus mdi-20px"></i>
         </div>
       </div>
-      <div class="d-flex align-items-center mt-3 gap-3">
-        <div class="avatar">
-          <div class="avatar-initial bg-label-primary rounded">
-            <i class="mdi mdi-star-outline mdi-24px"></i>
-          </div>
-        </div>
-        <div>
-          <h4 class="mb-0">568</h4>
-          <span>Projects Done</span>
-        </div>
+      <div>
+        <h5 class="mb-0"><?php echo e($totalOrder); ?></h5>
+        <span><?php echo e($labelOrder); ?></span>
       </div>
     </div>
-    <h5 class="pb-3 border-bottom mb-3">Details</h5>
-    <div class="info-container">
-      <ul class="list-unstyled mb-4">
-        <li class="mb-3">
-          <span class="h6">Username:</span>
-          <span>@violet.dev</span>
-        </li>
-        <li class="mb-3">
-          <span class="h6">Email:</span>
-          <span>vafgot@vultukir.org</span>
-        </li>
-        <li class="mb-3">
-          <span class="h6">Status:</span>
-          <span class="badge bg-label-success rounded-pill">Active</span>
-        </li>
-        <li class="mb-3">
-          <span class="h6">Role:</span>
-          <span>Author</span>
-        </li>
-        <li class="mb-3">
-          <span class="h6">Tax id:</span>
-          <span>Tax-8965</span>
-        </li>
-        <li class="mb-3">
-          <span class="h6">Contact:</span>
-          <span>(123) 456-7890</span>
-        </li>
-        <li class="mb-3">
-          <span class="h6">Languages:</span>
-          <span>French</span>
-        </li>
-        <li class="mb-3">
-          <span class="h6">Country:</span>
-          <span>England</span>
-        </li>
-      </ul>
-      <div class="d-flex justify-content-center">
-        <a href="javascript:;" class="btn btn-primary me-3 waves-effect waves-light" data-bs-target="#editUser"
-          data-bs-toggle="modal">Edit</a>
-        <a href="javascript:;" class="btn btn-outline-danger suspend-user waves-effect">Suspend</a>
+    <div class="d-flex align-items-center gap-2">
+      <div class="avatar me-1">
+        <div class="avatar-initial rounded-3 bg-label-primary"><i class="mdi mdi-currency-usd mdi-20px"></i>
+        </div>
       </div>
+      <div>
+        <h5 class="mb-0"><?php echo e($spentCost); ?></h5>
+        <span><?php echo e($labelCost); ?></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-container">
+    <h5 class="border-bottom text-uppercase pb-3">DETAILS</h5>
+    <ul class="list-unstyled mb-4">
+      <li class="mb-2">
+        <span class="h6 me-1">Username:</span>
+        <span class="text-capitalize"><?php echo e($username); ?></span>
+      </li>
+      <li class="mb-2">
+        <span class="h6 me-1">Email:</span>
+        <span><?php echo e($email); ?></span>
+      </li>
+      <li class="mb-2">
+        <span class="h6 me-1">Status:</span>
+        <span
+          class="badge text-capitalize <?php if($status == 'active'): ?> bg-label-success <?php elseif($status == 'inactive'): ?> bg-label-danger <?php else: ?> bg-label-warning <?php endif; ?> rounded-pill"><?php echo e($status); ?></span>
+      </li>
+      <li class="mb-2">
+        <span class="h6 me-1">Nomor Telepon:</span>
+        <span><?php echo e($phone); ?></span>
+      </li>
+
+      <li>
+        <span class="h6 me-1">Alamat:</span>
+        <span class="text-capitalize"><?php echo e($address); ?></span>
+      </li>
+    </ul>
+    <div class="d-flex justify-content-center gap-3">
+      <?php echo $__env->make('components.basic-button', [
+          'label' => 'Edit Details',
+          'href' => $href,
+          'variant' => 'primary w-100',
+          'icon' => 'pencil-outline me-2',
+      ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     </div>
   </div>
 </div>
