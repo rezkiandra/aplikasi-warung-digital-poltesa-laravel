@@ -1,4 +1,5 @@
 @php
+  $alertMessage = 'Anda memiliki kendali penuh terhadap aplikasi ini. Jadilah seorang administrator yang bertanggung jawab!!';
   // Greetings Card
   $message = 'Dashboard admin berisi informasi tentang transaksi, pengguna, penjual, dan produk';
   $greetings = 'Halo, ' . auth()->user()->name;
@@ -51,6 +52,7 @@
 @section('title', 'Dashboard')
 
 @section('content')
+  <x-customer-dashboard-card :description="$alertMessage" />
   <x-content-card>
     <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel"
       :route="$route" />

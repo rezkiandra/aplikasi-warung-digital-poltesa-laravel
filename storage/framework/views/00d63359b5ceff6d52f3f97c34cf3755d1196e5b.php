@@ -1,4 +1,5 @@
 <?php
+  $alertMessage = 'Anda memiliki kendali penuh terhadap aplikasi ini. Jadilah seorang administrator yang bertanggung jawab!!';
   // Greetings Card
   $message = 'Dashboard admin berisi informasi tentang transaksi, pengguna, penjual, dan produk';
   $greetings = 'Halo, ' . auth()->user()->name;
@@ -51,6 +52,18 @@
 <?php $__env->startSection('title', 'Dashboard'); ?>
 
 <?php $__env->startSection('content'); ?>
+  <?php if (isset($component)) { $__componentOriginala426b5c7ddf0d9a3e246fc8c9c16bafcb85e59bf = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\CustomerDashboardCard::class, ['description' => $alertMessage]); ?>
+<?php $component->withName('customer-dashboard-card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginala426b5c7ddf0d9a3e246fc8c9c16bafcb85e59bf)): ?>
+<?php $component = $__componentOriginala426b5c7ddf0d9a3e246fc8c9c16bafcb85e59bf; ?>
+<?php unset($__componentOriginala426b5c7ddf0d9a3e246fc8c9c16bafcb85e59bf); ?>
+<?php endif; ?>
   <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
 <?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.content-card','data' => []]); ?>
 <?php $component->withName('content-card'); ?>

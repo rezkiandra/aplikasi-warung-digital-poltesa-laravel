@@ -44,7 +44,7 @@ Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
       Route::get('/list-users', 'users')->name('admin.users');
       Route::get('/list-products', 'products')->name('admin.products');
       Route::get('/list-orders', 'orders')->name('admin.orders');
-      Route::get('/detail-order/{order}', 'detailOrder')->name('admin.detail.order');
+      Route::get('/detail-transaction/{order}', 'detailOrder')->name('admin.detail.order');
       Route::get('/list-roles', 'roles')->name('admin.roles');
       Route::get('/list-product-category', 'product_category')->name('admin.product_category');
       Route::get('/list-bank-accounts', 'bank_account')->name('admin.bank_accounts');
