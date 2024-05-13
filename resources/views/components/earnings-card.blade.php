@@ -7,15 +7,17 @@
       <div class="mb-3 mt-md-0 mb-md-1">
         <div class="d-flex align-items-center">
           <h2 class="mb-0">{{ $earnings }}</h2>
-          <span class="text-success ms-2 fw-medium">
-            @if ($earnings)
+          @if ($earnings)
+            <span class="text-success ms-2 fw-medium">
               <i class="mdi mdi-menu-up mdi-24px"></i>
               <small>10%</small>
-            @else
+            </span>
+          @elseif(!$earnings)
+            <span class="text-danger ms-2 fw-medium">
               <i class="mdi mdi-menu-down mdi-24px"></i>
               <small>0%</small>
-            @endif
-          </span>
+            </span>
+          @endif
         </div>
         <small class="mt-1">{{ $description }}</small>
       </div>

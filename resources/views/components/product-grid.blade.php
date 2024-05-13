@@ -30,8 +30,8 @@
       @else onclick="window.location.href='{{ route('guest.detail.product', $data->slug) }}'" @endif>
       <div class="position-absolute end-0 top-0 p-2">
         @auth
-          @if ($customer)
-            <form action="{{ route('wishlist.destroy', $wishlistUUID) }}" method="POST" class="bg-white rounded-circle">
+          @if ($customer && $customer->wishlist->contains('product_id', $data->id))
+            <form action="{{ route('wishlist.destroy', $data->uuid) }}" method="POST" class="bg-white rounded-circle">
               @csrf
               @method('DELETE')
               <button type="submit" class="btn small p-1">

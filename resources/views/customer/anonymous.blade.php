@@ -25,7 +25,7 @@
 @extends('layouts.authenticated')
 @section('title', 'Dashboard')
 @section('content')
-  <x-alert :type="'warning'" :message="$alertMessage" :icon="'account-search-outline'" />
+  <x-alert :type="'warning py-lg-3 py-md-3'" :message="$alertMessage" :icon="'account-search-outline'" />
   <x-content-card>
     <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel"
       :route="$route" />

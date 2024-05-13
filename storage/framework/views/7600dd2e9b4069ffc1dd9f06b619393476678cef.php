@@ -8,7 +8,6 @@
               <?php echo e(\App\Models\User::where('role_id', $data->id)->count()); ?> users
             </p>
             <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
-              
               <li class="avatar">
                 <?php if(\App\Models\User::where('role_id', $data->id)->count() >= 6): ?>
                   <span class="avatar-initial rounded-circle pull-up bg-lighter text-body" data-bs-toggle="tooltip"
@@ -91,7 +90,7 @@
         <div class="col-7">
           <div class="card-body text-sm-end text-center ps-sm-0">
             <?php if (isset($component)) { $__componentOriginal884241e53d2640b5f4918f6ac6f391c8aaea60a8 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\BasicButton::class, ['label' => 'Add role','icon' => 'plus','class' => 'w-0 text-uppercase mb-5','variant' => 'primary','href' => route('admin.create.role')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\BasicButton::class, ['label' => 'Tambah role','icon' => 'plus','class' => 'w-0 text-uppercase mb-5','variant' => 'primary','href' => route('admin.create.role')]); ?>
 <?php $component->withName('basic-button'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -102,7 +101,7 @@
 <?php $component = $__componentOriginal884241e53d2640b5f4918f6ac6f391c8aaea60a8; ?>
 <?php unset($__componentOriginal884241e53d2640b5f4918f6ac6f391c8aaea60a8); ?>
 <?php endif; ?>
-            <p class="mb-0">Add role, if it does not exist</p>
+            <p class="mb-0">Tambah role, jika tidak ada</p>
           </div>
         </div>
       </div>

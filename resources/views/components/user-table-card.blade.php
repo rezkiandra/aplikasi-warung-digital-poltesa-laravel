@@ -32,6 +32,8 @@
                       <img src="{{ asset('storage/' . $data->customer->image) }}" alt="Avatar" class="rounded">
                     @elseif($data->role_id == 1)
                       <img src="{{ asset('materio/assets/img/favicon/favicon.ico') }}" alt="Avatar" class="rounded">
+                    @else
+                      <img src="{{ asset('materio/assets/img/avatars/unknown.png') }}" alt="Avatar" class="rounded">
                     @endif
                   </div>
                   <h6 class="mb-1 text-truncate">{{ $data->name }}</h6>
@@ -48,7 +50,7 @@
                 @endif
               </td>
               <td class="text-truncate fw-medium">
-                <span class="badge bg-label-success rounded">{{ date('d M, H:i:s', strtotime($data->created_at)) }}
+                <span class="badge bg-label-info rounded">{{ date('d M, H:i:s', strtotime($data->created_at)) }}
                   {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}</span>
               </td>
             </tr>

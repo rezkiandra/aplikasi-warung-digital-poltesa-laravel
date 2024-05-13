@@ -5,7 +5,7 @@
   } elseif ($user->seller) {
       $image = asset('storage/' . $user->seller->image);
   } else {
-      $image = asset('materio/assets/img/favicon/favicon.ico');
+      $image = asset('materio/assets/img/avatars/unknown.png');
   }
   $username = $user->name;
   $email = $user->email;

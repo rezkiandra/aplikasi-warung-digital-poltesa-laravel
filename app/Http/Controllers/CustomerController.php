@@ -8,6 +8,7 @@ use Midtrans\Config;
 use App\Models\Order;
 use App\Models\Customer;
 use App\Models\Products;
+use App\Models\Wishlist;
 use Illuminate\Support\Str;
 use App\Models\ProductsCart;
 use Illuminate\Http\Request;
@@ -16,9 +17,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\BiodataRequest;
-use App\Models\Wishlist;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\UpdateBiodataRequest;
 
 class CustomerController extends Controller
 {
@@ -135,7 +136,7 @@ class CustomerController extends Controller
     return redirect()->route('customer.biodata');
   }
 
-  public function update(BiodataRequest $request, string $uuid)
+  public function update(UpdateBiodataRequest $request, string $uuid)
   {
     $customer = Customer::where('uuid', $uuid)->firstOrFail();
     $customerImage = Customer::where('uuid', $uuid)->pluck('image')->first();

@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class MidtransController extends Controller
@@ -80,6 +81,7 @@ class MidtransController extends Controller
   {
     $order = Order::where('uuid', $uuid)->firstOrFail();
     $order->update(['status' => 'cancelled']);
+    Alert::toast('Pesanan dibatalkan', 'success');
     return view('customer.order-detail', compact('order'));
   }
 
@@ -139,18 +141,18 @@ class MidtransController extends Controller
             'status' => 'cancelled',
             'payment_method' => $request->payment_type,
             'store' => $request->store,
-            // 'va_numbers' => array(
-            //   array(
-            //     'va_number' => $request->va_number,
-            //     'bank' => $request->bank
-            //   ),
-            // ),
             'payment_code' => $request->payment_code,
             'expiry_time' => $request->expiry_time,
             'transaction_time' => $request->transaction_time,
             'issuer' => $request->issuer,
             'biller_code' => $request->biller_code,
             'bill_key' => $request->bill_key,
+            // 'va_numbers' => array(
+            //   array(
+            //     'va_number' => $request->va_number,
+            //     'bank' => $request->bank
+            //   ),
+            // ),
           ]);
           Alert::toast('Pembayaran dibatalkan', 'error');
         }

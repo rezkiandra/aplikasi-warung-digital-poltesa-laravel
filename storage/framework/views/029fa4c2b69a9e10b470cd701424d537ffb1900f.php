@@ -2,12 +2,17 @@
   $customer_id = optional(Auth::user()->customer)->id;
   if (Auth::user()->role_id == 3 && $customer_id) {
       $cartCount = \App\Models\ProductsCart::where('customer_id', $customer_id)->count();
-      $wishlistCount = \App\Models\Wishlist::where('customer_id', $customer_id)->count();
       $cartCount = $cartCount != 0 ? $cartCount : '';
+
+      $wishlistCount = \App\Models\Wishlist::where('customer_id', $customer_id)->count();
       $wishlistCount = $wishlistCount != 0 ? $wishlistCount : '';
+
+      $orderCount = \App\Models\Order::where('customer_id', $customer_id)->where('status', 'unpaid')->count();
+      $orderCount = $orderCount != 0 ? $orderCount : '';
   } else {
       $cartCount = '';
       $wishlistCount = '';
+      $orderCount = '';
   }
 ?>
 
@@ -326,7 +331,7 @@
 <?php endif; ?>
       <?php if(Auth::user()->customer): ?>
         <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Pesanan','route' => route('customer.orders'),'icon' => 'hand-coin-outline','active' => request()->routeIs('customer.orders', 'midtrans.checkout', 'midtrans.detail')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Pesanan','badge' => $orderCount,'route' => route('customer.orders'),'icon' => 'hand-coin-outline','active' => request()->routeIs('customer.orders', 'midtrans.checkout', 'midtrans.detail', 'midtrans.cancelled')]); ?>
 <?php $component->withName('sidebar-item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -433,7 +438,7 @@
 <?php unset($__componentOriginal8091966d9bf2c7b150ac53fb28cd0da5c6248f06); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Profil Pengguna','route' => route('admin.settings'),'icon' => 'account-cog-outline','active' => request()->routeIs('admin.settings')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Profil Saya','route' => route('admin.settings'),'icon' => 'account-cog-outline','active' => request()->routeIs('admin.settings')]); ?>
 <?php $component->withName('sidebar-item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -458,7 +463,7 @@
 <?php unset($__componentOriginal8091966d9bf2c7b150ac53fb28cd0da5c6248f06); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Profil Pengguna','route' => route('seller.settings'),'icon' => 'account-cog-outline','active' => request()->routeIs('seller.settings')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Profil Saya','route' => route('seller.settings'),'icon' => 'account-cog-outline','active' => request()->routeIs('seller.settings')]); ?>
 <?php $component->withName('sidebar-item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -483,7 +488,7 @@
 <?php unset($__componentOriginal8091966d9bf2c7b150ac53fb28cd0da5c6248f06); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Profil Pengguna','route' => route('customer.settings'),'icon' => 'account-cog-outline','active' => request()->routeIs('customer.settings')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Profil Saya','route' => route('customer.settings'),'icon' => 'account-cog-outline','active' => request()->routeIs('customer.settings')]); ?>
 <?php $component->withName('sidebar-item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

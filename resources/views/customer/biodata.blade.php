@@ -10,29 +10,29 @@
 @section('title', 'Biodata')
 @section('content')
   @if (!$currentCustomer)
-    <x-alert :type="'warning'" :message="'Biodata anda belum dilengkapi. Silahkan lengkapi terlebih dahulu!'" :icon="'account-off-outline'" />
-    <x-create-form :title="'Tambah biodata'" :action="route('customer.store.biodata')" :route="route('customer.biodata')">
+    <x-alert :type="'warning py-lg-3 py-md-3'" :message="'Biodata anda belum dilengkapi. Silahkan lengkapi terlebih dahulu!'" :icon="'account-search-outline'" />
+    <x-create-form :title="'Lengkapi biodata'" :action="route('customer.store.biodata')" :route="route('customer.biodata')">
       <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-6">
           <x-form-floating>
             <x-input-form-label :label="'Nama Lengkap'" :name="'full_name'" :type="'text'" :value="old('full_name')" />
           </x-form-floating>
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-lg-6">
           <x-form-floating>
             <x-input-form-label :label="'Nomor HP'" :name="'phone_number'" :type="'text'" :value="old('phone_number')" />
           </x-form-floating>
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-lg-6">
           <x-form-floating>
             <x-input-form-label :label="'Jenis Kelamin'" :name="'gender'" :type="'select'" :value="old('gender')"
               :options="$gender" :select="'- Pilih jenis kelamin'" />
           </x-form-floating>
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-lg-6">
           <x-form-floating>
             <x-input-form-label :label="'Gambar'" :name="'image'" :type="'file'" :value="old('image')" />
           </x-form-floating>
@@ -50,16 +50,16 @@
     </x-create-form>
   @else
     @foreach ($customer as $data)
-      <x-alert :type="'primary'" :message="'Biodata anda sudah lengkap. Anda juga bisa mengedit biodata!'" :icon="'account-outline'" />
+      <x-alert :type="'primary py-lg-3 py-md-3'" :message="'Biodata anda sudah lengkap. Anda juga bisa mengedit biodata!'" :icon="'account-check-outline'" />
       <div class="row gap-lg-0 gap-4">
-        <div class="col-lg-4 mb-lg-0 mb-4">
+        <div class="col-lg-4 mb-lg-0 mb-3">
           <div class="card">
             <div class="card-body d-flex flex-column justify-content-center">
-              <div class="text-center">
+              <div class="text-center mt-3">
                 <img src="{{ asset('storage/' . $data->image) }}" alt="" class="img-fluid rounded-circle"
                   width="200">
               </div>
-              <div class="mt-3 text-center fw-medium text-capitalize">
+              <div class="mt-4 text-center fw-medium text-capitalize">
                 <h5 class="mb-3">{{ $data->full_name }}</h5>
                 <p class="mb-1">{{ $data->gender }}</p>
                 <p class="mb-1">{{ $data->phone_number }}</p>

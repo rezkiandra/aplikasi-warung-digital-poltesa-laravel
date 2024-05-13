@@ -46,7 +46,7 @@
               <div class="d-flex justify-content-start align-items-center product-name">
                 <div class="d-flex flex-column">
                   <span
-                    class="fw-medium badge rounded-pill bg-label-info">{{ date('M d, H:i', strtotime($data->created_at)) }}
+                    class="fw-medium badge rounded bg-label-info">{{ date('d M, H:i:s', strtotime($data->created_at)) }}
                     {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
                   </span>
                 </div>
@@ -65,7 +65,7 @@
                   </button>
                   <div class="dropdown-menu">
                     <x-dropdown-item :label="'Detail'" :variant="'secondary'" :icon="'eye-outline'" :route="route('admin.detail.user', $data->slug)" />
-                    @if ($data->role_id == 1)
+                    @if ($data->role_id != 1)
                       <form action="{{ route('admin.destroy.user', $data->uuid) }}" method="POST">
                         @csrf
                         @method('DELETE')

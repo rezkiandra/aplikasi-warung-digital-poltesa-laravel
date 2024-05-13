@@ -1,10 +1,11 @@
 
-
-<?php $__env->startSection('title', 'Product Categories'); ?>
-
+<?php $__env->startSection('title', 'Kategori Produk'); ?>
 <?php $__env->startSection('content'); ?>
+  <h4 class="mb-1">Kategori Produk</h4>
+  <p class="mb-3">Kategori produk untuk mengelompokkan produk dalam masing-masing kategori</p>
+
   <?php if (isset($component)) { $__componentOriginal884241e53d2640b5f4918f6ac6f391c8aaea60a8 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\BasicButton::class, ['label' => 'Add new category','icon' => 'plus','class' => 'w-0 text-uppercase mb-4','variant' => 'primary','href' => route('admin.create.category')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\BasicButton::class, ['label' => 'Tambah kategori','icon' => 'plus','class' => 'w-0 text-uppercase mb-4','variant' => 'primary','href' => route('admin.create.category')]); ?>
 <?php $component->withName('basic-button'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -16,7 +17,7 @@
 <?php unset($__componentOriginal884241e53d2640b5f4918f6ac6f391c8aaea60a8); ?>
 <?php endif; ?>
   <?php if (isset($component)) { $__componentOriginal4d0ff7fd200bd5b69df6409e6aac4c144f8e8f92 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\CategoryTable::class, ['title' => 'List of categories','fields' => ['No', 'Category Name', 'Total Products', 'Total Earnings', 'Created at', 'Updated at', 'Actions'],'datas' => $category]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\CategoryTable::class, ['title' => 'Data Kategori','fields' => ['No', 'Nama Kategori', 'Total Produk', 'Dibuat Pada', 'Aksi'],'datas' => $category]); ?>
 <?php $component->withName('category-table'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

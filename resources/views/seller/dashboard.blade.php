@@ -1,4 +1,6 @@
 @php
+  $messageAlert = 'Biodata anda sudah lengkap. Anda dapat menjual berbagai produk.';
+
   // Greetings Card
   $message = 'Dashboard penjual berisi informasi produk penjual dan transaksi';
   $greetings = 'Halo, ' . auth()->user()->seller->full_name;
@@ -65,6 +67,7 @@
 @extends('layouts.authenticated')
 @section('title', 'Dashboard')
 @section('content')
+  <x-customer-dashboard-card :description="$messageAlert" />
   <x-content-card>
     <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel"
       :route="$route" />

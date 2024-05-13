@@ -42,8 +42,7 @@
         <span class="app-brand-text demo footer-link fw-semibold ms-1">Warung Digital</span>
         </a>
         <p class="footer-text footer-logo-description mb-4">
-          Most Powerful &amp; Comprehensive 🤩 Laravel Admin Template with Elegant Material Design &amp; Unique
-          Layouts.
+          Jl. Sejangkung Desa, Sebayan, Kec. Sambas, Kabupaten Sambas, Kalimantan Barat 79463
         </p>
         <form>
           <div class="d-flex mt-2 gap-3">

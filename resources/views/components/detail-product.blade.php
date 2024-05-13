@@ -323,8 +323,8 @@
       $('#newQuantityCart').val(newQuantity);
       $('#newQuantityOrder').val(newQuantity);
       $('#newTotalPriceOrder').val(total);
-      $('#subtotal').html('Rp' + subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
-      $('#total').html('Rp' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+      $('#subtotal').html('Rp ' + subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+      $('#total').html('Rp ' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
     });
   </script>
 @endpush

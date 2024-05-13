@@ -25,7 +25,8 @@
                     </div>
                   </div>
                   <div class="">
-                    <span class="text-dark text-capitalize fw-medium">{{ $data->name }}</span>
+                    <span
+                      class="d-lg-flex d-md-flex d-flex text-dark text-capitalize fw-medium">{{ $data->name }}</span>
                     <small class="text-truncate">stok tersedia {{ $data->stock }} pcs</small>
                   </div>
                 </div>

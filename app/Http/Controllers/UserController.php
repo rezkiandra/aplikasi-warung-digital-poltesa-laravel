@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SellerRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\CustomerRequest;
+use App\Http\Requests\AdminUserRequest;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -182,7 +183,7 @@ class UserController extends Controller
     return view('admin.users.create');
   }
 
-  public function storeUser(UserRequest $request)
+  public function storeUser(AdminUserRequest $request)
   {
     User::create([
       'uuid' => Str::uuid('id'),
@@ -232,7 +233,7 @@ class UserController extends Controller
     $user = User::where('uuid', $uuid)->firstOrFail();
     $user->delete();
 
-    Alert::toast('Berhasil menghapus penggunas', 'success');
+    Alert::toast('Berhasil menghapus pengguna', 'success');
     session()->flash('action', 'delete');
     return redirect()->route('admin.users');
   }

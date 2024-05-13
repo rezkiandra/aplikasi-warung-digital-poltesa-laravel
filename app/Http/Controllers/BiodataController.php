@@ -6,10 +6,11 @@ use App\Models\Seller;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BiodataRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\BiodataRequest;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\UpdateBiodataRequest;
 
 class BiodataController extends Controller
 {
@@ -50,7 +51,7 @@ class BiodataController extends Controller
     return view('seller.biodata.edit', compact('seller'));
   }
 
-  public function update(BiodataRequest $request, string $uuid)
+  public function update(UpdateBiodataRequest $request, string $uuid)
   {
     $seller = Seller::where('uuid', $uuid)->firstOrFail();
     $sellerImage = Seller::where('uuid', $uuid)->pluck('image')->first();

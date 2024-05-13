@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Order;
 use App\Models\Seller;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -24,6 +25,12 @@ class SellerController extends Controller
   public function orders()
   {
     return view('seller.orders.index');
+  }
+
+  public function orderDetail(string $uuid)
+  {
+    $order = Order::where('uuid', $uuid)->firstOrFail();
+    return view('seller.orders.detail', compact('order'));
   }
 
   public function settings()

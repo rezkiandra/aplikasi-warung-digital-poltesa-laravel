@@ -50,6 +50,12 @@ class AdminController extends Controller
     return view('admin.orders.index', compact('orders'));
   }
 
+  public function detailOrder(string $uuid)
+  {
+    $order = Order::where('uuid', $uuid)->first();
+    return view('admin.orders.detail', compact('order'));
+  }
+
   public function roles()
   {
     $roles = Role::all();

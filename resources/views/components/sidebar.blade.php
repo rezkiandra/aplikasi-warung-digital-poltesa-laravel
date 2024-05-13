@@ -2,12 +2,17 @@
   $customer_id = optional(Auth::user()->customer)->id;
   if (Auth::user()->role_id == 3 && $customer_id) {
       $cartCount = \App\Models\ProductsCart::where('customer_id', $customer_id)->count();
-      $wishlistCount = \App\Models\Wishlist::where('customer_id', $customer_id)->count();
       $cartCount = $cartCount != 0 ? $cartCount : '';
+
+      $wishlistCount = \App\Models\Wishlist::where('customer_id', $customer_id)->count();
       $wishlistCount = $wishlistCount != 0 ? $wishlistCount : '';
+
+      $orderCount = \App\Models\Order::where('customer_id', $customer_id)->where('status', 'unpaid')->count();
+      $orderCount = $orderCount != 0 ? $orderCount : '';
   } else {
       $cartCount = '';
       $wishlistCount = '';
+      $orderCount = '';
   }
 @endphp
 
@@ -66,7 +71,8 @@
       <x-sidebar-item :label="'Keranjang'" :badge="$cartCount" :route="route('customer.cart')" :icon="'cart-outline'" :active="request()->routeIs('customer.cart')" />
       <x-sidebar-item :label="'Wishlist'" :badge="$wishlistCount" :route="route('customer.wishlist')" :icon="'heart-outline'" :active="request()->routeIs('customer.wishlist')" />
       @if (Auth::user()->customer)
-        <x-sidebar-item :label="'Pesanan'" :route="route('customer.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('customer.orders', 'midtrans.checkout', 'midtrans.detail')" />
+        <x-sidebar-item :label="'Pesanan'" :badge="$orderCount" :route="route('customer.orders')" :icon="'hand-coin-outline'"
+          :active="request()->routeIs('customer.orders', 'midtrans.checkout', 'midtrans.detail', 'midtrans.cancelled')" />
       @endif
     @endif
 
@@ -85,13 +91,13 @@
 
     @if (Auth::user()->role_id == 1)
       <x-divider :label="'Pengaturan'" />
-      <x-sidebar-item :label="'Profil Pengguna'" :route="route('admin.settings')" :icon="'account-cog-outline'" :active="request()->routeIs('admin.settings')" />
+      <x-sidebar-item :label="'Profil Saya'" :route="route('admin.settings')" :icon="'account-cog-outline'" :active="request()->routeIs('admin.settings')" />
     @elseif (Auth::user()->role_id == 2)
       <x-divider :label="'Pengaturan'" />
-      <x-sidebar-item :label="'Profil Pengguna'" :route="route('seller.settings')" :icon="'account-cog-outline'" :active="request()->routeIs('seller.settings')" />
+      <x-sidebar-item :label="'Profil Saya'" :route="route('seller.settings')" :icon="'account-cog-outline'" :active="request()->routeIs('seller.settings')" />
     @elseif (Auth::user()->role_id == 3)
       <x-divider :label="'Pengaturan'" />
-      <x-sidebar-item :label="'Profil Pengguna'" :route="route('customer.settings')" :icon="'account-cog-outline'" :active="request()->routeIs('customer.settings')" />
+      <x-sidebar-item :label="'Profil Saya'" :route="route('customer.settings')" :icon="'account-cog-outline'" :active="request()->routeIs('customer.settings')" />
       <x-sidebar-item :label="'Halaman Utama'" :route="route('customer.home')" :icon="'arrow-left-circle-outline'" :active="request()->routeIs('customer.home')" />
     @endif
     <x-sidebar-item :label="'Logout'" :route="route('logout')" :icon="'power me-2'" :active="false'"
