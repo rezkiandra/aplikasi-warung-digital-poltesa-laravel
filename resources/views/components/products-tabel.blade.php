@@ -27,31 +27,28 @@
               </div>
             </td>
             <td class="sorting_1">
-              <div class="d-flex flex-column justify-content-start product-name">
+              <div class="d-flex flex-column justify-content-start gap-2">
                 <span class="fw-medium d-flex align-items-center">
-                  <span class="d-flex justify-content-center align-items-center">
-                    <i class="mdi mdi-tshirt-crew text-info me-1"></i>
+                  <span class="fw-medium badge bg-label-primary rounded text-uppercase">
+                    {{ $data->category->name }}
                   </span>
-                  {{ $data->category->name }}
                 </span>
-                @if (Auth::user()->role_id == 1)
-                  <span class="fw-medium d-flex align-items-center">
-                    <span class="badge bg-label-primary rounded">
-                      {{ $data->seller->full_name }}
-                    </span>
-                  </span>
-                @endif
+                <span class="fw-medium d-flex align-items-center">
+                  <small class="text-dark">
+                    {{ $data->seller->full_name }}
+                  </small>
+                </span>
               </div>
             </td>
             <td>
-              <span class="fw-medium">Rp{{ number_format($data->price, 0, ',', '.') }}</span>
+              <span class="text-truncate text-dark">Rp {{ number_format($data->price, 0, ',', '.') }}</span>
             </td>
             <td>
-              <span class="fw-medium">{{ $data->stock }} pcs</span>
+              <span class="text-truncate text-dark">{{ $data->stock }} pcs</span>
             </td>
             <td>
               <span
-                class="fw-medium badge rounded-pill bg-label-info">{{ date('M d, H:i', strtotime($data->created_at)) }}
+                class="fw-medium badge rounded-pill bg-label-info">{{ date('d M, H:i:s', strtotime($data->created_at)) }}
                 {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
               </span>
             </td>

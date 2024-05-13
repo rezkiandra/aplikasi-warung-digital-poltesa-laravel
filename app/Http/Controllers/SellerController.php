@@ -9,8 +9,10 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\Products;
 
 class SellerController extends Controller
 {
@@ -19,7 +21,13 @@ class SellerController extends Controller
    */
   public function dashboard()
   {
-    return view('seller.dashboard');
+    if (auth()->user()->seller) {
+      $products = Products::where('seller_id', Auth::user()->seller->id)->orderBy('created_at', 'desc')->paginate(6) ?? collect([]);
+      return view('seller.dashboard', compact('products'));
+    } else {
+      $products = collect([]);
+      return view('seller.anonymous', compact('products'));
+    }
   }
 
   public function orders()

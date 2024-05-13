@@ -63,15 +63,6 @@
       <x-transaction-item-card :label="'Pesanan'" :value="$totalOrder" :variant="'danger'" :icon="'basket-outline'" />
     </x-transactions-card>
 
-    {{-- <x-bar-graph-card />
-    <x-earnings-card />
-    <x-four-card>
-      <x-graph-card-content />
-      <x-graph-card-content />
-      <x-graph-card-content />
-      <x-graph-card-content />
-    </x-four-card> --}}
-
     <x-top-sellers-card :datas="$topSellers" :title="'Penjual Teratas 🎉'" />
     <x-top-customers-card :datas="$topCustomers" :title="'Pelanggan Teratas 🎉'" />
     <x-top-products-card :datas="$topProducts" :title="'Penjualan Produk Teratas 🎉'" />

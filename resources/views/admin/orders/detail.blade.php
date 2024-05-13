@@ -1,5 +1,5 @@
 @extends('layouts.authenticated')
-@section('title', 'Order Detail')
+@section('title', 'Detail Transaksi')
 @section('content')
   <div class="row">
     <div class="col-12 col-lg-8">
@@ -359,8 +359,8 @@
         </div>
       </div>
       <div class="d-flex justify-content-center align-items-center gap-3 mb-3">
-        <x-submit-button :label="'Preview'" :type="'submit'" :class="'w-100'" :variant="'outline-primary'" :icon="'note-search-outline me-2'" />
-        <x-submit-button :label="'Cetak'" :type="'submit'" :class="'w-100'" :variant="'primary'" :icon="'file-download-outline me-2'" />
+        <x-basic-button :href="route('preview.transaction', $order->uuid)" :label="'Preview'" :class="'w-100'" :variant="'outline-primary'" :icon="'note-search-outline me-2'" />
+        <x-basic-button :href="route('download.transaction', $order->uuid)" :label="'Cetak'" :class="'w-100'" :variant="'primary'" :icon="'file-download-outline me-2'" />
       </div>
     </div>
     <div class="col-12 col-lg-4">

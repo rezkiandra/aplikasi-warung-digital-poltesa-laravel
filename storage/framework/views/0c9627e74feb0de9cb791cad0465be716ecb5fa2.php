@@ -44,7 +44,7 @@
                   </span>
                   <small class="text-truncate d-none d-sm-block">
                     <span class="fw-medium text-capitalize">
-                      <?php echo e($data->address); ?>
+                      <?php echo e(Str::limit($data->address, 50)); ?>
 
                     </span>
                   </small>
@@ -73,7 +73,7 @@
             </td>
             <td>
               <span
-                class="fw-medium badge rounded-pill bg-label-info"><?php echo e(date('d M, H:i', strtotime($data->created_at))); ?>
+                class="fw-medium badge rounded-pill bg-label-info"><?php echo e(date('d M, H:i:sw', strtotime($data->created_at))); ?>
 
                 <?php echo e($data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM'); ?>
 

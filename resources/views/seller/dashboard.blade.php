@@ -1,16 +1,19 @@
 @php
-  $messageAlert = 'Biodata anda sudah lengkap. Anda dapat menjual berbagai produk.';
-
-  // Greetings Card
+  if (auth()->user()->seller->status === 'active') {
+      $messageAlert = 'Biodata anda sudah lengkap. Anda dapat menjual berbagai produk.';
+  } else {
+      $messageAlert =
+          'Biodata anda sudah lengkap sebagai seller. Tetapi status anda sebagai penjual masih pending. Silahkan hubungi admin untuk menyetujui sebagai penjual!';
+  }
   $message = 'Dashboard penjual berisi informasi produk penjual dan transaksi';
   $greetings = 'Halo, ' . auth()->user()->seller->full_name;
+
   $descriptionGreetings = 'Selamat datang di dashboard seller';
   $label = 'Total Produk';
   $value = \App\Models\Products::where('seller_id', auth()->user()->seller->id)->count();
   $actionLabel = 'Selengkapnya';
   $route = route('seller.products');
 
-  // Transaction Card
   $title = 'Transaksi';
   $description = 'Total transaksi dibulan ini';
 

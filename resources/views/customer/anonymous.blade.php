@@ -1,5 +1,4 @@
 @php
-  $message = 'Dashboard penjual berisi informasi produk penjual dan transaksi';
   $greetings = 'Halo, ' . auth()->user()->name;
   $descriptionGreetings = 'Selamat datang di dashboard customer';
   $label = 'Total Pesanan';
@@ -42,6 +41,5 @@
       <x-graph-card-content :label="$labelWishlist" :value="$valueWishlist" :icon="'star-outline'" :variant="'warning'" />
     </x-four-card>
     <x-top-products-card :title="'Pembelian Produk Teratas 🎉'" />
-    {{-- <x-order-table-card :datas="$orders" /> --}}
   </x-content-card>
 @endsection

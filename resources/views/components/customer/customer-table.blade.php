@@ -43,7 +43,7 @@
                   </span>
                   <small class="text-truncate d-none d-sm-block">
                     <span class="fw-medium text-capitalize">
-                      {{ $data->address }}
+                      {{ Str::limit($data->address, 50) }}
                     </span>
                   </small>
                 </div>
@@ -70,7 +70,7 @@
             </td>
             <td>
               <span
-                class="fw-medium badge rounded-pill bg-label-info">{{ date('d M, H:i', strtotime($data->created_at)) }}
+                class="fw-medium badge rounded-pill bg-label-info">{{ date('d M, H:i:sw', strtotime($data->created_at)) }}
                 {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
               </span>
             </td>

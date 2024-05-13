@@ -60,7 +60,9 @@
                   </button>
                   <div class="dropdown-menu">
                     @if (auth()->user()->customer)
-                      @if ($data->status === 'unpaid')
+                      @if ($data->status === 'unpaid' && $order->payment_method)
+                        <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
+                      @elseif ($data->status === 'unpaid')
                         <x-dropdown-item :label="'Bayar'" :variant="'info'" :icon="'credit-card-outline'" :route="route('midtrans.checkout', $data->uuid)" />
                       @elseif ($data->status === 'paid')
                         <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />

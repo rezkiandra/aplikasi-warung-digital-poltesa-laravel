@@ -27,33 +27,30 @@
               </div>
             </td>
             <td class="sorting_1">
-              <div class="d-flex flex-column justify-content-start product-name">
+              <div class="d-flex flex-column justify-content-start gap-2">
                 <span class="fw-medium d-flex align-items-center">
-                  <span class="d-flex justify-content-center align-items-center">
-                    <i class="mdi mdi-tshirt-crew text-info me-1"></i>
-                  </span>
-                  <?php echo e($data->category->name); ?>
+                  <span class="fw-medium badge bg-label-primary rounded text-uppercase">
+                    <?php echo e($data->category->name); ?>
 
+                  </span>
                 </span>
-                <?php if(Auth::user()->role_id == 1): ?>
-                  <span class="fw-medium d-flex align-items-center">
-                    <span class="badge bg-label-primary rounded">
-                      <?php echo e($data->seller->full_name); ?>
+                <span class="fw-medium d-flex align-items-center">
+                  <small class="text-dark">
+                    <?php echo e($data->seller->full_name); ?>
 
-                    </span>
-                  </span>
-                <?php endif; ?>
+                  </small>
+                </span>
               </div>
             </td>
             <td>
-              <span class="fw-medium">Rp<?php echo e(number_format($data->price, 0, ',', '.')); ?></span>
+              <span class="text-truncate text-dark">Rp <?php echo e(number_format($data->price, 0, ',', '.')); ?></span>
             </td>
             <td>
-              <span class="fw-medium"><?php echo e($data->stock); ?> pcs</span>
+              <span class="text-truncate text-dark"><?php echo e($data->stock); ?> pcs</span>
             </td>
             <td>
               <span
-                class="fw-medium badge rounded-pill bg-label-info"><?php echo e(date('M d, H:i', strtotime($data->created_at))); ?>
+                class="fw-medium badge rounded-pill bg-label-info"><?php echo e(date('d M, H:i:s', strtotime($data->created_at))); ?>
 
                 <?php echo e($data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM'); ?>
 

@@ -19,7 +19,7 @@
             </td>
             <td>
               <span class="badge rounded bg-label-info me-2">
-                <?php echo e(date('d M Y, H:i', strtotime($data->created_at))); ?>
+                <?php echo e(date('d M Y, H:i:s', strtotime($data->created_at))); ?>
 
                 <?php echo e($data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM'); ?>
 

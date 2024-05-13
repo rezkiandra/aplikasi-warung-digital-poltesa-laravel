@@ -50,7 +50,7 @@
                 @endif
               </td>
               <td class="text-truncate fw-medium">
-                <span class="badge bg-label-info rounded">{{ date('d M, H:i:s', strtotime($data->created_at)) }}
+                <span class="badge bg-label-info rounded">{{ date('d M Y, H:i:s', strtotime($data->created_at)) }}
                   {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}</span>
               </td>
             </tr>

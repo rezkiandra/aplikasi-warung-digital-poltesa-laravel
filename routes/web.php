@@ -14,6 +14,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\CallToActionController;
 use App\Http\Controllers\ProductsCartController;
 use App\Http\Controllers\ProductCategoryController;
 
@@ -206,6 +207,13 @@ Route::middleware('auth', 'checkCustomer', 'checkRole:Customer')->group(function
       Route::get('/cancel-transaction/{order}', 'cancelPayment')->name('midtrans.cancelled');
       Route::post('/cancel-transaction', 'cancelPaymentMidtrans')->name('midtrans.cancelledMidtrans');
     });
+});
+
+Route::middleware('auth', 'mustLogin')->group(function () {
+  Route::controller(CallToActionController::class)->group(function () {
+    Route::get('/preview-transaction/{order}', 'preview')->name('preview.transaction');
+    Route::get('/download-transaction/{order}', 'download')->name('download.transaction');
+  });
 });
 
 require __DIR__ . '/auth.php';

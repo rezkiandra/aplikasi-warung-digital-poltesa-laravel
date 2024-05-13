@@ -19,7 +19,7 @@
             </td>
             <td>
               <span class="badge rounded bg-label-info me-2">
-                {{ date('d M Y, H:i', strtotime($data->created_at)) }}
+                {{ date('d M Y, H:i:s', strtotime($data->created_at)) }}
                 {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
               </span>
             </td>

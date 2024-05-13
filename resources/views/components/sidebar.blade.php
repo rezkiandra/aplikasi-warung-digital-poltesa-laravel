@@ -64,7 +64,9 @@
       </x-sidebar-dropdown>
     @elseif (Auth::user()->role_id == 2)
       <x-sidebar-dropdown :label="'Produk'" :route="route('admin.sellers')" :icon="'package-variant'" :active="request()->routeIs('admin.products', 'seller.products', 'admin.*.product', 'seller.*.product')">
-        <x-sidebar-dropdown-item :label="'Tambah Produk'" :href="route('seller.create.product')" :active="request()->routeIs('seller.create.product')" />
+        @if (Auth()->user()->seller->status == 'active')
+          <x-sidebar-dropdown-item :label="'Tambah Produk'" :href="route('seller.create.product')" :active="request()->routeIs('seller.create.product')" />
+        @endif
         <x-sidebar-dropdown-item :label="'Daftar Produk'" :href="route('seller.products')" :active="request()->routeIs('seller.products', 'seller.detail.product', 'seller.edit.product')" />
       </x-sidebar-dropdown>
     @elseif(Auth::user()->role_id == 3)
@@ -72,13 +74,18 @@
       <x-sidebar-item :label="'Wishlist'" :badge="$wishlistCount" :route="route('customer.wishlist')" :icon="'heart-outline'" :active="request()->routeIs('customer.wishlist')" />
       @if (Auth::user()->customer)
         <x-sidebar-item :label="'Pesanan'" :badge="$orderCount" :route="route('customer.orders')" :icon="'hand-coin-outline'"
-          :active="request()->routeIs('customer.orders', 'midtrans.checkout', 'midtrans.detail', 'midtrans.cancelled')" />
+          :active="request()->routeIs(
+              'customer.orders',
+              'midtrans.checkout',
+              'midtrans.detail',
+              'midtrans.cancelled',
+          )" />
       @endif
     @endif
 
     @if (Auth::user()->role_id == 1)
       <x-sidebar-item :label="'Pesanan'" :route="route('admin.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('admin.orders', 'admin.*.order')" />
-    @elseif(Auth::user()->role_id == 2)
+    @elseif(Auth::user()->role_id == 2 && Auth::user()->seller)
       <x-sidebar-item :label="'Pesanan'" :route="route('seller.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('seller.orders', 'seller.*.order')" />
     @endif
 

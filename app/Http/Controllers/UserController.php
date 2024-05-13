@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\CustomerRequest;
 use App\Http\Requests\AdminUserRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\EditSellerRequest;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\EditCustomerRequest;
 
 class UserController extends Controller
 {
@@ -56,7 +58,7 @@ class UserController extends Controller
     return view('admin.sellers.edit', compact('seller'));
   }
 
-  public function updateSeller(SellerRequest $request, string $uuid)
+  public function updateSeller(EditSellerRequest $request, string $uuid)
   {
     $seller = Seller::where('uuid', $uuid)->firstOrFail();
     $sellerImage = Seller::where('uuid', $uuid)->pluck('image')->first();
@@ -70,7 +72,7 @@ class UserController extends Controller
       ]);
     } else {
       $seller->update([
-        'user_id' => $request->user_id,
+        'user_id' => $seller->user_id,
         'full_name' => $request->full_name,
         'slug' => Str::slug($request->full_name),
         'address' => $request->address,
@@ -136,7 +138,7 @@ class UserController extends Controller
     return view('admin.customers.edit', compact('customer'));
   }
 
-  public function updateCustomer(CustomerRequest $request, string $uuid)
+  public function updateCustomer(EditCustomerRequest $request, string $uuid)
   {
     $customer = Customer::where('uuid', $uuid)->firstOrFail();
     $customerImage = Customer::where('uuid', $uuid)->pluck('image')->first();
@@ -150,7 +152,7 @@ class UserController extends Controller
       ]);
     } else {
       $customer->update([
-        'user_id' => $request->user_id,
+        'user_id' => $customer->user_id,
         'full_name' => $request->full_name,
         'slug' => Str::slug($request->full_name),
         'address' => $request->address,

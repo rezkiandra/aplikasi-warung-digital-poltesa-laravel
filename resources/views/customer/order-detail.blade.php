@@ -1,5 +1,5 @@
 @extends('layouts.authenticated')
-@section('title', 'Order Detail')
+@section('title', 'Detail Pesanan')
 @section('content')
   <div class="row">
     <div class="col-12 col-lg-8">
@@ -358,16 +358,16 @@
       @endif
       <div class="d-flex justify-content-center align-items-center gap-3 mb-3">
         @if ($order->status === 'paid')
-          <x-submit-button :label="'Preview'" :type="'submit'" :class="'w-100'" :variant="'outline-primary'" :icon="'note-search-outline me-2'" />
-          <x-submit-button :label="'Cetak'" :type="'submit'" :class="'w-100'" :variant="'primary'" :icon="'file-download-outline me-2'" />
+          <x-basic-button :href="route('preview.transaction', $order->uuid)" :label="'Preview'" :class="'w-100'" :variant="'outline-primary'" :icon="'note-search-outline me-2'" />
+          <x-basic-button :href="route('download.transaction', $order->uuid)" :label="'Cetak'" :class="'w-100'" :variant="'primary'" :icon="'file-download-outline me-2'" />
         @elseif($order->status === 'unpaid' && $order->payment_method && $order->expiry_time)
           <x-submit-button :label="'Bayar Pesanan'" id="pay-button" :type="'submit'" :class="'w-100'" :variant="'primary'"
             :icon="'basket-outline me-2'" />
         @elseif($order->status === 'unpaid' && $order->payment_method)
           <x-submit-button :label="'Bayar Pesanan'" id="pay-button" :type="'submit'" :class="'w-100'" :variant="'primary'"
             :icon="'basket-outline me-2'" />
-          <x-basic-button :label="'Batalkan Pesanan'" :class="'w-100'" :variant="'dark'" :icon="'basket-minus-outline me-2'"
-            :href="route('midtrans.cancelled', $order->uuid)" />
+          {{-- <x-basic-button :label="'Batalkan Pesanan'" :class="'w-100'" :variant="'dark'" :icon="'basket-minus-outline me-2'"
+            :href="route('midtrans.cancelled', $order->uuid)" /> --}}
         @elseif($order->status === 'unpaid')
           <x-submit-button :label="'Bayar Pesanan'" id="pay-button" :type="'submit'" :class="'w-100'" :variant="'primary'"
             :icon="'basket-outline me-2'" />
