@@ -1,6 +1,6 @@
 <div class="card">
-  <div class="card-datatable table-responsive">
-    <table class="dt-table table">
+  <div class="table-responsive">
+    <table class="table">
       <thead>
         <tr>
           <th>ID</th>
@@ -37,9 +37,7 @@
               </div>
             </td>
             <td>
-              <span class="mb-0 d-flex flex-column align-items-start">
-                <span class="fw-medium">Rp {{ number_format($data->total_price, 0, ',', '.') }}</span>
-              </span>
+              <span class="text-truncate text-dark">Rp {{ number_format($data->total_price, 0, ',', '.') }}</span>
             </td>
             <td>
               <h6

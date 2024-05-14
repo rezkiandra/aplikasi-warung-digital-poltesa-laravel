@@ -24,7 +24,7 @@
                 </div>
                 <div class="d-flex flex-column">
                   <span class="text-nowrap text-heading fw-medium text-capitalize">{{ $data->full_name }}</span>
-                  <small class="text-truncate d-none d-sm-block">
+                  <small class="text-truncate">
                     <span class="fw-medium">{{ $data->user->email }}</span>
                   </small>
                 </div>
@@ -41,7 +41,7 @@
                     @endif
                     {{ $data->gender }}
                   </span>
-                  <small class="text-truncate d-none d-sm-block">
+                  <small class="text-truncate">
                     <span class="fw-medium text-capitalize">
                       {{ Str::limit($data->address, 50) }}
                     </span>
@@ -62,7 +62,7 @@
                     @endif
                     {{ $data->status }}
                   </span>
-                  <small class="text-truncate d-none d-sm-block">
+                  <small class="text-truncate">
                     <span class="fw-medium">{{ $data->phone_number }}</span>
                   </small>
                 </div>

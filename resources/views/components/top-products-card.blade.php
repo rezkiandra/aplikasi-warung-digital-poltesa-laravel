@@ -32,6 +32,12 @@
                   {{ $data->total }}</h6>
                 <small>Terjual</small>
               </div>
+            @else
+              <div class="text-end">
+                <h6 class="mb-0">
+                  {{ $data->total }}</h6>
+                <small>Terjual</small>
+              </div>
             @endif
           </div>
         @endforeach

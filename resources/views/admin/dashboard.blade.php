@@ -65,7 +65,7 @@
 
     <x-top-sellers-card :datas="$topSellers" :title="'Penjual Teratas 🎉'" />
     <x-top-customers-card :datas="$topCustomers" :title="'Pelanggan Teratas 🎉'" />
-    <x-top-products-card :datas="$topProducts" :title="'Penjualan Produk Teratas 🎉'" />
+    <x-top-products-card :datas="$topProducts" :title="'Produk Teratas 🎉'" />
 
     <x-user-table-card :datas="$users" />
   </x-content-card>

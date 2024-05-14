@@ -17,7 +17,7 @@
 @section('content')
   <div class="d-lg-flex justify-content-between gap-4">
     <div class="row gap-lg-0 gap-4">
-      <div class="col-lg-4 mb-lg-0 mb-4">
+      <div class="col-lg-4 mb-lg-0">
         <div class="card">
           <div class="card-body d-flex flex-column justify-content-center">
             <div class="text-center">

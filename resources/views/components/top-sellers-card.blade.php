@@ -1,4 +1,4 @@
-<div class="col-xl-4 col-md-6">
+<div class="col-xl-4 col-md-12">
   <div class="card">
     <div class="card-header d-flex align-items-center justify-content-start">
       <h5 class="card-title m-0 me-2">{{ $title }}</h5>

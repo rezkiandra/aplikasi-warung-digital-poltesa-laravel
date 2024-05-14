@@ -250,7 +250,7 @@
 <?php $component->withAttributes(['route' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(route('admin.sellers'))]); ?>
         
         <?php if (isset($component)) { $__componentOriginal33298f493885e4db4f550977ba1a0df320b07e43 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SidebarDropdownItem::class, ['label' => 'Daftar Produk','href' => route('admin.products'),'active' => request()->routeIs('admin.products')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SidebarDropdownItem::class, ['label' => 'Daftar Produk','href' => route('admin.products'),'active' => request()->routeIs('admin.products', 'admin.*.product')]); ?>
 <?php $component->withName('sidebar-dropdown-item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

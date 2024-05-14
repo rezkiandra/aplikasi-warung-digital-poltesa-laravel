@@ -5,7 +5,7 @@
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <p class="mb-0">Total
-              {{ \App\Models\User::where('role_id', $data->id)->count() }} users
+              {{ \App\Models\User::where('role_id', $data->id)->count() }} pengguna
             </p>
             <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
               <li class="avatar">
@@ -77,19 +77,19 @@
       </div>
     </div>
   @endforeach
-  <div class="col-xl-4 col-lg-6 col-md-6">
+  <div class="col-lg-4 col-12 col-md-6">
     <div class="card h-100">
       <div class="row h-100">
-        <div class="col-5">
-          <div class="d-flex align-items-end h-100 justify-content-center">
+        <div class="col-4">
+          <div class="d-flex align-items-center h-100 justify-content-center">
             <img src="{{ asset('materio/assets/img/illustrations/misc-under-maintenance.png') }}" class="img-fluid"
-              alt="Image" width="240">
+              alt="Image">
           </div>
         </div>
-        <div class="col-7">
+        <div class="col-8">
           <div class="card-body text-sm-end text-center ps-sm-0">
-            <x-basic-button :label="'Tambah role'" :icon="'plus'" :class="'w-0 text-uppercase mb-5'" :variant="'primary'" :href="route('admin.create.role')" />
-            <p class="mb-0">Tambah role, jika tidak ada</p>
+            <x-basic-button :label="'Tambah'" :icon="'plus'" :class="'w-0 text-uppercase mb-5'" :variant="'primary'" :href="route('admin.create.role')" />
+            <p class="mb-0">Tambah role, jika perlu</p>
           </div>
         </div>
       </div>

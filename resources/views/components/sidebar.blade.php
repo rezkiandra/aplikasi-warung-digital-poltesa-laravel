@@ -60,7 +60,7 @@
     @if (Auth::user()->role_id == 1)
       <x-sidebar-dropdown :label="'Produk'" :route="route('admin.sellers')" :icon="'package-variant'" :active="request()->routeIs('admin.products', 'seller.products', 'admin.*.product', 'seller.*.product')">
         {{-- <x-sidebar-dropdown-item :label="'Create'" :href="route('seller.create.product')" :active="request()->routeIs('seller.create.product')" /> --}}
-        <x-sidebar-dropdown-item :label="'Daftar Produk'" :href="route('admin.products')" :active="request()->routeIs('admin.products')" />
+        <x-sidebar-dropdown-item :label="'Daftar Produk'" :href="route('admin.products')" :active="request()->routeIs('admin.products', 'admin.*.product')" />
       </x-sidebar-dropdown>
     @elseif (Auth::user()->role_id == 2)
       <x-sidebar-dropdown :label="'Produk'" :route="route('admin.sellers')" :icon="'package-variant'" :active="request()->routeIs('admin.products', 'seller.products', 'admin.*.product', 'seller.*.product')">

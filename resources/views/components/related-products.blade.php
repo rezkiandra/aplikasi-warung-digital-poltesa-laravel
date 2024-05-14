@@ -91,7 +91,7 @@
             @else onclick="window.location.href='{{ route('guest.detail.product', $data->slug) }}'" @endif>
             <img class="card-img-top img-fluid" alt="Card image cap" src="{{ asset('storage/' . $data->image) }}"
               width="100%">
-            <div class="p-2 d-flex flex-column justify-content-between">
+            <div class="p-2 d-flex d-lg-flex flex-column justify-content-between">
               <div class="d-lg-flex align-items-center justify-content-between mt-1">
                 <small class="card-title text-dark fw-medium">{{ $data->name }}</small>
                 <small class="card-title text-dark fw-medium">

@@ -4,10 +4,10 @@
       <table class="dt-table table">
         <thead>
           <tr>
-            <th>Order ID</th>
-            <th>Product</th>
-            <th>Total</th>
-            <th>Date</th>
+            <th>ID Pesanan</th>
+            <th>Produk</th>
+            <th>Harga Total</th>
+            <th>Tanggal Pemesanan</th>
             <th>Status</th>
           </tr>
         </thead>
@@ -39,7 +39,7 @@
                 </span>
               </td>
               <td class="">
-                <span class="badge bg-label-info">{{ date('d M Y, H:i', strtotime($data->updated_at)) }}</span>
+                <span class="badge bg-label-info">{{ date('d M Y, H:i:s', strtotime($data->updated_at)) }}</span>
               </td>
               <td>
                 <h6

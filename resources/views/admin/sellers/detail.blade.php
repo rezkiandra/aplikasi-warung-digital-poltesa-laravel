@@ -34,7 +34,7 @@
       : date('d F, H:i:s', strtotime($seller->created_at)) . ' AM'" />
 
   <div class="row">
-    <div class="col-xl-4 col-lg-5 col-md-5">
+    <div class="col-lg-4 col-md-12">
       <div class="card mb-4">
         <x-detail-form :image="asset('storage/' . $seller->image)" :name="$seller->full_name" :id="'#' . $seller_id" :phone="$seller->phone_number" :address="$seller->address"
           :status="$seller->status" :totalOrder="$totalProducts" :labelOrder="'Produk'" :spentCost="'Rp ' . $totalEarnings" :labelCost="'Pendapatan'" :username="$username"

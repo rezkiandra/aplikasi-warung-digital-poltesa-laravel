@@ -24,7 +24,7 @@
                 </div>
                 <div class="d-flex flex-column">
                   <span class="text-nowrap text-heading fw-medium text-capitalize"><?php echo e($data->full_name); ?></span>
-                  <small class="text-truncate d-none d-sm-block">
+                  <small class="text-truncate">
                     <span class="fw-medium"><?php echo e($data->user->email); ?></span>
                   </small>
                 </div>
@@ -42,7 +42,7 @@
                     <?php echo e($data->gender); ?>
 
                   </span>
-                  <small class="text-truncate d-none d-sm-block">
+                  <small class="text-truncate">
                     <span class="fw-medium text-capitalize">
                       <?php echo e(Str::limit($data->address, 50)); ?>
 
@@ -65,7 +65,7 @@
                     <?php echo e($data->status); ?>
 
                   </span>
-                  <small class="text-truncate d-none d-sm-block">
+                  <small class="text-truncate">
                     <span class="fw-medium"><?php echo e($data->phone_number); ?></span>
                   </small>
                 </div>
