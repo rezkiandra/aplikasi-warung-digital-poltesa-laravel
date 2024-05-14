@@ -63,8 +63,6 @@
     <script src="<?php echo e(asset('materio/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')); ?>"></script>
     <script src="<?php echo e(asset('materio/assets/vendor/js/menu.js')); ?>"></script>
     <script src="<?php echo e(asset('materio/assets/js/main.js')); ?>"></script>
-    
-    
     <?php echo $__env->yieldPushContent('scripts'); ?>
   </body>
 

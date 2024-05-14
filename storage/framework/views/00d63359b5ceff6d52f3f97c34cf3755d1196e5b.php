@@ -143,6 +143,19 @@
 <?php unset($__componentOriginal6be6a6f593f4a75730d4c4dfa7fb83ab590bc6e0); ?>
 <?php endif; ?>
 
+    <?php if (isset($component)) { $__componentOriginal572d97b9c9bda7cc0369287a8488fa397cd3f9e3 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\BarGraphCard::class, []); ?>
+<?php $component->withName('bar-graph-card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal572d97b9c9bda7cc0369287a8488fa397cd3f9e3)): ?>
+<?php $component = $__componentOriginal572d97b9c9bda7cc0369287a8488fa397cd3f9e3; ?>
+<?php unset($__componentOriginal572d97b9c9bda7cc0369287a8488fa397cd3f9e3); ?>
+<?php endif; ?>
+
     <?php if (isset($component)) { $__componentOriginal5d689d0efd7f7c0b8d44bda7e143fd11b0ffef95 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\TopSellersCard::class, ['datas' => $topSellers,'title' => 'Penjual Teratas 🎉']); ?>
 <?php $component->withName('top-sellers-card'); ?>

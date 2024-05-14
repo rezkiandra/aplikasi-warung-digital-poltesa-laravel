@@ -63,8 +63,6 @@
     <script src="{{ asset('materio/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('materio/assets/vendor/js/menu.js') }}"></script>
     <script src="{{ asset('materio/assets/js/main.js') }}"></script>
-    {{-- <script src="{{ asset('materio/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script> --}}
-    {{-- <script src="{{ asset('materio/assets/js/dashboards-analytics.js') }}"></script> --}}
     @stack('scripts')
   </body>
 
