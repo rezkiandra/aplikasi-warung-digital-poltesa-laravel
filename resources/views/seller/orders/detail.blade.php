@@ -432,13 +432,13 @@
               <p class="mb-1">Issuer :
                 <span class="text-capitalize">{{ $order->issuer }}</span>
               </p>
-              <p class="mb-1">Tanggal Pemesanan :
+              <p class="mb-1">Tgl. Pemesanan :
                 <span
                   class="text-uppercase badge bg-label-info rounded">{{ date('d M Y, H:i:s', strtotime($order->created_at)) }}
                   {{ $order->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
                 </span>
               </p>
-              <p class="mb-1">Tanggal Pembayaran :
+              <p class="mb-1">Tgl. Pembayaran :
                 <span
                   class="text-uppercase badge bg-label-success rounded">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}
                   {{ $order->updated_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
@@ -457,13 +457,13 @@
               <p class="mb-1">Nomor Virtual Account :
                 <span class="text-capitalize">{{ $order->bill_key }}</span>
               </p>
-              <p class="mb-1">Tanggal Pemesanan :
+              <p class="mb-1">Tgl. Pemesanan :
                 <span
                   class="text-uppercase badge bg-label-info rounded">{{ date('d M Y, H:i:s', strtotime($order->created_at)) }}
                   {{ $order->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
                 </span>
               </p>
-              <p class="mb-1">Tanggal Pembayaran :
+              <p class="mb-1">Tgl. Pembayaran :
                 <span
                   class="text-uppercase badge bg-label-success rounded">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}
                   {{ $order->updated_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
@@ -484,13 +484,13 @@
                   <span class="text-capitalize">{{ $order->payment_code }}</span>
                 </p>
               @endif
-              <p class="mb-1">Tanggal Pemesanan :
+              <p class="mb-1">Tgl. Pemesanan :
                 <span
                   class="text-uppercase badge bg-label-info rounded">{{ date('d M Y, H:i:s', strtotime($order->created_at)) }}
                   {{ $order->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
                 </span>
               </p>
-              <p class="mb-1">Tanggal Pembayaran :
+              <p class="mb-1">Tgl. Pembayaran :
                 <span
                   class="text-uppercase badge bg-label-success rounded">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}
                   {{ $order->updated_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
@@ -511,7 +511,7 @@
               <p class="mb-1">Kode Pembayaran :
                 <span class="text-capitalize">{{ $order->payment_code }}</span>
               </p>
-              <p class="mb-1">Tanggal Pemesanan :
+              <p class="mb-1">Tgl. Pemesanan :
                 <span
                   class="text-uppercase badge bg-label-info rounded">{{ date('d M Y, H:i:s', strtotime($order->created_at)) }}
                   {{ $order->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
@@ -524,7 +524,7 @@
               <p class="mb-1">Metode :
                 <span class="text-uppercase">{{ $order->payment_method }}</span>
               </p>
-              <p class="mb-1">Tanggal Pemesanan :
+              <p class="mb-1">Tgl. Pemesanan :
                 <span
                   class="text-uppercase badge bg-label-info rounded">{{ date('d M Y, H:i:s', strtotime($order->created_at)) }}
                   {{ $order->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
@@ -543,7 +543,7 @@
               <p class="mb-1">Nomor Virtual Account :
                 <span class="text-capitalize">{{ $order->bill_key }}</span>
               </p>
-              <p class="mb-1">Tanggal Pemesanan :
+              <p class="mb-1">Tgl. Pemesanan :
                 <span
                   class="text-uppercase badge bg-label-info rounded">{{ date('d M Y, H:i:s', strtotime($order->created_at)) }}
                   {{ $order->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
@@ -553,7 +553,7 @@
                 <span class="text-uppercase badge bg-label-warning rounded">{{ $order->status }}</span>
               </p>
             @else
-              <p class="mb-1">Tanggal Pemesanan :
+              <p class="mb-1">Tgl. Pemesanan :
                 <span
                   class="text-uppercase badge bg-label-info rounded">{{ date('d M Y, H:i:s', strtotime($order->created_at)) }}
                   {{ $order->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
@@ -595,13 +595,13 @@
                 <span class="text-uppercase">{{ $order->issuer }}</span>
               </p>
             @endif
-            <p class="mb-1">Tanggal Pemesanan :
+            <p class="mb-1">Tgl. Pemesanan :
               <span
                 class="text-uppercase badge bg-label-info rounded">{{ date('d M Y, H:i:s', strtotime($order->created_at)) }}
                 {{ $order->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
               </span>
             </p>
-            <p class="mb-1">Tanggal Pembatalan :
+            <p class="mb-1">Tgl. Pembatalan :
               <span
                 class="text-uppercase badge bg-label-dark rounded">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}
                 {{ $order->updated_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
@@ -636,12 +636,12 @@
                 <span class="text-capitalize">{{ $order->issuer }}</span>
               </p>
             @endif
-            <p class="mb-1">Tanggal Pemesanan :
+            <p class="mb-1">Tgl. Pemesanan :
               <span
                 class="text-uppercase badge bg-label-info rounded">{{ date('d M Y, H:i:s', strtotime($order->transaction_time)) }}
               </span>
             </p>
-            <p class="mb-1">Tanggal Kadaluarsa :
+            <p class="mb-1">Tgl. Kadaluarsa :
               <span
                 class="text-uppercase badge bg-label-dark rounded">{{ date('d M Y, H:i:s', strtotime($order->expiry_time)) }}
               </span>

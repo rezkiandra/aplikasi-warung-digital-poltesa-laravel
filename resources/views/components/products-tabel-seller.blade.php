@@ -24,7 +24,7 @@
                 </div>
                 <div class="d-flex flex-column">
                   <span class="text-nowrap text-heading fw-medium">{{ $data->name }}</span>
-                  <small class="d-flex flex-row text-truncate d-none d-sm-block d-flex">
+                  <small class="d-flex flex-row text-truncate">
                     <span class="fw-medium">{{ Str::limit($data->description, 50) }}</span>
                   </small>
                 </div>
@@ -34,10 +34,10 @@
               <span class="fw-medium badge bg-label-primary rounded text-uppercase">{{ $data->category->name }}</span>
             </td>
             <td>
-              <span class="fw-medium">Rp {{ number_format($data->price, 0, ',', '.') }}</span>
+              <span class="fw-medium text-dark">Rp {{ number_format($data->price, 0, ',', '.') }}</span>
             </td>
             <td>
-              <span class="fw-medium">{{ $data->stock }} pcs</span>
+              <span class="fw-medium text-dark">{{ $data->stock }} pcs</span>
             </td>
             <td>
               <span

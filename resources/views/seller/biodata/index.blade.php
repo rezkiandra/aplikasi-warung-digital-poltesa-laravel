@@ -67,14 +67,14 @@
     @foreach ($seller as $data)
       <x-alert :type="'primary'" :message="'Biodata anda sudah lengkap. Anda juga bisa mengedit biodata!'" :icon="'account-outline'" />
       <div class="row gap-lg-0 gap-4">
-        <div class="col-lg-4 mb-lg-0 mb-4">
+        <div class="col-lg-4 mb-lg-0">
           <div class="card">
             <div class="card-body d-flex flex-column justify-content-center">
               <div class="text-center">
                 <img src="{{ asset('storage/' . $data->image) }}" alt="" class="img-fluid rounded-circle"
                   width="200">
               </div>
-              <div class="mt-3 text-center fw-medium text-capitalize">
+              <div class="mt-3 text-center fw-medium text-capitalize text-dark">
                 <h5 class="mb-3">{{ $data->full_name }}</h5>
                 <p class="mb-1">{{ $data->gender }}</p>
                 <p class="mb-1">{{ $data->phone_number }}</p>

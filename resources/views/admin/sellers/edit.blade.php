@@ -24,7 +24,7 @@
               <img src="{{ asset('storage/' . $seller->image) }}" alt="" class="img-fluid rounded-circle"
                 width="200">
             </div>
-            <div class="mt-3 text-center fw-medium text-capitalize">
+            <div class="mt-3 text-center fw-medium text-capitalize text-dark">
               <h5 class="mb-3">{{ $seller->full_name }}</h5>
               <p class="mb-1">{{ $seller->gender }}</p>
               <p class="mb-1">{{ $seller->phone_number }}</p>

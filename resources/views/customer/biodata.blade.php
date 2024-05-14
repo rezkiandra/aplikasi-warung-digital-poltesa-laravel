@@ -52,7 +52,7 @@
     @foreach ($customer as $data)
       <x-alert :type="'primary py-lg-3 py-md-3'" :message="'Biodata anda sudah lengkap. Anda juga bisa mengedit biodata!'" :icon="'account-check-outline'" />
       <div class="row gap-lg-0 gap-4">
-        <div class="col-lg-4 mb-lg-0 mb-3">
+        <div class="col-lg-4 mb-lg-0">
           <div class="card">
             <div class="card-body d-flex flex-column justify-content-center">
               <div class="text-center mt-3">

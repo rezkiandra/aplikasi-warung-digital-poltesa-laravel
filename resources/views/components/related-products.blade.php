@@ -12,7 +12,7 @@
 <div class="row row-cols-1 row-cols-md-3 g-3 mb-5 pb-0 pb-lg-5">
   @foreach ($relatedProducts as $data)
     @if ($user_role == 3)
-      <div class="col-lg-2 col-md-4 col-6 pb-3 pb-lg-3">
+      <div class="col-lg-2 col-md-4 col-6 pb-lg-3">
         <div class="card h-100 cursor-pointer"
           @if ($user_role == 1) onclick="window.location.href='{{ route('admin.detail.product', $data->slug) }}'" 
           @elseif ($user_role == 2) onclick="window.location.href='{{ route('seller.detail.product', $data->slug) }}'"
@@ -63,7 +63,7 @@
       </div>
     @else
       @guest
-        <div class="col-lg-2 col-md-4 col-6 pb-3 pb-lg-3">
+        <div class="col-lg-2 col-md-4 col-6 pb-lg-3">
           <div class="card h-100 cursor-pointer"
             @if ($user_role == 1) onclick="window.location.href='{{ route('admin.detail.product', $data->slug) }}'" 
             @elseif ($user_role == 2) onclick="window.location.href='{{ route('seller.detail.product', $data->slug) }}'"
@@ -83,7 +83,7 @@
         </div>
       @endguest
       @auth
-        <div class="col-lg-3 col-md-4 col-6 pb-3 pb-lg-3">
+        <div class="col-lg-3 col-md-4 col-6 pb-lg-3">
           <div class="card h-100 cursor-pointer"
             @if ($user_role == 1) onclick="window.location.href='{{ route('admin.detail.product', $data->slug) }}'" 
             @elseif ($user_role == 2) onclick="window.location.href='{{ route('seller.detail.product', $data->slug) }}'"

@@ -22,7 +22,7 @@
 @endpush
 
 @foreach ($datas as $data)
-  <div class="col-lg-3 col-md-4 col-6 pb-3 pb-lg-3" data-aos="fade-up" data-aos-duration="1000">
+  <div class="col-lg-3 col-md-4 col-6 pb-lg-3" data-aos="fade-up" data-aos-duration="1000">
     <div class="card cursor-pointer"
       @if ($user_role == 1) onclick="window.location.href='{{ route('admin.detail.product', $data->slug) }}'" 
       @elseif ($user_role == 2) onclick="window.location.href='{{ route('seller.detail.product', $data->slug) }}'"
