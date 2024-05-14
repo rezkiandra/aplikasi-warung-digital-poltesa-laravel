@@ -5,10 +5,10 @@
 <div class="fixed-top">
   <nav class="layout-navbar shadow bg-white border">
     <div class="navbar navbar-expand-lg landing-navbar border-top-0 px-3 px-md-4 bg-white rounded">
-      <div class="navbar-brand app-brand demo d-flex py-0 py-lg-2 me-4">
-        <button class="navbar-toggler border-0 px-0 me-4 d-inline-block d-lg-none" type="button" data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-          aria-label="Toggle navigation">
+      <div class="navbar-brand app-brand demo d-flex py-0 py-lg-2 me-lg-5 me-md-4 me-2">
+        <button class="navbar-toggler border-0 px-0 me-lg-5 me-md-4 me-3 d-inline-block d-lg-none" type="button"
+          data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+          aria-expanded="false" aria-label="Toggle navigation">
           <i class="tf-icons mdi mdi-menu mdi-24px align-middle"></i>
         </button>
         <a href="{{ route('guest.home') }}" class="app-brand-link gap-3 me-lg-0 me-0">
@@ -86,7 +86,7 @@
             </a>
           @endguest
           @auth
-            <a href="{{ route('customer.cart') }}" class="me-4">
+            <a href="{{ route('customer.cart') }}" class="me-3 me-lg-4 me-md-4">
               <i class="mdi mdi-cart-outline mdi-24px"></i>
               <span class="position-absolute fs-tiny badge rounded-pill bg-danger" style="margin-left: -10px">
                 @if (auth()->user()->customer)
@@ -96,7 +96,7 @@
                 @endif
               </span>
             </a>
-            <a href="{{ route('customer.wishlist') }}" class="me-4">
+            <a href="{{ route('customer.wishlist') }}" class="me-3 me-lg-4 me-md-4">
               <i class="mdi mdi-heart-outline mdi-24px"></i>
               <span class="position-absolute fs-tiny badge rounded-pill bg-danger" style="margin-left: -10px">
                 @if (auth()->user()->customer)
@@ -107,9 +107,10 @@
               </span>
             </a>
             <div class="fw-medium btn btn-primary">
-              <i class="mdi mdi-logout me-0 me-lg-2 me-md-2"></i>
-              <a href="{{ route('logout') }}"
-                class="d-none d-lg-inline d-md-inline text-white text-uppercase">Logout</a>
+              <a href="{{ route('logout') }}" class="text-white text-uppercase">
+                <i class="mdi mdi-logout me-0 me-lg-2 me-md-2"></i>
+                <span class="d-none d-lg-inline d-md-inline">Logout</span>
+              </a>
             </div>
           @endauth
         </li>
