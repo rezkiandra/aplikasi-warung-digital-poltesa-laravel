@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Order;
@@ -30,7 +31,7 @@ class AdminController extends Controller
     $bulanNov = date('11');
     $bulanDes = date('12');
 
-    $tahun = date('Y');
+    $tahun = Carbon::now()->year;
     $data = [
       'labels'  => ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
       'paid'    => [

@@ -85,7 +85,7 @@
       data: {
         labels: @json($data['labels']),
         datasets: [{
-            label: 'PAID',
+            label: 'Paid',
             data: @json($data['paid']),
             backgroundColor: 'rgba(86, 202, 0, 0.5)',
             borderColor: 'rgba(86, 202, 0, 1)',
@@ -93,7 +93,7 @@
             tension: 0
           },
           {
-            label: 'UNPAID',
+            label: 'Unpaid',
             data: @json($data['unpaid']),
             backgroundColor: 'rgba(255, 180, 0, 0.5)',
             borderColor: 'rgba(255, 180, 0, 1)',
@@ -101,7 +101,7 @@
             tension: 0
           },
           {
-            label: 'EXPIRE',
+            label: 'Expire',
             data: @json($data['expire']),
             backgroundColor: 'rgba(255, 76, 81, 0.5)',
             borderColor: 'rgba(255, 76, 81, 1)',
@@ -109,7 +109,7 @@
             tension: 0
           },
           {
-            label: 'CANCELLED',
+            label: 'Cancel',
             data: @json($data['cancel']),
             backgroundColor: 'rgba(2, 11, 12, 0.5)',
             borderColor: 'rgba(2, 11, 12, 1)',
@@ -154,7 +154,7 @@
           y: {
             beginAtZero: true,
             min: 0,
-            max: 50
+            max: 100
           }
         },
         plugins: {

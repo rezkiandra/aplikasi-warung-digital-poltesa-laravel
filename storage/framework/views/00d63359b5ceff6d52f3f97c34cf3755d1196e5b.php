@@ -225,7 +225,7 @@
       data: {
         labels: <?php echo json_encode($data['labels'], 15, 512) ?>,
         datasets: [{
-            label: 'PAID',
+            label: 'Paid',
             data: <?php echo json_encode($data['paid'], 15, 512) ?>,
             backgroundColor: 'rgba(86, 202, 0, 0.5)',
             borderColor: 'rgba(86, 202, 0, 1)',
@@ -233,7 +233,7 @@
             tension: 0
           },
           {
-            label: 'UNPAID',
+            label: 'Unpaid',
             data: <?php echo json_encode($data['unpaid'], 15, 512) ?>,
             backgroundColor: 'rgba(255, 180, 0, 0.5)',
             borderColor: 'rgba(255, 180, 0, 1)',
@@ -241,7 +241,7 @@
             tension: 0
           },
           {
-            label: 'EXPIRE',
+            label: 'Expire',
             data: <?php echo json_encode($data['expire'], 15, 512) ?>,
             backgroundColor: 'rgba(255, 76, 81, 0.5)',
             borderColor: 'rgba(255, 76, 81, 1)',
@@ -249,7 +249,7 @@
             tension: 0
           },
           {
-            label: 'CANCELLED',
+            label: 'Cancel',
             data: <?php echo json_encode($data['cancel'], 15, 512) ?>,
             backgroundColor: 'rgba(2, 11, 12, 0.5)',
             borderColor: 'rgba(2, 11, 12, 1)',
@@ -294,7 +294,7 @@
           y: {
             beginAtZero: true,
             min: 0,
-            max: 50
+            max: 100
           }
         },
         plugins: {
