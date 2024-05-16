@@ -65,7 +65,7 @@
 
         <div class="mb-1">
           <span class="text-secondary">Dipublish pada:</span>
-          <span class="text-dark">{{ date('d M, H:i', strtotime($product->created_at)) }}
+          <span class="text-dark">{{ date('d M Y, H:i:s', strtotime($product->created_at)) }}
             {{ $product->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
           </span>
         </div>
@@ -91,14 +91,15 @@
     </div>
   @else
     <div class="row mb-4">
-      <div class="fixed-bottom right-0">
-        <a href="https://wa.me/" class="btn rounded-circle">
+      <div class="fixed-bottom fixed-right d-flex justify-content-end align-items-center p-4">
+        <a href="https://wa.me/{{ Str::replaceFirst('0', '+62', $product->seller->phone_number) }}"
+          class="btn btn-sm card rounded-circle shadow shadow-lg px-2 py-1">
           <i class="mdi mdi-whatsapp fs-1 text-success"></i>
         </a>
       </div>
       <div class="col-lg-4 col-md-6">
         <img src="{{ asset('storage/' . $product->image) }}" alt=""
-          class="img-fluid rounded shadow hover-shadow">
+          class="img-fluid rounded shadow hover-shadow text-success">
       </div>
 
       <div class="col-lg-5 px-lg-3 col-md-6 mt-lg-0 mt-3 mt-md-0">
@@ -123,7 +124,7 @@
 
         <div class="mb-1">
           <span class="text-secondary">Dipublish pada:</span>
-          <span class="text-dark">{{ date('d M, H:i', strtotime($product->created_at)) }}
+          <span class="text-dark">{{ date('d M Y, H:i:s', strtotime($product->created_at)) }}
             {{ $product->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
           </span>
         </div>
