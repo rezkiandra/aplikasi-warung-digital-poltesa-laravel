@@ -363,11 +363,11 @@
         @elseif($order->status === 'unpaid' && $order->payment_method && $order->expiry_time)
           <x-submit-button :label="'Bayar Pesanan'" id="pay-button" :type="'submit'" :class="'w-100'" :variant="'primary'"
             :icon="'basket-outline me-2'" />
-        @elseif($order->status === 'unpaid' && $order->payment_method)
+        @elseif($order->status === 'unpaid')
           <x-submit-button :label="'Bayar Pesanan'" id="pay-button" :type="'submit'" :class="'w-100'" :variant="'primary'"
             :icon="'basket-outline me-2'" />
-          {{-- <x-basic-button :label="'Batalkan Pesanan'" :class="'w-100'" :variant="'dark'" :icon="'basket-minus-outline me-2'"
-            :href="route('midtrans.cancelled', $order->uuid)" /> --}}
+          <x-basic-button :label="'Batalkan Pesanan'" :class="'w-100'" :variant="'dark'" :icon="'basket-minus-outline me-2'"
+            :href="route('midtrans.cancelled', $order->uuid)" />
         @elseif($order->status === 'unpaid')
           <x-submit-button :label="'Bayar Pesanan'" id="pay-button" :type="'submit'" :class="'w-100'" :variant="'primary'"
             :icon="'basket-outline me-2'" />

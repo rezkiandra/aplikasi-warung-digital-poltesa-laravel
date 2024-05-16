@@ -91,6 +91,11 @@
     </div>
   @else
     <div class="row mb-4">
+      <div class="fixed-bottom right-0">
+        <a href="https://wa.me/" class="btn rounded-circle">
+          <i class="mdi mdi-whatsapp fs-1 text-success"></i>
+        </a>
+      </div>
       <div class="col-lg-4 col-md-6">
         <img src="{{ asset('storage/' . $product->image) }}" alt=""
           class="img-fluid rounded shadow hover-shadow">

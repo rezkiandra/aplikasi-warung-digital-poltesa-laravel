@@ -2,15 +2,12 @@
   <div class="card">
     <div class="card-header">
       <div class="d-flex justify-content-between">
-        <h5 class="mb-1">Pengeluaran Mingguan</h5>
+        <h5 class="mb-0 mb-lg-0">{{ $title }}</h5>
       </div>
     </div>
-    <div class="card-body" style="position: relative;">
-      <div class="mt-1 mt-md-2">
-        <div class="d-flex align-items-center gap-3">
-          <h3 class="mb-0">45%</h3>
-          <p class="mb-0">Your sales performance is 45% 😎 better compared to last month</p>
-        </div>
+    <div class="card-body">
+      <div class="chart-container">
+        <canvas id="monthlyOrders" class="w-100" height="{{ $height }}"></canvas>
       </div>
     </div>
   </div>

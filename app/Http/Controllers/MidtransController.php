@@ -81,6 +81,10 @@ class MidtransController extends Controller
   {
     $order = Order::where('uuid', $uuid)->firstOrFail();
     $order->update(['status' => 'cancelled']);
+
+    $order->product->increment('stock', $order->quantity);
+    $order->product->update();
+
     Alert::toast('Pesanan dibatalkan', 'success');
     return view('customer.order-detail', compact('order'));
   }
@@ -105,11 +109,6 @@ class MidtransController extends Controller
             'biller_code' => $request->biller_code,
             'bill_key' => $request->bill_key,
           ]);
-          Alert::toast('Pembayaran berhasil', 'success');
-
-          $order->product->update([
-            'stock' => $order->product->stock - $order->quantity
-          ]);
         } elseif ($request->transaction_status == 'pending') {
           $order->update([
             'status' => 'unpaid',
@@ -122,7 +121,6 @@ class MidtransController extends Controller
             'biller_code' => $request->biller_code,
             'bill_key' => $request->bill_key,
           ]);
-          Alert::toast('Pembayaran sedang diproses', 'info');
         } elseif ($request->transaction_status == 'expire') {
           $order->update([
             'status' => 'expire',
@@ -135,7 +133,8 @@ class MidtransController extends Controller
             'biller_code' => $request->biller_code,
             'bill_key' => $request->bill_key,
           ]);
-          Alert::toast('Pembayaran kadaluarsa', 'error');
+          $order->product->increment('stock', $order->quantity);
+          $order->product->update();
         } elseif ($request->transaction_status == 'cancel') {
           $order->update([
             'status' => 'cancelled',
@@ -147,14 +146,7 @@ class MidtransController extends Controller
             'issuer' => $request->issuer,
             'biller_code' => $request->biller_code,
             'bill_key' => $request->bill_key,
-            // 'va_numbers' => array(
-            //   array(
-            //     'va_number' => $request->va_number,
-            //     'bank' => $request->bank
-            //   ),
-            // ),
           ]);
-          Alert::toast('Pembayaran dibatalkan', 'error');
         }
       }
     } catch (Exception $e) {

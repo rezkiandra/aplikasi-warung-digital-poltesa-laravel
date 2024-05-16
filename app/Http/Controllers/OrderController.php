@@ -23,9 +23,9 @@ class OrderController extends Controller
       'total_price' => $request->total_price,
     ]);
 
-    // $product = Products::find($request->product_id);
-    // $product->decrement('stock', $request->quantity);
-    // $product->update();
+    $product = Products::find($request->product_id);
+    $product->decrement('stock', $request->quantity);
+    $product->update();
 
     $productCart = ProductsCart::where('customer_id', Auth::user()->customer->id)
       ->where('product_id', $request->product_id);

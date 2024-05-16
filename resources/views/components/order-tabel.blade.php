@@ -58,10 +58,11 @@
                   </button>
                   <div class="dropdown-menu">
                     @if (auth()->user()->customer)
-                      @if ($data->status === 'unpaid' && $order->payment_method)
+                      @if ($data->status === 'unpaid' && $data->payment_method)
                         <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
                       @elseif ($data->status === 'unpaid')
                         <x-dropdown-item :label="'Bayar'" :variant="'info'" :icon="'credit-card-outline'" :route="route('midtrans.checkout', $data->uuid)" />
+                        <x-dropdown-item :label="'Batal'" :variant="'danger'" :icon="'trash-can-outline'" :route="route('midtrans.cancelled', $data->uuid)" />
                       @elseif ($data->status === 'paid')
                         <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
                         <form action="{{ route('order.update', $data->uuid) }}" method="POST">
