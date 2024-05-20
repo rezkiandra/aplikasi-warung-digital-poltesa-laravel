@@ -6,27 +6,27 @@ use Illuminate\Support\Facades\Schema;
 
 class ChangeRoleNameColumnToRolesTable extends Migration
 {
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::table('roles', function (Blueprint $table) {
-			$table->string('role_name', 20)->change();
-		});
-	}
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    Schema::table('roles', function (Blueprint $table) {
+      $table->string('role_name', 20)->change();
+    });
+  }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::table('roles', function (Blueprint $table) {
-			$table->string('role_name', 10)->change();
-		});
-	}
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::table('roles', function (Blueprint $table) {
+      $table->string('role_name', 10)->change();
+    });
+  }
 }

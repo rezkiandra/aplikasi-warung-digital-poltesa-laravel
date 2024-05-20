@@ -15,8 +15,8 @@ class AddThreeColumnToOrdersTable extends Migration
   {
     Schema::table('orders', function (Blueprint $table) {
       $table->timestamp('transaction_time')->nullable()->after('expiry_time');
-      $table->string('biller_code')->nullable()->after('acquirer');
-      $table->string('bill_key')->nullable()->after('biller_code');
+      $table->string('biller_code', 30)->nullable()->after('acquirer');
+      $table->string('bill_key', 30)->nullable()->after('biller_code');
     });
   }
 

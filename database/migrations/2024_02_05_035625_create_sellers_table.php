@@ -13,9 +13,9 @@ return new class extends Migration
   {
     Schema::create('sellers', function (Blueprint $table) {
       $table->id();
-      $table->string('full_name', 100);
+      $table->string('full_name', 30);
       $table->text('address');
-      $table->string('phone_number', 20);
+      $table->string('phone_number', 15);
       $table->timestamps();
     });
   }

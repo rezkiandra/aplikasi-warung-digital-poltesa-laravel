@@ -14,8 +14,8 @@ class AddIndomaretPaymentColumnToOrdersTable extends Migration
   public function up()
   {
     Schema::table('orders', function (Blueprint $table) {
-      $table->string('store')->nullable()->after('payment_method');
-      $table->string('payment_code')->nullable()->after('store');
+      $table->string('store', 30)->nullable()->after('payment_method');
+      $table->string('payment_code', 30)->nullable()->after('store');
     });
   }
 

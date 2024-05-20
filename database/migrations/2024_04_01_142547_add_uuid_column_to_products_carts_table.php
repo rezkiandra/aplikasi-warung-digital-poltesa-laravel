@@ -14,7 +14,7 @@ class AddUuidColumnToProductsCartsTable extends Migration
   public function up()
   {
     Schema::table('products_carts', function (Blueprint $table) {
-      $table->string('uuid')->after('id')->nullable();
+      $table->uuid('uuid')->after('id')->nullable();
     });
   }
 

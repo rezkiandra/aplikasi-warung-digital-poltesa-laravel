@@ -14,7 +14,7 @@ class AddIssuerColumnToOrdersTable extends Migration
   public function up()
   {
     Schema::table('orders', function (Blueprint $table) {
-      $table->string('issuer')->after('payment_method')->nullable();
+      $table->string('issuer', 50)->after('payment_method')->nullable();
     });
   }
 

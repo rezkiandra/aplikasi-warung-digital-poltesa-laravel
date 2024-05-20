@@ -14,7 +14,7 @@ class AddAcquirerColumnToOrdersTable extends Migration
   public function up()
   {
     Schema::table('orders', function (Blueprint $table) {
-      $table->string('acquirer')->after('issuer')->nullable();
+      $table->string('acquirer', 50)->after('issuer')->nullable();
     });
   }
 

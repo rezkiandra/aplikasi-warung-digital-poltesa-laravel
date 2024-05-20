@@ -14,7 +14,7 @@ class AddPaymentMethodColumnToOrdersTable extends Migration
   public function up()
   {
     Schema::table('orders', function (Blueprint $table) {
-      $table->string('payment_method')->nullable()->after('status');
+      $table->string('payment_method', 50)->nullable()->after('status');
     });
   }
 
