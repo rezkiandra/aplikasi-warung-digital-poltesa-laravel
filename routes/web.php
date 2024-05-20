@@ -160,10 +160,7 @@ Route::middleware('auth', 'mustLogin', 'checkRole:Customer')->group(function () 
   Route::controller(CustomerController::class)
     ->prefix('customer/dashboard')
     ->group(function () {
-      Route::get('/home', 'index')->name('customer.home');
-      Route::get('/products', 'products')->name('customer.products');
       Route::get('/wishlist', 'wishlist')->name('customer.wishlist');
-      Route::get('/faq', 'faq')->name('customer.faq');
       Route::get('/cart', 'cart')->name('customer.cart');
       Route::get('/orders', 'orders')->name('customer.orders');
       Route::get('/', 'dashboard')->name('customer.dashboard');
@@ -173,6 +170,14 @@ Route::middleware('auth', 'mustLogin', 'checkRole:Customer')->group(function () 
       Route::put('/update-biodata/{biodata}', 'update')->name('customer.update.biodata');
       Route::get('/detail-product/{product}', 'product')->name('customer.detail.product');
       Route::put('/settings/edit-profile/{customer}', 'updateProfile')->name('customer.update.profile');
+    });
+
+  Route::controller(CustomerController::class)
+    ->prefix('customer')
+    ->group(function () {
+      Route::get('/home', 'index')->name('customer.home');
+      Route::get('/products', 'products')->name('customer.products');
+      Route::get('/faq', 'faq')->name('customer.faq');
     });
 });
 

@@ -7,7 +7,7 @@
     </div>
     <div class="card-body">
       <div class="chart-container">
-        <canvas id="monthlyOrders" class="w-100" height="{{ $height }}"></canvas>
+        <canvas id="{{ $id }}" class="w-100" height="{{ $height }}"></canvas>
       </div>
     </div>
   </div>

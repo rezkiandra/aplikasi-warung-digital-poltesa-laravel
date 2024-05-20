@@ -1,6 +1,6 @@
 @php
   $totalProducts = \App\Models\Products::count();
-  $category = \App\Models\ProductCategory::pluck('name', 'id')->toArray();
+  $category = \App\Models\ProductCategory::pluck('slug', 'id')->toArray();
 @endphp
 
 @extends('layouts.guest')
@@ -14,15 +14,6 @@
           <h3 class="text-dark text-uppercase mb-2">Produk Kami</h3>
           <h6 class="">Menampilkan {{ $totalProducts }} produk</h6>
         </div>
-        <div class="d-flex flex-column pt-4 col-4 col-lg-2">
-          <label for="filter" class="d-none d-lg-block d-md-block form-label text-uppercase h4">Filter Produk</label>
-          <select name="filter" id="filter" class="form-select text-uppercase">
-            <option value="" class="form-select">Semua</option>
-            @foreach ($category as $key => $value)
-              <option value="{{ $key }}" class="form-select">{{ $value }}</option>
-            @endforeach
-          </select>
-        </div>
       </div>
     </div>
 
@@ -33,13 +24,3 @@
     </div>
   </section>
 @endsection
-
-@push('scripts')
-  <script>
-    const filter = document.getElementById('filter');
-    filter.addEventListener('change', function(event) {
-      event.preventDefault();
-      window.location.href = `{{ route('customer.products') }}?category=${event.target.value}`;
-    })
-  </script>
-@endpush
