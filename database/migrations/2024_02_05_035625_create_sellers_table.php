@@ -16,6 +16,7 @@ return new class extends Migration
       $table->string('full_name', 30);
       $table->text('address');
       $table->string('phone_number', 15);
+      $table->enum('gender', ['laki-laki', 'perempuan']);
       $table->timestamps();
     });
   }

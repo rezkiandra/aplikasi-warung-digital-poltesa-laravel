@@ -50,6 +50,10 @@
                         Subtotal Harga &emsp; : Rp {{ number_format($order->product->price, 0, ',', '.') }}
                       </span>
                       <span class="text-truncate">
+                        PPN 3% &emsp;&emsp;&emsp;&emsp;&ensp;&ensp; : Rp
+                        {{ number_format(($order->product->price / 100) * 3, 0, ',', '.') }}
+                      </span>
+                      <span class="text-truncate">
                         Total Harga &emsp;&emsp;&ensp;&nbsp;&nbsp;: Rp
                         {{ number_format($order->total_price, 0, ',', '.') }}
                       </span>
@@ -104,7 +108,8 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda berhasil dibayar</h6>
+                      <h6 class="mb-0">Pelanggan anda berhasil membayar sebesar Rp
+                        {{ number_format($order->total_price, 0, ',', '.') }}</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda sudah membayar pesanan</p>
@@ -115,7 +120,7 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda telah kadaluarsa</h6>
+                      <h6 class="mb-0">Pelanggan anda telah membayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda tidak dapat membeli produk</p>
@@ -126,7 +131,7 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda belum dibayar</h6>
+                      <h6 class="mb-0">Pelanggan anda belum membayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Pelanggan harus segera membayar pesanan</p>
@@ -157,7 +162,8 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda berhasil dibayar</h6>
+                      <h6 class="mb-0">Pelanggan anda berhasil membayar sebesar Rp
+                        {{ number_format($order->total_price, 0, ',', '.') }}</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Pelanggan sudah membayar pesanan</p>
@@ -168,7 +174,7 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda telah kadaluarsa</h6>
+                      <h6 class="mb-0">Pelanggan anda telah membayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda tidak dapat membeli produk</p>
@@ -179,7 +185,7 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda belum dibayar</h6>
+                      <h6 class="mb-0">Pelanggan anda belum membayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Pelanggan harus segera membayar pesanan</p>
@@ -208,7 +214,8 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda berhasil dibayar</h6>
+                      <h6 class="mb-0">Pelanggan anda berhasil membayar sebesar Rp
+                        {{ number_format($order->total_price, 0, ',', '.') }}</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Pelanggan sudah membayar pesanan</p>
@@ -219,7 +226,7 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda telah kadaluarsa</h6>
+                      <h6 class="mb-0">Pelanggan anda telah membayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Pelanggan tidak dapat membeli produk</p>
@@ -230,7 +237,7 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda belum dibayar</h6>
+                      <h6 class="mb-0">Pelanggan anda belum membayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda harus segera membayar pesanan</p>
@@ -261,7 +268,8 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda berhasil dibayar</h6>
+                      <h6 class="mb-0">Pelanggan anda berhasil membayar sebesar Rp
+                        {{ number_format($order->total_price, 0, ',', '.') }}</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Pelanggan sudah membayar pesanan</p>
@@ -272,7 +280,7 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda telah kadaluarsa</h6>
+                      <h6 class="mb-0">Pelanggan anda telah membayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Pelanggan tidak dapat membeli produk</p>
@@ -283,7 +291,7 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda belum dibayar</h6>
+                      <h6 class="mb-0">Pelanggan anda belum membayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Pelanggan harus segera membayar pesanan</p>
@@ -307,7 +315,7 @@
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
                   <div class="timeline-header mb-1">
-                    <h6 class="mb-0">Pesanan anda telah dibatalkan</h6>
+                    <h6 class="mb-0">Pelanggan anda telah membayar</h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                   </div>
                   <p class="mt-1 mb-3">Pelanggan telah membatalkan pesanan</p>
@@ -321,7 +329,8 @@
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
                   <div class="timeline-header mb-1">
-                    <h6 class="mb-0">Status pesanan anda <span class="text-uppercase badge bg-label-success">
+                    <h6 class="mb-0">Status pesanan pelanggan anda <span
+                        class="text-uppercase badge bg-label-success">
                         Berhasil Dibayar</span></h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                   </div>
@@ -335,7 +344,7 @@
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
                   <div class="timeline-header mb-1">
-                    <h6 class="mb-0">Status pesanan anda <span class="text-uppercase badge bg-label-dark">
+                    <h6 class="mb-0">Status pesanan pelanggan anda <span class="text-uppercase badge bg-label-dark">
                         Dibatalkan</span></h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                   </div>
@@ -347,7 +356,7 @@
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
                   <div class="timeline-header mb-1">
-                    <h6 class="mb-0">Status pesanan anda <span
+                    <h6 class="mb-0">Status pesanan pelanggan anda <span
                         class="text-uppercase badge bg-label-danger">Kadaluarsa</span></h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                   </div>
@@ -360,7 +369,7 @@
       </div>
       <div class="d-flex justify-content-center align-items-center gap-3 mb-3">
         <x-basic-button :href="route('preview.transaction', $order->uuid)" :label="'Preview'" :class="'w-100'" :variant="'outline-primary'" :icon="'note-search-outline me-2'" />
-          <x-basic-button :href="route('download.transaction', $order->uuid)" :label="'Cetak'" :class="'w-100'" :variant="'primary'" :icon="'file-download-outline me-2'" />
+        <x-basic-button :href="route('download.transaction', $order->uuid)" :label="'Cetak'" :class="'w-100'" :variant="'primary'" :icon="'file-download-outline me-2'" />
       </div>
     </div>
     <div class="col-12 col-lg-4">

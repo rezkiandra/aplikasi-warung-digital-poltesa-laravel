@@ -136,7 +136,7 @@
           y: {
             beginAtZero: true,
             min: 0,
-            max: 100000000
+            max: 1000000
           }
         },
         plugins: {

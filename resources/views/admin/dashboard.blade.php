@@ -154,7 +154,7 @@
           y: {
             beginAtZero: true,
             min: 0,
-            max: 100
+            max: 50
           }
         },
         plugins: {

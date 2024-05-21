@@ -48,11 +48,6 @@ class OrderController extends Controller
       'snap_token' => $order->snap_token,
     ]);
 
-    // $order->delete();
-    // $product = Products::find($order->product_id);
-    // $product->decrement('stock', $order->quantity);
-    // $product->update();
-
     Alert::toast('Berhasil membeli kembali produk', 'success');
     return redirect()->route('customer.orders');
   }

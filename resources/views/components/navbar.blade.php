@@ -30,6 +30,8 @@
             @elseif (Auth::user()->customer)
               <img src="{{ asset('storage/' . Auth::user()->customer->image) }}"
                 class="w-px-40 h-auto rounded-circle" />
+            @else
+              <img src="{{ asset('materio/assets/img/avatars/unknown.png') }}" alt="">
             @endif
           </div>
         </a>
@@ -48,6 +50,8 @@
                     @elseif(Auth::user()->customer)
                       <img src="{{ asset('storage/' . Auth::user()->customer->image) }}"
                         class="w-px-40 h-auto rounded-circle" />
+                    @else
+                      <img src="{{ asset('materio/assets/img/avatars/unknown.png') }}" alt="">
                     @endif
                   </div>
                 </div>
@@ -61,12 +65,6 @@
           <li>
             <div class="dropdown-divider my-1"></div>
           </li>
-          {{-- <li>
-            <a class="dropdown-item" href="#">
-              <i class="mdi mdi-account-outline me-1 mdi-20px"></i>
-              <span class="align-middle">My Profile</span>
-            </a>
-          </li> --}}
           <li>
             <div class="dropdown-divider my-1"></div>
           </li>

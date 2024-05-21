@@ -18,7 +18,7 @@ class WishlistController extends Controller
   public function store(Request $request)
   {
     if (Wishlist::where('customer_id', $request->customer_id)->where('product_id', $request->product_id)->exists()) {
-      Alert::toast('Sudah ditambahkan di wishlist', 'info');
+      Alert::toast('Sudah ditambahkan ke favorit', 'info');
       return redirect()->back();
     } else {
       Wishlist::create([

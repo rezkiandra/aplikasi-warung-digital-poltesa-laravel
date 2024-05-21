@@ -64,9 +64,7 @@
       </x-sidebar-dropdown>
     @elseif (Auth::user()->role_id == 2)
       <x-sidebar-dropdown :label="'Produk'" :route="route('admin.sellers')" :icon="'package-variant'" :active="request()->routeIs('admin.products', 'seller.products', 'admin.*.product', 'seller.*.product')">
-        @if (Auth()->user()->seller->status == 'active')
-          <x-sidebar-dropdown-item :label="'Tambah Produk'" :href="route('seller.create.product')" :active="request()->routeIs('seller.create.product')" />
-        @endif
+        <x-sidebar-dropdown-item :label="'Tambah Produk'" :href="route('seller.create.product')" :active="request()->routeIs('seller.create.product')" />
         <x-sidebar-dropdown-item :label="'Daftar Produk'" :href="route('seller.products')" :active="request()->routeIs('seller.products', 'seller.detail.product', 'seller.edit.product')" />
       </x-sidebar-dropdown>
     @elseif(Auth::user()->role_id == 3)

@@ -32,39 +32,39 @@ class CustomerController extends Controller
 
   public function dashboard()
   {
-    $bulanJan = date('01');
-    $bulanFeb = date('02');
-    $bulanMar = date('03');
-    $bulanApr = date('04');
-    $bulanMei = date('05');
-    $bulanJun = date('06');
-    $bulanJul = date('07');
-    $bulanAgu = date('08');
-    $bulanSep = date('09');
-    $bulanOkt = date('10');
-    $bulanNov = date('11');
-    $bulanDes = date('12');
-
-    $tahun = Carbon::now()->year;
-    $data = [
-      'labels'  => ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
-      'data'    => [
-        Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJan)->sum('total_price'),
-        Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanFeb)->sum('total_price'),
-        Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMar)->sum('total_price'),
-        Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanApr)->sum('total_price'),
-        Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMei)->sum('total_price'),
-        Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJun)->sum('total_price'),
-        Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJul)->sum('total_price'),
-        Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanAgu)->sum('total_price'),
-        Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanSep)->sum('total_price'),
-        Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanOkt)->sum('total_price'),
-        Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanNov)->sum('total_price'),
-        Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanDes)->sum('total_price'),
-      ],
-    ];
-
     if (auth()->user()->customer) {
+      $bulanJan = date('01');
+      $bulanFeb = date('02');
+      $bulanMar = date('03');
+      $bulanApr = date('04');
+      $bulanMei = date('05');
+      $bulanJun = date('06');
+      $bulanJul = date('07');
+      $bulanAgu = date('08');
+      $bulanSep = date('09');
+      $bulanOkt = date('10');
+      $bulanNov = date('11');
+      $bulanDes = date('12');
+
+      $tahun = Carbon::now()->year;
+      $data = [
+        'labels'  => ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+        'data'    => [
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJan)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanFeb)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMar)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanApr)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMei)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJun)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJul)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanAgu)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanSep)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanOkt)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanNov)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanDes)->sum('total_price'),
+        ],
+      ];
+
       $orders = Order::with('product')->where('customer_id', Auth::user()->customer->id)->orderBy('created_at', 'desc')->paginate(6) ?? collect([]);
       return view('customer.dashboard', compact('orders', 'data'));
     } else {

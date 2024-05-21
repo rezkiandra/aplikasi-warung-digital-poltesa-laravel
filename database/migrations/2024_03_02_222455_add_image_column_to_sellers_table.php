@@ -14,7 +14,7 @@ class AddImageColumnToSellersTable extends Migration
   public function up()
   {
     Schema::table('sellers', function (Blueprint $table) {
-      $table->string('image', 255)->nullable()->after('bank_account_id');
+      $table->string('image', 255)->nullable()->after('phone_number');
     });
   }
 

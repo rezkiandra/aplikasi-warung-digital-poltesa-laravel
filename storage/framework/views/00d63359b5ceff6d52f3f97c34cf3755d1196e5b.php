@@ -148,7 +148,7 @@
 <?php endif; ?>
 
     <?php if (isset($component)) { $__componentOriginal572d97b9c9bda7cc0369287a8488fa397cd3f9e3 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\BarGraphCard::class, ['height' => '300','title' => 'Transaksi Bulanan Tahun Ini']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\BarGraphCard::class, ['height' => '300','title' => 'Transaksi Bulanan Tahun Ini','id' => 'monthlyOrders']); ?>
 <?php $component->withName('bar-graph-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -294,7 +294,7 @@
           y: {
             beginAtZero: true,
             min: 0,
-            max: 100
+            max: 50
           }
         },
         plugins: {

@@ -14,7 +14,7 @@ class AddAccountNumberColumnToSellersTable extends Migration
   public function up()
   {
     Schema::table('sellers', function (Blueprint $table) {
-      $table->string('account_number')->after('image')->nullable();
+      $table->string('account_number', 20)->after('bank_account_id')->nullable();
     });
   }
 

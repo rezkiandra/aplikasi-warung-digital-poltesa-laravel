@@ -29,9 +29,6 @@
   $descriptionEarnings = 'Total pendapatan keseluruhan';
 
   // Transaction Item Card
-  $totalOrders = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->where('products.seller_id', auth()->user()->seller->id)
-      ->count();
   $totalPaid = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
       ->where('products.seller_id', auth()->user()->seller->id)
       ->where('orders.status', 'paid')
@@ -39,6 +36,10 @@
   $totalUnpaid = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
       ->where('products.seller_id', auth()->user()->seller->id)
       ->where('orders.status', 'unpaid')
+      ->count();
+  $totalExpire = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
+      ->where('products.seller_id', auth()->user()->seller->id)
+      ->where('orders.status', 'expire')
       ->count();
   $totalCancelled = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
       ->where('products.seller_id', auth()->user()->seller->id)
@@ -78,10 +79,10 @@
     <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel"
       :route="$route" />
     <x-transactions-card :title="$title" :description="$description">
-      <x-transaction-item-card :label="'Pesanan'" :value="$totalOrders" :variant="'info'" :icon="'basket-outline'" />
       <x-transaction-item-card :label="'Selesai'" :value="$totalPaid" :variant="'success'" :icon="'basket-check-outline'" />
       <x-transaction-item-card :label="'Belum Baayar'" :value="$totalUnpaid" :variant="'warning'" :icon="'basket-off-outline'" />
-      <x-transaction-item-card :label="'Dibatalkan'" :value="$totalCancelled" :variant="'danger'" :icon="'basket-remove-outline'" />
+      <x-transaction-item-card :label="'Kadaluarsa'" :value="$totalExpire" :variant="'danger'" :icon="'basket-remove-outline'" />
+      <x-transaction-item-card :label="'Dibatalkan'" :value="$totalCancelled" :variant="'dark'" :icon="'basket-minus-outline'" />
     </x-transactions-card>
 
     <x-bar-graph-card :height="'300'" :title="'Total Pendapatan Tahun Ini (Perbulan)'" :id="'monthlyEarnings'" />
@@ -146,7 +147,7 @@
           y: {
             beginAtZero: true,
             min: 0,
-            max: 100000000
+            max: 1000000
           }
         },
         plugins: {

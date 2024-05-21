@@ -105,7 +105,7 @@
   </div>
   <div class="footer-bottom py-3">
     <div
-      class="container d-lg-flex flex-wrap align-items-center justify-content-between flex-md-row flex-column text-center text-md-start">
+      class="container-fluid d-lg-flex flex-wrap align-items-center justify-content-between flex-md-row flex-column text-center text-md-start">
       <div class="mb-2 mb-md-0">
         <span class="footer-text">©
           <script>
@@ -118,10 +118,14 @@
       <div>
         <a href="https://github.com/rezkiandra" class="footer-link me-2" target="_blank"><i
             class="mdi mdi-github"></i></a>
+        <a href="https://gitlab.com/rezkiandra" class="footer-link me-2" target="_blank"><i
+            class="mdi mdi-gitlab"></i></a>
         <a href="https://facebook.com/kyyzfe" class="footer-link me-2" target="_blank"><i
             class="mdi mdi-facebook"></i></a>
         <a href="https://wa.me/+6289693890856" class="footer-link me-2" target="_blank"><i
             class="mdi mdi-whatsapp"></i></a>
+        <a href="https://linkedin.com/in/rezkiandra" class="footer-link me-2" target="_blank"><i
+            class="mdi mdi-linkedin"></i></a>
         <a href="https://www.instagram.com/kyy.fe" class="footer-link" target="_blank"><i
             class="mdi mdi-instagram"></i></a>
       </div>

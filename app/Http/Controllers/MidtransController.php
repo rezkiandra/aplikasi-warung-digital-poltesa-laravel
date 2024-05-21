@@ -37,12 +37,12 @@ class MidtransController extends Controller
     $params = array(
       'transaction_details' => array(
         'order_id' => $order->uuid,
-        'gross_amount' => $order->total_price
+        'gross_amount' => $order->total_price + ($order->product->price / 100) * 3
       ),
       'item_details' => array(
         [
           'id' => $order->product->uuid,
-          'price' => $order->product->price,
+          'price' => $order->product->price + ($order->product->price / 100) * 3,
           'quantity' => $order->quantity,
           'name' => $order->product->name
         ]
@@ -61,11 +61,8 @@ class MidtransController extends Controller
       $order->save();
     } catch (Exception $e) {
       $response_body = json_decode($e->getMessage(), true);
-      if (isset($response_body['error_message']) && in_array($response_body['error_message'], ['Expired token', 'Invalid token'])) {
-        return redirect()->route('customer.orders');
-      } elseif (isset($response_body['error_code']) && $response_body['error_code'] == 200) {
-        return redirect()->route('customer.orders');
-      }
+      dd($response_body);
+      return redirect()->back();
     }
 
     return view('customer.order-detail', compact('order', 'snapToken'));
@@ -92,7 +89,10 @@ class MidtransController extends Controller
   public function callback(Request $request)
   {
     $serverKey = config('midtrans.server_key');
-    $hashed = hash('sha512', $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
+    $hashed = hash(
+      'sha512',
+      $request->order_id . $request->status_code . $request->gross_amount . $serverKey
+    );
 
     try {
       if ($hashed === $request->signature_key || $request->fraud_status == 'accept') {

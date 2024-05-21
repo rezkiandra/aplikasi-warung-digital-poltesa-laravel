@@ -274,8 +274,7 @@
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes(['route' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(route('admin.sellers'))]); ?>
-        <?php if(Auth()->user()->seller->status == 'active'): ?>
-          <?php if (isset($component)) { $__componentOriginal33298f493885e4db4f550977ba1a0df320b07e43 = $component; } ?>
+        <?php if (isset($component)) { $__componentOriginal33298f493885e4db4f550977ba1a0df320b07e43 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\SidebarDropdownItem::class, ['label' => 'Tambah Produk','href' => route('seller.create.product'),'active' => request()->routeIs('seller.create.product')]); ?>
 <?php $component->withName('sidebar-dropdown-item'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -287,7 +286,6 @@
 <?php $component = $__componentOriginal33298f493885e4db4f550977ba1a0df320b07e43; ?>
 <?php unset($__componentOriginal33298f493885e4db4f550977ba1a0df320b07e43); ?>
 <?php endif; ?>
-        <?php endif; ?>
         <?php if (isset($component)) { $__componentOriginal33298f493885e4db4f550977ba1a0df320b07e43 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\SidebarDropdownItem::class, ['label' => 'Daftar Produk','href' => route('seller.products'),'active' => request()->routeIs('seller.products', 'seller.detail.product', 'seller.edit.product')]); ?>
 <?php $component->withName('sidebar-dropdown-item'); ?>

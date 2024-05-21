@@ -14,8 +14,15 @@
 
   $customer = auth()->user()->customer ?? '';
   $seller = auth()->user()->seller ?? '';
-  $fee = 0;
 @endphp
+
+@push('styles')
+  <style>
+    .description {
+      line-height: 1.7;
+    }
+  </style>
+@endpush
 
 @auth
   @if ($customer)
@@ -85,7 +92,7 @@
 
         <div class="pb-3">
           <p class="text-secondary mb-1">Deskripsi:</p>
-          <span class="text-dark text-capitalize">{{ $product->description }}</span>
+          <span class="text-dark text-capitalize description">{{ $product->description }}</span>
         </div>
       </div>
     </div>
@@ -144,7 +151,7 @@
 
         <div class="pb-3">
           <p class="text-secondary mb-1">Deskripsi:</p>
-          <span class="text-dark text-capitalize">{{ $product->description }}</span>
+          <span class="text-dark text-capitalize description">{{ $product->description }}</span>
         </div>
       </div>
 
@@ -173,17 +180,17 @@
             <dt class="col-6 fw-normal text-heading">Sub Total</dt>
             <dd class="col-6 text-end" id="subtotal">Rp {{ number_format($product->price, 0, ',', '.') }}</dd>
 
-            <dt class="col-6 fw-normal text-heading">Biaya Layanan</dt>
+            <dt class="col-6 fw-normal text-heading">PPN 3%</dt>
             <dd class="col-6 text-end">
               <i class="mdi mdi-truck-fast-outline me-1"></i>
-              Rp {{ number_format($fee, 0, ',', '.') }}
+              Rp {{ number_format(($product->price / 100) * 3, 0, ',', '.') }}
             </dd>
           </dl>
           <hr class="mx-n3 my-2">
           <dl class="row my-3">
             <dt class="col-6 text-heading">Total</dt>
             <dd class="col-6 fw-medium text-end mb-0 text-heading" id="total">
-              Rp {{ number_format($product->price + $fee, 0, ',', '.') }}
+              Rp {{ number_format($product->price + ($product->price / 100) * 3, 0, ',', '.') }}
           </dl>
           <div class="d-grid gap-2">
             @if ($customer)
@@ -225,7 +232,7 @@
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <input type="hidden" name="quantity" id="newQuantityOrder" value="1">
                 <input type="hidden" name="total_price" id="newTotalPriceOrder"
-                  value="{{ $product->price + $fee }}">
+                  value="{{ $product->price + ($product->price / 100) * 3 }}">
                 @if ($product->stock == 0)
                   <x-submit-button :label="'Beli'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100 disabled'"
                     aria-disabled="true" :icon="'basket-outline me-2'" :variant="'primary'" />
@@ -286,7 +293,7 @@
   <script>
     const stock = {{ $product->stock }}
     const price = {{ $product->price }}
-    const fee = {{ $fee }}
+    const fee = {{ ($product->price / 100) * 3 }}
 
     // mengatur quantity
     $('#quantity').val(1);

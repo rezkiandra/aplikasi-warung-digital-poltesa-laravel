@@ -17,7 +17,7 @@ class ProductsRequest extends FormRequest
     return [
       'seller_id' => 'required_if:seller_id,null',
       'name' => 'required|unique:products,id|max:30',
-      'description' => 'required|',
+      'description' => 'required|min:100',
       'price' => 'required|numeric|',
       'stock' => 'required|numeric|',
       'category_id' => 'required',
@@ -35,6 +35,7 @@ class ProductsRequest extends FormRequest
       'name.max' => 'Nama produk maksimal 30 karakter',
 
       'description.required' => 'Deskripsi diperlukan',
+      'description.min' => 'Deskripsi minimal 100 karakter',
 
       'price.required' => 'Harga diperlukan',
       'price.numeric' => 'Harga dalam bentuk angka',

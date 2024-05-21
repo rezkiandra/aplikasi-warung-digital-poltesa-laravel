@@ -30,6 +30,8 @@
             <?php elseif(Auth::user()->customer): ?>
               <img src="<?php echo e(asset('storage/' . Auth::user()->customer->image)); ?>"
                 class="w-px-40 h-auto rounded-circle" />
+            <?php else: ?>
+              <img src="<?php echo e(asset('materio/assets/img/avatars/unknown.png')); ?>" alt="">
             <?php endif; ?>
           </div>
         </a>
@@ -48,6 +50,8 @@
                     <?php elseif(Auth::user()->customer): ?>
                       <img src="<?php echo e(asset('storage/' . Auth::user()->customer->image)); ?>"
                         class="w-px-40 h-auto rounded-circle" />
+                    <?php else: ?>
+                      <img src="<?php echo e(asset('materio/assets/img/avatars/unknown.png')); ?>" alt="">
                     <?php endif; ?>
                   </div>
                 </div>
@@ -61,7 +65,6 @@
           <li>
             <div class="dropdown-divider my-1"></div>
           </li>
-          
           <li>
             <div class="dropdown-divider my-1"></div>
           </li>

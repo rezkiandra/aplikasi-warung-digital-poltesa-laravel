@@ -18,10 +18,9 @@ class ProductsCartController extends Controller
     $product_id = $request->product_id;
     $quantity = $request->quantity;
 
-    $cart = ProductsCart::where('customer_id', $customer_id)
-      ->where('product_id', $product_id)
+    $cart = ProductsCart::where('customer_id', $customer_id)->where('product_id', $product_id)
       ->first();
-
+      
     if ($cart) {
       $newQuantity = $cart->quantity + $quantity;
       $cart->update([
