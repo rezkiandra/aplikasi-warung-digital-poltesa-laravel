@@ -101,9 +101,9 @@
       $('input[name="quantity"]').on('change', function() {
         const price = $(this).parents('li').data('price');
         const quantity = $(this).val();
-        const totalPrice = price * quantity + 1;
+        const totalPrice = price * quantity;
 
-        $(this).parents('li').find('#totalPrice').html('Rp' + totalPrice.toString().replace(
+        $(this).parents('li').find('#totalPrice').html('Rp ' + totalPrice.toString().replace(
           /\B(?=(\d{3})+(?!\d))/g, '.'));
       })
     })

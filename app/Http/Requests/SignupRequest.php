@@ -26,15 +26,15 @@ class SignupRequest extends FormRequest
       'email' => 'required|email|unique:users',
       'password' => 'required|min:6',
       'konfirmasi' => 'required|same:password',
-      'terms' => 'required',
+      // 'terms' => 'required',
     ];
   }
 
   public function messages(): array
   {
     return [
-      'name.required' => 'Nama diperlukan',
-      'name.min' => 'Nama minimal 3 karakter',
+      'name.required' => 'Username diperlukan',
+      'name.min' => 'Username minimal 3 karakter',
 
       'email.required' => 'Email diperlukan',
       'email.email' => 'Email tidak valid',
@@ -44,9 +44,9 @@ class SignupRequest extends FormRequest
       'password.min' => 'Password minimal 6 karakter',
 
       'konfirmasi.required' => 'Konfirmasi password diperlukan',
-      'konfirmasi.same' => 'Konfirmasi password tidak sama',
+      'konfirmasi.same' => 'Konfirmasi password tidak sama dengan password',
 
-      'terms.required' => 'Setujui syarat dan ketentuan',
+      // 'terms.required' => 'Setujui syarat dan ketentuan',
     ];
   }
 

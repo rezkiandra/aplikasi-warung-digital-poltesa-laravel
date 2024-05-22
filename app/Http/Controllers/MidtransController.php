@@ -88,6 +88,7 @@ class MidtransController extends Controller
 
   public function callback(Request $request)
   {
+    $order = Order::where('uuid', $request->order_id)->firstOrFail();
     $serverKey = config('midtrans.server_key');
     $hashed = hash(
       'sha512',
@@ -96,7 +97,6 @@ class MidtransController extends Controller
 
     try {
       if ($hashed === $request->signature_key || $request->fraud_status == 'accept') {
-        $order = Order::where('uuid', $request->order_id)->firstOrFail();
         if ($request->transaction_status == 'settlement') {
           $order->update([
             'status' => 'paid',
@@ -135,18 +135,6 @@ class MidtransController extends Controller
           ]);
           $order->product->increment('stock', $order->quantity);
           $order->product->update();
-        } elseif ($request->transaction_status == 'cancel') {
-          $order->update([
-            'status' => 'cancelled',
-            'payment_method' => $request->payment_type,
-            'store' => $request->store,
-            'payment_code' => $request->payment_code,
-            'expiry_time' => $request->expiry_time,
-            'transaction_time' => $request->transaction_time,
-            'issuer' => $request->issuer,
-            'biller_code' => $request->biller_code,
-            'bill_key' => $request->bill_key,
-          ]);
         }
       }
     } catch (Exception $e) {

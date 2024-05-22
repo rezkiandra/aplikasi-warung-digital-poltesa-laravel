@@ -15,7 +15,8 @@
           @foreach ($datas as $data)
             <tr>
               <td class="text-primary">
-                <span class="badge rounded p-1 bg-label-primary text-uppercase">#{{ Str::substr($data->uuid, 0, 5) }}</span>
+                <span
+                  class="badge rounded p-1 bg-label-primary text-uppercase">#{{ Str::substr($data->uuid, 0, 5) }}</span>
               </td>
               <td>
                 <div class="d-flex justify-content-start align-items-center user-name">
@@ -53,6 +54,6 @@
         </tbody>
       </table>
     </div>
+    <x-pagination :pages="$datas" />
   </div>
-
 </div>

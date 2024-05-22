@@ -120,18 +120,7 @@
 <?php unset($__componentOriginal9556ea61bc573b9b221bcf3ee1d728254f4eca85); ?>
 <?php endif; ?>
 
-      <?php if (isset($component)) { $__componentOriginal0fe5938b349eb535f803d66c0ef7ebb90173b995 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\FormCheck::class, ['class' => 'mb-3','label' => 'Saya setuju dengan syarat dan ketentuan','name' => 'terms','type' => 'checkbox','value' => old('terms')]); ?>
-<?php $component->withName('form-check'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes([]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginal0fe5938b349eb535f803d66c0ef7ebb90173b995)): ?>
-<?php $component = $__componentOriginal0fe5938b349eb535f803d66c0ef7ebb90173b995; ?>
-<?php unset($__componentOriginal0fe5938b349eb535f803d66c0ef7ebb90173b995); ?>
-<?php endif; ?>
+      
 
       <div class="mb-3">
         <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>

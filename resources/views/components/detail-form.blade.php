@@ -47,10 +47,18 @@
         <span
           class="badge text-capitalize @if ($status == 'active') bg-label-success @elseif($status == 'inactive') bg-label-danger @else bg-label-warning @endif rounded-pill">{{ $status }}</span>
       </li>
+
       <li class="mb-2">
         <span class="h6 me-1">Nomor Telepon:</span>
         <span>{{ $phone }}</span>
       </li>
+
+      @if (auth()->user()->seller)
+        <li class="mb-2">
+          <span class="h6 me-1">Bank:</span>
+          <span>{{ $bank }} - {{ $account }}</span>
+        </li>
+      @endif
 
       <li>
         <span class="h6 me-1">Alamat:</span>

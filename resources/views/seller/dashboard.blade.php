@@ -80,7 +80,7 @@
       :route="$route" />
     <x-transactions-card :title="$title" :description="$description">
       <x-transaction-item-card :label="'Selesai'" :value="$totalPaid" :variant="'success'" :icon="'basket-check-outline'" />
-      <x-transaction-item-card :label="'Belum Baayar'" :value="$totalUnpaid" :variant="'warning'" :icon="'basket-off-outline'" />
+      <x-transaction-item-card :label="'Belum Bayar'" :value="$totalUnpaid" :variant="'warning'" :icon="'basket-off-outline'" />
       <x-transaction-item-card :label="'Kadaluarsa'" :value="$totalExpire" :variant="'danger'" :icon="'basket-remove-outline'" />
       <x-transaction-item-card :label="'Dibatalkan'" :value="$totalCancelled" :variant="'dark'" :icon="'basket-minus-outline'" />
     </x-transactions-card>

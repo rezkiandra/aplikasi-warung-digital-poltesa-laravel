@@ -10,7 +10,9 @@ class GuestController extends Controller
 {
   public function index()
   {
-    return view('pages.home');
+    $fashionProducts = Products::where('category_id', 2)->get();
+    $parfumeProducts = Products::where('category_id', 3)->get();
+    return view('pages.home', compact('fashionProducts', 'parfumeProducts'));
   }
 
   public function products()

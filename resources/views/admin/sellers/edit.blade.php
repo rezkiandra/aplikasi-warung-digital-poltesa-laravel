@@ -21,6 +21,15 @@
         <div class="card">
           <div class="card-body d-flex flex-column justify-content-center">
             <div class="text-center">
+              <div class="position-absolute">
+                @if ($seller->status == 'active')
+                  <span class="badge bg-label-success text-uppercase rounded p-2">Seller {{ $seller->status }}</span>
+                @elseif ($seller->status == 'pending')
+                  <span class="badge bg-label-warning text-uppercase rounded p-2">Seller {{ $seller->status }}</span>
+                @else
+                  <span class="badge bg-label-danger text-uppercase rounded p-2">Seller {{ $seller->status }}</span>
+                @endif
+              </div>
               <img src="{{ asset('storage/' . $seller->image) }}" alt="" class="img-fluid rounded-circle"
                 width="200">
             </div>
@@ -29,14 +38,14 @@
               <p class="mb-1">{{ $seller->gender }}</p>
               <p class="mb-1">{{ $seller->phone_number }}</p>
               <p class="mb-1 text-lowercase">{{ $seller->user->email }}</p>
-              <p class="mb-1">{{ $seller->account_number }}</p>
+              <p class="mb-1">{{ $bank[$seller->bank_account_id] }} - {{ $seller->account_number }}</p>
               <p class="mb-3">{{ $seller->address }}</p>
             </div>
           </div>
         </div>
       </div>
       <div class="col-lg-8">
-        <x-edit-form :title="'Edit biodata penjual'" :action="route('admin.update.seller', $seller->uuid)">
+        <x-edit-form :title="'Edit biodata penjual'" :action="route('admin.update.seller', $seller->uuid)" :route="route('admin.sellers')">
           <div class="row">
             <div class="col-lg-4">
               <x-form-floating>

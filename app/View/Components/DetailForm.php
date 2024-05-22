@@ -6,13 +6,13 @@ use Illuminate\View\Component;
 
 class DetailForm extends Component
 {
-  public $image, $id, $totalOrder, $spentCost, $name, $username, $email, $phone, $address, $status, $type, $class, $variant, $icon, $label, $href, $labelOrder, $labelCost, $action;
+  public $image, $id, $totalOrder, $spentCost, $name, $username, $email, $phone, $address, $status, $type, $class, $variant, $icon, $label, $href, $labelOrder, $labelCost, $action, $bank, $account;
   /**
    * Create a new component instance.
    *
    * @return void
    */
-  public function __construct($image = '', $id, $totalOrder, $spentCost, $name = '', $username, $email, $phone = '', $address = '', $status = '', $type, $class = '', $variant, $icon, $label, $href, $labelOrder, $labelCost, $action = '')
+  public function __construct($image = '', $id, $totalOrder, $spentCost, $name = '', $username, $email, $phone = '', $address = '', $status = '', $type, $class = '', $variant, $icon, $label, $href, $labelOrder, $labelCost, $action = '', $bank = '', $account = '')
   {
     $this->image = $image;
     $this->id = $id;
@@ -33,6 +33,8 @@ class DetailForm extends Component
     $this->labelOrder = $labelOrder;
     $this->labelCost = $labelCost;
     $this->action = $action;
+    $this->bank = $bank;
+    $this->account = $account;
   }
 
   /**

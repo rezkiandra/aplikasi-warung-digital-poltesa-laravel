@@ -29,7 +29,7 @@
           :placeholder="'Confirm password'" :value="old('konfirmasi')" />
       </x-form-floating>
 
-      <x-form-check :class="'mb-3'" :label="'Saya setuju dengan syarat dan ketentuan'" :name="'terms'" :type="'checkbox'" :value="old('terms')" />
+      {{-- <x-form-check :class="'mb-3'" :label="'Saya setuju dengan syarat dan ketentuan'" :name="'terms'" :type="'checkbox'" :value="old('terms')" /> --}}
 
       <div class="mb-3">
         <x-submit-button :label="'Register'" :type="'submit'" :variant="'primary'" :icon="'account-plus-outline me-2'"

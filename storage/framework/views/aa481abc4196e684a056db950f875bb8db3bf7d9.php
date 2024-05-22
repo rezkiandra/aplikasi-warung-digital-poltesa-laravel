@@ -47,10 +47,18 @@
         <span
           class="badge text-capitalize <?php if($status == 'active'): ?> bg-label-success <?php elseif($status == 'inactive'): ?> bg-label-danger <?php else: ?> bg-label-warning <?php endif; ?> rounded-pill"><?php echo e($status); ?></span>
       </li>
+
       <li class="mb-2">
         <span class="h6 me-1">Nomor Telepon:</span>
         <span><?php echo e($phone); ?></span>
       </li>
+
+      <?php if(auth()->user()->seller): ?>
+        <li class="mb-2">
+          <span class="h6 me-1">Bank:</span>
+          <span><?php echo e($bank); ?> - <?php echo e($account); ?></span>
+        </li>
+      <?php endif; ?>
 
       <li>
         <span class="h6 me-1">Alamat:</span>

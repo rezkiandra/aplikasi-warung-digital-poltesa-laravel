@@ -27,7 +27,9 @@ class CustomerController extends Controller
 {
   public function index()
   {
-    return view('customer.home');
+    $fashionProducts = Products::where('category_id', 2)->get();
+    $parfumeProducts = Products::where('category_id', 3)->get();
+    return view('customer.home', compact('fashionProducts', 'parfumeProducts'));
   }
 
   public function dashboard()

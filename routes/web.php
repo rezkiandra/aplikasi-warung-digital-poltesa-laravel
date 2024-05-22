@@ -200,8 +200,8 @@ Route::middleware('auth', 'checkCustomer', 'checkRole:Customer')->group(function
   Route::controller(OrderController::class)
     ->prefix('customer')
     ->group(function () {
-      Route::post('/store-order', 'store')->name('order.store');
-      Route::put('/update-order/{order}', 'update')->name('order.update');
+      Route::post('/store-order', 'store')->name('order.store')->middleware('mustActive');
+      Route::put('/update-order/{order}', 'update')->name('order.update')->middleware('mustActive');
     });
 
   Route::controller(MidtransController::class)

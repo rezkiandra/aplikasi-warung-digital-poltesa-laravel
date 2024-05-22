@@ -25,10 +25,14 @@
 @endpush
 
 @auth
-  @if ($customer)
-    <x-alert :type="'primary'" :message="'Biodata anda sudah lengkap dan dapat memesan produk.'" :icon="'alert-circle-outline'" />
+  @if ($customer && $customer->status == 'active')
+    <x-alert :type="'primary'" :message="'Biodata anda sudah lengkap dan status akun aktif. Anda dapat memesan produk.'" :icon="'account-check-outline'" />
+  @elseif ($customer && $customer->status == 'pending')
+    <x-alert :type="'warning'" :message="'Biodata anda sudah lengkap namun status akun pending. Silahkan hubungi admin untuk menyetujui!.'" :icon="'account-search-outline'" />
+  @elseif ($customer && $customer->status == 'unactive')
+    <x-alert :type="'danger'" :message="'Biodata anda sudah lengkap namun status akun tidak aktif. Silahkan hubungi admin untuk mengaktifkan kembali!.'" :icon="'account-search-outline'" />
   @elseif (!$customer && !$admin && !$seller)
-    <x-alert :type="'warning'" :message="'Lengkapi biodata anda terlebih dahulu di halaman dashboard.'" :icon="'alert-circle-outline'" />
+    <x-alert :type="'danger'" :message="'Lengkapi biodata anda terlebih dahulu di halaman dashboard.'" :icon="'alert-circle-outline'" />
   @endif
 @endauth
 
@@ -271,7 +275,7 @@
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <input type="hidden" name="quantity" id="newQuantityOrder" value="1">
                 <input type="hidden" name="total_price" id="newTotalPriceOrder"
-                  value="{{ $product->price + $fee }}">
+                  value="{{ $product->price + ($product->price / 100) * 3 }}">
                 @if ($product->stock == 0)
                   <x-submit-button :label="'Beli'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100 disabled'"
                     aria-disabled="true" :icon="'basket-outline me-2'" :variant="'primary'" />

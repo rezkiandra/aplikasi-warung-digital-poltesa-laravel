@@ -11,15 +11,12 @@
   $totalCarts = \App\Models\ProductsCart::where('customer_id', $customer->id)->count();
   $totalWishlist = \App\Models\Wishlist::where('customer_id', $customer->id)->count();
   $orders = \App\Models\Order::where('customer_id', $customer->id)
-      ->take(6)
       ->orderBy('updated_at', 'desc')
-      ->get();
+      ->paginate(5);
 
   $username = \App\Models\User::where('id', $customer->user_id)->first()->name;
   $email = \App\Models\User::where('id', $customer->user_id)->first()->email;
-  $customer_id = Hash::make($customer->uuid);
-  $customer_id = Str::substr($customer_id, 0, 10);
-  $customer_id = Str::replace('$', '', $customer_id);
+  $customer_id = Str::substr($customer->uuid, 0, 5);
   $customer_id = Str::upper($customer_id);
 @endphp
 

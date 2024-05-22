@@ -50,12 +50,27 @@
     </x-create-form>
   @else
     @foreach ($customer as $data)
-      <x-alert :type="'primary py-lg-3 py-md-3'" :message="'Biodata anda sudah lengkap. Anda juga bisa mengedit biodata!'" :icon="'account-check-outline'" />
+      @if ($data->status == 'active')
+        <x-alert :type="'primary py-lg-3 py-md-3'" :message="'Biodata anda sudah lengkap dan status akun aktif. Anda sekarang dapat menggunakan layanan!'" :icon="'account-check-outline'" />
+      @elseif ($data->status == 'pending')
+        <x-alert :type="'warning py-lg-3 py-md-3'" :message="'Biodata anda sudah lengkap namun status akun pending. Silahkan hubungi admin untuk menyetujui!'" :icon="'account-search-outline'" />
+      @else
+        <x-alert :type="'danger py-lg-3 py-md-3'" :message="'Biodata anda sudah lengkap namun status akun tidak aktif. Silahkan hubungi admin untuk mengaktifkan kembali!'" :icon="'account-off-outline'" />
+      @endif
       <div class="row gap-lg-0 gap-4">
         <div class="col-lg-4 mb-lg-0">
           <div class="card">
             <div class="card-body d-flex flex-column justify-content-center">
               <div class="text-center mt-3">
+                <div class="position-absolute">
+                  @if ($data->status == 'active')
+                    <span class="badge bg-label-success text-uppercase rounded p-2">Status {{ $data->status }}</span>
+                  @elseif ($data->status == 'pending')
+                    <span class="badge bg-label-warning text-uppercase rounded p-2">Status {{ $data->status }}</span>
+                  @else
+                    <span class="badge bg-label-danger text-uppercase rounded p-2">Status {{ $data->status }}</span>
+                  @endif
+                </div>
                 <img src="{{ asset('storage/' . $data->image) }}" alt="" class="img-fluid rounded-circle"
                   width="200">
               </div>

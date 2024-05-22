@@ -79,7 +79,7 @@
               </div>
             </td>
             <td>
-              <span class="fw-medium badge rounded bg-label-info"><?php echo e(date('d M, H:i:s', strtotime($data->created_at))); ?>
+              <span class="fw-medium badge rounded bg-label-info"><?php echo e(date('d M Y, H:i:s', strtotime($data->created_at))); ?>
 
                 <?php echo e($data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM'); ?>
 

@@ -21,6 +21,15 @@
         <div class="card">
           <div class="card-body d-flex flex-column justify-content-center">
             <div class="text-center">
+              <div class="position-absolute">
+                @if ($customer->status == 'active')
+                  <span class="badge bg-label-success text-uppercase rounded p-2">Customer {{ $customer->status }}</span>
+                @elseif ($customer->status == 'pending')
+                  <span class="badge bg-label-warning text-uppercase rounded p-2">Customer {{ $customer->status }}</span>
+                @else
+                  <span class="badge bg-label-danger text-uppercase rounded p-2">Customer {{ $customer->status }}</span>
+                @endif
+              </div>
               <img src="{{ asset('storage/' . $customer->image) }}" alt="" class="img-fluid rounded-circle"
                 width="200">
             </div>
