@@ -15,7 +15,7 @@ class UserRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'name' => 'required|min:8|max:30',
+      'name' => 'required|min:6|max:30',
       'email' => 'required_if:email,null|unique:users,id|email',
       'role_id' => 'required_if:role_id,null',
       'password' => 'required_if:password,null|min:6|max:20',
@@ -28,7 +28,7 @@ class UserRequest extends FormRequest
   {
     return [
       'name.required' => 'Nama harus diisi',
-      'name.min' => 'Nama minimal 8 karakter',
+      'name.min' => 'Nama minimal 6 karakter',
       'name.max' => 'Nama maksimal 30 karakter',
 
       'email.required_if' => 'Email harus diisi',

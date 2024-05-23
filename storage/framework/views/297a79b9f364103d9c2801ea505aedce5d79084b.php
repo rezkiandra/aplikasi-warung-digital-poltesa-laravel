@@ -21,7 +21,7 @@
                 <div class="d-flex flex-column">
                   <span class="text-nowrap text-heading fw-medium"><?php echo e($data->name); ?></span>
                   <small class="d-lg-flex d-md-flex d-flex flex-row text-truncate d-sm-block d-flex">
-                    <span class="fw-medium"><?php echo e(Str::limit($data->description, 50)); ?></span>
+                    <span class="fw-medium"><?php echo e(Str::limit($data->description, 40)); ?></span>
                   </small>
                 </div>
               </div>
@@ -105,12 +105,19 @@
           </tr>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
       </tbody>
-      <tfoot class="table-border-bottom-0">
-        <?php $__currentLoopData = $fields; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $field): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-          <th><?php echo e($field); ?></th>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-      </tfoot>
     </table>
+    <?php if (isset($component)) { $__componentOriginal41fa1a726c2cdc888fd1699c1c531da853ade966 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\Pagination::class, ['pages' => $datas]); ?>
+<?php $component->withName('pagination'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal41fa1a726c2cdc888fd1699c1c531da853ade966)): ?>
+<?php $component = $__componentOriginal41fa1a726c2cdc888fd1699c1c531da853ade966; ?>
+<?php unset($__componentOriginal41fa1a726c2cdc888fd1699c1c531da853ade966); ?>
+<?php endif; ?>
   </div>
 </div>
 <?php /**PATH C:\laragon\www\warungdigital\resources\views/components/products-tabel.blade.php ENDPATH**/ ?>

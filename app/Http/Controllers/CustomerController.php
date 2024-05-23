@@ -27,9 +27,10 @@ class CustomerController extends Controller
 {
   public function index()
   {
+    $foodProducts = Products::where('category_id', 1)->get();
     $fashionProducts = Products::where('category_id', 2)->get();
     $parfumeProducts = Products::where('category_id', 3)->get();
-    return view('customer.home', compact('fashionProducts', 'parfumeProducts'));
+    return view('customer.home', compact('fashionProducts', 'parfumeProducts', 'foodProducts'));
   }
 
   public function dashboard()
@@ -77,7 +78,7 @@ class CustomerController extends Controller
 
   public function products()
   {
-    $products = Products::all();
+    $products = Products::orderBy('category_id', 'asc')->get();
     return view('customer.products', compact('products'));
   }
 

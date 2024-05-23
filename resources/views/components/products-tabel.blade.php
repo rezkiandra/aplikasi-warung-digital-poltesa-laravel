@@ -21,7 +21,7 @@
                 <div class="d-flex flex-column">
                   <span class="text-nowrap text-heading fw-medium">{{ $data->name }}</span>
                   <small class="d-lg-flex d-md-flex d-flex flex-row text-truncate d-sm-block d-flex">
-                    <span class="fw-medium">{{ Str::limit($data->description, 50) }}</span>
+                    <span class="fw-medium">{{ Str::limit($data->description, 40) }}</span>
                   </small>
                 </div>
               </div>
@@ -79,11 +79,7 @@
           </tr>
         @endforeach
       </tbody>
-      <tfoot class="table-border-bottom-0">
-        @foreach ($fields as $field)
-          <th>{{ $field }}</th>
-        @endforeach
-      </tfoot>
     </table>
+    <x-pagination :pages="$datas" />
   </div>
 </div>

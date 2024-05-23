@@ -48,7 +48,7 @@
 
       <div class="col-lg-6">
         <x-form-floating>
-          <x-input-form-label :label="'Konfirmasi Password'" :name="'konfirmasi'" :type="'password'" :value="old('password')"
+          <x-input-form-label :label="'Konfirmasi Password'" :name="'konfirmasi'" :type="'password'" :value="old('konfirmasi')"
             :placeholder="'*******'" />
         </x-form-floating>
       </div>

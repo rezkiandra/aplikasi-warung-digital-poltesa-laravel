@@ -15,13 +15,13 @@ class EditSellerRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'full_name' => 'required|unique:sellers,id|max:30',
+      'full_name' => 'required|unique:sellers,id|min:4|max:30',
       'address' => 'required',
-      'phone_number' => 'required|numeric|regex:/^\d{8,13}$/|min:8',
+      'phone_number' => 'required|numeric|regex:/^\d{8,13}$/',
       'gender' => 'required',
       'bank_account_id' => 'required',
       'image' => 'required_if:image,null|mimes:png,jpg,jpeg',
-      'account_number' => 'required|unique:sellers,id|numeric|min:8',
+      'account_number' => 'required|numeric|min:8',
       'status' => 'required_if:status,null|in:active,inactive,pending',
     ];
   }
@@ -31,6 +31,7 @@ class EditSellerRequest extends FormRequest
     return [
       'full_name.required' => 'Nama seller diperlukan',
       'full_name.unique' => 'Nama seller sudah ada',
+      'full_name.min' => 'Nama seller minimal 4 karakter',
       'full_name.max' => 'Nama seller maksimal 30 karakter',
 
       'address.required' => 'Alamat diperlukan',
@@ -38,20 +39,20 @@ class EditSellerRequest extends FormRequest
       'phone_number.required' => 'Nomor handphone diperlukan',
       'phone_number.numeric' => 'Nomor handphone dalam bentuk angka',
       'phone_number.regex' => 'Nomor handphone tidak valid',
-      'phone_number.max' => 'Nomor handphone maksimal 20 karakter',
 
       'gender.required' => 'Harap pilih gender',
 
       'bank_account_id.required' => 'Harap pilih bank',
 
-      'image.required_if' => 'Gambar diperlukan',
-      'image.mimes' => 'Gambar dalam format jpg, png, jpeg',
-      // 'image.size' => 'Gambar maksimal 2 MB',
+      'image.required_if' => 'Foto profil diperlukan',
+      'image.mimes' => 'Foto profil dalam format jpg, png, jpeg',
+      'image.size' => 'Foto profil maksimal 2 MB',
 
       'account_number.required' => 'Nomor rekening diperlukan',
       'account_number.unique' => 'Nomor rekening sudah ada',
       'account_number.numeric' => 'Nomor rekening dalam bentuk angka',
       'account_number.min' => 'Nomor rekening minimal 8 karakter',
+      'account_number.max' => 'Nomor rekening maksimal 20 karakter',
 
       'status.required_if' => 'Status diperlukan',
       'status.in' => 'Status tidak valid',

@@ -211,10 +211,10 @@
                   <input type="hidden" name="customer_id" value="{{ $customer->id }}">
                   <input type="hidden" name="product_id" value="{{ $product->id }}">
                   @if ($product->stock == 0)
-                    <x-submit-button :label="'Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2 disabled'"
+                    <x-submit-button :label="'Tambah Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2 disabled'"
                       aria-disabled="true" :icon="'heart-outline me-2'" :variant="'danger'" />
                   @else
-                    <x-submit-button :label="'Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2'"
+                    <x-submit-button :label="'Tambah Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2'"
                       :icon="'heart-outline me-2'" :variant="'danger'" />
                   @endif
                 </form>
@@ -224,10 +224,10 @@
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <input type="hidden" name="quantity" id="newQuantityCart" value="1">
                 @if ($product->stock == 0)
-                  <x-submit-button :label="'Keranjang'" id="btn-cart" :type="'submit'" :class="'btn-outline-primary w-100 mb-2 disabled'"
+                  <x-submit-button :label="'Tambah Keranjang'" id="btn-cart" :type="'submit'" :class="'btn-outline-primary w-100 mb-2 disabled'"
                     aria-disabled="true" :icon="'cart-outline me-2'" :variant="'primary'" />
                 @else
-                  <x-submit-button :label="'Keranjang'" id="btn-cart" :type="'submit'" :class="'btn-outline-primary w-100 mb-2'"
+                  <x-submit-button :label="'Tambah Keranjang'" id="btn-cart" :type="'submit'" :class="'btn-outline-primary w-100 mb-2'"
                     :icon="'cart-outline me-2'" :variant="'primary'" />
                 @endif
               </form>
@@ -238,10 +238,10 @@
                 <input type="hidden" name="total_price" id="newTotalPriceOrder"
                   value="{{ $product->price + ($product->price / 100) * 3 }}">
                 @if ($product->stock == 0)
-                  <x-submit-button :label="'Beli'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100 disabled'"
+                  <x-submit-button :label="'Pesan'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100 disabled'"
                     aria-disabled="true" :icon="'basket-outline me-2'" :variant="'primary'" />
                 @else
-                  <x-submit-button :label="'Beli'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100'"
+                  <x-submit-button :label="'Pesan'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100'"
                     :icon="'basket-outline me-2'" :variant="'primary'" />
                 @endif
               </form>
@@ -251,10 +251,10 @@
                 <input type="hidden" name="customer_id" value="{{ $customer->id ?? '' }}">
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 @if ($product->stock == 0)
-                  <x-submit-button :label="'Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2 disabled'"
+                  <x-submit-button :label="'Tambah Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2 disabled'"
                     aria-disabled="true" :icon="'heart-outline me-2'" :variant="'danger'" />
                 @else
-                  <x-submit-button :label="'Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2'"
+                  <x-submit-button :label="'Tambah Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2'"
                     :icon="'heart-outline me-2'" :variant="'danger'" />
                 @endif
               </form>
@@ -263,10 +263,10 @@
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <input type="hidden" name="quantity" id="newQuantityCart" value="1">
                 @if ($product->stock == 0)
-                  <x-submit-button :label="'Keranjang'" id="btn-cart" :type="'submit'" :class="'btn-outline-primary w-100 mb-2 disabled'"
+                  <x-submit-button :label="'Tambah Keranjang'" id="btn-cart" :type="'submit'" :class="'btn-outline-primary w-100 mb-2 disabled'"
                     aria-disabled="true" :icon="'cart-outline me-2'" :variant="'primary'" />
                 @else
-                  <x-submit-button :label="'Keranjang'" id="btn-cart" :type="'submit'" :class="'btn-outline-primary w-100 mb-2'"
+                  <x-submit-button :label="'Tambah Keranjang'" id="btn-cart" :type="'submit'" :class="'btn-outline-primary w-100 mb-2'"
                     :icon="'cart-outline me-2'" :variant="'primary'" />
                 @endif
               </form>
@@ -277,10 +277,10 @@
                 <input type="hidden" name="total_price" id="newTotalPriceOrder"
                   value="{{ $product->price + ($product->price / 100) * 3 }}">
                 @if ($product->stock == 0)
-                  <x-submit-button :label="'Beli'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100 disabled'"
+                  <x-submit-button :label="'Pesan'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100 disabled'"
                     aria-disabled="true" :icon="'basket-outline me-2'" :variant="'primary'" />
                 @else
-                  <x-submit-button :label="'Beli'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100'"
+                  <x-submit-button :label="'Pesan'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100'"
                     :icon="'basket-outline me-2'" :variant="'primary'" />
                 @endif
               </form>

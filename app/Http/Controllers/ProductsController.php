@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProductsRequest;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\EditProductsRequest;
 
 class ProductsController extends Controller
 {
@@ -72,7 +73,7 @@ class ProductsController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(ProductsRequest $request, string $uuid)
+  public function update(EditProductsRequest $request, string $uuid)
   {
     $product = Products::where('uuid', $uuid)->firstOrFail();
     $productImage = Products::where('uuid', $uuid)->pluck('image')->first();

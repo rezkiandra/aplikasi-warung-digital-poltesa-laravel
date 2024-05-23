@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Products;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductsRequest extends FormRequest
+class EditProductsRequest extends FormRequest
 {
   public function authorize(): bool
   {
@@ -15,18 +15,20 @@ class ProductsRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'name' => 'required|unique:products,name|min:5|max:50',
+      'name' => 'required|unique:products,id|min:5|max:50',
       'description' => 'required|min:100',
-      'price' => 'required|numeric',
-      'stock' => 'required|numeric',
-      'category_id' => 'required',
-      'image' => 'required|mimes:png,jpg,jpeg,webp',
+      'price' => 'required|numeric|',
+      'stock' => 'required|numeric|',
+      'category_id' => 'required_if:category_id,null',
+      'image' => 'required_if:image,null|mimes:png,jpg,jpeg,webp',
     ];
   }
 
   public function messages(): array
   {
     return [
+      'seller_id.required_if' => 'Seller diperlukan',
+
       'name.required' => 'Nama produk diperlukan',
       'name.unique' => 'Nama produk sudah ada',
       'name.min' => 'Nama produk minimal 5 karakter',
@@ -41,9 +43,9 @@ class ProductsRequest extends FormRequest
       'stock.required' => 'Stok diperlukan',
       'stock.numeric' => 'Stok dalam bentuk angka',
 
-      'category_id.required' => 'Kategori produk diperlukan',
+      'category_id.required_if' => 'Kategori produk diperlukan',
 
-      'image.required' => 'Gambar produk diperlukan',
+      'image.required_if' => 'Gambar produk diperlukan',
       'image.mimes' => 'Gambar produk dalam format jpg, png, jpeg, webp',
       'image.size' => 'Gambar produk maksimal 2 MB',
     ];
@@ -52,6 +54,7 @@ class ProductsRequest extends FormRequest
   public function attributes(): array
   {
     return [
+      'seller_id' => 'Seller',
       'name' => 'Nama Produk',
       'description' => 'Deskripsi',
       'price' => 'Harga',

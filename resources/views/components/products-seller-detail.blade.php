@@ -52,6 +52,6 @@
         </tbody>
       </table>
     </div>
-    <x-pagination :pages="$orders" />
+    <x-pagination :pages="$datas" />
   </div>
 </div>

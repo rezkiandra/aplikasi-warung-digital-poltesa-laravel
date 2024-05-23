@@ -16,14 +16,14 @@ class SellerRequest extends FormRequest
   {
     return [
       'user_id' => 'required|unique:sellers,id',
-      'full_name' => 'required|unique:sellers,id|max:30',
+      'full_name' => 'required|unique:sellers,id|min:4|max:30',
       'address' => 'required',
-      'phone_number' => 'required|numeric|regex:/^\d{8,13}$/|min:8',
+      'phone_number' => 'required|numeric|regex:/^\d{8,13}$/|unique:sellers,phone_number',
       'gender' => 'required',
       'bank_account_id' => 'required',
-      'image' => 'required_if:image,null|mimes:png,jpg,jpeg',
-      'account_number' => 'required|unique:sellers,id|numeric|min:8',
-      'status' => 'required_if:status,null|in:active,inactive,pending',
+      'image' => 'required|mimes:png,jpg,jpeg',
+      'account_number' => 'required|unique:sellers,account_number|numeric|min:8',
+      'status' => 'required|in:active,inactive,pending',
     ];
   }
 
@@ -35,6 +35,7 @@ class SellerRequest extends FormRequest
 
       'full_name.required' => 'Nama seller diperlukan',
       'full_name.unique' => 'Nama seller sudah ada',
+      'full_name.min' => 'Nama seller minimal 4 karakter',
       'full_name.max' => 'Nama seller maksimal 30 karakter',
 
       'address.required' => 'Alamat diperlukan',
@@ -42,22 +43,23 @@ class SellerRequest extends FormRequest
       'phone_number.required' => 'Nomor handphone diperlukan',
       'phone_number.numeric' => 'Nomor handphone dalam bentuk angka',
       'phone_number.regex' => 'Nomor handphone tidak valid',
-      'phone_number.max' => 'Nomor handphone maksimal 20 karakter',
+      'phone_number.unique' => 'Nomor handphone sudah ada',
 
       'gender.required' => 'Harap pilih gender',
 
       'bank_account_id.required' => 'Harap pilih bank',
 
-      'image.required_if' => 'Gambar diperlukan',
-      'image.mimes' => 'Gambar dalam format jpg, png, jpeg',
-      // 'image.size' => 'Gambar maksimal 2 MB',
+      'image.required' => 'Foto profil diperlukan',
+      'image.mimes' => 'Foto profil dalam format jpg, png, jpeg',
+      'image.size' => 'Foto profil maksimal 2 MB',
 
       'account_number.required' => 'Nomor rekening diperlukan',
       'account_number.unique' => 'Nomor rekening sudah ada',
       'account_number.numeric' => 'Nomor rekening dalam bentuk angka',
       'account_number.min' => 'Nomor rekening minimal 8 karakter',
+      'account_number.max' => 'Nomor rekening maksimal 20 karakter',
 
-      'status.required_if' => 'Status diperlukan',
+      'status.required' => 'Status diperlukan',
       'status.in' => 'Status tidak valid',
     ];
   }
@@ -70,7 +72,7 @@ class SellerRequest extends FormRequest
       'phone_number' => 'Nomor handphone',
       'gender' => 'Gender',
       'bank_account_id' => 'Bank',
-      'image' => 'Gambar',
+      'image' => 'Foto',
       'account_number' => 'Nomor rekening',
       'status' => 'Status',
     ];
