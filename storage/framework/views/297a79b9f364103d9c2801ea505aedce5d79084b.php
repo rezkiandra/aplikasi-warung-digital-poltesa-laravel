@@ -46,11 +46,11 @@
               <span class="text-truncate text-dark">Rp <?php echo e(number_format($data->price, 0, ',', '.')); ?></span>
             </td>
             <td>
-              <span class="text-truncate text-dark"><?php echo e($data->stock); ?> pcs</span>
+              <span class="text-truncate text-dark"><?php echo e($data->stock); ?> <?php echo e($data->unit); ?></span>
             </td>
             <td>
               <span
-                class="fw-medium badge rounded-pill bg-label-info"><?php echo e(date('d M, H:i:s', strtotime($data->created_at))); ?>
+                class="fw-medium badge rounded-pill bg-label-info"><?php echo e(date('d M Y, H:i:s', strtotime($data->created_at))); ?>
 
                 <?php echo e($data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM'); ?>
 

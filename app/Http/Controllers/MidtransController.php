@@ -50,7 +50,7 @@ class MidtransController extends Controller
       'customer_details' => array(
         'first_name' => $order->customer->full_name,
         'email' => Auth::user()->email,
-        'address' => $order->customer->full_name,
+        'address' => $order->customer->address,
         'phone' => $order->customer->phone_number
       ),
     );
@@ -61,10 +61,8 @@ class MidtransController extends Controller
       $order->save();
     } catch (Exception $e) {
       $response_body = json_decode($e->getMessage(), true);
-      dd($response_body);
       return redirect()->back();
     }
-
     return view('customer.order-detail', compact('order', 'snapToken'));
   }
 

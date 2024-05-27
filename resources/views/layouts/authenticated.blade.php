@@ -42,7 +42,7 @@
           @include('components.navbar')
 
           <div class="content-wrapper">
-            <div class="container flex-grow-1 container-p-y">
+            <div class="container-fluid flex-grow-1 container-p-y">
               @include('sweetalert::alert')
               @yield('content')
             </div>

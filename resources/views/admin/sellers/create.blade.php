@@ -9,9 +9,9 @@
       'perempuan' => 'perempuan',
   ];
   $status = [
-      'active' => 'active',
-      'inactive' => 'inactive',
-      'pending' => 'pending',
+      'Aktif' => 'active',
+      'Tidak Aktif' => 'inactive',
+      'Pending' => 'pending',
   ];
   $bank = \App\Models\BankAccount::pluck('bank_name', 'id')->toArray();
 @endphp
@@ -31,7 +31,7 @@
 
       <div class="col-lg-4">
         <x-form-floating>
-          <x-input-form-label :label="'Nomor Telepon'" :name="'phone_number'" :type="'tel'" :value="old('phone_number')"
+          <x-input-form-label :label="'Nomor Telepon'" :name="'phone_number'" :type="'text'" :value="old('phone_number')"
             :placeholder="'081234567890'" />
         </x-form-floating>
       </div>

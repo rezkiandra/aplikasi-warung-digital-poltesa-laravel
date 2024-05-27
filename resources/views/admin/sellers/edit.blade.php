@@ -1,13 +1,13 @@
 @php
   $user = \App\Models\User::where('role_id', '2')->pluck('name', 'id')->toArray();
   $gender = [
-      'male' => 'male',
-      'female' => 'female',
+      'Laki-laki' => 'laki-laki',
+      'Perempuan' => 'perempuan',
   ];
   $status = [
-      'active' => 'active',
-      'inactive' => 'inactive',
-      'pending' => 'pending',
+      'Aktif' => 'active',
+      'Tidak Aktif' => 'inactive',
+      'Pending' => 'pending',
   ];
   $bank = \App\Models\BankAccount::pluck('bank_name', 'id')->toArray();
 @endphp

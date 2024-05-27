@@ -50,11 +50,11 @@
   </div>
   @if ($admin || $seller)
     <div class="row mb-4">
-      <div class="col-lg-5 col-md-6">
+      <div class="col-lg-4 col-md-6">
         <img src="{{ asset('storage/' . $product->image) }}" alt="" class="img-fluid rounded shadow hover-shadow">
       </div>
 
-      <div class="col-lg-7 px-lg-3 col-md-6 mt-lg-0 mt-3 mt-md-0">
+      <div class="col-lg-8 px-lg-3 col-md-6 mt-lg-0 mt-3 mt-md-0">
         <h4 class="fw-medium">{{ $product->name }}</h4>
         <div class="d-flex d-lg-flex d-md-flex align-items-center gap-4">
           <p class="d-lg-flex d-flex align-items-center">
@@ -64,9 +64,9 @@
               class="ms-1 text-secondary">{{ \App\Models\Order::where('product_id', $product->id)->sum('quantity') }}</span>
           </p>
           <p class="d-lg-flex align-items-center gap-1">
-            <i class="mdi mdi-star text-warning"></i>
+            <i class="mdi mdi-star-half-full text-warning"></i>
             <span class="text-dark">4.5</span>
-            <span class="text-secondary">(1.822 rating)</span>
+            <span class="text-secondary">(123 rating)</span>
           </p>
         </div>
         <h4 class="mb-3 fw-bold">
@@ -123,9 +123,9 @@
               class="ms-1 text-secondary">{{ \App\Models\Order::where('product_id', $product->id)->sum('quantity') }}</span>
           </p>
           <p class="d-lg-flex align-items-center gap-1">
-            <i class="mdi mdi-star text-warning"></i>
+            <i class="mdi mdi-star-half-full text-warning"></i>
             <span class="text-dark">4.5</span>
-            <span class="text-secondary">(1.822 rating)</span>
+            <span class="text-secondary">(123 rating)</span>
           </p>
         </div>
         <h4 class="mb-3 fw-bold">
@@ -161,7 +161,7 @@
 
       <div class="col-lg-3 mt-lg-0 mt-3">
         <div class="bg-white border rounded p-3 mb-3">
-          <h6>Rincian Pesanan</h6>
+          <h6>Rincian Detail Produk</h6>
           <div class="text-muted mb-3">
             <span class="">Kategori:</span>
             <span class="text-dark">{{ $product->category->name }}</span>
@@ -321,8 +321,8 @@
       $('#newQuantityCart').val(newQuantity);
       $('#newQuantityOrder').val(newQuantity);
       $('#newTotalPriceOrder').val(total);
-      $('#subtotal').html('Rp' + subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
-      $('#total').html('Rp' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+      $('#subtotal').html('Rp ' + subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+      $('#total').html('Rp ' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
     });
 
     // jika mengklik tombol increment maka quantity akan bertambah dan total akan bertambah

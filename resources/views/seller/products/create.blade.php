@@ -1,4 +1,10 @@
 @php
+  $units = [
+      'kg' => 'Kilogram',
+      'pcs' => 'Pcs',
+      'pack' => 'Package',
+      'box' => 'Box',
+  ];
   $categories = \App\Models\ProductCategory::pluck('name', 'id')->toArray();
 @endphp
 
@@ -25,9 +31,16 @@
         </x-form-floating>
       </div>
 
-      <div class="col-lg-4">
+      <div class="col-lg-2">
         <x-form-floating>
           <x-input-form-label :label="'Stok'" :name="'stock'" :type="'text'" :value="old('stock')" />
+        </x-form-floating>
+      </div>
+
+      <div class="col-lg-2">
+        <x-form-floating>
+          <x-input-form-label :label="'Unit'" :name="'unit'" :type="'select'" :options="$units"
+            :select="'Pilih unit'" />
         </x-form-floating>
       </div>
 

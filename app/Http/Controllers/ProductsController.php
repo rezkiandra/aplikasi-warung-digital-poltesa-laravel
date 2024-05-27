@@ -43,6 +43,7 @@ class ProductsController extends Controller
       'description' => $request->description,
       'price' => $request->price,
       'stock' => $request->stock,
+      'unit' => $request->unit,
       'category_id' => $request->category_id,
       'image' => $request->image->store('products', 'public'),
     ]);
@@ -94,6 +95,7 @@ class ProductsController extends Controller
         'description' => $request->description,
         'price' => $request->price,
         'stock' => $request->stock,
+        'unit' => $request->unit,
         'category_id' => $request->category_id,
       ]);
     }

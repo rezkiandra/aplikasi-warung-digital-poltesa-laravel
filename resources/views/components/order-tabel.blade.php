@@ -33,7 +33,7 @@
                     <span class="fw-medium">{{ $data->product->name }}</span>
                   </a>
                   <small class="text-truncate">Rp {{ number_format($data->product->price, 0, ',', '.') }} -
-                    {{ $data->quantity }} pcs</small>
+                    {{ $data->quantity }} {{ $data->product->unit }}</small>
                 </div>
               </div>
             </td>

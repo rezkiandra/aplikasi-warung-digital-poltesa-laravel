@@ -49,7 +49,7 @@
             </td>
             <td>
               <span
-                class="fw-medium badge rounded-pill bg-label-info">{{ date('M d, H:i', strtotime($data->created_at)) }}
+                class="fw-medium badge rounded-pill bg-label-info">{{ date('d M Y, H:i:s', strtotime($data->created_at)) }}
                 {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
               </span>
             </td>

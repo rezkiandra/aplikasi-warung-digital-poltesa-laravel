@@ -39,7 +39,7 @@
                   </span>
                   <small class="text-truncate">
                     <span class="fw-medium text-capitalize">
-                      {{ Str::limit($data->address, 50) }}
+                      {{ Str::limit($data->address, 40) }}
                     </span>
                   </small>
                 </div>

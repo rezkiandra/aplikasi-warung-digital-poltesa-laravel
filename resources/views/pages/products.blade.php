@@ -1,8 +1,3 @@
-@php
-  $totalProducts = \App\Models\Products::count();
-  $category = \App\Models\ProductCategory::pluck('name', 'id')->toArray();
-@endphp
-
 @extends('layouts.guest')
 @section('title', 'Produk')
 @section('content')
@@ -13,19 +8,7 @@
           <h3 class="text-dark text-uppercase mb-2">Produk Kami</h3>
           <h6 class="">Menampilkan {{ $totalProducts }} produk</h6>
         </div>
-        {{-- <div class="d-flex flex-column pt-4 col-4 col-lg-2">
-          <label for="filter" class="d-none d-lg-block d-md-block form-label text-uppercase h4">Filter Produk</label>
-          <select name="filter" id="filter" class="form-select text-uppercase">
-            <option value="" class="form-select">Semua</option>
-            @foreach ($category as $key => $value)
-              <option value="{{ $key }}" class="form-select">{{ $value }}</option>
-            @endforeach
-          </select>
-        </div> --}}
       </div>
-    </div>
-
-    <div class="container-fluid">
       <x-grid-card>
         <x-product-grid :datas="$products" />
       </x-grid-card>

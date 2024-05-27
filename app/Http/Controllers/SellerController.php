@@ -17,9 +17,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class SellerController extends Controller
 {
-  /**
-   * Display a listing of the resource.
-   */
   public function dashboard()
   {
     if (auth()->user()->seller) {

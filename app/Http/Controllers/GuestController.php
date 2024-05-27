@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Products;
 use Illuminate\Http\Request;
+use App\Models\ProductCategory;
 use App\Http\Controllers\Controller;
 
 class GuestController extends Controller
@@ -13,13 +14,16 @@ class GuestController extends Controller
     $foodProducts = Products::where('category_id', 1)->get();
     $fashionProducts = Products::where('category_id', 2)->get();
     $parfumeProducts = Products::where('category_id', 3)->get();
-    return view('pages.home', compact('fashionProducts', 'parfumeProducts', 'foodProducts'));
+    $beautyProducts = Products::where('category_id', 4)->get();
+    return view('pages.home', compact('fashionProducts', 'parfumeProducts', 'foodProducts', 'beautyProducts'));
   }
 
   public function products()
   {
+    $category = ProductCategory::pluck('name', 'id')->toArray();
     $products = Products::orderBy('category_id', 'asc')->get();
-    return view('pages.products', compact('products'));
+    $totalProducts = $products->count();
+    return view('pages.products', compact('products', 'totalProducts', 'category'));
   }
 
   public function faq()

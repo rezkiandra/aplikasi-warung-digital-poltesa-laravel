@@ -40,7 +40,7 @@
                   </span>
                   <small class="text-truncate">
                     <span class="fw-medium text-capitalize">
-                      <?php echo e(Str::limit($data->address, 50)); ?>
+                      <?php echo e(Str::limit($data->address, 40)); ?>
 
                     </span>
                   </small>

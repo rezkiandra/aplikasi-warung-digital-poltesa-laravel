@@ -31,7 +31,7 @@
                       </div>
                       <div class="d-flex flex-column">
                         <span class="text-nowrap text-heading fw-medium">{{ $order->product->name }}</span>
-                        <small class="text-truncate">{{ Str::limit($order->product->description, 100) }}</small>
+                        <small class="text-truncate">{{ Str::limit($order->product->description, 120) }}</small>
                       </div>
                     </div>
                   </td>
@@ -393,7 +393,7 @@
             <h6 class="mb-1">Info Kontak</h6>
           </div>
           <p class="mb-1">Email : {{ $order->product->seller->user->email }}</p>
-          <p class="mb-0">Nomor HP : {{ $order->product->seller->phone_number }}</p>
+          <p class="mb-1">Nomor HP : {{ $order->product->seller->phone_number }}</p>
           <p class="mb-0">Alamat : {{ $order->product->seller->address }}</p>
         </div>
       </div>
@@ -418,7 +418,7 @@
             <h6 class="mb-1">Info Kontak</h6>
           </div>
           <p class="mb-1">Email : {{ $order->customer->user->email }}</p>
-          <p class="mb-0">Nomor HP : {{ $order->customer->phone_number }}</p>
+          <p class="mb-1">Nomor HP : {{ $order->customer->phone_number }}</p>
           <p class="mb-0">Alamat : {{ $order->customer->address }}</p>
         </div>
       </div>

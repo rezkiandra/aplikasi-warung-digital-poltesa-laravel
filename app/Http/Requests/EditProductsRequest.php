@@ -15,10 +15,11 @@ class EditProductsRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'name' => 'required|unique:products,id|min:5|max:50',
+      'name' => 'required|unique:products,id|min:5|max:30',
       'description' => 'required|min:100',
-      'price' => 'required|numeric|',
-      'stock' => 'required|numeric|',
+      'price' => 'required|numeric',
+      'stock' => 'required|numeric',
+      'unit' => 'required_if:unit,null',
       'category_id' => 'required_if:category_id,null',
       'image' => 'required_if:image,null|mimes:png,jpg,jpeg,webp',
     ];
@@ -32,7 +33,7 @@ class EditProductsRequest extends FormRequest
       'name.required' => 'Nama produk diperlukan',
       'name.unique' => 'Nama produk sudah ada',
       'name.min' => 'Nama produk minimal 5 karakter',
-      'name.max' => 'Nama produk maksimal 50 karakter',
+      'name.max' => 'Nama produk maksimal 30 karakter',
 
       'description.required' => 'Deskripsi diperlukan',
       'description.min' => 'Deskripsi minimal 100 karakter',
@@ -42,6 +43,8 @@ class EditProductsRequest extends FormRequest
 
       'stock.required' => 'Stok diperlukan',
       'stock.numeric' => 'Stok dalam bentuk angka',
+
+      'unit.required_if' => 'Unit diperlukan',
 
       'category_id.required_if' => 'Kategori produk diperlukan',
 
@@ -59,6 +62,7 @@ class EditProductsRequest extends FormRequest
       'description' => 'Deskripsi',
       'price' => 'Harga',
       'stock' => 'Stok',
+      'unit' => 'Unit',
       'image' => 'Gambar',
     ];
   }

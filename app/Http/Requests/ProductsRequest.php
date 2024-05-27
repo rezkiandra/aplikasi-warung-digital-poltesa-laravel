@@ -15,10 +15,11 @@ class ProductsRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'name' => 'required|unique:products,name|min:5|max:50',
+      'name' => 'required|unique:products,name|min:5|max:30',
       'description' => 'required|min:100',
       'price' => 'required|numeric',
       'stock' => 'required|numeric',
+      'unit' => 'required',
       'category_id' => 'required',
       'image' => 'required|mimes:png,jpg,jpeg,webp',
     ];
@@ -30,7 +31,7 @@ class ProductsRequest extends FormRequest
       'name.required' => 'Nama produk diperlukan',
       'name.unique' => 'Nama produk sudah ada',
       'name.min' => 'Nama produk minimal 5 karakter',
-      'name.max' => 'Nama produk maksimal 50 karakter',
+      'name.max' => 'Nama produk maksimal 30 karakter',
 
       'description.required' => 'Deskripsi diperlukan',
       'description.min' => 'Deskripsi minimal 100 karakter',
@@ -40,6 +41,8 @@ class ProductsRequest extends FormRequest
 
       'stock.required' => 'Stok diperlukan',
       'stock.numeric' => 'Stok dalam bentuk angka',
+
+      'unit.required' => 'Unit diperlukan',
 
       'category_id.required' => 'Kategori produk diperlukan',
 
@@ -56,6 +59,7 @@ class ProductsRequest extends FormRequest
       'description' => 'Deskripsi',
       'price' => 'Harga',
       'stock' => 'Stok',
+      'unit' => 'Unit',
       'image' => 'Gambar',
     ];
   }

@@ -30,15 +30,15 @@
                       <div class="d-flex flex-row align-items-start justify-content-start gap-1">
                         <span class="text-dark text-capitalize fw-medium">{{ $data->product->name }}</span>
                       </div>
-                      <small class="text-truncate">{{ Str::limit($data->product->description, 50) }}</small>
+                      <small class="text-truncate">{{ Str::limit($data->product->description, 70) }}</small>
                     </div>
                   </div>
                 </div>
               </td>
-              <td class="text-truncate">{{ $data->quantity }} pcs</td>
+              <td class="text-truncate">{{ $data->quantity }} {{ $data->product->unit }}</td>
               <td class="text-truncate">Rp {{ number_format($data->total_price, 0, ',', '.') }}</td>
               <td class="text-truncate fw-medium">
-                <span class="badge bg-label-info rounded">{{ date('d M, H:i:s', strtotime($data->created_at)) }}
+                <span class="badge bg-label-info rounded">{{ date('d M Y, H:i:s', strtotime($data->created_at)) }}
                   {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
                 </span>
               </td>

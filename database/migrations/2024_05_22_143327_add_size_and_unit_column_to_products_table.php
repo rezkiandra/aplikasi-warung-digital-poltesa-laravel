@@ -14,8 +14,10 @@ class AddSizeAndUnitColumnToProductsTable extends Migration
   public function up()
   {
     Schema::table('products', function (Blueprint $table) {
-      $table->enum('size', ['S', 'M', 'L', 'XL', 'XXL'])->after('stock')->nullable();
-      $table->enum('unit', ['kg', 'pcs', 'pack', 'box'])->after('size')->nullable();
+      // $table->enum('size', ['S', 'M', 'L', 'XL', 'XXL'])->after('stock')->nullable();
+      // $table->enum('unit', ['kg', 'pcs', 'pack', 'box'])->after('size')->nullable();
+
+      $table->enum('unit', ['kg', 'pcs', 'pack', 'box'])->after('stock')->nullable();
     });
   }
 
@@ -27,7 +29,8 @@ class AddSizeAndUnitColumnToProductsTable extends Migration
   public function down()
   {
     Schema::table('products', function (Blueprint $table) {
-      $table->dropColumn(['size', 'unit']);
+      // $table->dropColumn(['size', 'unit']);
+      $table->dropColumn(['unit']);
     });
   }
 }

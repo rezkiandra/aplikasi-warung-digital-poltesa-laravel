@@ -37,11 +37,11 @@
               <span class="fw-medium text-dark">Rp {{ number_format($data->price, 0, ',', '.') }}</span>
             </td>
             <td>
-              <span class="fw-medium text-dark">{{ $data->stock }} pcs</span>
+              <span class="fw-medium text-dark">{{ $data->stock }} {{ $data->unit }}</span>
             </td>
             <td>
               <span
-                class="fw-medium badge rounded bg-label-info">{{ date('d M, H:i:s', strtotime($data->created_at)) }}
+                class="fw-medium badge rounded bg-label-info">{{ date('d M Y, H:i:s', strtotime($data->created_at)) }}
                 {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
               </span>
             </td>

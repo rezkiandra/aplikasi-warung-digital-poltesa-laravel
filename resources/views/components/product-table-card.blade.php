@@ -27,7 +27,7 @@
                   <div class="">
                     <span
                       class="d-lg-flex d-md-flex d-flex text-dark text-capitalize fw-medium">{{ $data->name }}</span>
-                    <small class="text-truncate">stok tersedia {{ $data->stock }} pcs</small>
+                    <small class="text-truncate">stok tersedia {{ $data->stock }} {{ $data->unit }}</small>
                   </div>
                 </div>
               </td>
@@ -42,7 +42,7 @@
                 <span class="badge bg-label-primary rounded text-uppercase">{{ $data->category->name }}</span>
               </td>
               <td class="text-truncate fw-medium">
-                <span class="badge bg-label-info rounded">{{ date('d M, H:i:s', strtotime($data->created_at)) }}
+                <span class="badge bg-label-info rounded">{{ date('d M Y, H:i:s', strtotime($data->created_at)) }}
                   {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}</span>
               </td>
             </tr>

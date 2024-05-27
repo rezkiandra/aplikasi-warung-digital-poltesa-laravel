@@ -30,7 +30,8 @@ class CustomerController extends Controller
     $foodProducts = Products::where('category_id', 1)->get();
     $fashionProducts = Products::where('category_id', 2)->get();
     $parfumeProducts = Products::where('category_id', 3)->get();
-    return view('customer.home', compact('fashionProducts', 'parfumeProducts', 'foodProducts'));
+    $beautyProducts = Products::where('category_id', 4)->get();
+    return view('customer.home', compact('fashionProducts', 'parfumeProducts', 'foodProducts', 'beautyProducts'));
   }
 
   public function dashboard()
@@ -90,7 +91,8 @@ class CustomerController extends Controller
   public function product(string $slug)
   {
     $product = Products::where('slug', $slug)->firstOrFail();
-    return view('pages.detail-product', compact('product'));
+    $relatedProducts = Products::where('category_id', $product->category_id)->where('id', '!=', $product->id)->get();
+    return view('pages.detail-product', compact('product', 'relatedProducts'));
   }
 
   public function biodata()
@@ -123,10 +125,18 @@ class CustomerController extends Controller
   {
     if (Auth::user()->customer) {
       $orders = Order::with('product')->where('customer_id', Auth::user()->customer->id)->orderBy('created_at', 'desc')->paginate(8);
+      $customer_id = Auth::user()->customer->id;
     } else {
       $orders = collect([]);
+      $customer_id = null;
     }
-    return view('customer.orders', compact('orders'));
+
+    $countPaid = Order::where('customer_id', $customer_id)->where('status', 'paid')->count();
+    $countUnpaid = Order::where('customer_id', $customer_id)->where('status', 'unpaid')->count();
+    $countExpire = Order::where('customer_id', $customer_id)->where('status', 'expire')->count();
+    $countCancelled = Order::where('customer_id', $customer_id)->where('status', 'cancelled')->count();
+
+    return view('customer.orders', compact('orders', 'countPaid', 'countUnpaid', 'countExpire', 'countCancelled'));
   }
 
   public function settings()

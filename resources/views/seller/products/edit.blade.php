@@ -1,4 +1,10 @@
 @php
+  $units = [
+      'kg' => 'Kilogram',
+      'pcs' => 'Pcs',
+      'pack' => 'Package',
+      'box' => 'Box',
+  ];
   $categories = \App\Models\ProductCategory::pluck('name', 'id')->toArray();
 @endphp
 
@@ -31,9 +37,23 @@
           </x-form-floating>
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-lg-2">
           <x-form-floating>
             <x-input-form-label :label="'Stok'" :name="'stock'" :type="'text'" :value="$product->stock" />
+          </x-form-floating>
+        </div>
+
+        <div class="col-lg-2">
+          <x-form-floating>
+            <select name="unit" id="unit" class="form-select text-capitalize">
+              <option value="{{ $product->unit }}" selected>{{ $product->unit }}</option>
+              @foreach ($units as $key => $value)
+                @if ($key == $product->unit)
+                  @continue
+                @endif
+                <option value="{{ $key }}">{{ $value }}</option>
+              @endforeach
+            </select>
           </x-form-floating>
         </div>
 
