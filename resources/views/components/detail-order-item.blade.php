@@ -6,7 +6,7 @@
     </div>
     <div class="avatar me-sm-3">
       <span class="avatar-initial rounded bg-label-{{ $variant }} text-{{ $variant }}">
-        <i class="mdi mdi-basket-{{ $icon }}-outline mdi-24px"></i>
+        <i class="mdi mdi-{{ $icon }} mdi-24px"></i>
       </span>
     </div>
   </div>

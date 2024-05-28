@@ -85,6 +85,7 @@
       <x-sidebar-item :label="'Pesanan'" :route="route('admin.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('admin.orders', 'admin.*.order')" />
     @elseif(Auth::user()->role_id == 2 && Auth::user()->seller)
       <x-sidebar-item :label="'Pesanan'" :route="route('seller.orders')" :icon="'hand-coin-outline'" :active="request()->routeIs('seller.orders', 'seller.*.order')" />
+      <x-sidebar-item :label="'Laporan'" :route="route('seller.report')" :icon="'finance'" :active="request()->routeIs('seller.report')" />
     @endif
 
     @if (Auth::user()->role_id == 1)

@@ -8,6 +8,14 @@
           <h3 class="text-dark text-uppercase mb-2">Produk Kami</h3>
           <h6 class="">Menampilkan {{ $totalProducts }} produk</h6>
         </div>
+        <div class="mt-3 pt-4 pt-lg-4 pt-md-5">
+          <form action="" method="GET">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Cari Produk" name="search">
+              <button class="btn btn-outline-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
+            </div>
+          </form>
+        </div>
       </div>
       <x-grid-card>
         <x-product-grid :datas="$products" />

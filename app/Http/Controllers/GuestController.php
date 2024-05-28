@@ -18,11 +18,17 @@ class GuestController extends Controller
     return view('pages.home', compact('fashionProducts', 'parfumeProducts', 'foodProducts', 'beautyProducts'));
   }
 
-  public function products()
+  public function products(Request $request)
   {
+    if ($request->search) {
+      $query = $request->input('search');
+      $products = Products::where('name', 'LIKE', "%{$query}%")->get();
+      $totalProducts = $products->count();
+    } else {
+      $products = Products::orderBy('category_id', 'asc')->get();
+      $totalProducts = $products->count();
+    }
     $category = ProductCategory::pluck('name', 'id')->toArray();
-    $products = Products::orderBy('category_id', 'asc')->get();
-    $totalProducts = $products->count();
     return view('pages.products', compact('products', 'totalProducts', 'category'));
   }
 

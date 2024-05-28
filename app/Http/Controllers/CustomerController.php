@@ -77,10 +77,18 @@ class CustomerController extends Controller
     }
   }
 
-  public function products()
+  public function products(Request $request)
   {
-    $products = Products::orderBy('category_id', 'asc')->get();
-    return view('customer.products', compact('products'));
+    if ($request->search) {
+      $query = $request->input('search');
+      $products = Products::where('name', 'LIKE', "%{$query}%")->get();
+      $totalProducts = $products->count();
+    } else {
+      $products = Products::orderBy('category_id', 'asc')->get();
+      $totalProducts = $products->count();
+    }
+    $category = ProductCategory::pluck('name', 'id')->toArray();
+    return view('pages.products', compact('products', 'totalProducts', 'category'));
   }
 
   public function faq()

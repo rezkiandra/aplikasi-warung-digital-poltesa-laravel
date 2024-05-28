@@ -71,6 +71,26 @@ class SellerController extends Controller
     return view('seller.orders.detail', compact('order'));
   }
 
+  public function report(Request $request)
+  {
+    return view('seller.report.index');
+  }
+
+  public function filter(Request $request)
+  {
+    $request->validate([
+      'from_date' => 'required',
+      'to_date' => 'required',
+    ]);
+
+    $from_date = Carbon::parse($request->from_date);
+    $to_date = Carbon::parse($request->to_date);
+
+    $filterData = Order::whereBetween('created_at', [$from_date, $to_date])->get();
+
+    return response()->json($filterData);
+  }
+
   public function settings()
   {
     return view('seller.settings');
