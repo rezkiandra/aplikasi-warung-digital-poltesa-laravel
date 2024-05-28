@@ -73,22 +73,16 @@ class SellerController extends Controller
 
   public function report(Request $request)
   {
-    return view('seller.report.index');
-  }
+    if ($request->from_date && $request->to_date) {
+      $from_date = $request->input('from_date');
+      $to_date = $request->input('to_date');
 
-  public function filter(Request $request)
-  {
-    $request->validate([
-      'from_date' => 'required',
-      'to_date' => 'required',
-    ]);
-
-    $from_date = Carbon::parse($request->from_date);
-    $to_date = Carbon::parse($request->to_date);
-
-    $filterData = Order::whereBetween('created_at', [$from_date, $to_date])->get();
-
-    return response()->json($filterData);
+      $filter = Order::whereBetween('created_at', [$from_date, $to_date])->get();
+    } else {
+      $filter = collect([]);
+    }
+    
+    return view('seller.report.index', compact('filter'));
   }
 
   public function settings()

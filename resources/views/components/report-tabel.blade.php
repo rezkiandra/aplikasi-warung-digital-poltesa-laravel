@@ -1,105 +1,85 @@
 <div class="card">
   <div class="table-responsive">
+    <div class="card-body">
+      <x-basic-button :label="'Cetak Laporan'" :variant="'outline-primary btn-sm'" :icon="'file-download-outline me-2'" :href="route('seller.create.report')" />
+    </div>
     <table class="table">
       <thead>
         <tr>
           <th>ID</th>
+          <th>Pelanggan</th>
           <th>Produk</th>
           <th>PPN 3%</th>
           <th>Total Harga</th>
           <th>Status</th>
           <th>Tanggal Pemesanan</th>
-          <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
-        @foreach ($datas as $data)
-          <tr>
-            <td class="text-primary">
-              <span
-                class="badge rounded p-1 bg-label-primary text-uppercase">#{{ Str::substr($data->uuid, 0, 5) }}</span>
-            </td>
-            <td>
-              <div class="d-flex justify-content-start align-items-center user-name">
-                <div class="avatar-wrapper me-3">
-                  <div class="avatar avatar-sm">
-                    <img src="{{ asset('storage/' . $data->product->image) }}" alt="Avatar" class="rounded">
+        @if ($datas)
+          @foreach ($datas as $data)
+            <tr>
+              <td class="text-primary">
+                <span
+                  class="badge rounded p-1 bg-label-primary text-uppercase">#{{ Str::substr($data->uuid, 0, 5) }}</span>
+              </td>
+              <td>
+                <div class="d-flex justify-content-start align-items-center user-name">
+                  <div class="avatar-wrapper me-3">
+                    <div class="avatar avatar-sm">
+                      <img src="{{ asset('storage/' . $data->customer->image) }}" alt="Avatar" class="rounded">
+                    </div>
+                  </div>
+                  <div class="d-flex flex-column">
+                    <a href="javascript:void(0)"
+                      class="text-truncate text-heading">
+                      <span class="fw-medium">{{ $data->customer->full_name }}</span>
+                    </a>
+                    <small class="text-truncate">{{ $data->customer->user->email }}</small>
                   </div>
                 </div>
-                <div class="d-flex flex-column">
-                  <a href="{{ route('customer.detail.product', $data->product->slug) }}"
-                    class="text-truncate text-heading">
-                    <span class="fw-medium">{{ $data->product->name }}</span>
-                  </a>
-                  <small class="text-truncate">Rp {{ number_format($data->product->price, 0, ',', '.') }} -
-                    {{ $data->quantity }} {{ $data->product->unit }}</small>
-                </div>
-              </div>
-            </td>
-            <td>
-              <span class="text-truncate text-dark">Rp
-                {{ number_format(($data->product->price / 100) * 3, 0, ',', '.') }}</span>
-            </td>
-            <td>
-              <span class="text-truncate text-dark">Rp {{ number_format($data->total_price, 0, ',', '.') }}</span>
-            </td>
-            <td>
-              <h6
-                class="mb-0 w-px-100 d-flex align-items-center @if ($data->status == 'unpaid') text-warning @elseif ($data->status == 'canceled') text-dark @elseif($data->status == 'paid') text-success @elseif($data->status == 'expire') text-danger @else text-dark @endif text-uppercase">
-                <i class="mdi mdi-circle fs-tiny me-1"></i>
-                {{ $data->status }}
-              </h6>
-            </td>
-            <td class="">
-              <span class="badge bg-label-info">{{ date('d M Y, H:i:s', strtotime($data->created_at)) }}
-                {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}</span>
-            </td>
-            <td>
-              <div class="d-lg-flex flex-row gap-1">
-                <div class="dropdown">
-                  <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                    <i class="mdi mdi-dots-vertical"></i>
-                  </button>
-                  <div class="dropdown-menu">
-                    @if (auth()->user()->customer)
-                      @if ($data->status === 'unpaid' && $data->payment_method)
-                        <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
-                      @elseif ($data->status === 'unpaid')
-                        <x-dropdown-item :label="'Bayar'" :variant="'info'" :icon="'credit-card-outline'" :route="route('midtrans.checkout', $data->uuid)" />
-                        <x-dropdown-item :label="'Batal'" :variant="'danger'" :icon="'trash-can-outline'" :route="route('midtrans.cancelled', $data->uuid)" />
-                      @elseif ($data->status === 'paid')
-                        <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
-                        <form action="{{ route('order.update', $data->uuid) }}" method="POST">
-                          @csrf
-                          @method('PUT')
-                          <button type="submit" class="dropdown-item waves-effect text-primary">
-                            <i class="mdi mdi-cart-outline text-primary me-2"></i>Beli Kembali
-                          </button>
-                        </form>
-                      @elseif($data->status === 'cancelled' || $data->status === 'expire')
-                        <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
-                        <form action="{{ route('order.update', $data->uuid) }}" method="POST">
-                          @csrf
-                          @method('PUT')
-                          <button type="submit" class="dropdown-item waves-effect text-primary">
-                            <i class="mdi mdi-cart-outline text-primary me-2"></i>Beli Kembali
-                          </button>
-                        </form>
-                      @endif
-                    @elseif(auth()->user()->seller)
-                      <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('seller.detail.order', $data->uuid)" />
-                    @elseif(auth()->user()->role_id == 1)
-                      <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('admin.detail.order', $data->uuid)" />
-                    @endif
+              </td>
+              <td>
+                <div class="d-flex justify-content-start align-items-center user-name">
+                  <div class="avatar-wrapper me-3">
+                    <div class="avatar avatar-sm">
+                      <img src="{{ asset('storage/' . $data->product->image) }}" alt="Avatar" class="rounded">
+                    </div>
+                  </div>
+                  <div class="d-flex flex-column">
+                    <a href="{{ route('seller.detail.product', $data->product->slug) }}"
+                      class="text-truncate text-heading">
+                      <span class="fw-medium">{{ $data->product->name }}</span>
+                    </a>
+                    <small class="text-truncate">Rp {{ number_format($data->product->price, 0, ',', '.') }} -
+                      {{ $data->quantity }} {{ $data->product->unit }}</small>
                   </div>
                 </div>
-              </div>
-            </td>
-          </tr>
-        @endforeach
+              </td>
+              <td>
+                <span class="text-truncate text-dark">Rp
+                  {{ number_format(($data->product->price / 100) * 3, 0, ',', '.') }}</span>
+              </td>
+              <td>
+                <span class="text-truncate text-dark">Rp {{ number_format($data->total_price, 0, ',', '.') }}</span>
+              </td>
+              <td>
+                <h6
+                  class="mb-0 w-px-100 d-flex align-items-center @if ($data->status == 'unpaid') text-warning @elseif ($data->status == 'canceled') text-dark @elseif($data->status == 'paid') text-success @elseif($data->status == 'expire') text-danger @else text-dark @endif text-uppercase">
+                  <i class="mdi mdi-circle fs-tiny me-1"></i>
+                  {{ $data->status }}
+                </h6>
+              </td>
+              <td class="">
+                <span class="badge bg-label-info">{{ date('d M Y, H:i:s', strtotime($data->created_at)) }}
+                  {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}</span>
+              </td>
+            </tr>
+          @endforeach
+        @else
+          <h1>Tidak ada transaksi</h1>
+        @endif
       </tbody>
     </table>
   </div>
-
-  <x-pagination :pages="$datas" />
 </div>

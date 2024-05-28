@@ -129,7 +129,7 @@ Route::middleware('auth', 'checkRole:Seller')->group(function () {
       Route::get('/', 'dashboard')->name('seller.dashboard');
       Route::get('/list-orders', 'orders')->name('seller.orders');
       Route::get('/transaction-report', 'report')->name('seller.report');
-      Route::get('/transaction-filter', 'filter')->name('seller.filter');
+      Route::get('/create-report', 'print')->name('seller.create.report');
       Route::get('/detail-order/{order}', 'orderDetail')->name('seller.detail.order');
       Route::get('/settings', 'settings')->name('seller.settings');
       Route::put('/settings/edit-profile/{seller}', 'updateProfile')->name('seller.update.profile');
