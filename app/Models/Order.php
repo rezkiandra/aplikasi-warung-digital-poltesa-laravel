@@ -15,6 +15,7 @@ class Order extends Model
     'uuid',
     'customer_id',
     'product_id',
+    'seller_id',
     'quantity',
     'total_price',
     'status',

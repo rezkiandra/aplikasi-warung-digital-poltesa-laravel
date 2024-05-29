@@ -9,6 +9,7 @@ use App\Models\Seller;
 use App\Models\Products;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -73,16 +74,29 @@ class SellerController extends Controller
 
   public function report(Request $request)
   {
-    if ($request->from_date && $request->to_date) {
-      $from_date = $request->input('from_date');
-      $to_date = $request->input('to_date');
+    $from = Carbon::parse($request->from);
+    $to = Carbon::parse($request->to);
 
-      $filter = Order::whereBetween('created_at', [$from_date, $to_date])->get();
+    if ($request->from && $request->to) {
+      $filter = Order::whereBetween('orders.created_at', [$from, $to])
+        ->join('products', 'orders.product_id', '=', 'products.id', 'left')
+        ->where('products.seller_id', Auth::user()->seller->id)
+        ->get('orders.*', 'products.name, products.price, products.image');
     } else {
       $filter = collect([]);
     }
-    
+
     return view('seller.report.index', compact('filter'));
+  }
+
+  public function print()
+  {
+    $seller = Auth::user()->seller;
+    $order = Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->where('products.seller_id', auth()->user()->seller->id)->get();
+    return view('seller.report.print', compact('seller', 'order'));
+
+    // $pdf = Pdf::loadView('seller.report.print', compact('seller', 'order'));
+    // return $pdf->download('laporan-penjualan-' . $seller->slug . '-' . date('d-m-Y') . '.pdf');
   }
 
   public function settings()
