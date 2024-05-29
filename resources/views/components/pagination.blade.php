@@ -1,6 +1,6 @@
 <nav aria-label="Page navigation" class="mt-3">
   @if ($pages->hasPages())
-    <ul class="pagination pagination-lg justify-content-center gap-5 text-uppercase">
+    <ul class="pagination justify-content-center gap-5 text-uppercase">
       @if ($pages->onFirstPage())
         <li class="page-item disabled">
           <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Prev</a>

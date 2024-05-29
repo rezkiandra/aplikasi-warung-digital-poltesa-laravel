@@ -1,7 +1,5 @@
 @extends('layouts.authenticated')
-
 @section('title', 'Bank')
-
 @section('content')
   <h4 class="mb-1">Bank</h4>
   <p class="mb-3">Sebuah bank akan menyediakan berbagai macam pihak untuk melakukan transaksi</p>

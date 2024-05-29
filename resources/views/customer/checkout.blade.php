@@ -93,6 +93,7 @@
           </div>
           <x-submit-button :label="'Bayar Sekarang'" id="pay-button" :type="'submit'" :class="'w-100'" :variant="'primary'"
             :icon="'basket-outline'" />
+          <x-basic-button :label="'Batalkan Pesanan'" :class="'w-100'" :variant="'dark'" :icon="'basket-minus-outline me-2'" :href="route('midtrans.cancelled', $order->uuid)" />
         </div>
       </div>
     </div>

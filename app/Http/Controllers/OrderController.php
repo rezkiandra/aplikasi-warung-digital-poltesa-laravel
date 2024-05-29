@@ -31,21 +31,24 @@ class OrderController extends Controller
       ->where('product_id', $request->product_id);
     $productCart->delete();
 
-    Alert::toast('Successfully maked an order', 'success');
+    Alert::toast('Berhasil membuat pesanan baru', 'success');
     return redirect()->route('customer.orders');
   }
 
   public function update(string $uuid)
   {
-    $order = Order::where('uuid', $uuid)->firstOrFail();
-    $order->update([
-      'status' => 'unpaid'
+    $order = Order::where('uuid', $uuid)->first();
+
+    Order::create([
+      'uuid' => Str::uuid()->toString(),
+      'customer_id' => Auth::user()->customer->id,
+      'product_id' => $order->product_id,
+      'quantity' => $order->quantity,
+      'total_price' => $order->total_price,
+      'snap_token' => $order->snap_token,
     ]);
 
-    $order->product->increment('stock', $order->quantity);
-    $order->product->update();
-
-    Alert::toast('Successfully repurhased product', 'success');
+    Alert::toast('Berhasil membeli kembali produk', 'success');
     return redirect()->route('customer.orders');
   }
 }

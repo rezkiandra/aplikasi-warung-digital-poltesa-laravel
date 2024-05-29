@@ -23,5 +23,10 @@ class CategorySeeder extends Seeder
       'name' => 'Pakaian',
       'slug' => 'pakaian'
     ]);
+
+    ProductCategory::create([
+      'name' => 'Parfum',
+      'slug' => 'parfum'
+    ]);
   }
 }

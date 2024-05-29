@@ -1,5 +1,5 @@
 @php
-  $customerCount = \App\Models\Customer::all()->count();
+  $customerCount = $customers->count();
   $activeCustomer = \App\Models\Customer::where('status', 'active')->count();
   $inactiveCustomer = \App\Models\Customer::where('status', 'inactive')->count();
   $pendingCustomer = \App\Models\Customer::where('status', 'pending')->count();
@@ -44,5 +44,5 @@
           ? '+' . $customerPendingPercentage . '%'
           : '-' . $customerPendingPrePercentage . '%'" :condition="$pendingCustomer" />
   </div>
-  <x-customer-table :title="'Data Pelanggan'" :datas="$customers" :fields="['No', 'Pelanggan', 'Gender / Alamat', 'Status / Nomor HP', 'Bank', 'Dibuat Pada', 'Aksi']" />
+  <x-customer-table :title="'Data Pelanggan'" :datas="$customers" :fields="['No', 'Pelanggan', 'Gender / Alamat', 'Status / Nomor HP', 'Dibuat Pada', 'Aksi']" />
 @endsection

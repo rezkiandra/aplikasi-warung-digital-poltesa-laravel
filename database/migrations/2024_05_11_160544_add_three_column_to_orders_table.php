@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeIdColumnToOrdersTable extends Migration
+class AddThreeColumnToOrdersTable extends Migration
 {
   /**
    * Run the migrations.
@@ -14,7 +14,9 @@ class ChangeIdColumnToOrdersTable extends Migration
   public function up()
   {
     Schema::table('orders', function (Blueprint $table) {
-      $table->id()->after('id')->change();
+      $table->timestamp('transaction_time')->nullable()->after('expiry_time');
+      $table->string('biller_code', 30)->nullable()->after('acquirer');
+      $table->string('bill_key', 30)->nullable()->after('biller_code');
     });
   }
 
@@ -26,7 +28,7 @@ class ChangeIdColumnToOrdersTable extends Migration
   public function down()
   {
     Schema::table('orders', function (Blueprint $table) {
-      $table->id()->after('id')->change();
+      $table->dropColumn(['transaction_time', 'biller_code', 'bill_key']);
     });
   }
 }

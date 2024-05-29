@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropFeeColumnToOrdersTable extends Migration
+class AddIndomaretPaymentColumnToOrdersTable extends Migration
 {
   /**
    * Run the migrations.
@@ -14,7 +14,8 @@ class DropFeeColumnToOrdersTable extends Migration
   public function up()
   {
     Schema::table('orders', function (Blueprint $table) {
-      $table->dropColumn('fee');
+      $table->string('store', 30)->nullable()->after('payment_method');
+      $table->string('payment_code', 30)->nullable()->after('store');
     });
   }
 
@@ -26,7 +27,7 @@ class DropFeeColumnToOrdersTable extends Migration
   public function down()
   {
     Schema::table('orders', function (Blueprint $table) {
-      $table->integer('fee')->nullable()->after('total_price');
+      $table->dropColumn(['store', 'payment_code']);
     });
   }
 }

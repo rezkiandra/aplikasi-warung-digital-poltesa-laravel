@@ -18,10 +18,9 @@ class ProductsCartController extends Controller
     $product_id = $request->product_id;
     $quantity = $request->quantity;
 
-    $cart = ProductsCart::where('customer_id', $customer_id)
-      ->where('product_id', $product_id)
+    $cart = ProductsCart::where('customer_id', $customer_id)->where('product_id', $product_id)
       ->first();
-
+      
     if ($cart) {
       $newQuantity = $cart->quantity + $quantity;
       $cart->update([
@@ -36,7 +35,7 @@ class ProductsCartController extends Controller
       ]);
     }
 
-    Alert::toast('Successfully added to cart', 'success');
+    Alert::toast('Berhasil menambahkan ke keranjang', 'success');
     return redirect()->back();
   }
 
@@ -62,7 +61,7 @@ class ProductsCartController extends Controller
     $cart = ProductsCart::findOrFail($id);
     $cart->delete();
 
-    Alert::toast('Successfully deleted from cart', 'success');
+    Alert::toast('Berhasil menghapus dari keranjang', 'success');
     return redirect()->back();
   }
 }

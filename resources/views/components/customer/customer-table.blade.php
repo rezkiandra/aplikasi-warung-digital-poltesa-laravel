@@ -24,8 +24,8 @@
                 </div>
                 <div class="d-flex flex-column">
                   <span class="text-nowrap text-heading fw-medium text-capitalize">{{ $data->full_name }}</span>
-                  <small class="text-truncate d-none d-sm-block">
-                    <span class="fw-medium">{{ $data->user->email }} - {{ $data->user->name }}</span>
+                  <small class="text-truncate">
+                    <span class="fw-medium">{{ $data->user->email }}</span>
                   </small>
                 </div>
               </div>
@@ -41,9 +41,9 @@
                     @endif
                     {{ $data->gender }}
                   </span>
-                  <small class="text-truncate d-none d-sm-block">
+                  <small class="text-truncate">
                     <span class="fw-medium text-capitalize">
-                      {{ $data->address }}
+                      {{ Str::limit($data->address, 50) }}
                     </span>
                   </small>
                 </div>
@@ -62,26 +62,15 @@
                     @endif
                     {{ $data->status }}
                   </span>
-                  <small class="text-truncate d-none d-sm-block">
+                  <small class="text-truncate">
                     <span class="fw-medium">{{ $data->phone_number }}</span>
-                  </small>
-                </div>
-              </div>
-            </td>
-            <td class="sorting_1">
-              <div class="d-flex justify-content-start align-items-center product-name">
-                <div class="d-flex flex-column">
-                  <span
-                    class="text-nowrap text-heading fw-medium text-capitalize">{{ \App\Models\Customer::join('bank_accounts', 'bank_accounts.id', '=', 'customers.bank_account_id', 'left')->where('customers.id', $data->id)->first()->bank_name }}</span>
-                  <small class="text-truncate d-none d-sm-block">
-                    <span class="fw-medium">{{ $data->account_number ?? '-' }}</span>
                   </small>
                 </div>
               </div>
             </td>
             <td>
               <span
-                class="fw-medium badge rounded-pill bg-label-info">{{ date('M d, H:i', strtotime($data->created_at)) }}
+                class="fw-medium badge rounded-pill bg-label-info">{{ date('d M, H:i:sw', strtotime($data->created_at)) }}
                 {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
               </span>
             </td>

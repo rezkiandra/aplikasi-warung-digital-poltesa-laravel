@@ -24,7 +24,7 @@
                 </div>
                 <div class="d-flex flex-column">
                   <span class="text-nowrap text-heading fw-medium">{{ $data->name }}</span>
-                  <small class="d-flex flex-row text-truncate d-none d-sm-block d-flex">
+                  <small class="d-flex flex-row text-truncate">
                     <span class="fw-medium">{{ Str::limit($data->description, 50) }}</span>
                   </small>
                 </div>
@@ -34,14 +34,14 @@
               <span class="fw-medium badge bg-label-primary rounded text-uppercase">{{ $data->category->name }}</span>
             </td>
             <td>
-              <span class="fw-medium">Rp.{{ number_format($data->price, 2, ',', '.') }}</span>
+              <span class="fw-medium text-dark">Rp {{ number_format($data->price, 0, ',', '.') }}</span>
             </td>
             <td>
-              <span class="fw-medium">{{ $data->stock }} pcs</span>
+              <span class="fw-medium text-dark">{{ $data->stock }} {{ $data->unit }}</span>
             </td>
             <td>
               <span
-                class="fw-medium badge rounded-pill bg-label-info">{{ date('M d, H:i', strtotime($data->created_at)) }}
+                class="fw-medium badge rounded bg-label-info">{{ date('d M Y, H:i:s', strtotime($data->created_at)) }}
                 {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
               </span>
             </td>
@@ -72,15 +72,6 @@
           </tr>
         @endforeach
       </tbody>
-      <tfoot class="table-border-bottom-0">
-        <th>ID</th>
-        <th>Produk</th>
-        <th>Kategori</th>
-        <th>Harga</th>
-        <th>Stok</th>
-        <th>Dipublish Pada</th>
-        <th>Aksi</th>
-      </tfoot>
     </table>
   </div>
 </div>

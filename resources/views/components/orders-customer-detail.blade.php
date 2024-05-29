@@ -4,10 +4,10 @@
       <table class="dt-table table">
         <thead>
           <tr>
-            <th>Order ID</th>
-            <th>Product</th>
-            <th>Total</th>
-            <th>Date</th>
+            <th>ID Pesanan</th>
+            <th>Produk</th>
+            <th>Harga Total</th>
+            <th>Tanggal Pemesanan</th>
             <th>Status</th>
           </tr>
         </thead>
@@ -15,8 +15,8 @@
           @foreach ($datas as $data)
             <tr>
               <td class="text-primary">
-                {{-- <span class="rounded p-1 bg-label-primary">#{{ rand(1000, 9999) }}</span> --}}
-                <span class="badge rounded p-1 bg-label-primary text-uppercase">#{{ Str::substr($data->uuid, 0, 5) }}</span>
+                <span
+                  class="badge rounded p-1 bg-label-primary text-uppercase">#{{ Str::substr($data->uuid, 0, 5) }}</span>
               </td>
               <td>
                 <div class="d-flex justify-content-start align-items-center user-name">
@@ -40,7 +40,7 @@
                 </span>
               </td>
               <td class="">
-                <span class="badge bg-label-info">{{ date('d M Y, H:i', strtotime($data->updated_at)) }}</span>
+                <span class="badge bg-label-info">{{ date('d M Y, H:i:s', strtotime($data->updated_at)) }}</span>
               </td>
               <td>
                 <h6
@@ -54,6 +54,6 @@
         </tbody>
       </table>
     </div>
+    <x-pagination :pages="$datas" />
   </div>
-
 </div>

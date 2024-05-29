@@ -14,7 +14,7 @@ class AddStatusColumnToSellersTable extends Migration
   public function up()
   {
     Schema::table('sellers', function (Blueprint $table) {
-      $table->enum('status', ['active', 'inactive', 'pending'])->after('image')->default('pending');
+      $table->enum('status', ['active', 'inactive', 'pending'])->after('gender')->default('pending');
     });
   }
 

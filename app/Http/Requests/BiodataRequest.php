@@ -19,9 +19,9 @@ class BiodataRequest extends FormRequest
       'address' => 'required',
       'phone_number' => 'required|numeric|regex:/^\d{8,13}$/|min:8',
       'gender' => 'required',
-      'bank_account_id' => 'required',
-      'image' => 'required_if:image,null|mimes:png,jpg,jpeg',
-      'account_number' => 'required|unique:sellers,id|numeric|min:8',
+      'bank_account_id' => 'required_if:sellers,null|exists:bank_accounts,id',
+      'account_number' => 'required_if:sellers,null|unique:sellers,id|numeric|min:8',
+      'image' => 'required:image,null|mimes:png,jpg,jpeg',
       'status' => 'required_if:status,null|in:active,inactive,pending',
     ];
   }
@@ -42,13 +42,13 @@ class BiodataRequest extends FormRequest
 
       'gender.required' => 'Harap pilih gender',
 
-      'bank_account_id.required' => 'Harap pilih bank',
+      'bank_account_id.required_if' => 'Harap pilih bank',
 
-      'image.required_if' => 'Gambar diperlukan',
+      'image.required' => 'Gambar diperlukan',
       'image.mimes' => 'Gambar dalam format jpg, png, jpeg',
-      // 'image.size' => 'Gambar maksimal 2 MB',
+      'image.size' => 'Gambar maksimal 2 MB',
 
-      'account_number.required' => 'Nomor rekening diperlukan',
+      'account_number.required_if' => 'Nomor rekening diperlukan',
       'account_number.unique' => 'Nomor rekening sudah ada',
       'account_number.numeric' => 'Nomor rekening dalam bentuk angka',
       'account_number.min' => 'Nomor rekening minimal 8 karakter',

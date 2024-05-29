@@ -6,27 +6,27 @@ use Illuminate\Support\Facades\Schema;
 
 class AddSlugColumnToRolesTable extends Migration
 {
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::table('roles', function (Blueprint $table) {
-			$table->string('slug')->nullable()->after('role_name');
-		});
-	}
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    Schema::table('roles', function (Blueprint $table) {
+      $table->string('slug')->nullable()->after('role_name');
+    });
+  }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::table('roles', function (Blueprint $table) {
-			$table->dropColumn('slug');
-		});
-	}
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::table('roles', function (Blueprint $table) {
+      $table->dropColumn('slug');
+    });
+  }
 }

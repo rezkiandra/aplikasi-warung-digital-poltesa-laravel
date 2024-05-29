@@ -10,12 +10,13 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProductsRequest;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\EditProductsRequest;
 
 class ProductsController extends Controller
 {
   public function index()
   {
-    $products = \App\Models\Products::where('seller_id', Auth::user()->seller->id)->paginate(10);
+    $products = Products::where('seller_id', Auth::user()->seller->id)->paginate(8);
     return view('seller.products.index', compact('products'));
   }
 
@@ -42,11 +43,12 @@ class ProductsController extends Controller
       'description' => $request->description,
       'price' => $request->price,
       'stock' => $request->stock,
+      'unit' => $request->unit,
       'category_id' => $request->category_id,
       'image' => $request->image->store('products', 'public'),
     ]);
 
-    Alert::toast('Successfully created new product', 'success');
+    Alert::toast('Berhasil menambahkan produk baru', 'success');
     return redirect()->route('seller.products');
   }
 
@@ -72,7 +74,7 @@ class ProductsController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(ProductsRequest $request, string $uuid)
+  public function update(EditProductsRequest $request, string $uuid)
   {
     $product = Products::where('uuid', $uuid)->firstOrFail();
     $productImage = Products::where('uuid', $uuid)->pluck('image')->first();
@@ -93,11 +95,12 @@ class ProductsController extends Controller
         'description' => $request->description,
         'price' => $request->price,
         'stock' => $request->stock,
+        'unit' => $request->unit,
         'category_id' => $request->category_id,
       ]);
     }
 
-    Alert::toast('Successfully updated product', 'success');
+    Alert::toast('Berhasil mengupdate produk', 'success');
     return redirect()->route('seller.products');
   }
 
@@ -113,7 +116,7 @@ class ProductsController extends Controller
       Storage::delete('public/' . $product->image);
     }
 
-    Alert::toast('Successfully deleted product', 'success');
+    Alert::toast('Berhasil menghapus produk', 'success');
     session()->flash('action', 'delete');
     return redirect()->route('seller.products');
   }

@@ -5,10 +5,9 @@
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <p class="mb-0">Total
-              <?php echo e(\App\Models\User::where('role_id', $data->id)->count()); ?> users
+              <?php echo e(\App\Models\User::where('role_id', $data->id)->count()); ?> pengguna
             </p>
             <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
-              
               <li class="avatar">
                 <?php if(\App\Models\User::where('role_id', $data->id)->count() >= 6): ?>
                   <span class="avatar-initial rounded-circle pull-up bg-lighter text-body" data-bs-toggle="tooltip"
@@ -79,19 +78,19 @@
       </div>
     </div>
   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-  <div class="col-xl-4 col-lg-6 col-md-6">
+  <div class="col-lg-4 col-12 col-md-6">
     <div class="card h-100">
       <div class="row h-100">
-        <div class="col-5">
-          <div class="d-flex align-items-end h-100 justify-content-center">
+        <div class="col-4">
+          <div class="d-flex align-items-center h-100 justify-content-center">
             <img src="<?php echo e(asset('materio/assets/img/illustrations/misc-under-maintenance.png')); ?>" class="img-fluid"
-              alt="Image" width="240">
+              alt="Image">
           </div>
         </div>
-        <div class="col-7">
+        <div class="col-8">
           <div class="card-body text-sm-end text-center ps-sm-0">
             <?php if (isset($component)) { $__componentOriginal884241e53d2640b5f4918f6ac6f391c8aaea60a8 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\BasicButton::class, ['label' => 'Add role','icon' => 'plus','class' => 'w-0 text-uppercase mb-5','variant' => 'primary','href' => route('admin.create.role')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\BasicButton::class, ['label' => 'Tambah','icon' => 'plus','class' => 'w-0 text-uppercase mb-5','variant' => 'primary','href' => route('admin.create.role')]); ?>
 <?php $component->withName('basic-button'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -102,11 +101,10 @@
 <?php $component = $__componentOriginal884241e53d2640b5f4918f6ac6f391c8aaea60a8; ?>
 <?php unset($__componentOriginal884241e53d2640b5f4918f6ac6f391c8aaea60a8); ?>
 <?php endif; ?>
-            <p class="mb-0">Add role, if it does not exist</p>
+            <p class="mb-0">Tambah role, jika perlu</p>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<?php /**PATH C:\laragon\www\warungdigital\resources\views/components/role/roles-card.blade.php ENDPATH**/ ?>
+</div><?php /**PATH C:\laragon\www\warungdigital\resources\views/components/role/roles-card.blade.php ENDPATH**/ ?>

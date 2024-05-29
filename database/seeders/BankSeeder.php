@@ -33,5 +33,10 @@ class BankSeeder extends Seeder
       'bank_name' => 'BRI',
       'slug' => 'bri',
     ]);
+
+    BankAccount::create([
+      'bank_name' => 'BNI',
+      'slug' => 'bni',
+    ]);
   }
 }

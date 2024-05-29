@@ -14,7 +14,7 @@ class AddStatusColumnToCustomersTable extends Migration
   public function up()
   {
     Schema::table('customers', function (Blueprint $table) {
-      $table->enum('status', ['active', 'inactive', 'pending'])->default('pending')->after('account_number');
+      $table->enum('status', ['active', 'inactive', 'pending'])->default('pending')->after('image');
     });
   }
 

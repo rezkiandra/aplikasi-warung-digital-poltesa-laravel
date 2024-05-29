@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
       'slug' => Str::slug('levi-ackerman'),
       'email' => 'levi@ackerman.com',
       'role_id' => 2,
-      'password' => Hash::make('levi12')
+      'password' => Hash::make('levi123')
     ]);
 
     User::create([
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
       'slug' => Str::slug('mikasa-ackerman'),
       'email' => 'mikasa@ackerman.com',
       'role_id' => 3,
-      'password' => Hash::make('mikas12')
+      'password' => Hash::make('mikasa123')
     ]);
   }
 }

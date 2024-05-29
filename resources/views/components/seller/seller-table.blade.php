@@ -21,7 +21,7 @@
                 <div class="d-flex flex-column">
                   <span class="text-nowrap text-heading fw-medium text-capitalize">{{ $data->full_name }}</span>
                   <small class="text-truncate">
-                    <span class="fw-medium">{{ $data->user->email }} - {{ $data->user->name }}</span>
+                    <span class="fw-medium">{{ $data->user->email }}</span>
                   </small>
                 </div>
               </div>
@@ -39,7 +39,7 @@
                   </span>
                   <small class="text-truncate">
                     <span class="fw-medium text-capitalize">
-                      {{ $data->address }}
+                      {{ Str::limit($data->address, 40) }}
                     </span>
                   </small>
                 </div>
@@ -76,7 +76,7 @@
               </div>
             </td>
             <td>
-              <span class="fw-medium badge rounded bg-label-info">{{ date('M d, H:i', strtotime($data->created_at)) }}
+              <span class="fw-medium badge rounded bg-label-info">{{ date('d M Y, H:i:s', strtotime($data->created_at)) }}
                 {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
               </span>
             </td>

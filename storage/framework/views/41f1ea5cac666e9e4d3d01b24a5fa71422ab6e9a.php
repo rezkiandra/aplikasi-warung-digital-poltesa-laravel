@@ -1,19 +1,54 @@
 
-
 <?php $__env->startSection('title', 'Edit Bank'); ?>
-
 <?php $__env->startSection('content'); ?>
-  <?php if (isset($component)) { $__componentOriginal528210defe83c5339c746304373e516520f0ca7c = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\EditBank::class, ['label' => 'Bank Name','title' => 'Edit specific bank','name' => 'bank_name','type' => 'text','placeholder' => 'Ex: BCA, Mandiri, BRI, etc','value' => $bank->bank_name,'route' => route('admin.update.bank', $bank->slug)]); ?>
-<?php $component->withName('edit-bank'); ?>
+  <?php if (isset($component)) { $__componentOriginalceb32ab743a10e309928ba02699759a8f4b56f39 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\EditForm::class, ['title' => 'Edit spesifik bank','action' => route('admin.update.bank', $bank->slug),'route' => route('admin.bank_accounts')]); ?>
+<?php $component->withName('edit-form'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+    <?php if (isset($component)) { $__componentOriginal9556ea61bc573b9b221bcf3ee1d728254f4eca85 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\FormFloating::class, []); ?>
+<?php $component->withName('form-floating'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+      <?php if (isset($component)) { $__componentOriginale1bb2929f8b9df6873fa722ef130c57617d11754 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\InputFormLabel::class, ['label' => 'Nama Bank','name' => 'bank_name','type' => 'text','placeholder' => 'BCA, Mandiri, BRI','value' => $bank->bank_name]); ?>
+<?php $component->withName('input-form-label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginal528210defe83c5339c746304373e516520f0ca7c)): ?>
-<?php $component = $__componentOriginal528210defe83c5339c746304373e516520f0ca7c; ?>
-<?php unset($__componentOriginal528210defe83c5339c746304373e516520f0ca7c); ?>
+<?php if (isset($__componentOriginale1bb2929f8b9df6873fa722ef130c57617d11754)): ?>
+<?php $component = $__componentOriginale1bb2929f8b9df6873fa722ef130c57617d11754; ?>
+<?php unset($__componentOriginale1bb2929f8b9df6873fa722ef130c57617d11754); ?>
+<?php endif; ?>
+     <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal9556ea61bc573b9b221bcf3ee1d728254f4eca85)): ?>
+<?php $component = $__componentOriginal9556ea61bc573b9b221bcf3ee1d728254f4eca85; ?>
+<?php unset($__componentOriginal9556ea61bc573b9b221bcf3ee1d728254f4eca85); ?>
+<?php endif; ?>
+
+    <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Simpan','type' => 'submit','variant' => 'primary','icon' => 'check-circle-outline']); ?>
+<?php $component->withName('submit-button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342)): ?>
+<?php $component = $__componentOriginalbdca446458c2217070929c68d419f1fe63331342; ?>
+<?php unset($__componentOriginalbdca446458c2217070929c68d419f1fe63331342); ?>
+<?php endif; ?>
+   <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalceb32ab743a10e309928ba02699759a8f4b56f39)): ?>
+<?php $component = $__componentOriginalceb32ab743a10e309928ba02699759a8f4b56f39; ?>
+<?php unset($__componentOriginalceb32ab743a10e309928ba02699759a8f4b56f39); ?>
 <?php endif; ?>
 <?php $__env->stopSection(); ?>
 

@@ -2,48 +2,93 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Midtrans\Snap;
 use App\Models\User;
 use Midtrans\Config;
 use App\Models\Order;
 use App\Models\Customer;
 use App\Models\Products;
+use App\Models\Wishlist;
 use Illuminate\Support\Str;
 use App\Models\ProductsCart;
 use Illuminate\Http\Request;
+use App\Models\ProductCategory;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\BiodataRequest;
-use App\Models\Wishlist;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\UpdateBiodataRequest;
 
 class CustomerController extends Controller
 {
   public function index()
   {
-    return view('customer.home');
+    $foodProducts = Products::where('category_id', 1)->get();
+    $fashionProducts = Products::where('category_id', 2)->get();
+    $parfumeProducts = Products::where('category_id', 3)->get();
+    $beautyProducts = Products::where('category_id', 4)->get();
+    return view('customer.home', compact('fashionProducts', 'parfumeProducts', 'foodProducts', 'beautyProducts'));
   }
 
   public function dashboard()
   {
-    return view('customer.dashboard');
+    if (auth()->user()->customer) {
+      $bulanJan = date('01');
+      $bulanFeb = date('02');
+      $bulanMar = date('03');
+      $bulanApr = date('04');
+      $bulanMei = date('05');
+      $bulanJun = date('06');
+      $bulanJul = date('07');
+      $bulanAgu = date('08');
+      $bulanSep = date('09');
+      $bulanOkt = date('10');
+      $bulanNov = date('11');
+      $bulanDes = date('12');
+
+      $tahun = Carbon::now()->year;
+      $data = [
+        'labels'  => ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+        'data'    => [
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJan)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanFeb)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMar)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanApr)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMei)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJun)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJul)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanAgu)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanSep)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanOkt)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanNov)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanDes)->sum('total_price'),
+        ],
+      ];
+
+      $orders = Order::with('product')->where('customer_id', Auth::user()->customer->id)->orderBy('created_at', 'desc')->paginate(6) ?? collect([]);
+      return view('customer.dashboard', compact('orders', 'data'));
+    } else {
+      $orders = collect([]);
+      return view('customer.anonymous', compact('orders'));
+    }
   }
 
   public function products(Request $request)
   {
-    $filter = $request->input('filter');
-    $query = Products::query();
-
-    if ($filter) {
-      $products = $query->where('category_id', $filter)->get();
+    if ($request->search) {
+      $query = $request->input('search');
+      $products = Products::where('name', 'LIKE', "%{$query}%")->get();
+      $totalProducts = $products->count();
     } else {
       $products = Products::orderBy('category_id', 'asc')->get();
+      $totalProducts = $products->count();
     }
-
-    return view('customer.products', compact('products'));
+    $category = ProductCategory::pluck('name', 'id')->toArray();
+    return view('pages.products', compact('products', 'totalProducts', 'category'));
   }
 
   public function faq()
@@ -54,7 +99,8 @@ class CustomerController extends Controller
   public function product(string $slug)
   {
     $product = Products::where('slug', $slug)->firstOrFail();
-    return view('pages.detail-product', compact('product'));
+    $relatedProducts = Products::where('category_id', $product->category_id)->where('id', '!=', $product->id)->get();
+    return view('pages.detail-product', compact('product', 'relatedProducts'));
   }
 
   public function biodata()
@@ -87,10 +133,18 @@ class CustomerController extends Controller
   {
     if (Auth::user()->customer) {
       $orders = Order::with('product')->where('customer_id', Auth::user()->customer->id)->orderBy('created_at', 'desc')->paginate(8);
+      $customer_id = Auth::user()->customer->id;
     } else {
       $orders = collect([]);
+      $customer_id = null;
     }
-    return view('customer.orders', compact('orders'));
+
+    $countPaid = Order::where('customer_id', $customer_id)->where('status', 'paid')->count();
+    $countUnpaid = Order::where('customer_id', $customer_id)->where('status', 'unpaid')->count();
+    $countExpire = Order::where('customer_id', $customer_id)->where('status', 'expire')->count();
+    $countCancelled = Order::where('customer_id', $customer_id)->where('status', 'cancelled')->count();
+
+    return view('customer.orders', compact('orders', 'countPaid', 'countUnpaid', 'countExpire', 'countCancelled'));
   }
 
   public function settings()
@@ -122,16 +176,14 @@ class CustomerController extends Controller
       'address' => $request->address,
       'phone_number' => $request->phone_number,
       'gender' => $request->gender,
-      'bank_account_id' => $request->bank_account_id,
       'image' => $request->image->store('customers', 'public'),
-      'account_number' => $request->account_number,
     ]);
 
-    Alert::toast('Successfully added biodata', 'success');
+    Alert::toast('Berhasil menambahkan biodata', 'success');
     return redirect()->route('customer.biodata');
   }
 
-  public function update(BiodataRequest $request, string $uuid)
+  public function update(UpdateBiodataRequest $request, string $uuid)
   {
     $customer = Customer::where('uuid', $uuid)->firstOrFail();
     $customerImage = Customer::where('uuid', $uuid)->pluck('image')->first();
@@ -150,13 +202,11 @@ class CustomerController extends Controller
         'address' => $request->address,
         'phone_number' => $request->phone_number,
         'gender' => $request->gender,
-        'bank_account_id' => $request->bank_account_id,
-        'account_number' => $request->account_number,
         'status' => $customer->status,
       ]);
     }
 
-    Alert::toast('Successfully updated biodata', 'success');
+    Alert::toast('Berhasil mengupdate biodata', 'success');
     return redirect()->route('customer.biodata');
   }
 }

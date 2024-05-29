@@ -14,6 +14,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\CallToActionController;
 use App\Http\Controllers\ProductsCartController;
 use App\Http\Controllers\ProductCategoryController;
 
@@ -34,60 +35,6 @@ Route::controller(GuestController::class)
     Route::get('/detail-product/{product}', 'product')->name('guest.detail.product');
   });
 
-Route::middleware('auth', 'mustLogin', 'checkCustomer')->group(function () {
-  Route::controller(ProductsCartController::class)
-    ->prefix('customer')
-    ->group(function () {
-      Route::post('/store-cart', 'store')->name('cart.store');
-      Route::put('/update-cart', 'update')->name('cart.update');
-      Route::delete('/delete-cart/{cart}', 'destroy')->name('cart.destroy');
-    });
-
-  Route::controller(WishlistController::class)
-    ->prefix('customer')
-    ->group(function () {
-      Route::post('/store-wishlist', 'store')->name('wishlist.store');
-      Route::delete('/delete-wishlist/{wishlist}', 'destroy')->name('wishlist.destroy');
-    });
-
-  Route::controller(OrderController::class)
-    ->prefix('customer')
-    ->group(function () {
-      Route::post('/store-order', 'store')->name('order.store');
-      Route::put('/update-order/{order}', 'update')->name('order.update');
-    });
-
-  Route::controller(MidtransController::class)
-    ->prefix('customer')
-    ->group(function () {
-      Route::get('/order/checkout/{order}', 'processPayment')->name('midtrans.checkout');
-      Route::get('/detail-transaction/{order}', 'detailPayment')->name('midtrans.detail');
-      Route::get('/cancel-transaction/{order}', 'cancelPayment')->name('midtrans.cancelled');
-    });
-
-  Route::controller(CustomerController::class)
-    ->prefix('customer/dashboard')
-    ->group(function () {
-      Route::get('/', 'dashboard')->name('customer.dashboard');
-      Route::get('/wishlist', 'wishlist')->name('customer.wishlist');
-      Route::get('/cart', 'cart')->name('customer.cart');
-      Route::get('/orders', 'orders')->name('customer.orders');
-      Route::get('/settings', 'settings')->name('customer.settings');
-      Route::put('/settings/edit-profile/{customer}', 'updateProfile')->name('customer.update.profile');
-      Route::get('/biodata', 'biodata')->name('customer.biodata');
-      Route::post('store-biodata', 'store')->name('customer.store.biodata');
-      Route::put('/update-biodata/{biodata}', 'update')->name('customer.update.biodata');
-    });
-  Route::controller(CustomerController::class)
-    ->prefix('customer')
-    ->group(function () {
-      Route::get('/home', 'index')->name('customer.home');
-      Route::get('/products', 'products')->name('customer.products');
-      Route::get('/faq', 'faq')->name('customer.faq');
-      Route::get('/detail-product/{product}', 'product')->name('customer.detail.product');
-    });
-});
-
 Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
   Route::controller(AdminController::class)
     ->prefix('admin/dashboard')
@@ -98,6 +45,7 @@ Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
       Route::get('/list-users', 'users')->name('admin.users');
       Route::get('/list-products', 'products')->name('admin.products');
       Route::get('/list-orders', 'orders')->name('admin.orders');
+      Route::get('/detail-transaction/{order}', 'detailOrder')->name('admin.detail.order');
       Route::get('/list-roles', 'roles')->name('admin.roles');
       Route::get('/list-product-category', 'product_category')->name('admin.product_category');
       Route::get('/list-bank-accounts', 'bank_account')->name('admin.bank_accounts');
@@ -180,6 +128,9 @@ Route::middleware('auth', 'checkRole:Seller')->group(function () {
     ->group(function () {
       Route::get('/', 'dashboard')->name('seller.dashboard');
       Route::get('/list-orders', 'orders')->name('seller.orders');
+      Route::get('/transaction-report', 'report')->name('seller.report');
+      Route::get('/create-report', 'print')->name('seller.create.report');
+      Route::get('/detail-order/{order}', 'orderDetail')->name('seller.detail.order');
       Route::get('/settings', 'settings')->name('seller.settings');
       Route::put('/settings/edit-profile/{seller}', 'updateProfile')->name('seller.update.profile');
     });
@@ -204,6 +155,71 @@ Route::middleware('auth', 'checkRole:Seller')->group(function () {
         Route::put('/update-product/{product}', 'update')->name('seller.update.product');
         Route::delete('/delete-product/{product}', 'destroy')->name('seller.destroy.product');
       });
+  });
+});
+
+Route::middleware('auth', 'mustLogin', 'checkRole:Customer')->group(function () {
+  Route::controller(CustomerController::class)
+    ->prefix('customer/dashboard')
+    ->group(function () {
+      Route::get('/wishlist', 'wishlist')->name('customer.wishlist');
+      Route::get('/cart', 'cart')->name('customer.cart');
+      Route::get('/orders', 'orders')->name('customer.orders');
+      Route::get('/', 'dashboard')->name('customer.dashboard');
+      Route::get('/biodata', 'biodata')->name('customer.biodata');
+      Route::get('/settings', 'settings')->name('customer.settings');
+      Route::post('store-biodata', 'store')->name('customer.store.biodata');
+      Route::put('/update-biodata/{biodata}', 'update')->name('customer.update.biodata');
+      Route::get('/detail-product/{product}', 'product')->name('customer.detail.product');
+      Route::put('/settings/edit-profile/{customer}', 'updateProfile')->name('customer.update.profile');
+    });
+
+  Route::controller(CustomerController::class)
+    ->prefix('customer')
+    ->group(function () {
+      Route::get('/home', 'index')->name('customer.home');
+      Route::get('/products', 'products')->name('customer.products');
+      Route::get('/faq', 'faq')->name('customer.faq');
+    });
+});
+
+Route::middleware('auth', 'checkCustomer', 'checkRole:Customer')->group(function () {
+  Route::controller(ProductsCartController::class)
+    ->prefix('customer')
+    ->group(function () {
+      Route::post('/store-cart', 'store')->name('cart.store');
+      Route::put('/update-cart', 'update')->name('cart.update');
+      Route::delete('/delete-cart/{cart}', 'destroy')->name('cart.destroy');
+    });
+
+  Route::controller(WishlistController::class)
+    ->prefix('customer')
+    ->group(function () {
+      Route::post('/store-wishlist', 'store')->name('wishlist.store');
+      Route::delete('/delete-wishlist/{wishlist}', 'destroy')->name('wishlist.destroy');
+    });
+
+  Route::controller(OrderController::class)
+    ->prefix('customer')
+    ->group(function () {
+      Route::post('/store-order', 'store')->name('order.store')->middleware('mustActive');
+      Route::put('/update-order/{order}', 'update')->name('order.update')->middleware('mustActive');
+    });
+
+  Route::controller(MidtransController::class)
+    ->prefix('customer')
+    ->group(function () {
+      Route::get('/checkout/{order}', 'processPayment')->name('midtrans.checkout');
+      Route::get('/detail-transaction/{order}', 'detailPayment')->name('midtrans.detail');
+      Route::get('/cancel-transaction/{order}', 'cancelPayment')->name('midtrans.cancelled');
+      Route::post('/cancel-transaction', 'cancelPaymentMidtrans')->name('midtrans.cancelledMidtrans');
+    });
+});
+
+Route::middleware('auth', 'mustLogin')->group(function () {
+  Route::controller(CallToActionController::class)->group(function () {
+    Route::get('/preview-transaction/{order}', 'preview')->name('preview.transaction');
+    Route::get('/download-transaction/{order}', 'download')->name('download.transaction');
   });
 });
 

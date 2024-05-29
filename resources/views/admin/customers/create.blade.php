@@ -13,7 +13,6 @@
       'inactive' => 'inactive',
       'pending' => 'pending',
   ];
-  $bank = \App\Models\BankAccount::pluck('bank_name', 'id')->toArray();
 @endphp
 
 @extends('layouts.authenticated')
@@ -31,18 +30,10 @@
 
       <div class="col-lg-4">
         <x-form-floating>
-          <x-input-form-label :label="'Alamat'" :name="'address'" :type="'text'" :value="old('address')"
-            :placeholder="'Ahmad Sood St.'" />
-        </x-form-floating>
-      </div>
-
-      <div class="col-lg-4">
-        <x-form-floating>
           <x-input-form-label :label="'Nomor Telepon'" :name="'phone_number'" :type="'tel'" :value="old('phone_number')"
             :placeholder="'081234567890'" />
         </x-form-floating>
       </div>
-
       <div class="col-lg-4">
         <x-form-floating>
           <x-input-form-label :label="'Gender'" :name="'gender'" :type="'select'" :options="$gender"
@@ -59,8 +50,8 @@
 
       <div class="col-lg-4">
         <x-form-floating>
-          <x-input-form-label :label="'Bank'" :name="'bank_account_id'" :type="'select'" :options="$bank"
-            :select="'Pilih Bank'" :value="old('bank_account_id')" />
+          <x-input-form-label :label="'Status'" :name="'status'" :type="'select'" :options="$status"
+            :select="'Pilih Status'" :value="old('status')" />
         </x-form-floating>
       </div>
 
@@ -70,20 +61,14 @@
         </x-form-floating>
       </div>
 
-      <div class="col-lg-4">
+      <div class="col-lg-12">
         <x-form-floating>
-          <x-input-form-label :label="'Status'" :name="'status'" :type="'select'" :options="$status"
-            :select="'Pilih Status'" :value="old('status')" />
-        </x-form-floating>
-      </div>
-
-      <div class="col-lg-4">
-        <x-form-floating>
-          <x-input-form-label :label="'Nomor Rekening'" :name="'account_number'" :type="'text'" :value="old('account_number')" />
+          <x-input-form-label :label="'Alamat'" :name="'address'" :type="'textarea'" :value="old('address')"
+            :placeholder="'Ahmad Sood St.'" />
         </x-form-floating>
       </div>
     </div>
 
-    <x-submit-button :label="'Simpan'" :type="'submit'" :variant="'primary'" :icon="'check-circle-outline'" />
+    <x-submit-button :label="'Simpan'" :type="'submit'" :variant="'primary w-100'" :icon="'check-circle-outline me-2'" />
   </x-create-form>
 @endsection

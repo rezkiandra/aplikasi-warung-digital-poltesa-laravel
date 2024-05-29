@@ -10,7 +10,7 @@
       </h6>
       <h3 class="text-center mb-2">Frequently asked<span class="fw-bold"> questions</span></h3>
       <p class="text-center fw-medium mb-3 mb-md-5 pb-3">
-        Telusuri semua pertanyaan yang sering diajukan
+        Telusuri semua pertanyaan yang sering ditanyakan
       </p>
       <div class="row gy-5">
         <div class="col-lg-5">
@@ -89,9 +89,8 @@
                   <ol>
                     <li>Cash (Uang Tunai)</li>
                     <li>Bank Transfer (BRI, BCA, Mandiri)</li>
-                    <li>QRIS</li>
-                    <li>Dana</li>
-                    <li>Gopay</li>
+                    <li>QRIS (Dana, Gopay)</li>
+                    <li>ShopeePay / SPayLater</li>
                   </ol>
                 </div>
               </div>

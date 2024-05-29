@@ -12,7 +12,7 @@ class SubmitButton extends Component
    *
    * @return void
    */
-  public function __construct($label = '', $class = '', $id = '', $variant, $type, $icon)
+  public function __construct($label = '', $class = '', $id = '', $variant, $type, $icon = '')
   {
     $this->label = $label;
     $this->class = $class;

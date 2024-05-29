@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Http\Requests;
+
+use App\Models\User;
+use Illuminate\Foundation\Http\FormRequest;
+
+class AdminUserRequest extends FormRequest
+{
+  public function authorize(): bool
+  {
+    return true;
+  }
+
+  public function rules(): array
+  {
+    return [
+      'name' => 'required|min:6|max:30',
+      'email' => 'required_if:email,null|unique:users,id|email',
+      'role_id' => 'required',
+      'password' => 'required|min:6|max:20',
+      'konfirmasi' => 'required|same:password|',
+    ];
+  }
+
+  public function messages(): array
+  {
+    return [
+      'name.required' => 'Nama harus diisi',
+      'name.min' => 'Nama minimal 6 karakter',
+      'name.max' => 'Nama maksimal 30 karakter',
+
+      'email.required_if' => 'Email harus diisi',
+      'email.unique' => 'Email sudah terdaftar',
+      'email.email' => 'Email tidak valid',
+
+      'role_id.required' => 'Role harus diisi',
+
+      'password.required' => 'Password harus diisi',
+      'password.min' => 'Password minimal 6 karakter',
+      'password.max' => 'Password maksimal 20 karakter',
+
+      'konfirmasi.required' => 'Konfirmasi password harus diisi',
+      'konfirmasi.same' => 'Konfirmasi password tidak sama',
+    ];
+  }
+
+  public function attributes(): array
+  {
+    return [
+      'name' => 'Nama',
+      'email' => 'Email',
+      'role_id' => 'Role',
+      'password' => 'Password',
+    ];
+  }
+}

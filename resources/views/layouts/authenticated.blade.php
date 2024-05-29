@@ -34,28 +34,22 @@
   </head>
 
   <body>
-    {{-- Layout wrapper --}}
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-
-        {{-- Sidebar --}}
         @include('components.sidebar')
 
-        {{-- Layout container --}}
         <div class="layout-page">
-
-          {{-- Navbar --}}
           @include('components.navbar')
 
-          {{-- Content --}}
           <div class="content-wrapper">
-            <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="container-fluid flex-grow-1 container-p-y">
               @include('sweetalert::alert')
               @yield('content')
             </div>
             @include('components.footer')
             <div class="content-backdrop fade"></div>
           </div>
+
         </div>
       </div>
       <div class="content-backdrop fade"></div>
@@ -69,8 +63,6 @@
     <script src="{{ asset('materio/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('materio/assets/vendor/js/menu.js') }}"></script>
     <script src="{{ asset('materio/assets/js/main.js') }}"></script>
-    {{-- <script src="{{ asset('materio/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script> --}}
-    {{-- <script src="{{ asset('materio/assets/js/dashboards-analytics.js') }}"></script> --}}
     @stack('scripts')
   </body>
 

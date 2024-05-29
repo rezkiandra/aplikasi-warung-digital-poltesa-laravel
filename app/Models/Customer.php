@@ -17,9 +17,7 @@ class Customer extends Model
     'address',
     'phone_number',
     'gender',
-    'bank_account_id',
     'image',
-    'account_number',
     'status'
   ];
 

@@ -14,7 +14,7 @@ class BankAccountRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'bank_name' => 'unique:bank_accounts,id|required',
+			'bank_name' => 'unique:bank_accounts,id|required|max:20',
 		];
 	}
 

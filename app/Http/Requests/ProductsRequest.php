@@ -15,26 +15,26 @@ class ProductsRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'seller_id' => 'required_if:seller_id,null',
-      'name' => 'required|unique:products,id|max:30',
-      'description' => 'required|',
-      'price' => 'required|numeric|',
-      'stock' => 'required|numeric|',
+      'name' => 'required|unique:products,name|min:5|max:30',
+      'description' => 'required|min:100',
+      'price' => 'required|numeric',
+      'stock' => 'required|numeric',
+      'unit' => 'required',
       'category_id' => 'required',
-      'image' => 'required_if:image,null|mimes:png,jpg,jpeg,webp',
+      'image' => 'required|mimes:png,jpg,jpeg,webp',
     ];
   }
 
   public function messages(): array
   {
     return [
-      'seller_id.required_if' => 'Seller diperlukan',
-
       'name.required' => 'Nama produk diperlukan',
       'name.unique' => 'Nama produk sudah ada',
+      'name.min' => 'Nama produk minimal 5 karakter',
       'name.max' => 'Nama produk maksimal 30 karakter',
 
       'description.required' => 'Deskripsi diperlukan',
+      'description.min' => 'Deskripsi minimal 100 karakter',
 
       'price.required' => 'Harga diperlukan',
       'price.numeric' => 'Harga dalam bentuk angka',
@@ -42,22 +42,24 @@ class ProductsRequest extends FormRequest
       'stock.required' => 'Stok diperlukan',
       'stock.numeric' => 'Stok dalam bentuk angka',
 
-      'category_id.required' => 'Kategori diperlukan',
+      'unit.required' => 'Unit diperlukan',
 
-      'image.required_if' => 'Gambar diperlukan',
-      'image.mimes' => 'Gambar dalam format jpg, png, jpeg, webp',
-      // 'image.size' => 'Gambar maksimal 2 MB',
+      'category_id.required' => 'Kategori produk diperlukan',
+
+      'image.required' => 'Gambar produk diperlukan',
+      'image.mimes' => 'Gambar produk dalam format jpg, png, jpeg, webp',
+      'image.size' => 'Gambar produk maksimal 2 MB',
     ];
   }
 
   public function attributes(): array
   {
     return [
-      'seller_id' => 'Seller',
       'name' => 'Nama Produk',
       'description' => 'Deskripsi',
       'price' => 'Harga',
       'stock' => 'Stok',
+      'unit' => 'Unit',
       'image' => 'Gambar',
     ];
   }

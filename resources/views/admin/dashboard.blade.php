@@ -1,4 +1,6 @@
 @php
+  $alertMessage =
+      'Anda memiliki kendali penuh terhadap aplikasi ini. Jadilah seorang administrator yang bertanggung jawab!!';
   // Greetings Card
   $message = 'Dashboard admin berisi informasi tentang transaksi, pengguna, penjual, dan produk';
   $greetings = 'Halo, ' . auth()->user()->name;
@@ -49,8 +51,12 @@
 
 @extends('layouts.authenticated')
 @section('title', 'Dashboard')
+@push('styles')
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+@endpush
 
 @section('content')
+  <x-customer-dashboard-card :description="$alertMessage" />
   <x-content-card>
     <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel"
       :route="$route" />
@@ -61,19 +67,109 @@
       <x-transaction-item-card :label="'Pesanan'" :value="$totalOrder" :variant="'danger'" :icon="'basket-outline'" />
     </x-transactions-card>
 
-    {{-- <x-bar-graph-card />
-    <x-earnings-card />
-    <x-four-card>
-      <x-graph-card-content />
-      <x-graph-card-content />
-      <x-graph-card-content />
-      <x-graph-card-content />
-    </x-four-card> --}}
+    <x-bar-graph-card :height="'300'" :title="'Transaksi Bulanan Tahun Ini'" :id="'monthlyOrders'" />
 
     <x-top-sellers-card :datas="$topSellers" :title="'Penjual Teratas 🎉'" />
     <x-top-customers-card :datas="$topCustomers" :title="'Pelanggan Teratas 🎉'" />
-    <x-top-products-card :datas="$topProducts" :title="'Penjualan Produk Teratas 🎉'" />
+    <x-top-products-card :datas="$topProducts" :title="'Produk Teratas 🎉'" />
 
     <x-user-table-card :datas="$users" />
   </x-content-card>
 @endsection
+
+@push('scripts')
+  <script>
+    var ctx = document.getElementById('monthlyOrders');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: @json($data['labels']),
+        datasets: [{
+            label: 'Paid',
+            data: @json($data['paid']),
+            backgroundColor: 'rgba(86, 202, 0, 0.5)',
+            borderColor: 'rgba(86, 202, 0, 1)',
+            borderWidth: 1,
+            tension: 0
+          },
+          {
+            label: 'Unpaid',
+            data: @json($data['unpaid']),
+            backgroundColor: 'rgba(255, 180, 0, 0.5)',
+            borderColor: 'rgba(255, 180, 0, 1)',
+            borderWidth: 1,
+            tension: 0
+          },
+          {
+            label: 'Expire',
+            data: @json($data['expire']),
+            backgroundColor: 'rgba(255, 76, 81, 0.5)',
+            borderColor: 'rgba(255, 76, 81, 1)',
+            borderWidth: 1,
+            tension: 0
+          },
+          {
+            label: 'Cancel',
+            data: @json($data['cancel']),
+            backgroundColor: 'rgba(2, 11, 12, 0.5)',
+            borderColor: 'rgba(2, 11, 12, 1)',
+            borderWidth: 1,
+            tension: 0
+          },
+        ],
+      },
+      options: {
+        transitions: {
+          show: {
+            animations: {
+              x: {
+                from: 0
+              },
+              y: {
+                from: 0
+              }
+            }
+          },
+          hide: {
+            animations: {
+              x: {
+                to: 0
+              },
+              y: {
+                to: 0
+              }
+            }
+          }
+        },
+        animations: {
+          tension: {
+            duration: 5000,
+            easing: 'easeInOutCubic',
+            from: .2,
+            to: 0,
+            loop: true
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 50
+          }
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            fullSize: true,
+            align: 'center',
+            title: {
+              display: false,
+              text: 'Status Pesanan',
+            }
+          }
+        }
+      }
+    });
+  </script>
+@endpush

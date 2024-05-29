@@ -12,7 +12,7 @@ class EarningsCard extends Component
    *
    * @return void
    */
-  public function __construct($title, $earnings, $description)
+  public function __construct($title, $earnings = 0, $description)
   {
     $this->title = $title;
     $this->earnings = $earnings;

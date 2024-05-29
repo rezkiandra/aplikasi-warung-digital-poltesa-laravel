@@ -1,5 +1,6 @@
 @php
-  if (Auth::check() && Auth::user()->role_id == 3) {
+  $customer = auth()->user()->customer ?? '';
+  if (Auth::check() && $customer) {
       $wishlistUUID = \App\Models\Wishlist::where('customer_id', auth()->user()->customer->id)
           ->pluck('uuid')
           ->toArray();
@@ -13,14 +14,25 @@
 
   $customer = auth()->user()->customer ?? '';
   $seller = auth()->user()->seller ?? '';
-  $fee = 0;
 @endphp
 
+@push('styles')
+  <style>
+    .description {
+      line-height: 1.7;
+    }
+  </style>
+@endpush
+
 @auth
-  @if ($customer)
-    <x-alert :type="'primary'" :message="'Biodata anda sudah lengkap dan dapat memesan produk.'" :icon="'alert-circle-outline'" />
+  @if ($customer && $customer->status == 'active')
+    <x-alert :type="'primary'" :message="'Biodata anda sudah lengkap dan status akun aktif. Anda dapat memesan produk.'" :icon="'account-check-outline'" />
+  @elseif ($customer && $customer->status == 'pending')
+    <x-alert :type="'warning'" :message="'Biodata anda sudah lengkap namun status akun pending. Silahkan hubungi admin untuk menyetujui!.'" :icon="'account-search-outline'" />
+  @elseif ($customer && $customer->status == 'unactive')
+    <x-alert :type="'danger'" :message="'Biodata anda sudah lengkap namun status akun tidak aktif. Silahkan hubungi admin untuk mengaktifkan kembali!.'" :icon="'account-search-outline'" />
   @elseif (!$customer && !$admin && !$seller)
-    <x-alert :type="'warning'" :message="'Lengkapi biodata anda terlebih dahulu di halaman dashboard.'" :icon="'alert-circle-outline'" />
+    <x-alert :type="'danger'" :message="'Lengkapi biodata anda terlebih dahulu di halaman dashboard.'" :icon="'alert-circle-outline'" />
   @endif
 @endauth
 
@@ -36,13 +48,13 @@
       <span class="badge bg-danger text-white d-lg-flex align-items-centers text-uppercase px-4">Out Of Stock</span>
     @endif
   </div>
-  @if ($admin)
+  @if ($admin || $seller)
     <div class="row mb-4">
-      <div class="col-lg-5 col-md-6">
+      <div class="col-lg-4 col-md-6">
         <img src="{{ asset('storage/' . $product->image) }}" alt="" class="img-fluid rounded shadow hover-shadow">
       </div>
 
-      <div class="col-lg-7 px-lg-3 col-md-6 mt-lg-0 mt-3 mt-md-0">
+      <div class="col-lg-8 px-lg-3 col-md-6 mt-lg-0 mt-3 mt-md-0">
         <h4 class="fw-medium">{{ $product->name }}</h4>
         <div class="d-flex d-lg-flex d-md-flex align-items-center gap-4">
           <p class="d-lg-flex d-flex align-items-center">
@@ -52,9 +64,9 @@
               class="ms-1 text-secondary">{{ \App\Models\Order::where('product_id', $product->id)->sum('quantity') }}</span>
           </p>
           <p class="d-lg-flex align-items-center gap-1">
-            <i class="mdi mdi-star text-warning"></i>
+            <i class="mdi mdi-star-half-full text-warning"></i>
             <span class="text-dark">4.5</span>
-            <span class="text-secondary">(1.822 rating)</span>
+            <span class="text-secondary">(123 rating)</span>
           </p>
         </div>
         <h4 class="mb-3 fw-bold">
@@ -64,7 +76,7 @@
 
         <div class="mb-1">
           <span class="text-secondary">Dipublish pada:</span>
-          <span class="text-dark">{{ date('M d, H:i', strtotime($product->created_at)) }}
+          <span class="text-dark">{{ date('d M Y, H:i:s', strtotime($product->created_at)) }}
             {{ $product->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
           </span>
         </div>
@@ -84,15 +96,21 @@
 
         <div class="pb-3">
           <p class="text-secondary mb-1">Deskripsi:</p>
-          <span class="text-dark text-capitalize">{{ $product->description }}</span>
+          <span class="text-dark text-capitalize description">{{ $product->description }}</span>
         </div>
       </div>
     </div>
   @else
     <div class="row mb-4">
+      <div class="fixed-bottom fixed-right d-flex justify-content-end align-items-center p-4">
+        <a href="https://wa.me/{{ Str::replaceFirst('0', '+62', $product->seller->phone_number) }}"
+          class="btn btn-sm card rounded-circle shadow shadow-lg px-2 py-1">
+          <i class="mdi mdi-whatsapp fs-1 text-success"></i>
+        </a>
+      </div>
       <div class="col-lg-4 col-md-6">
         <img src="{{ asset('storage/' . $product->image) }}" alt=""
-          class="img-fluid rounded shadow hover-shadow">
+          class="img-fluid rounded shadow hover-shadow text-success">
       </div>
 
       <div class="col-lg-5 px-lg-3 col-md-6 mt-lg-0 mt-3 mt-md-0">
@@ -105,9 +123,9 @@
               class="ms-1 text-secondary">{{ \App\Models\Order::where('product_id', $product->id)->sum('quantity') }}</span>
           </p>
           <p class="d-lg-flex align-items-center gap-1">
-            <i class="mdi mdi-star text-warning"></i>
+            <i class="mdi mdi-star-half-full text-warning"></i>
             <span class="text-dark">4.5</span>
-            <span class="text-secondary">(1.822 rating)</span>
+            <span class="text-secondary">(123 rating)</span>
           </p>
         </div>
         <h4 class="mb-3 fw-bold">
@@ -117,33 +135,33 @@
 
         <div class="mb-1">
           <span class="text-secondary">Dipublish pada:</span>
-          <span class="text-dark">{{ date('M d, H:i', strtotime($product->created_at)) }}
+          <span class="text-dark">{{ date('d M Y, H:i:s', strtotime($product->created_at)) }}
             {{ $product->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
           </span>
         </div>
         <div class="mb-1">
           <span class="text-secondary">Kondisi:<span>
-          <span class="text-dark">Baru</span>
+              <span class="text-dark">Baru</span>
         </div>
         <div class="mb-1">
           <span class="text-secondary">Minimal pemesanan:<span>
-          <span class="text-dark">1 Buah</span>
+              <span class="text-dark">1 Buah</span>
         </div>
         <div class="mb-1">
           <span class="text-secondary">Penjual:<span>
-          <span class="badge bg-label-primary">Terverifikasi</span>
+              <span class="badge bg-label-primary">Terverifikasi</span>
         </div>
         <hr class="bg-light">
 
         <div class="pb-3">
           <p class="text-secondary mb-1">Deskripsi:</p>
-          <span class="text-dark text-capitalize">{{ $product->description }}</span>
+          <span class="text-dark text-capitalize description">{{ $product->description }}</span>
         </div>
       </div>
 
       <div class="col-lg-3 mt-lg-0 mt-3">
         <div class="bg-white border rounded p-3 mb-3">
-          <h6>Rincian Pesanan</h6>
+          <h6>Rincian Detail Produk</h6>
           <div class="text-muted mb-3">
             <span class="">Kategori:</span>
             <span class="text-dark">{{ $product->category->name }}</span>
@@ -166,17 +184,17 @@
             <dt class="col-6 fw-normal text-heading">Sub Total</dt>
             <dd class="col-6 text-end" id="subtotal">Rp {{ number_format($product->price, 0, ',', '.') }}</dd>
 
-            <dt class="col-6 fw-normal text-heading">Biaya Layanan</dt>
+            <dt class="col-6 fw-normal text-heading">PPN 3%</dt>
             <dd class="col-6 text-end">
               <i class="mdi mdi-truck-fast-outline me-1"></i>
-              Rp {{ number_format($fee, 0, ',', '.') }}
+              Rp {{ number_format(($product->price / 100) * 3, 0, ',', '.') }}
             </dd>
           </dl>
           <hr class="mx-n3 my-2">
           <dl class="row my-3">
             <dt class="col-6 text-heading">Total</dt>
             <dd class="col-6 fw-medium text-end mb-0 text-heading" id="total">
-              Rp {{ number_format($product->price + $fee, 0, ',', '.') }}
+              Rp {{ number_format($product->price + ($product->price / 100) * 3, 0, ',', '.') }}
           </dl>
           <div class="d-grid gap-2">
             @if ($customer)
@@ -193,10 +211,10 @@
                   <input type="hidden" name="customer_id" value="{{ $customer->id }}">
                   <input type="hidden" name="product_id" value="{{ $product->id }}">
                   @if ($product->stock == 0)
-                    <x-submit-button :label="'Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2 disabled'"
+                    <x-submit-button :label="'Tambah Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2 disabled'"
                       aria-disabled="true" :icon="'heart-outline me-2'" :variant="'danger'" />
                   @else
-                    <x-submit-button :label="'Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2'"
+                    <x-submit-button :label="'Tambah Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2'"
                       :icon="'heart-outline me-2'" :variant="'danger'" />
                   @endif
                 </form>
@@ -206,10 +224,10 @@
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <input type="hidden" name="quantity" id="newQuantityCart" value="1">
                 @if ($product->stock == 0)
-                  <x-submit-button :label="'Keranjang'" id="btn-cart" :type="'submit'" :class="'btn-outline-primary w-100 mb-2 disabled'"
+                  <x-submit-button :label="'Tambah Keranjang'" id="btn-cart" :type="'submit'" :class="'btn-outline-primary w-100 mb-2 disabled'"
                     aria-disabled="true" :icon="'cart-outline me-2'" :variant="'primary'" />
                 @else
-                  <x-submit-button :label="'Keranjang'" id="btn-cart" :type="'submit'" :class="'btn-outline-primary w-100 mb-2'"
+                  <x-submit-button :label="'Tambah Keranjang'" id="btn-cart" :type="'submit'" :class="'btn-outline-primary w-100 mb-2'"
                     :icon="'cart-outline me-2'" :variant="'primary'" />
                 @endif
               </form>
@@ -218,12 +236,12 @@
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <input type="hidden" name="quantity" id="newQuantityOrder" value="1">
                 <input type="hidden" name="total_price" id="newTotalPriceOrder"
-                  value="{{ $product->price + $fee }}">
+                  value="{{ $product->price + ($product->price / 100) * 3 }}">
                 @if ($product->stock == 0)
-                  <x-submit-button :label="'Beli'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100 disabled'"
+                  <x-submit-button :label="'Pesan'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100 disabled'"
                     aria-disabled="true" :icon="'basket-outline me-2'" :variant="'primary'" />
                 @else
-                  <x-submit-button :label="'Beli'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100'"
+                  <x-submit-button :label="'Pesan'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100'"
                     :icon="'basket-outline me-2'" :variant="'primary'" />
                 @endif
               </form>
@@ -233,10 +251,10 @@
                 <input type="hidden" name="customer_id" value="{{ $customer->id ?? '' }}">
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 @if ($product->stock == 0)
-                  <x-submit-button :label="'Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2 disabled'"
+                  <x-submit-button :label="'Tambah Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2 disabled'"
                     aria-disabled="true" :icon="'heart-outline me-2'" :variant="'danger'" />
                 @else
-                  <x-submit-button :label="'Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2'"
+                  <x-submit-button :label="'Tambah Wishlist'" id="btn-wishlist" :type="'submit'" :class="'btn-outline-danger w-100 mb-2'"
                     :icon="'heart-outline me-2'" :variant="'danger'" />
                 @endif
               </form>
@@ -245,10 +263,10 @@
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <input type="hidden" name="quantity" id="newQuantityCart" value="1">
                 @if ($product->stock == 0)
-                  <x-submit-button :label="'Keranjang'" id="btn-cart" :type="'submit'" :class="'btn-outline-primary w-100 mb-2 disabled'"
+                  <x-submit-button :label="'Tambah Keranjang'" id="btn-cart" :type="'submit'" :class="'btn-outline-primary w-100 mb-2 disabled'"
                     aria-disabled="true" :icon="'cart-outline me-2'" :variant="'primary'" />
                 @else
-                  <x-submit-button :label="'Keranjang'" id="btn-cart" :type="'submit'" :class="'btn-outline-primary w-100 mb-2'"
+                  <x-submit-button :label="'Tambah Keranjang'" id="btn-cart" :type="'submit'" :class="'btn-outline-primary w-100 mb-2'"
                     :icon="'cart-outline me-2'" :variant="'primary'" />
                 @endif
               </form>
@@ -257,12 +275,12 @@
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <input type="hidden" name="quantity" id="newQuantityOrder" value="1">
                 <input type="hidden" name="total_price" id="newTotalPriceOrder"
-                  value="{{ $product->price + $fee }}">
+                  value="{{ $product->price + ($product->price / 100) * 3 }}">
                 @if ($product->stock == 0)
-                  <x-submit-button :label="'Beli'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100 disabled'"
+                  <x-submit-button :label="'Pesan'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100 disabled'"
                     aria-disabled="true" :icon="'basket-outline me-2'" :variant="'primary'" />
                 @else
-                  <x-submit-button :label="'Beli'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100'"
+                  <x-submit-button :label="'Pesan'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100'"
                     :icon="'basket-outline me-2'" :variant="'primary'" />
                 @endif
               </form>
@@ -279,7 +297,7 @@
   <script>
     const stock = {{ $product->stock }}
     const price = {{ $product->price }}
-    const fee = {{ $fee }}
+    const fee = {{ ($product->price / 100) * 3 }}
 
     // mengatur quantity
     $('#quantity').val(1);
@@ -303,8 +321,8 @@
       $('#newQuantityCart').val(newQuantity);
       $('#newQuantityOrder').val(newQuantity);
       $('#newTotalPriceOrder').val(total);
-      $('#subtotal').html('Rp' + subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
-      $('#total').html('Rp' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+      $('#subtotal').html('Rp ' + subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+      $('#total').html('Rp ' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
     });
 
     // jika mengklik tombol increment maka quantity akan bertambah dan total akan bertambah
@@ -322,8 +340,8 @@
       $('#newQuantityCart').val(newQuantity);
       $('#newQuantityOrder').val(newQuantity);
       $('#newTotalPriceOrder').val(total);
-      $('#subtotal').html('Rp' + subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
-      $('#total').html('Rp' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+      $('#subtotal').html('Rp ' + subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+      $('#total').html('Rp ' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
     });
   </script>
 @endpush

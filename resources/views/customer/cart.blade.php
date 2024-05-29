@@ -1,6 +1,3 @@
-@php
-  $fee = 0;
-@endphp
 @extends('layouts.authenticated')
 @section('title', 'Keranjang')
 @section('content')
@@ -50,9 +47,9 @@
                 </div>
                 <div class="col-md-4 d-flex flex-column align-items-end justify-content-center">
                   <div class="mt-lg-0 mt-2 d-lg-flex align-items-center gap-2 mb-0 mb-lg-2 mb-md-2">
-                    <s class="text-primary">Rp 10.000</s>
+                    <s class="text-success badge bg-label-success rounded">FREE</s>
                     <span class="text-body" id="totalPrice">Rp
-                      {{ number_format($cart->product->price * $cart->quantity + $fee, 0, ',', '.') }}
+                      {{ number_format($cart->product->price * $cart->quantity, 0, ',', '.') }}
                     </span>
                   </div>
                   <form action="{{ route('order.store') }}" method="POST" id="form">
@@ -60,8 +57,9 @@
                     <input type="hidden" name="product_id" value="{{ $cart->product_id }}">
                     <input type="hidden" name="quantity" id="quantity" value="{{ $cart->quantity }}">
                     <input type="hidden" name="total_price"
-                      value="{{ $cart->product->price * $cart->quantity + $fee }}">
-                    <x-submit-button :label="'Beli Sekarang'" id="btn-buy" :type="'submit'" :variant="'outline-primary btn-sm'" />
+                      value="{{ $cart->product->price * $cart->quantity + ($cart->product->price / 100) * 3 }}">
+                    <x-submit-button :label="'Beli Sekarang'" id="btn-buy" :type="'submit'" :variant="'outline-primary btn-sm'"
+                      :icon="'basket-outline me-2'" />
                   </form>
                 </div>
               </div>
@@ -103,9 +101,9 @@
       $('input[name="quantity"]').on('change', function() {
         const price = $(this).parents('li').data('price');
         const quantity = $(this).val();
-        const totalPrice = price * quantity + 1;
+        const totalPrice = price * quantity;
 
-        $(this).parents('li').find('#totalPrice').html('Rp' + totalPrice.toString().replace(
+        $(this).parents('li').find('#totalPrice').html('Rp ' + totalPrice.toString().replace(
           /\B(?=(\d{3})+(?!\d))/g, '.'));
       })
     })

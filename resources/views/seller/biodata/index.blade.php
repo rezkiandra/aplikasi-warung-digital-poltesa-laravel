@@ -65,22 +65,37 @@
     </x-create-form>
   @else
     @foreach ($seller as $data)
-      <x-alert :type="'primary'" :message="'Biodata anda sudah lengkap. Anda juga bisa mengedit biodata!'" :icon="'account-outline'" />
+      @if ($data->status == 'active')
+        <x-alert :type="'primary'" :message="'Biodata anda sudah lengkap dan status akun sudah aktif. Anda sekarang dapat mengelola produk!'" :icon="'account-check-outline'" />
+      @elseif ($data->status == 'pending')
+        <x-alert :type="'warning'" :message="'Biodata anda sudah lengkap namun status akun masih pending. Silahkan hubungi admin untuk menyetujui!'" :icon="'account-search-outline'" />
+      @else
+        <x-alert :type="'danger'" :message="'Biodata anda sudah lengkap namun status akun sudah tidak aktif. Silahkan hubungi admin untuk mengaktifkan kembali!'" :icon="'account-off-outline'" />
+      @endif
       <div class="row gap-lg-0 gap-4">
-        <div class="col-lg-4 mb-lg-0 mb-4">
+        <div class="col-lg-4 mb-lg-0">
           <div class="card">
             <div class="card-body d-flex flex-column justify-content-center">
               <div class="text-center">
+                <div class="position-absolute">
+                  @if ($data->status == 'active')
+                    <span class="badge bg-label-success text-uppercase rounded p-2">Status {{ $data->status }}</span>
+                  @elseif ($data->status == 'pending')
+                    <span class="badge bg-label-warning text-uppercase rounded p-2">Status {{ $data->status }}</span>
+                  @else
+                    <span class="badge bg-label-danger text-uppercase rounded p-2">Status {{ $data->status }}</span>
+                  @endif
+                </div>
                 <img src="{{ asset('storage/' . $data->image) }}" alt="" class="img-fluid rounded-circle"
                   width="200">
               </div>
-              <div class="mt-3 text-center fw-medium text-capitalize">
+              <div class="mt-3 text-center fw-medium text-capitalize text-dark">
                 <h5 class="mb-3">{{ $data->full_name }}</h5>
                 <p class="mb-1">{{ $data->gender }}</p>
                 <p class="mb-1">{{ $data->phone_number }}</p>
-                <p class="mb-1">{{ $data->address }}</p>
                 <p class="mb-1 text-lowercase">{{ $data->user->email }}</p>
-                <p class="mb-3">{{ $data->account_number }}</p>
+                <p class="mb-1">{{ $bank[$data->bank_account_id] }} - {{ $data->account_number }}</p>
+                <p class="mb-3">{{ $data->address }}</p>
               </div>
             </div>
           </div>
@@ -150,7 +165,7 @@
               </x-form-floating>
             </div>
 
-            <x-submit-button :label="'Submit'" :type="'submit'" :variant="'primary'" :icon="'check-circle-outline'" />
+            <x-submit-button :label="'Update Biodata'" :type="'submit'" :variant="'primary w-100'" :icon="'check-circle-outline me-2'" />
           </x-edit-form>
         </div>
       </div>

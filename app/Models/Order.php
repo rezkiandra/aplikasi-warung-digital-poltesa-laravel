@@ -19,9 +19,14 @@ class Order extends Model
     'total_price',
     'status',
     'payment_method',
+    'store',
+    'payment_code',
     'expiry_time',
+    'transaction_time',
     'issuer',
     'acquirer',
+    'biller_code',
+    'bill_key',
     'snap_token'
   ];
 

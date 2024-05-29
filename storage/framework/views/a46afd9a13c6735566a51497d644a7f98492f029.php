@@ -11,11 +11,11 @@
 <?php $component = $__componentOriginal96659bcfb88ad03c5edb706fbb33477249d7cab0; ?>
 <?php unset($__componentOriginal96659bcfb88ad03c5edb706fbb33477249d7cab0); ?>
 <?php endif; ?>
-  
+
   <div class="card-body mt-2">
     <div class="text-center">
       <h5 class="mb-2">Selamat Datang di Warung Digital! 👋</h4>
-        <p class="mb-4">Silahkan login untuk menggunakan layanan</p>
+      <p class="mb-4">Silahkan login untuk menggunakan layanan</p>
     </div>
 
     <form id="formAuthentication" class="mb-3" action="<?php echo e(route('signin')); ?>" method="POST">
@@ -70,18 +70,10 @@
 <?php unset($__componentOriginal9556ea61bc573b9b221bcf3ee1d728254f4eca85); ?>
 <?php endif; ?>
 
-      <div class="mb-3 d-flex justify-content-between">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="remember-me" />
-          <label class="form-check-label" for="remember-me">Ingat Saya</label>
-        </div>
-        <a href="" class="float-end mb-1">
-          <span>Lupa Passwords?</span>
-        </a>
-      </div>
+      
       <div class="mb-3">
         <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Sign In','type' => 'submit','variant' => 'primary','icon' => 'login','class' => 'w-100']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Login','type' => 'submit','variant' => 'primary','icon' => 'login me-2','class' => 'w-100']); ?>
 <?php $component->withName('submit-button'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -98,7 +90,7 @@
     <p class="text-center">
       <span>Belum punya akun?</span>
       <a href="<?php echo e(route('register')); ?>">
-        <span>Sign Up</span>
+        <span>Register</span>
       </a>
     </p>
   </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Order;
@@ -17,7 +18,81 @@ class AdminController extends Controller
 {
   public function dashboard()
   {
-    return view('admin.dashboard');
+    $bulanJan = date('01');
+    $bulanFeb = date('02');
+    $bulanMar = date('03');
+    $bulanApr = date('04');
+    $bulanMei = date('05');
+    $bulanJun = date('06');
+    $bulanJul = date('07');
+    $bulanAgu = date('08');
+    $bulanSep = date('09');
+    $bulanOkt = date('10');
+    $bulanNov = date('11');
+    $bulanDes = date('12');
+
+    $tahun = Carbon::now()->year;
+    $data = [
+      'labels'  => ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+      'paid'    => [
+        Order::where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJan)->count(),
+        Order::where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanFeb)->count(),
+        Order::where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMar)->count(),
+        Order::where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanApr)->count(),
+        Order::where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMei)->count(),
+        Order::where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJun)->count(),
+        Order::where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJul)->count(),
+        Order::where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanAgu)->count(),
+        Order::where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanSep)->count(),
+        Order::where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanOkt)->count(),
+        Order::where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanNov)->count(),
+        Order::where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanDes)->count(),
+      ],
+      'unpaid'  => [
+        Order::where('status', 'unpaid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJan)->count(),
+        Order::where('status', 'unpaid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanFeb)->count(),
+        Order::where('status', 'unpaid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMar)->count(),
+        Order::where('status', 'unpaid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanApr)->count(),
+        Order::where('status', 'unpaid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMei)->count(),
+        Order::where('status', 'unpaid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJun)->count(),
+        Order::where('status', 'unpaid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJul)->count(),
+        Order::where('status', 'unpaid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanAgu)->count(),
+        Order::where('status', 'unpaid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanSep)->count(),
+        Order::where('status', 'unpaid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanOkt)->count(),
+        Order::where('status', 'unpaid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanNov)->count(),
+        Order::where('status', 'unpaid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanDes)->count(),
+      ],
+      'expire'  => [
+        Order::where('status', 'expire')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJan)->count(),
+        Order::where('status', 'expire')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanFeb)->count(),
+        Order::where('status', 'expire')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMar)->count(),
+        Order::where('status', 'expire')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanApr)->count(),
+        Order::where('status', 'expire')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMei)->count(),
+        Order::where('status', 'expire')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJun)->count(),
+        Order::where('status', 'expire')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJul)->count(),
+        Order::where('status', 'expire')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanAgu)->count(),
+        Order::where('status', 'expire')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanSep)->count(),
+        Order::where('status', 'expire')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanOkt)->count(),
+        Order::where('status', 'expire')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanNov)->count(),
+        Order::where('status', 'expire')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanDes)->count(),
+      ],
+      'cancel'  => [
+        Order::where('status', 'cancelled')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMar)->count(),
+        Order::where('status', 'cancelled')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanFeb)->count(),
+        Order::where('status', 'cancelled')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMar)->count(),
+        Order::where('status', 'cancelled')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanApr)->count(),
+        Order::where('status', 'cancelled')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMei)->count(),
+        Order::where('status', 'cancelled')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJun)->count(),
+        Order::where('status', 'cancelled')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJul)->count(),
+        Order::where('status', 'cancelled')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanAgu)->count(),
+        Order::where('status', 'cancelled')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanSep)->count(),
+        Order::where('status', 'cancelled')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanOkt)->count(),
+        Order::where('status', 'cancelled')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanNov)->count(),
+        Order::where('status', 'cancelled')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanDes)->count(),
+      ],
+    ];
+
+    return view('admin.dashboard', compact('data'));
   }
 
   public function sellers()
@@ -48,6 +123,12 @@ class AdminController extends Controller
   {
     $orders = Order::all();
     return view('admin.orders.index', compact('orders'));
+  }
+
+  public function detailOrder(string $uuid)
+  {
+    $order = Order::where('uuid', $uuid)->first();
+    return view('admin.orders.detail', compact('order'));
   }
 
   public function roles()

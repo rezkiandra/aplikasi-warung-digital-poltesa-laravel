@@ -36,7 +36,7 @@ class AdminProductController extends Controller
       'image' => $request->image->store('products', 'public'),
     ]);
 
-    Alert::toast('Successfully created new product', 'success');
+    Alert::toast('Berhasil menambahkan produk baru', 'success');
     return redirect()->route('admin.products');
   }
 
@@ -87,7 +87,7 @@ class AdminProductController extends Controller
       ]);
     }
 
-    Alert::toast('Successfully updated product', 'success');
+    Alert::toast('Berhasil mengupdate produk', 'success');
     return redirect()->route('admin.products');
   }
 
@@ -103,7 +103,7 @@ class AdminProductController extends Controller
       Storage::delete('public/' . $product->image);
     }
 
-    Alert::toast('Successfully deleted product', 'success');
+    Alert::toast('Berhasil menghapus produk', 'success');
     session()->flash('action', 'delete');
     return redirect()->route('admin.products');
   }
