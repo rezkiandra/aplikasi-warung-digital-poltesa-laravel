@@ -1,4 +1,4 @@
-<footer class="bg-dark footer">
+<footer class="bg-dark footer position-relative bottom-0 w-100">
   <div class="container-fluid">
     <div class="d-lg-flex align-items-center row gx-0 gy-4 g-md-5">
       <div class="col-lg-6">

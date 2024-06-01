@@ -12,21 +12,12 @@
       <x-form-floating>
         <x-input-form-label :label="'Email'" :name="'email'" :type="'text'" :placeholder="'Email'" :value="old('email')" />
       </x-form-floating>
-
+      
       <x-form-floating>
         <x-input-form-label :label="'Password'" :name="'password'" :type="'password'" :placeholder="'Password'"
           :value="old('password')" />
       </x-form-floating>
 
-      {{-- <div class="mb-3 d-flex justify-content-between">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="remember-me" />
-          <label class="form-check-label" for="remember-me">Ingat Saya</label>
-        </div>
-        <a href="" class="float-end mb-1">
-          <span>Lupa Passwords?</span>
-        </a>
-      </div> --}}
       <div class="mb-3">
         <x-submit-button :label="'Login'" :type="'submit'" :variant="'primary'" :icon="'login me-2'"
           :class="'w-100'" />

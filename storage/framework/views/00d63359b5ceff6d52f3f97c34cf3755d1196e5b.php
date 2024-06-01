@@ -12,7 +12,7 @@
 
   // Transaction Card
   $title = 'Data Master';
-  $description = 'Total data master dibulan ini';
+  $description = 'Total data master keseluruhan';
 
   // Transaction Item Card
   $totalSeller = \App\Models\Seller::count();
@@ -42,6 +42,7 @@
       ->join('products', 'orders.product_id', '=', 'products.id', 'left')
       ->where('orders.status', 'paid')
       ->groupBy('product_id')
+      ->selectRaw('SUM(orders.quantity) as total')
       ->orderBy('total', 'desc')
       ->take(5)
       ->get();
@@ -148,7 +149,7 @@
 <?php endif; ?>
 
     <?php if (isset($component)) { $__componentOriginal572d97b9c9bda7cc0369287a8488fa397cd3f9e3 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\BarGraphCard::class, ['height' => '300','title' => 'Transaksi Bulanan Tahun Ini','id' => 'monthlyOrders']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\BarGraphCard::class, ['height' => '300','title' => 'Transaksi Bulanan Tahun Ini (' . date('Y') . ')','id' => 'monthlyOrders']); ?>
 <?php $component->withName('bar-graph-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -294,7 +295,7 @@
           y: {
             beginAtZero: true,
             min: 0,
-            max: 50
+            max: 30
           }
         },
         plugins: {

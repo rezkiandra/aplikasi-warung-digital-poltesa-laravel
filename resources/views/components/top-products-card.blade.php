@@ -24,7 +24,7 @@
               <div class="text-end">
                 <h6 class="mb-0">
                   {{ $data->total }}</h6>
-                <small>Pcs</small>
+                <small class="text-capitalize">{{ $data->product->unit }}</small>
               </div>
             @elseif(Auth::user()->seller)
               <div class="text-end">

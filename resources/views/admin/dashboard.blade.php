@@ -12,7 +12,7 @@
 
   // Transaction Card
   $title = 'Data Master';
-  $description = 'Total data master dibulan ini';
+  $description = 'Total data master keseluruhan';
 
   // Transaction Item Card
   $totalSeller = \App\Models\Seller::count();
@@ -42,6 +42,7 @@
       ->join('products', 'orders.product_id', '=', 'products.id', 'left')
       ->where('orders.status', 'paid')
       ->groupBy('product_id')
+      ->selectRaw('SUM(orders.quantity) as total')
       ->orderBy('total', 'desc')
       ->take(5)
       ->get();
@@ -67,7 +68,7 @@
       <x-transaction-item-card :label="'Pesanan'" :value="$totalOrder" :variant="'danger'" :icon="'basket-outline'" />
     </x-transactions-card>
 
-    <x-bar-graph-card :height="'300'" :title="'Transaksi Bulanan Tahun Ini'" :id="'monthlyOrders'" />
+    <x-bar-graph-card :height="'300'" :title="'Transaksi Bulanan Tahun Ini (' . date('Y') . ')'" :id="'monthlyOrders'" />
 
     <x-top-sellers-card :datas="$topSellers" :title="'Penjual Teratas 🎉'" />
     <x-top-customers-card :datas="$topCustomers" :title="'Pelanggan Teratas 🎉'" />
@@ -154,7 +155,7 @@
           y: {
             beginAtZero: true,
             min: 0,
-            max: 50
+            max: 30
           }
         },
         plugins: {
