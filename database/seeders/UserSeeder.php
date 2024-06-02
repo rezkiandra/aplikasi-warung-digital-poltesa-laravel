@@ -23,23 +23,5 @@ class UserSeeder extends Seeder
       'role_id' => 1,
       'password' => Hash::make('rezki123')
     ]);
-
-    User::create([
-      'uuid' => Str::uuid('id'),
-      'name' => 'Levi ackerman',
-      'slug' => Str::slug('levi-ackerman'),
-      'email' => 'levi@ackerman.com',
-      'role_id' => 2,
-      'password' => Hash::make('levi123')
-    ]);
-
-    User::create([
-      'uuid' => Str::uuid('id'),
-      'name' => 'Mikasa ackerman',
-      'slug' => Str::slug('mikasa-ackerman'),
-      'email' => 'mikasa@ackerman.com',
-      'role_id' => 3,
-      'password' => Hash::make('mikasa123')
-    ]);
   }
 }

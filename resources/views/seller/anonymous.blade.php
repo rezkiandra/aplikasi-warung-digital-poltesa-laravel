@@ -9,9 +9,6 @@
 
   $title = 'Produk';
   $description = 'Total transaksi akhir ini';
-
-  $titleEarnings = 'Total Pendapatan';
-  $descriptionEarnings = 'Total pendapatan akhir ini';
 @endphp
 
 @extends('layouts.authenticated')
@@ -27,9 +24,5 @@
       <x-transaction-item-card :label="'Belum Baayar'" :value="'0'" :variant="'warning'" :icon="'basket-off-outline'" />
       <x-transaction-item-card :label="'Dibatalkan'" :value="'0'" :variant="'danger'" :icon="'basket-remove-outline'" />
     </x-transactions-card>
-
-    <x-earnings-card :title="$titleEarnings" :description="$descriptionEarnings" :earnings="'0'" />
-    <x-top-customers-card :title="'Pelanggan Teratas 🎉'" />
-    <x-top-products-card :title="'Penjualan Produk Teratas 🎉'" />
   </x-content-card>
 @endsection

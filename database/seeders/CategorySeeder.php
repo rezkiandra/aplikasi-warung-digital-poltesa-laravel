@@ -20,13 +20,23 @@ class CategorySeeder extends Seeder
     ]);
 
     ProductCategory::create([
+      'name' => 'Minuman',
+      'slug' => 'minuman'
+    ]);
+
+    ProductCategory::create([
       'name' => 'Pakaian',
       'slug' => 'pakaian'
     ]);
 
     ProductCategory::create([
-      'name' => 'Parfum',
-      'slug' => 'parfum'
+      'name' => 'Kecantikan',
+      'slug' => 'kecantikan'
+    ]);
+
+    ProductCategory::create([
+      'name' => 'Kerajinan',
+      'slug' => 'kerajinan'
     ]);
   }
 }

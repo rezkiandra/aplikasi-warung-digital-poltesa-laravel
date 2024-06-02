@@ -50,12 +50,16 @@
                         Subtotal Harga &emsp; : Rp {{ number_format($order->product->price, 0, ',', '.') }}
                       </span>
                       <span class="text-truncate">
-                        PPN 3% &emsp;&emsp;&emsp;&emsp;&ensp;&ensp; : Rp
-                        {{ number_format(($order->product->price / 100) * 3, 0, ',', '.') }}
+                        PPN 1% &emsp;&emsp;&emsp;&emsp;&ensp;&ensp;&ensp; : Rp
+                        {{ number_format($order->fee, 0, ',', '.') }}
+                      </span>
+                      <span class="text-truncate">
+                        PPN * Quantity &emsp;&ensp; : Rp
+                        {{ number_format($order->fee * $order->quantity, 0, ',', '.') }}
                       </span>
                       <span class="text-truncate">
                         Total Harga &emsp;&emsp;&ensp;&nbsp;&nbsp;: Rp
-                        {{ number_format($order->total_price, 0, ',', '.') }}
+                        {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
                       </span>
                     </div>
                   </div>
@@ -109,7 +113,8 @@
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
                       <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
-                        {{ number_format($order->total_price, 0, ',', '.') }}</h6>
+                        {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                      </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda sudah membayar pesanan</p>
@@ -135,7 +140,8 @@
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda harus segera membayar pesanan sebesar Rp
-                      {{ number_format($order->total_price, 0, ',', '.') }}</p>
+                      {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                    </p>
                   </div>
                 </li>
               @endif
@@ -164,7 +170,8 @@
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
                       <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
-                        {{ number_format($order->total_price, 0, ',', '.') }}</h6>
+                        {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                      </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda sudah membayar pesanan</p>
@@ -190,7 +197,8 @@
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda harus segera membayar pesanan sebesar Rp
-                      {{ number_format($order->total_price, 0, ',', '.') }}</p>
+                      {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                    </p>
                   </div>
                 </li>
               @endif
@@ -217,7 +225,8 @@
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
                       <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
-                        {{ number_format($order->total_price, 0, ',', '.') }}</h6>
+                        {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                      </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda sudah membayar pesanan</p>
@@ -243,7 +252,8 @@
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda harus segera membayar pesanan sebesar Rp
-                      {{ number_format($order->total_price, 0, ',', '.') }}</p>
+                      {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                    </p>
                   </div>
                 </li>
               @endif
@@ -272,7 +282,8 @@
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
                       <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
-                        {{ number_format($order->total_price, 0, ',', '.') }}</h6>
+                        {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                      </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda sudah membayar pesanan</p>
@@ -298,7 +309,8 @@
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda harus segera membayar pesanan sebesar Rp
-                      {{ number_format($order->total_price, 0, ',', '.') }}</p>
+                      {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                    </p>
                   </div>
                 </li>
               @endif

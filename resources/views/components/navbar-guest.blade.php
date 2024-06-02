@@ -64,7 +64,7 @@
           </li>
           <li class="nav-item my-lg-0 my-2">
             <a class="nav-link fw-medium {{ request()->routeIs('guest.faq', 'customer.faq') ? 'active text-primary' : 'text-dark' }}"
-              href="@if ($user_role == 3) {{ route('customer.faq') }} @else {{ route('guest.faq') }} @endif">Tentang</a>
+              href="@if ($user_role == 3) {{ route('customer.faq') }} @else {{ route('guest.faq') }} @endif">FAQ</a>
           </li>
           @auth
             <li class="nav-item my-lg-0 my-2">

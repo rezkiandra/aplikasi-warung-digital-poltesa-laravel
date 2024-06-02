@@ -1,4 +1,4 @@
-<div class="col-12 col-lg-12 col-md-12">
+<div class="{{ $class }}">
   <div class="card">
     <div class="card-header">
       <div class="d-flex justify-content-between">

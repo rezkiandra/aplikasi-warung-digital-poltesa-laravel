@@ -19,7 +19,7 @@
   $spent = \App\Models\Order::where('customer_id', auth()->user()->customer->id)
       ->where('status', 'paid')
       ->get();
-  $titleSpent = 'Total Pengeluaran';
+  $titleSpent = 'Pengeluaran Tanpa PPN 1%';
   $spentValue = 'Rp ' . number_format($spent->sum('total_price'), 0, ',', '.');
   $descriptionSpent = 'Total pengeluaran keseluruhan';
 
@@ -37,13 +37,12 @@
       ->where('status', 'cancelled')
       ->count();
 
-  $topProducts = \App\Models\Order::selectRaw('product_id, sum(quantity) as total')
+  $topProducts = \App\Models\Order::select('product_id', DB::raw('SUM(quantity) as total'))
       ->join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->where('orders.customer_id', auth()->user()->customer->id)
-      ->where('orders.status', 'paid')
       ->groupBy('product_id')
       ->orderBy('total', 'desc')
-      ->take(3)
+      ->orderBy('products.price', 'desc')
+      ->take(5)
       ->get();
 
   // Graph Content
@@ -71,14 +70,14 @@
       <x-transaction-item-card :label="'Dibatalkan'" :value="$totalCancelled" :variant="'dark'" :icon="'basket-minus-outline'" />
     </x-transactions-card>
 
-    <x-bar-graph-card :height="'300'" :title="'Total Pengeluaran Tahun Ini (Perbulan)'" :id="'monthlySpentCost'" />
+    <x-bar-graph-card :height="'300'" :title="'Pengeluaran Tahun Ini (' . date('Y') . ')'" :id="'monthlySpentCost'" :class="'col-lg-8 col-md-12 col-12'" />
+    <x-top-products-card :datas="$topProducts" :title="'Pembelian Produk Teratas 🎉'" :class="'col-12 col-lg-4 col-md-12'" />
 
-    <x-earnings-card :title="$titleSpent" :description="$descriptionSpent" :earnings="$spentValue" />
+    <x-earnings-card :title="$titleSpent" :description="$descriptionSpent" :earnings="$spentValue" :class="'col-lg-6 col-md-12 col-12'" />
     <x-four-card>
       <x-graph-card-content :label="$labelCart" :value="$valueCart" :icon="'cart-outline'" :variant="'info'" />
       <x-graph-card-content :label="$labelWishlist" :value="$valueWishlist" :icon="'star-outline'" :variant="'warning'" />
     </x-four-card>
-    <x-top-products-card :datas="$topProducts" :title="'Pembelian Produk Teratas 🎉'" />
 
     <x-order-table-card :datas="$orders" />
   </x-content-card>

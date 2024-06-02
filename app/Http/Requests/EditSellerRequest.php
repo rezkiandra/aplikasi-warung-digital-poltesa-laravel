@@ -17,7 +17,7 @@ class EditSellerRequest extends FormRequest
     return [
       'full_name' => 'required|unique:sellers,id|min:4|max:30',
       'address' => 'required',
-      'phone_number' => 'required|numeric|regex:/^\d{8,13}$/',
+      'phone_number' => 'required',
       'gender' => 'required',
       'bank_account_id' => 'required',
       'image' => 'required_if:image,null|mimes:png,jpg,jpeg',

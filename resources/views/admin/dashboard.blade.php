@@ -12,7 +12,7 @@
 
   // Transaction Card
   $title = 'Data Master';
-  $description = 'Total data master dibulan ini';
+  $description = 'Total data master keseluruhan';
 
   // Transaction Item Card
   $totalSeller = \App\Models\Seller::count();
@@ -38,11 +38,11 @@
       ->take(5)
       ->get();
 
-  $topProducts = \App\Models\Order::selectRaw('product_id, count(*) as total')
+  $topProducts = \App\Models\Order::select('product_id', DB::raw('SUM(quantity) as total'))
       ->join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->where('orders.status', 'paid')
       ->groupBy('product_id')
       ->orderBy('total', 'desc')
+      ->orderBy('products.price', 'desc')
       ->take(5)
       ->get();
 
@@ -67,11 +67,11 @@
       <x-transaction-item-card :label="'Pesanan'" :value="$totalOrder" :variant="'danger'" :icon="'basket-outline'" />
     </x-transactions-card>
 
-    <x-bar-graph-card :height="'300'" :title="'Transaksi Bulanan Tahun Ini'" :id="'monthlyOrders'" />
+    <x-bar-graph-card :height="'300'" :title="'Transaksi Bulanan Tahun Ini (' . date('Y') . ')'" :id="'monthlyOrders'" />
 
-    <x-top-sellers-card :datas="$topSellers" :title="'Penjual Teratas 🎉'" />
-    <x-top-customers-card :datas="$topCustomers" :title="'Pelanggan Teratas 🎉'" />
-    <x-top-products-card :datas="$topProducts" :title="'Produk Teratas 🎉'" />
+    <x-top-sellers-card :datas="$topSellers" :title="'Penjual Teratas 🎉'" :class="'col-12 col-lg-4 col-md-12'" />
+    <x-top-customers-card :datas="$topCustomers" :title="'Pelanggan Teratas 🎉'" :class="'col-lg-4 col-md-12 col-12'" />
+    <x-top-products-card :datas="$topProducts" :title="'Produk Teratas 🎉'" :class="'col-12 col-lg-4 col-md-12'" />
 
     <x-user-table-card :datas="$users" />
   </x-content-card>
@@ -154,7 +154,7 @@
           y: {
             beginAtZero: true,
             min: 0,
-            max: 50
+            max: 30
           }
         },
         plugins: {

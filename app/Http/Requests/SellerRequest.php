@@ -18,7 +18,7 @@ class SellerRequest extends FormRequest
       'user_id' => 'required|unique:sellers,id',
       'full_name' => 'required|unique:sellers,id|min:4|max:30',
       'address' => 'required',
-      'phone_number' => 'required|numeric|regex:/^\d{8,13}$/|unique:sellers,phone_number',
+      'phone_number' => 'required|unique:sellers,phone_number|regex:/^(08)[0-9]{9,12}$/',
       'gender' => 'required',
       'bank_account_id' => 'required',
       'image' => 'required|mimes:png,jpg,jpeg',
@@ -41,7 +41,7 @@ class SellerRequest extends FormRequest
       'address.required' => 'Alamat diperlukan',
 
       'phone_number.required' => 'Nomor handphone diperlukan',
-      'phone_number.numeric' => 'Nomor handphone dalam bentuk angka',
+      'phone_number.number' => 'Nomor handphone dalam bentuk angka',
       'phone_number.regex' => 'Nomor handphone tidak valid',
       'phone_number.unique' => 'Nomor handphone sudah ada',
 

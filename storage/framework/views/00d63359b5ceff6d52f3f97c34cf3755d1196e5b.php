@@ -12,7 +12,7 @@
 
   // Transaction Card
   $title = 'Data Master';
-  $description = 'Total data master dibulan ini';
+  $description = 'Total data master keseluruhan';
 
   // Transaction Item Card
   $totalSeller = \App\Models\Seller::count();
@@ -38,11 +38,11 @@
       ->take(5)
       ->get();
 
-  $topProducts = \App\Models\Order::selectRaw('product_id, count(*) as total')
+  $topProducts = \App\Models\Order::select('product_id', DB::raw('SUM(quantity) as total'))
       ->join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->where('orders.status', 'paid')
       ->groupBy('product_id')
       ->orderBy('total', 'desc')
+      ->orderBy('products.price', 'desc')
       ->take(5)
       ->get();
 
@@ -148,7 +148,7 @@
 <?php endif; ?>
 
     <?php if (isset($component)) { $__componentOriginal572d97b9c9bda7cc0369287a8488fa397cd3f9e3 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\BarGraphCard::class, ['height' => '300','title' => 'Transaksi Bulanan Tahun Ini','id' => 'monthlyOrders']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\BarGraphCard::class, ['height' => '300','title' => 'Transaksi Bulanan Tahun Ini (' . date('Y') . ')','id' => 'monthlyOrders']); ?>
 <?php $component->withName('bar-graph-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -161,7 +161,7 @@
 <?php endif; ?>
 
     <?php if (isset($component)) { $__componentOriginal5d689d0efd7f7c0b8d44bda7e143fd11b0ffef95 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TopSellersCard::class, ['datas' => $topSellers,'title' => 'Penjual Teratas 🎉']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TopSellersCard::class, ['datas' => $topSellers,'title' => 'Penjual Teratas 🎉','class' => 'col-12 col-lg-4 col-md-12']); ?>
 <?php $component->withName('top-sellers-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -173,7 +173,7 @@
 <?php unset($__componentOriginal5d689d0efd7f7c0b8d44bda7e143fd11b0ffef95); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginalb9783c6f7c28aed40cbc0e3f994fe6ef23b75a4c = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TopCustomersCard::class, ['datas' => $topCustomers,'title' => 'Pelanggan Teratas 🎉']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TopCustomersCard::class, ['datas' => $topCustomers,'title' => 'Pelanggan Teratas 🎉','class' => 'col-lg-4 col-md-12 col-12']); ?>
 <?php $component->withName('top-customers-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -185,7 +185,7 @@
 <?php unset($__componentOriginalb9783c6f7c28aed40cbc0e3f994fe6ef23b75a4c); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginal4980b8428731110d8ba140e84171140e339b1ec2 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TopProductsCard::class, ['datas' => $topProducts,'title' => 'Produk Teratas 🎉']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TopProductsCard::class, ['datas' => $topProducts,'title' => 'Produk Teratas 🎉','class' => 'col-12 col-lg-4 col-md-12']); ?>
 <?php $component->withName('top-products-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -294,7 +294,7 @@
           y: {
             beginAtZero: true,
             min: 0,
-            max: 50
+            max: 30
           }
         },
         plugins: {

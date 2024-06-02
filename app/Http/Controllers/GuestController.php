@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Products;
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
@@ -11,11 +12,8 @@ class GuestController extends Controller
 {
   public function index()
   {
-    $foodProducts = Products::where('category_id', 1)->get();
-    $fashionProducts = Products::where('category_id', 2)->get();
-    $parfumeProducts = Products::where('category_id', 3)->get();
-    $beautyProducts = Products::where('category_id', 4)->get();
-    return view('pages.home', compact('fashionProducts', 'parfumeProducts', 'foodProducts', 'beautyProducts'));
+    $topProducts = Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->where('status', 'paid')->orderBy('total_price', 'desc')->limit(4)->get('products.*', 'orders.*');
+    return view('pages.home', compact('topProducts'));
   }
 
   public function products(Request $request)

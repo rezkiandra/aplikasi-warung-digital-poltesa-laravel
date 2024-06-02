@@ -1,16 +1,13 @@
-<footer class="content-footer footer bg-footer-theme">
-  <div class="container-xxl">
+<footer class="content-footer footer bg-footer-theme border-top">
+  <div class="container-fluid text-center">
     <div class="footer-container d-flex align-items-center justify-content-between py-3 flex-md-row flex-column">
       <div class="text-body mb-2 mb-md-0">
-        ©
+        Copyrights ©
         <script>
           document.write(new Date().getFullYear());
         </script>
-        Copyrights - All Rights Reserved.
-        <i class="tf-icons mdi mdi-laravel text-danger"></i>
-        <i class="tf-icons mdi mdi-tailwind text-info"></i>
-        Developed and Design by
-        <a href="https://themeselection.com" class="footer-link fw-medium text-decoration-underline">Kyy Studio</a>
+        <span class="text-primary fw-medium footer"> - Warung Digital</span>. Hak Cipta Dilindungi
+        
       </div>
 
       <div class="d-none d-lg-inline-block">

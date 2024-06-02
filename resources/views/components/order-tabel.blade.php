@@ -5,8 +5,10 @@
         <tr>
           <th>ID</th>
           <th>Produk</th>
-          <th>PPN 3%</th>
+          {{-- <th>PPN 1%</th>
+          <th>PPN 1% + Quantity</th> --}}
           <th>Total Harga</th>
+          <th>Total Harga + (PPN * Quantity)</th>
           <th>Status</th>
           <th>Tanggal Pemesanan</th>
           <th>Aksi</th>
@@ -37,12 +39,21 @@
                 </div>
               </div>
             </td>
-            <td>
+            {{-- <td>
               <span class="text-truncate text-dark">Rp
-                {{ number_format(($data->product->price / 100) * 3, 0, ',', '.') }}</span>
+                {{ number_format($data->fee, 0, ',', '.') }}</span>
             </td>
             <td>
-              <span class="text-truncate text-dark">Rp {{ number_format($data->total_price, 0, ',', '.') }}</span>
+              <span class="text-truncate text-dark">Rp
+                {{ number_format($data->fee * $data->quantity, 0, ',', '.') }}</span>
+            </td> --}}
+            <td>
+              <span class="text-truncate text-dark">Rp
+                {{ number_format($data->total_price, 0, ',', '.') }}</span>
+            </td>
+            <td>
+              <span class="text-truncate text-dark">Rp
+                {{ number_format($data->total_price + $data->fee * $data->quantity, 0, ',', '.') }}</span>
             </td>
             <td>
               <h6

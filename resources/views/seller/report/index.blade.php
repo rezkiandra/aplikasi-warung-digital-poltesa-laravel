@@ -6,18 +6,18 @@
 
   <div class="card mb-4">
     <div class="card-body">
-      <form id="filter" method="GET">
+      <form id="filter" method="GET" action="">
         <div class="row">
           <div class="col-lg-6 col-12 col-md-12">
             <x-form-floating>
-              <x-input-form-label :type="'date'" :label="'Dari Tanggal'" :name="'from_date'" :placeholder="'Select Date'"
-                :value="old('from_date')" />
+              <x-input-form-label :type="'date'" :label="'Dari Tanggal'" :name="'from'" :placeholder="'Select Date'"
+                :value="old('from')" />
             </x-form-floating>
           </div>
           <div class="col-lg-6 col-12 col-md-12">
             <x-form-floating>
-              <x-input-form-label :type="'date'" :label="'Sampai Tanggal'" :name="'to_date'" :placeholder="'Select Date'"
-                :value="old('to_date')" />
+              <x-input-form-label :type="'date'" :label="'Sampai Tanggal'" :name="'to'" :placeholder="'Select Date'"
+                :value="old('to')" />
             </x-form-floating>
           </div>
         </div>

@@ -5,10 +5,10 @@
   <p class="mb-3">Daftar pesanan anda yang selesai, belum dibayar, dan dibatalkan</p>
 
   <x-detail-order>
-    <x-detail-order-item :label="'Selesai'" :icon="'check'" :variant="'success'" :condition="$countPaid" />
-    <x-detail-order-item :label="'Belum Bayar'" :icon="'off'" :variant="'warning'" :condition="$countUnpaid" />
-    <x-detail-order-item :label="'Kadaluarsa'" :icon="'remove'" :variant="'danger'" :condition="$countExpire" />
-    <x-detail-order-item :label="'Dibatalkan'" :icon="'minus'" :variant="'dark'" :condition="$countCancelled" />
+    <x-detail-order-item :label="'Selesai'" :icon="'basket-check-outline'" :variant="'success'" :condition="$countPaid" />
+    <x-detail-order-item :label="'Belum Bayar'" :icon="'basket-off-outline'" :variant="'warning'" :condition="$countUnpaid" />
+    <x-detail-order-item :label="'Kadaluarsa'" :icon="'basket-remove-outline'" :variant="'danger'" :condition="$countExpire" />
+    <x-detail-order-item :label="'Dibatalkan'" :icon="'basket-minus-outline'" :variant="'dark'" :condition="$countCancelled" />
   </x-detail-order>
 
   <x-order-tabel :orders="$orders" />

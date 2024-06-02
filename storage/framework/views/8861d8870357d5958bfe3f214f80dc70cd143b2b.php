@@ -8,15 +8,13 @@
   </div>
 
   <div class="navbar-nav-right d-flex align-items-center px-2" id="navbar-collapse">
-    <!-- Search -->
-    <div class="navbar-nav align-items-center">
-      <div class="nav-item d-flex align-items-center">
-        <i class="mdi mdi-magnify mdi-24px me-2"></i>
-        <input type="text" class="form-control border-0 shadow-none bg-body" placeholder="Telusuri..."
-          aria-label="Telusuri..." />
-      </div>
-    </div>
-    <!-- /Search -->
+    <?php if(auth()->user()->seller): ?>
+      <span class="text-uppercase badge bg-label-info rounded"><?php echo e(Auth::user()->seller->full_name); ?></span>
+    <?php elseif(auth()->user()->customer): ?>
+      <span class="text-uppercase badge bg-label-primary rounded"><?php echo e(Auth::user()->customer->full_name); ?></span>
+    <?php else: ?>
+      <span class="text-uppercase badge bg-label-danger rounded"><?php echo e(Auth::user()->name); ?></span>
+    <?php endif; ?>
 
     <ul class="navbar-nav flex-row align-items-center ms-auto">
       <!-- User -->

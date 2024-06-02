@@ -1,6 +1,6 @@
 @php
   $products = \App\Models\Products::paginate(10);
-  $totalProducts = $products->count();
+  $totalProducts = \App\Models\Products::count();
   $categories = \App\Models\ProductCategory::pluck('name', 'id')->toArray();
   $productPercentage = round((\App\Models\Products::count() ?? 0 / \App\Models\ProductCategory::count()) * 100, 2);
   $productPrePercentage = \App\Models\Products::count();

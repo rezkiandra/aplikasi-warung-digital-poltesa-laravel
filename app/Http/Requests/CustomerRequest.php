@@ -20,7 +20,7 @@ class CustomerRequest extends FormRequest
       'address' => 'required',
       'phone_number' => 'required|numeric|regex:/^\d{8,13}$/|unique:customers,phone_number',
       'gender' => 'required',
-      'image' => 'required:image,null|mimes:png,jpg,jpeg|size:2048',
+      'image' => 'required:image,null|mimes:png,jpg,jpeg|max:2048',
       'status' => 'required:status,null|in:active,inactive,pending',
     ];
   }

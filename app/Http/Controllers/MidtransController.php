@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Midtrans;
 use Exception;
 use Midtrans\Snap;
 use Midtrans\Config;
 use App\Models\Order;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class MidtransController extends Controller
@@ -37,12 +34,12 @@ class MidtransController extends Controller
     $params = array(
       'transaction_details' => array(
         'order_id' => $order->uuid,
-        'gross_amount' => $order->total_price + ($order->product->price / 100) * 3
+        'gross_amount' => $order->total_price + $order->fee
       ),
       'item_details' => array(
         [
           'id' => $order->product->uuid,
-          'price' => $order->product->price + ($order->product->price / 100) * 3,
+          'price' => $order->product->price + $order->fee,
           'quantity' => $order->quantity,
           'name' => $order->product->name
         ]
@@ -86,7 +83,6 @@ class MidtransController extends Controller
 
   public function callback(Request $request)
   {
-    $order = Order::where('uuid', $request->order_id)->firstOrFail();
     $serverKey = config('midtrans.server_key');
     $hashed = hash(
       'sha512',
@@ -95,6 +91,7 @@ class MidtransController extends Controller
 
     try {
       if ($hashed === $request->signature_key || $request->fraud_status == 'accept') {
+        $order = Order::where('uuid', $request->order_id)->firstOrFail();
         if ($request->transaction_status == 'settlement') {
           $order->update([
             'status' => 'paid',

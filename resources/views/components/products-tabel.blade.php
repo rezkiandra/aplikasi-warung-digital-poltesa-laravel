@@ -21,7 +21,7 @@
                 <div class="d-flex flex-column">
                   <span class="text-nowrap text-heading fw-medium">{{ $data->name }}</span>
                   <small class="d-lg-flex d-md-flex d-flex flex-row text-truncate d-sm-block d-flex">
-                    <span class="fw-medium">{{ Str::limit($data->description, 40) }}</span>
+                    <span class="fw-medium">{{ Str::limit($data->description, 80) }}</span>
                   </small>
                 </div>
               </div>
