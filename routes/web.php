@@ -207,7 +207,7 @@ Route::middleware('auth', 'checkCustomer', 'checkRole:Customer')->group(function
     });
 
   Route::controller(MidtransController::class)
-    ->prefix('customer')
+    ->prefix('customer/dashboard')
     ->group(function () {
       Route::get('/checkout/{order}', 'processPayment')->name('midtrans.checkout');
       Route::get('/detail-transaction/{order}', 'detailPayment')->name('midtrans.detail');

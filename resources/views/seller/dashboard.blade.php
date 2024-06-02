@@ -61,7 +61,8 @@
       ->where('products.seller_id', auth()->user()->seller->id)
       ->where('orders.status', 'paid')
       ->groupBy('product_id')
-      ->orderBy('total', 'desc')
+      ->selectRaw('SUM(orders.quantity) as total')
+      ->orderBy('product_id', 'asc')
       ->take(5)
       ->get();
 
@@ -85,11 +86,11 @@
       <x-transaction-item-card :label="'Dibatalkan'" :value="$totalCancelled" :variant="'dark'" :icon="'basket-minus-outline'" />
     </x-transactions-card>
 
-    <x-bar-graph-card :height="'300'" :title="'Total Pendapatan Tahun Ini (Perbulan)'" :id="'monthlyEarnings'" />
+    <x-bar-graph-card :height="'300'" :title="'Total Pendapatan Tahun Ini (' . date('Y') . ')'" :id="'monthlyEarnings'" :class="'col-lg-8 col-md-12 col-12'" />
+    <x-top-products-card :datas="$topProducts" :title="'Penjualan Produk Teratas 🎉'" :class="'col-12 col-lg-4 col-md-12'" />
 
-    <x-earnings-card :title="$titleEarnings" :description="$descriptionEarnings" :earnings="$earningsValue" />
-    <x-top-customers-card :datas="$topCustomers" :title="'Pelanggan Teratas 🎉'" />
-    <x-top-products-card :datas="$topProducts" :title="'Penjualan Produk Teratas 🎉'" />
+    <x-earnings-card :title="$titleEarnings" :description="$descriptionEarnings" :earnings="$earningsValue" :class="'col-lg-6 col-md-6 col-12'" />
+    <x-top-customers-card :datas="$topCustomers" :title="'Pelanggan Teratas 🎉'" :class="'col-lg-6 col-md-6 col-12'" />
 
     <x-product-table-card :datas="$products" />
   </x-content-card>

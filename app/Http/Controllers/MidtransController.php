@@ -34,12 +34,12 @@ class MidtransController extends Controller
     $params = array(
       'transaction_details' => array(
         'order_id' => $order->uuid,
-        'gross_amount' => $order->product->price + ($order->product->price / 100) * 3
+        'gross_amount' => $order->total_price + $order->fee
       ),
       'item_details' => array(
         [
           'id' => $order->product->uuid,
-          'price' => $order->product->price + ($order->product->price / 100) * 3,
+          'price' => $order->product->price + $order->fee,
           'quantity' => $order->quantity,
           'name' => $order->product->name
         ]

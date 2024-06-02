@@ -6,17 +6,18 @@ use Illuminate\View\Component;
 
 class BarGraphCard extends Component
 {
-  public $height, $title, $id;
+  public $height, $title, $id, $class;
   /**
    * Create a new component instance.
    *
    * @return void
    */
-  public function __construct($height = '', $title, $id = '')
+  public function __construct($height = '', $title, $id = '', $class = '')
   {
     $this->height = $height;
     $this->title = $title;
     $this->id = $id;
+    $this->class = $class;
   }
 
   /**

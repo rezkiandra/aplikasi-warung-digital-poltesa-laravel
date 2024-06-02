@@ -44,7 +44,7 @@
 <?php $component = $__componentOriginal9556ea61bc573b9b221bcf3ee1d728254f4eca85; ?>
 <?php unset($__componentOriginal9556ea61bc573b9b221bcf3ee1d728254f4eca85); ?>
 <?php endif; ?>
-
+      
       <?php if (isset($component)) { $__componentOriginal9556ea61bc573b9b221bcf3ee1d728254f4eca85 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\FormFloating::class, []); ?>
 <?php $component->withName('form-floating'); ?>
@@ -70,7 +70,6 @@
 <?php unset($__componentOriginal9556ea61bc573b9b221bcf3ee1d728254f4eca85); ?>
 <?php endif; ?>
 
-      
       <div class="mb-3">
         <?php if (isset($component)) { $__componentOriginalbdca446458c2217070929c68d419f1fe63331342 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\SubmitButton::class, ['label' => 'Login','type' => 'submit','variant' => 'primary','icon' => 'login me-2','class' => 'w-100']); ?>

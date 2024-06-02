@@ -1,4 +1,4 @@
-<footer class="bg-dark footer position-relative bottom-0 w-100">
+<footer class="bg-dark footer">
   <div class="container-fluid">
     <div class="d-lg-flex align-items-center row gx-0 gy-4 g-md-5">
       <div class="col-lg-6">
@@ -57,43 +57,47 @@
         </form>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6">
-        <h6 class="footer-title mb-4 text-white">Demos</h6>
+        <h6 class="footer-title mb-4 text-white text-uppercase">Sosial Media</h6>
         <ul class="list-unstyled mb-0">
           <li class="mb-3">
-            <a href="javascript:void(0)" target="_blank" class="footer-link">Vertical Layout</a>
+            <a href="https://x.com/OfficialPoltesa" class="footer-link">Twitter</a>
           </li>
           <li class="mb-3">
-            <a href="javascript:void(0)" target="_blank" class="footer-link">Horizontal Layout</a>
+            <a href="https://info@poltesa.ac.id" class="footer-link">Website</a>
           </li>
           <li class="mb-3">
-            <a href="javascript:void(0)" target="_blank" class="footer-link">Bordered Layout</a>
+            <a href="https://www.instagram.com/politekniknegerisambas_" class="footer-link">Instagram</a>
           </li>
           <li class="mb-3">
-            <a href="javascript:void(0)" target="_blank" class="footer-link">Semi Dark Layout</a>
+            <a href="https://www.facebook.com/politekniknegerisambas" class="footer-link">Facebook</a>
           </li>
           <li>
-            <a href="javascript:void(0)" target="_blank" class="footer-link">Dark Layout</a>
+            <a href="https://www.youtube.com/channel/UC4xBQqIywboOJuDge27aymw" class="footer-link">Youtube</a>
           </li>
         </ul>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6">
-        <h6 class="footer-title mb-4 text-white">Pages</h6>
+        <h6 class="footer-title mb-4 text-white text-uppercase">Fitur</h6>
         <ul class="list-unstyled mb-0">
           <li class="mb-3">
-            <a href="javascript:void(0)" class="footer-link">Pricing</a>
+            <a href="javascript:void(0)" class="footer-link">Wishlist</a>
           </li>
           <li class="mb-3">
-            <a href="javascript:void(0)" class="footer-link">Payment<span
+            <a href="javascript:void(0)" class="footer-link">Payment Gateway<span
                 class="badge rounded-pill bg-primary ms-2">New</span></a>
           </li>
           <li class="mb-3">
-            <a href="javascript:void(0)" class="footer-link">Checkout</a>
+            <a href="javascript:void(0)" class="footer-link">Keranjang</a>
           </li>
           <li class="mb-3">
-            <a href="javascript:void(0)" class="footer-link">Help Center</a>
+            @if (auth()->check() && auth()->user()->role_id == 3)
+              <a href="{{ route('customer.faq') }}" class="footer-link">FAQ</a>
+            @else
+              <a href="{{ route('guest.faq') }}" class="footer-link">FAQ</a>
+            @endif
           </li>
           <li>
-            <a href="{{ route('login') }}" target="_blank" class="footer-link">Login/Register</a>
+            <a href="{{ route('login') }}" class="footer-link">Login/Register</a>
           </li>
         </ul>
       </div>

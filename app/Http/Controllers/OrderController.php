@@ -21,6 +21,7 @@ class OrderController extends Controller
       'product_id' => $request->product_id,
       'quantity' => $request->quantity,
       'total_price' => $request->total_price,
+      'fee' => $request->total_price * 0.01 / $request->quantity, // 1% fee
     ]);
 
     $product = Products::find($request->product_id);

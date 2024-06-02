@@ -18,6 +18,31 @@
     .card {
       transition: .2s;
     }
+
+    img {
+      height: 400px;
+      width: 100%;
+      background-position: center;
+      background-size: cover;
+    }
+
+    @media screen and (max-width: 768px) {
+      img {
+        height: 180px;
+        width: 100%;
+        background-position: center;
+        background-size: cover;
+      }
+    }
+
+    @media screen and (max-width: 1280px) {
+      img {
+        height: 220px;
+        width: 100%;
+        background-position: center;
+        background-size: cover;
+      }
+    }
   </style>
 @endpush
 
@@ -59,7 +84,7 @@
           </form>
         @endguest
       </div>
-      <img class="card-img-top img-fluid" alt="Card image cap" src="{{ asset('storage/' . $data->image) }}" width="100%">
+      <img class="card-img-top" alt="Card image cap" src="{{ asset('storage/' . $data->image) }}" width="100%">
       <div class="p-2 d-flex flex-column justify-content-between">
         <div class="d-lg-flex d-md-flex align-items-center justify-content-between mt-1">
           <small class="card-title text-dark fw-medium">{{ $data->name }}</small>

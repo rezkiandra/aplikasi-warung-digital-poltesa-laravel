@@ -18,6 +18,7 @@ class Order extends Model
     'seller_id',
     'quantity',
     'total_price',
+    'fee',
     'status',
     'payment_method',
     'store',

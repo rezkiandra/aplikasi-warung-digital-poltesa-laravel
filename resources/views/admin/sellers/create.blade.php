@@ -9,9 +9,9 @@
       'perempuan' => 'perempuan',
   ];
   $status = [
-      'Aktif' => 'active',
-      'Tidak Aktif' => 'inactive',
-      'Pending' => 'pending',
+      'active' => 'Aktif',
+      'inactive' => 'Tidak Aktif',
+      'pending' => 'pending',
   ];
   $bank = \App\Models\BankAccount::pluck('bank_name', 'id')->toArray();
 @endphp

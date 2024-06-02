@@ -184,17 +184,17 @@
             <dt class="col-6 fw-normal text-heading">Sub Total</dt>
             <dd class="col-6 text-end" id="subtotal">Rp {{ number_format($product->price, 0, ',', '.') }}</dd>
 
-            <dt class="col-6 fw-normal text-heading">PPN 3%</dt>
+            <dt class="col-6 fw-normal text-heading">PPN 1% / {{ $product->unit }}</dt>
             <dd class="col-6 text-end">
               <i class="mdi mdi-truck-fast-outline me-1"></i>
-              Rp {{ number_format(($product->price / 100) * 3, 0, ',', '.') }}
+              Rp {{ number_format(($product->price / 100) * 1, 0, ',', '.') }}
             </dd>
           </dl>
           <hr class="mx-n3 my-2">
           <dl class="row my-3">
             <dt class="col-6 text-heading">Total</dt>
             <dd class="col-6 fw-medium text-end mb-0 text-heading" id="total">
-              Rp {{ number_format($product->price + ($product->price / 100) * 3, 0, ',', '.') }}
+              Rp {{ number_format($product->price + ($product->price / 100) * 1, 0, ',', '.') }}
           </dl>
           <div class="d-grid gap-2">
             @if ($customer)
@@ -236,7 +236,8 @@
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <input type="hidden" name="quantity" id="newQuantityOrder" value="1">
                 <input type="hidden" name="total_price" id="newTotalPriceOrder"
-                  value="{{ $product->price + ($product->price / 100) * 3 }}">
+                  value="{{ $product->price + ($product->price / 100) * 1 }}">
+                <input type="hidden" name="fee" value="{{ ($product->price / 100) * 1 }}">
                 @if ($product->stock == 0)
                   <x-submit-button :label="'Pesan'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100 disabled'"
                     aria-disabled="true" :icon="'basket-outline me-2'" :variant="'primary'" />
@@ -275,7 +276,7 @@
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <input type="hidden" name="quantity" id="newQuantityOrder" value="1">
                 <input type="hidden" name="total_price" id="newTotalPriceOrder"
-                  value="{{ $product->price + ($product->price / 100) * 3 }}">
+                  value="{{ $product->price + ($product->price / 100) * 1 }}">
                 @if ($product->stock == 0)
                   <x-submit-button :label="'Pesan'" :id="'btn-buy'" :type="'submit'" :class="'btn-primary w-100 disabled'"
                     aria-disabled="true" :icon="'basket-outline me-2'" :variant="'primary'" />
@@ -297,7 +298,7 @@
   <script>
     const stock = {{ $product->stock }}
     const price = {{ $product->price }}
-    const fee = {{ ($product->price / 100) * 3 }}
+    const fee = {{ ($product->price / 100) * 1 }}
 
     // mengatur quantity
     $('#quantity').val(1);
@@ -305,6 +306,20 @@
     // min dan max quantity
     $('#quantity').attr('min', 1);
     $('#quantity').attr('max', {{ $product->stock }});
+
+    // jika tidak mengklik tombol decrement dan increment maka quantity akan bernilai 1
+    $(document).on('click', '#btn-buy', function() {
+      const quantity = $('#quantity').val();
+      const newQuantity = parseInt(quantity) || 1;
+      const subTotal = newQuantity * price;
+      const total = newQuantity * price + fee ?? price + fee;
+      $('#newQuantityCart').val(newQuantity);
+      $('#newQuantityOrder').val(newQuantity);
+      $('#newTotalPriceOrder').val(total - fee);
+      $('#subtotal').html('Rp ' + subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+      $('#total').html('Rp ' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+      $('#fee').html('Rp ' + fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+    })
 
     // jika mengklik tombol decrement maka quantity akan berkurang dan total akan berkurang
     $(document).on('click', '#btn-decrement', function() {
@@ -320,9 +335,10 @@
       $('#quantity').val(newQuantity);
       $('#newQuantityCart').val(newQuantity);
       $('#newQuantityOrder').val(newQuantity);
-      $('#newTotalPriceOrder').val(total);
+      $('#newTotalPriceOrder').val(total - fee);
       $('#subtotal').html('Rp ' + subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
       $('#total').html('Rp ' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+      $('#fee').html('Rp ' + fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
     });
 
     // jika mengklik tombol increment maka quantity akan bertambah dan total akan bertambah
@@ -334,14 +350,15 @@
 
       const newQuantity = parseInt(quantity) + 1;
       const subTotal = newQuantity * price;
-      const total = newQuantity * price + fee;
+      const total = newQuantity * price + fee ?? price + fee;
 
       $('#quantity').val(newQuantity);
       $('#newQuantityCart').val(newQuantity);
       $('#newQuantityOrder').val(newQuantity);
-      $('#newTotalPriceOrder').val(total);
+      $('#newTotalPriceOrder').val(total - fee);
       $('#subtotal').html('Rp ' + subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
       $('#total').html('Rp ' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+      $('#fee').html('Rp ' + fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
     });
   </script>
 @endpush

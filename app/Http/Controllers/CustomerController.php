@@ -27,11 +27,8 @@ class CustomerController extends Controller
 {
   public function index()
   {
-    $foodProducts = Products::where('category_id', 1)->get();
-    $fashionProducts = Products::where('category_id', 2)->get();
-    $parfumeProducts = Products::where('category_id', 3)->get();
-    $beautyProducts = Products::where('category_id', 4)->get();
-    return view('customer.home', compact('fashionProducts', 'parfumeProducts', 'foodProducts', 'beautyProducts'));
+    $topProducts = Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->where('status', 'paid')->orderBy('total_price', 'desc')->limit(4)->get('products.*', 'orders.*');
+    return view('customer.home', compact('topProducts'));
   }
 
   public function dashboard()
@@ -88,7 +85,7 @@ class CustomerController extends Controller
       $totalProducts = $products->count();
     }
     $category = ProductCategory::pluck('name', 'id')->toArray();
-    return view('pages.products', compact('products', 'totalProducts', 'category'));
+    return view('customer.products', compact('products', 'totalProducts', 'category'));
   }
 
   public function faq()
@@ -100,7 +97,7 @@ class CustomerController extends Controller
   {
     $product = Products::where('slug', $slug)->firstOrFail();
     $relatedProducts = Products::where('category_id', $product->category_id)->where('id', '!=', $product->id)->get();
-    return view('pages.detail-product', compact('product', 'relatedProducts'));
+    return view('customer.detail-product', compact('product', 'relatedProducts'));
   }
 
   public function biodata()

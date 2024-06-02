@@ -7,6 +7,7 @@
             <th class="text-truncate">ID Produk</th>
             <th class="text-truncate">Produk</th>
             <th class="text-truncate">Harga Produk</th>
+            <th class="text-truncate">Stok</th>
             <th class="text-truncate">Kategori</th>
             <th class="text-truncate">Dipublish Pada</th>
           </tr>
@@ -27,7 +28,7 @@
                   <div class="">
                     <span
                       class="d-lg-flex d-md-flex d-flex text-dark text-capitalize fw-medium">{{ $data->name }}</span>
-                    <small class="text-truncate">stok tersedia {{ $data->stock }} {{ $data->unit }}</small>
+                    <small class="text-truncate">{{ Str::limit($data->description, 60) }}</small>
                   </div>
                 </div>
               </td>
@@ -35,6 +36,13 @@
                 <div class="d-flex align-items-center">
                   <div>
                     <h6 class="mb-1 text-truncate">Rp {{ number_format($data->price, 0, ',', '.') }}</h6>
+                  </div>
+                </div>
+              </td>
+              <td class="text-truncate">
+                <div class="d-flex align-items-center">
+                  <div>
+                    <h6 class="mb-1 text-truncate">{{ $data->stock }} {{ $data->unit }}</h6>
                   </div>
                 </div>
               </td>

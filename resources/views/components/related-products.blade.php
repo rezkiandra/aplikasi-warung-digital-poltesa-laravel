@@ -8,12 +8,41 @@
   }
 @endphp
 
+@push('styles')
+  <style>
+    img {
+      height: 280px;
+      width: 100%;
+      background-position: center;
+      background-size: cover;
+    }
+
+    @media screen and (max-width: 768px) {
+      img {
+        height: 140px;
+        width: 100%;
+        background-position: center;
+        background-size: cover;
+      }
+    }
+
+    @media screen and (max-width: 1280px) {
+      img {
+        height: 250px;
+        width: 100%;
+        background-position: center;
+        background-size: cover;
+      }
+    }
+  </style>
+@endpush
+
 <h5 class="fw-medium mt-2 mt-lg-5 mb-4 text-uppercase">Produk Kategori Sama Lainnya</h5>
 <div class="row row-cols-1 row-cols-md-3 g-3 mb-5 pb-5 pb-lg-5">
   @foreach ($relatedProducts as $data)
     @if ($user_role == 3)
       <div class="col-lg-2 col-md-4 col-6 pb-lg-3">
-        <div class="card h-100 cursor-pointer"
+        <div class="card cursor-pointer"
           @if ($user_role == 1) onclick="window.location.href='{{ route('admin.detail.product', $data->slug) }}'" 
           @elseif ($user_role == 2) onclick="window.location.href='{{ route('seller.detail.product', $data->slug) }}'"
           @elseif ($user_role == 3) onclick="window.location.href='{{ route('customer.detail.product', $data->slug) }}'"
@@ -49,9 +78,8 @@
               </form>
             @endguest
           </div>
-          <div class="d-flex h-100 flex-column justify-content-between">
-            <img class="card-img-top img-fluid" alt="Card image cap" src="{{ asset('storage/' . $data->image) }}"
-              width="100%">
+          <div class="d-flex flex-column justify-content-between">
+            <img class="card-img-top" alt="Card image cap" src="{{ asset('storage/' . $data->image) }}" width="100%">
             <div class="p-2 d-flex flex-column justify-content-between">
               <div class="d-lg-flex d-md-flex align-items-center justify-content-between mt-1">
                 <small class="card-title text-dark fw-medium">{{ $data->name }}</small>
@@ -79,14 +107,13 @@
     @else
       @guest
         <div class="col-lg-2 col-md-4 col-6 pb-lg-3">
-          <div class="card h-100 cursor-pointer"
+          <div class="card cursor-pointer"
             @if ($user_role == 1) onclick="window.location.href='{{ route('admin.detail.product', $data->slug) }}'" 
             @elseif ($user_role == 2) onclick="window.location.href='{{ route('seller.detail.product', $data->slug) }}'"
             @elseif ($user_role == 3) onclick="window.location.href='{{ route('customer.detail.product', $data->slug) }}'"
             @else onclick="window.location.href='{{ route('guest.detail.product', $data->slug) }}'" @endif>
-            <div class="d-flex h-100 flex-column justify-content-between">
-              <img class="card-img-top img-fluid" alt="Card image cap" src="{{ asset('storage/' . $data->image) }}"
-                width="100%">
+            <div class="d-flex flex-column justify-content-between">
+              <img class="card-img-top" alt="Card image cap" src="{{ asset('storage/' . $data->image) }}" width="100%">
               <div class="p-2 d-flex flex-column justify-content-between">
                 <div class="d-lg-flex d-md-flex align-items-center justify-content-between mt-1">
                   <small class="card-title text-dark fw-medium">{{ $data->name }}</small>
@@ -114,14 +141,13 @@
       @endguest
       @auth
         <div class="col-lg-2 col-md-3 col-6 pb-lg-3">
-          <div class="card h-100 cursor-pointer"
+          <div class="card cursor-pointer"
             @if ($user_role == 1) onclick="window.location.href='{{ route('admin.detail.product', $data->slug) }}'" 
             @elseif ($user_role == 2) onclick="window.location.href='{{ route('seller.detail.product', $data->slug) }}'"
             @elseif ($user_role == 3) onclick="window.location.href='{{ route('customer.detail.product', $data->slug) }}'"
             @else onclick="window.location.href='{{ route('guest.detail.product', $data->slug) }}'" @endif>
-            <div class="d-flex h-100 flex-column justify-content-between">
-              <img class="card-img-top img-fluid" alt="Card image cap" src="{{ asset('storage/' . $data->image) }}"
-                width="100%">
+            <div class="d-flex flex-column justify-content-between">
+              <img class="card-img-top" alt="Card image cap" src="{{ asset('storage/' . $data->image) }}" width="100%">
               <div class="p-2 d-flex d-lg-flex flex-column justify-content-between">
                 <div class="d-lg-flex d-md-flex align-items-center justify-content-between mt-1">
                   <small class="card-title text-dark fw-medium">{{ $data->name }}</small>

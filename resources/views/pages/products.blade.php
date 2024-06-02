@@ -17,9 +17,15 @@
           </form>
         </div>
       </div>
-      <x-grid-card>
-        <x-product-grid :datas="$products" />
-      </x-grid-card>
+      @if ($products->count() > 0)
+        <x-grid-card>
+          <x-product-grid :datas="$products" />
+        </x-grid-card>
+      @else
+        <div class="my-5 py-4 text-center">
+          <h6 class="my-5 py-5">Produk tidak ditemukan...</h6>
+        </div>
+      @endif
     </div>
   </section>
 @endsection
