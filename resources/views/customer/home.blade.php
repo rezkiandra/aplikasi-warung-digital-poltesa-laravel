@@ -43,22 +43,22 @@
 @section('content')
   <div
     class="fixed-left d-none position-fixed py-4 bg-white d-lg-flex d-md-flex flex-column gap-4 px-3 rounded rounded-lg shadow">
-    <a href="" class="">
+    <a href="https://github.com/rezkiandra" class="">
       <i class="mdi mdi-github mdi-24px"></i>
     </a>
-    <a href="" class="">
+    <a href="https://gitlab.com/rezkiandra" class="">
       <i class="mdi mdi-gitlab mdi-24px"></i>
     </a>
-    <a href="" class="">
+    <a href="https://linkedin.com/in/rezkiandra" class="">
       <i class="mdi mdi-linkedin mdi-24px"></i>
     </a>
-    <a href="" class="">
+    <a href="https://facebook.com/kyyzfe" class="">
       <i class="mdi mdi-facebook mdi-24px"></i>
     </a>
-    <a href="" class="">
+    <a href="https://instagram.com/kyy.fe" class="">
       <i class="mdi mdi-instagram mdi-24px"></i>
     </a>
-    <a href="" class="">
+    <a href="https://wa.me/+6289693890856" class="">
       <i class="mdi mdi-whatsapp mdi-24px"></i>
     </a>
   </div>
@@ -87,10 +87,10 @@
       <h5 class="text-dark text-capitalize mb-4">Kategori Produk</h5>
       <div class="row mb-5">
         <x-category-card :name="'Makanan'" :icon="'food'" />
-        <x-category-card :name="'Makanan'" :icon="'beer'" />
-        <x-category-card :name="'Makanan'" :icon="'tshirt-crew'" />
-        <x-category-card :name="'Makanan'" :icon="'flower-tulip'" />
-        <x-category-card :name="'Makanan'" :icon="'hammer-wrench'" />
+        <x-category-card :name="'Minuman'" :icon="'beer'" />
+        <x-category-card :name="'Pakaian'" :icon="'tshirt-crew'" />
+        <x-category-card :name="'Kecantikan'" :icon="'flower-tulip'" />
+        <x-category-card :name="'Kerajinan'" :icon="'hammer-wrench'" />
       </div>
     </section>
 
