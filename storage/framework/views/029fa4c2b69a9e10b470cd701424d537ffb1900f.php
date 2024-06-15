@@ -336,6 +336,7 @@
               'midtrans.checkout',
               'midtrans.detail',
               'midtrans.cancelled',
+              'rajaongkir.*'
           )]); ?>
 <?php $component->withName('sidebar-item'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -365,7 +366,7 @@
 <?php endif; ?>
     <?php elseif(Auth::user()->role_id == 2 && Auth::user()->seller): ?>
       <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Pesanan','route' => route('seller.orders'),'icon' => 'hand-coin-outline','active' => request()->routeIs('seller.orders', 'seller.*.order')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Pesanan','route' => route('seller.orders'),'icon' => 'hand-coin-outline','active' => request()->routeIs('seller.orders', 'seller.*.order', 'rajaongkir.*')]); ?>
 <?php $component->withName('sidebar-item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

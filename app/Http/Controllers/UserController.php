@@ -166,9 +166,9 @@ class UserController extends Controller
     return redirect()->route('admin.customers');
   }
 
-  public function destroyCustomer(string $slug)
+  public function destroyCustomer(string $uuid)
   {
-    $customer = Customer::where('slug', $slug)->firstOrFail();
+    $customer = Customer::where('uuid', $uuid)->firstOrFail();
     $customer->delete();
 
     if ($customer->image) {

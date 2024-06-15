@@ -39,6 +39,7 @@
 
   $topProducts = \App\Models\Order::select('product_id', DB::raw('SUM(quantity) as total'))
       ->join('products', 'orders.product_id', '=', 'products.id', 'left')
+      ->where('orders.customer_id', auth()->user()->customer->id)
       ->groupBy('product_id')
       ->orderBy('total', 'desc')
       ->orderBy('products.price', 'desc')

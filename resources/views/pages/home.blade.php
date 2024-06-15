@@ -63,7 +63,7 @@
     </a>
   </div>
   <main class="container">
-    <section class="row my-5 pt-lg-5 pt-md-5 d-flex d-md-flex align-items-center gap-5">
+    <section class="row my-5 pt-5 pt-lg-5 pt-md-5 d-flex d-md-flex align-items-center gap-5">
       <div class="col-lg" data-aos="fade-right" data-aos-duration="1200">
         <h5 class="mb-4 fw-bold">Pre-Release <span class="badge bg-label-primary rounded-pill">V.1.0</span></h5>
         <h1 class="text-uppercase fw-bold">Warung <span class="text-primary">Digital</span></h1>

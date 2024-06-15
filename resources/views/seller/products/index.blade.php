@@ -12,7 +12,7 @@
 
   $totalProductTopSaleCurrentSeller = \App\Models\Products::where('seller_id', Auth::user()->seller->id)
       ->join('orders', 'products.id', '=', 'orders.product_id', 'left')
-      ->where('orders.product_id', '>=', 20)
+      ->where('orders.product_id', '>=', 50)
       ->count();
   $productPercentageTopSaleCurrentSeller = round(
       (\App\Models\Products::where('seller_id', Auth::user()->seller->id)
@@ -83,7 +83,7 @@
           ? '+' . $productPercentageCurrentSeller . '%'
           : '-' . $productPrePercentageCurrentSeller . '%'" :class="'border-end'" :description="'Jumlah Produk'" />
 
-    <x-product-card :datas="$products" :condition="$totalProductTopSaleCurrentSeller" :label="'Produk Teratas'" :icon="'shopping-outline'" :variant="'info'"
+    <x-product-card :datas="$products" :condition="$totalProductTopSaleCurrentSeller" :label="'Produk Terjual'" :icon="'shopping-outline'" :variant="'info'"
       :percentage="$productPercentageTopSaleCurrentSeller
           ? '+' . $productPercentageTopSaleCurrentSeller . '%'
           : '-' . $productPrePercentageTopSaleCurrentSeller . '%'" :class="'border-end'" />

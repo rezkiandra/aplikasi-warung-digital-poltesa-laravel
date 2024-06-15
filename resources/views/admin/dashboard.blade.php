@@ -22,8 +22,6 @@
 
   // Top Card Content
   $topSellers = \App\Models\Order::selectRaw('seller_id, count(*) as total')
-      ->join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->join('sellers', 'products.seller_id', '=', 'sellers.id', 'left')
       ->where('orders.status', 'paid')
       ->groupBy('seller_id')
       ->selectRaw('SUM(orders.total_price) as total_price')
@@ -48,7 +46,6 @@
 
   $users = \App\Models\User::with('seller', 'customer')->orderBy('role_id', 'asc')->paginate(8);
 @endphp
-
 @extends('layouts.authenticated')
 @section('title', 'Dashboard')
 @push('styles')
@@ -61,17 +58,20 @@
     <x-greetings-card :greetings="$greetings" :description="$descriptionGreetings" :label="$label" :value="$value" :actionLabel="$actionLabel"
       :route="$route" />
     <x-transactions-card :title="$title" :description="$description">
-      <x-transaction-item-card :label="'Penjual'" :value="$totalSeller" :variant="'info'" :icon="'account-group-outline'" />
-      <x-transaction-item-card :label="'Pelanggan'" :value="$totalCustomer" :variant="'success'" :icon="'account-multiple-outline'" />
-      <x-transaction-item-card :label="'Produk'" :value="$totalProduct" :variant="'warning'" :icon="'package'" />
-      <x-transaction-item-card :label="'Pesanan'" :value="$totalOrder" :variant="'danger'" :icon="'basket-outline'" />
+      <x-transaction-item-card :label="'Penjual'" :value="$totalSeller" :variant="'info'" :icon="'account-group-outline'"
+        :href="route('admin.sellers')" />
+      <x-transaction-item-card :label="'Pelanggan'" :value="$totalCustomer" :variant="'success'" :icon="'account-multiple-outline'"
+        :href="route('admin.customers')" />
+      <x-transaction-item-card :label="'Produk'" :value="$totalProduct" :variant="'warning'" :icon="'package'"
+        :href="route('admin.products')" />
+      <x-transaction-item-card :label="'Pesanan'" :value="$totalOrder" :variant="'danger'" :icon="'basket-outline'"
+        :href="route('admin.orders')" />
     </x-transactions-card>
 
     <x-bar-graph-card :height="'300'" :title="'Transaksi Bulanan Tahun Ini (' . date('Y') . ')'" :id="'monthlyOrders'" />
-
-    <x-top-sellers-card :datas="$topSellers" :title="'Penjual Teratas 🎉'" :class="'col-12 col-lg-4 col-md-12'" />
     <x-top-customers-card :datas="$topCustomers" :title="'Pelanggan Teratas 🎉'" :class="'col-lg-4 col-md-12 col-12'" />
     <x-top-products-card :datas="$topProducts" :title="'Produk Teratas 🎉'" :class="'col-12 col-lg-4 col-md-12'" />
+    <x-top-sellers-card :datas="$topSellers" :title="'Penjual Teratas 🎉'" :class="'col-12 col-lg-4 col-md-12'" />
 
     <x-user-table-card :datas="$users" />
   </x-content-card>

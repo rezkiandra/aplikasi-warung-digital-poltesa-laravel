@@ -6,11 +6,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OngkirController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\AdminProductController;
@@ -156,22 +158,43 @@ Route::middleware('auth', 'checkRole:Seller')->group(function () {
         Route::delete('/delete-product/{product}', 'destroy')->name('seller.destroy.product');
       });
   });
+
+  Route::controller(ShippingController::class)
+    ->prefix('seller/dashboard')
+    ->group(function () {
+      Route::get('/edit-shipping/{shipping}', 'edit')->name('rajaongkir.editShipping');
+      Route::put('/update-shipping/{shipping}', 'update')->name('rajaongkir.updateShipping');
+    });
 });
 
 Route::middleware('auth', 'mustLogin', 'checkRole:Customer')->group(function () {
   Route::controller(CustomerController::class)
     ->prefix('customer/dashboard')
     ->group(function () {
+      Route::get('/', 'dashboard')->name('customer.dashboard');
+      Route::get('/biodata', 'biodata')->name('customer.biodata');
       Route::get('/wishlist', 'wishlist')->name('customer.wishlist');
       Route::get('/cart', 'cart')->name('customer.cart');
       Route::get('/orders', 'orders')->name('customer.orders');
-      Route::get('/', 'dashboard')->name('customer.dashboard');
-      Route::get('/biodata', 'biodata')->name('customer.biodata');
+      Route::get('/detail-order/{order}', 'detailOrder')->name('customer.detail.order');
       Route::get('/settings', 'settings')->name('customer.settings');
       Route::post('store-biodata', 'store')->name('customer.store.biodata');
       Route::put('/update-biodata/{biodata}', 'update')->name('customer.update.biodata');
       Route::get('/detail-product/{product}', 'product')->name('customer.detail.product');
       Route::put('/settings/edit-profile/{customer}', 'updateProfile')->name('customer.update.profile');
+    });
+
+  Route::controller(OngkirController::class)
+    ->prefix('customer/dashboard')
+    ->group(function () {
+      Route::get('/process-ongkir/{order}', 'ongkir')->name('rajaongkir.ongkir');
+      Route::post('/process-ongkir/{order}', 'cekOngkir')->name('rajaongkir.cekongkir');
+    });
+
+  Route::controller(ShippingController::class)
+    ->prefix('customer/dashboard')
+    ->group(function () {
+      Route::post('/process-shipping/{order}', 'store')->name('rajaongkir.storeShipping');
     });
 
   Route::controller(CustomerController::class)
@@ -209,7 +232,7 @@ Route::middleware('auth', 'checkCustomer', 'checkRole:Customer')->group(function
   Route::controller(MidtransController::class)
     ->prefix('customer/dashboard')
     ->group(function () {
-      Route::get('/checkout/{order}', 'processPayment')->name('midtrans.checkout');
+      Route::get('/checkout-transaction/{order}', 'processPayment')->name('midtrans.checkout');
       Route::get('/detail-transaction/{order}', 'detailPayment')->name('midtrans.detail');
       Route::get('/cancel-transaction/{order}', 'cancelPayment')->name('midtrans.cancelled');
       Route::post('/cancel-transaction', 'cancelPaymentMidtrans')->name('midtrans.cancelledMidtrans');

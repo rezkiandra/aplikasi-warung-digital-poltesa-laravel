@@ -19,9 +19,9 @@ class OrderController extends Controller
       'uuid' => Str::uuid()->toString(),
       'customer_id' => Auth::user()->customer->id,
       'product_id' => $request->product_id,
+      'seller_id' => Products::find($request->product_id)->seller->id,
       'quantity' => $request->quantity,
       'total_price' => $request->total_price,
-      'fee' => $request->total_price * 0.01 / $request->quantity, // 1% fee
     ]);
 
     $product = Products::find($request->product_id);
@@ -36,6 +36,12 @@ class OrderController extends Controller
     return redirect()->route('customer.orders');
   }
 
+  public function show(string $uuid)
+  {
+    $order = Order::where('uuid', $uuid)->first();
+    return view('customer.ongkir.index', compact('order'));
+  }
+
   public function update(string $uuid)
   {
     $order = Order::where('uuid', $uuid)->first();
@@ -44,6 +50,7 @@ class OrderController extends Controller
       'uuid' => Str::uuid()->toString(),
       'customer_id' => Auth::user()->customer->id,
       'product_id' => $order->product_id,
+      'seller_id' => $order->product->seller->id,
       'quantity' => $order->quantity,
       'total_price' => $order->total_price,
       'snap_token' => $order->snap_token,

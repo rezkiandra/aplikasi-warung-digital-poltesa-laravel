@@ -5,7 +5,10 @@
     <div class="col-12 col-lg-8">
       <div class="card mb-3">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <h5 class="card-title m-0">Detail Pesanan</h5>
+          <h5 class="card-title mb-0 d-flex align-items-center">
+            <i class="mdi mdi-cart-variant mdi-24px me-2"></i>
+            <span>Detail Pesanan</span>
+          </h5>
         </div>
         <div class="card-datatable table-responsive">
           <div>
@@ -43,20 +46,30 @@
                     <div class="d-flex flex-column align-items-start justify-content-end">
                       <span class="text-nowrap text-heading fw-medium mb-3">Rincian Pesanan (IDR)</span>
                       <span class="text-truncate">
-                        Quantity &nbsp;&nbsp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp; : {{ $order->quantity }}
-                        pcs
+                        Quantity &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp; : {{ $order->quantity }}
+                        {{ $order->product->unit }}
                       </span>
                       <span class="text-truncate">
-                        PPN 1% &emsp;&emsp;&emsp;&emsp;&ensp;&ensp;&ensp; : Rp
-                        {{ number_format($order->fee, 0, ',', '.') }}
+                        Berat &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; : {{ $order->product->weight }} gram
                       </span>
                       <span class="text-truncate">
-                        PPN * Quantity &emsp;&ensp; : Rp
-                        {{ number_format($order->fee * $order->quantity, 0, ',', '.') }}
+                        Subtotal Produk &emsp;&emsp;&ensp; : Rp {{ number_format($order->product->price, 0, ',', '.') }}
                       </span>
                       <span class="text-truncate">
-                        Total Harga &emsp;&emsp;&ensp;&nbsp;&nbsp;: Rp
-                        {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                        Total Harga Produk &emsp; : Rp {{ number_format($order->total_price, 0, ',', '.') }}
+                      </span>
+                      <br>
+                      <span class="text-truncate">
+                        Biaya Admin &emsp;&emsp;&emsp;&emsp;&nbsp; : Rp {{ number_format(1000, 0, ',', '.') }}
+                      </span>
+                      <span class="text-truncate">
+                        Biaya Pengiriman &emsp;&ensp;&nbsp; : Rp
+                        {{ number_format($order->shipping->price, 0, ',', '.') }}
+                      </span>
+                      <br>
+                      <span class="text-truncate">
+                        Harga Keseluruhan &emsp; : Rp
+                        {{ number_format($order->total_price + 1000 + $order->shipping->price, 0, ',', '.') }}
                       </span>
                     </div>
                   </div>
@@ -68,7 +81,10 @@
       </div>
       <div class="card mb-3">
         <div class="card-header">
-          <h5 class="card-title m-0">Aktivitas Pemesanan</h5>
+          <h5 class="card-title mb-0 d-flex align-items-center">
+            <i class="mdi mdi-timeline-text mdi-24px me-2"></i>
+            <span>Aktivitas Pemesanan</span>
+          </h5>
         </div>
         <div class="card-body">
           <ul class="timeline pb-0 mb-0">
@@ -81,7 +97,17 @@
                       class="text-uppercase">{{ Str::substr($order->uuid, 0, 5) }}</span>)</h6>
                   <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->created_at)) }}</small>
                 </div>
-                <p class="mt-1 mb-3">Pelanggan anda telah melakukan pemesanan</p>
+                <p class="mt-1 mb-3">Anda harus menyelesaikan proses pembayaran</p>
+              </div>
+            </li>
+            <li class="timeline-item timeline-item-transparent border-primary">
+              <span class="timeline-point timeline-point-primary"></span>
+              <div class="timeline-event">
+                <div class="timeline-header mb-1">
+                  <h6 class="mb-0">Ekspedisi pengiriman menggunakan {{ $order->shipping->courier }}</h6>
+                  <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->shipping->created_at)) }}</small>
+                </div>
+                <p class="mt-1 mb-3">Estimasi pengiriman produk anda {{ $order->shipping->etd }} hari</p>
               </div>
             </li>
 
@@ -100,7 +126,7 @@
                         class="text-uppercase">{{ $order->payment_method }}</span></h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->transaction_time)) }}</small>
                   </div>
-                  <p class="mt-1 mb-3">Pelanggan harus membayar
+                  <p class="mt-1 mb-3">Selesaikan pembayaran sebelum
                     {{ date('d M Y, H:i:s', strtotime($order->expiry_time)) }}</p>
                 </div>
               </li>
@@ -110,7 +136,7 @@
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
                       <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
-                        {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                        {{ number_format($order->total_price + 1000 + $order->shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
@@ -122,7 +148,7 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pelanggan anda telah membayar</h6>
+                      <h6 class="mb-0">Pesanan anda telah kadaluarsa</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda tidak dapat membeli produk</p>
@@ -133,10 +159,12 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pelanggan anda belum membayar</h6>
+                      <h6 class="mb-0">Pesanan anda belum dibayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Pelanggan harus segera membayar pesanan</p>
+                    <p class="mt-1 mb-3">Anda harus segera membayar pesanan sebesar Rp
+                      {{ number_format($order->total_price + 1000 + $order->shipping->price, 0, ',', '.') }}
+                    </p>
                   </div>
                 </li>
               @endif
@@ -155,7 +183,7 @@
                         class="text-uppercase">{{ $order->payment_method }}</span></h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->transaction_time)) }}</small>
                   </div>
-                  <p class="mt-1 mb-3">Pelanggan harus membayar sebelum
+                  <p class="mt-1 mb-3">Selesaikan pembayaran sebelum
                     {{ date('d M Y, H:i:s', strtotime($order->expiry_time)) }}</p>
                 </div>
               </li>
@@ -165,11 +193,11 @@
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
                       <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
-                        {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                        {{ number_format($order->total_price + 1000 + $order->shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Pelanggan sudah membayar pesanan</p>
+                    <p class="mt-1 mb-3">Anda sudah membayar pesanan</p>
                   </div>
                 </li>
               @elseif ($order->status == 'expire')
@@ -177,7 +205,7 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pelanggan anda telah membayar</h6>
+                      <h6 class="mb-0">Pesanan anda telah kadaluarsa</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda tidak dapat membeli produk</p>
@@ -188,10 +216,12 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pelanggan anda belum membayar</h6>
+                      <h6 class="mb-0">Pesanan anda belum dibayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Pelanggan harus segera membayar pesanan</p>
+                    <p class="mt-1 mb-3">Anda harus segera membayar pesanan sebesar Rp
+                      {{ number_format($order->total_price + 1000 + $order->shipping->price, 0, ',', '.') }}
+                    </p>
                   </div>
                 </li>
               @endif
@@ -208,7 +238,7 @@
                         class="text-uppercase">{{ $order->payment_method }}</span></h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->transaction_time)) }}</small>
                   </div>
-                  <p class="mt-1 mb-3">Pelanggan harus membayar sebelum
+                  <p class="mt-1 mb-3">Selesaikan pembayaran sebelum
                     {{ date('d M Y, H:i:s', strtotime($order->expiry_time)) }}</p>
                 </div>
               </li>
@@ -218,11 +248,11 @@
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
                       <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
-                        {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                        {{ number_format($order->total_price + 1000 + $order->shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Pelanggan sudah membayar pesanan</p>
+                    <p class="mt-1 mb-3">Anda sudah membayar pesanan</p>
                   </div>
                 </li>
               @elseif ($order->status == 'expire')
@@ -230,10 +260,10 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pelanggan anda telah membayar</h6>
+                      <h6 class="mb-0">Pesanan anda telah kadaluarsa</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Pelanggan tidak dapat membeli produk</p>
+                    <p class="mt-1 mb-3">Anda tidak dapat membeli produk</p>
                   </div>
                 </li>
               @elseif ($order->status == 'unpaid')
@@ -241,10 +271,12 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pelanggan anda belum membayar</h6>
+                      <h6 class="mb-0">Pesanan anda belum dibayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Anda harus segera membayar pesanan</p>
+                    <p class="mt-1 mb-3">Anda harus segera membayar pesanan sebesar Rp
+                      {{ number_format($order->total_price + 1000 + $order->shipping->price, 0, ',', '.') }}
+                    </p>
                   </div>
                 </li>
               @endif
@@ -263,7 +295,7 @@
                         class="text-uppercase">{{ $order->payment_method }}</span></h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->transaction_time)) }}</small>
                   </div>
-                  <p class="mt-1 mb-3">Pelanggan harus membayar sebelum
+                  <p class="mt-1 mb-3">Selesaikan pembayaran sebelum
                     {{ date('d M Y, H:i:s', strtotime($order->expiry_time)) }}</p>
                 </div>
               </li>
@@ -273,11 +305,11 @@
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
                       <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
-                        {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                        {{ number_format($order->total_price + 1000 + $order->shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Pelanggan sudah membayar pesanan</p>
+                    <p class="mt-1 mb-3">Anda sudah membayar pesanan</p>
                   </div>
                 </li>
               @elseif ($order->status == 'expire')
@@ -285,10 +317,10 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pelanggan anda telah membayar</h6>
+                      <h6 class="mb-0">Pesanan anda telah kadaluarsa</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Pelanggan tidak dapat membeli produk</p>
+                    <p class="mt-1 mb-3">Anda tidak dapat membeli produk</p>
                   </div>
                 </li>
               @elseif ($order->status == 'unpaid')
@@ -296,10 +328,12 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pelanggan anda belum membayar</h6>
+                      <h6 class="mb-0">Pesanan anda belum dibayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Pelanggan harus segera membayar pesanan</p>
+                    <p class="mt-1 mb-3">Anda harus segera membayar pesanan sebesar Rp
+                      {{ number_format($order->total_price + 1000 + $order->shipping->price, 0, ',', '.') }}
+                    </p>
                   </div>
                 </li>
               @endif
@@ -308,22 +342,10 @@
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
                   <div class="timeline-header mb-1">
-                    <h6 class="mb-0">Metode pembayaran menggunakan <span
-                        class="text-uppercase">{{ $order->payment_method }}</span></h6>
-                    <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->transaction_time)) }}</small>
-                  </div>
-                  <p class="mt-1 mb-3">Pelanggan harus membayar sebelum
-                    {{ date('d M Y, H:i:s', strtotime($order->expiry_time)) }}</p>
-                </div>
-              </li>
-              <li class="timeline-item timeline-item-transparent border-primary">
-                <span class="timeline-point timeline-point-primary"></span>
-                <div class="timeline-event">
-                  <div class="timeline-header mb-1">
-                    <h6 class="mb-0">Pelanggan anda telah membayar</h6>
+                    <h6 class="mb-0">Pesanan anda telah dibatalkan</h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                   </div>
-                  <p class="mt-1 mb-3">Pelanggan telah membatalkan pesanan</p>
+                  <p class="mt-1 mb-3">Anda berhasil membatalkan pesanan</p>
                 </div>
               </li>
             @endif
@@ -334,8 +356,7 @@
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
                   <div class="timeline-header mb-1">
-                    <h6 class="mb-0">Status pesanan pelanggan anda <span
-                        class="text-uppercase badge bg-label-success">
+                    <h6 class="mb-0">Status pesanan anda <span class="text-uppercase badge bg-label-success">
                         Berhasil Dibayar</span></h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                   </div>
@@ -349,11 +370,11 @@
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
                   <div class="timeline-header mb-1">
-                    <h6 class="mb-0">Status pesanan pelanggan anda <span class="text-uppercase badge bg-label-dark">
+                    <h6 class="mb-0">Status pesanan anda <span class="text-uppercase badge bg-label-dark">
                         Dibatalkan</span></h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                   </div>
-                  <p class="mt-1 mb-3">Pesanan telah dibatalkan</p>
+                  <p class="mt-1 mb-3">Anda dapat membeli kembali produk dari pesanan ini</p>
                 </div>
               </li>
             @elseif ($order->status == 'expire')
@@ -361,26 +382,44 @@
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
                   <div class="timeline-header mb-1">
-                    <h6 class="mb-0">Status pesanan pelanggan anda <span
+                    <h6 class="mb-0">Status pesanan anda <span
                         class="text-uppercase badge bg-label-danger">Kadaluarsa</span></h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                   </div>
-                  <p class="mt-1 mb-3">Pesanan sudah kadaluarsa</p>
+                  <p class="mt-1 mb-3">Anda dapat membeli kembali produk dari pesanan ini</p>
                 </div>
               </li>
             @endif
           </ul>
         </div>
       </div>
+      @if ($order->status == 'unpaid')
+        <div class="card card-body text-dark mb-3">
+          <h5 class="card-title mb-3">Ketentuan Berlaku :</h5>
+          <ol>
+            <li class="mb-1">Jika sudah memilih metode pembayaran. Anda tidak dapat membatalkan pesanan!</li>
+            <li class="mb-0">Jika anda ingin membatalkan pesanan, silahkan tunggu hingga waktu pembayaran sudah habis
+            </li>
+          </ol>
+        </div>
+      @endif
       <div class="d-flex justify-content-center align-items-center gap-3 mb-3">
-        <x-basic-button :href="route('preview.transaction', $order->uuid)" :label="'Preview'" :class="'w-100'" :variant="'outline-primary'" :icon="'note-search-outline me-2'" />
-        <x-basic-button :href="route('download.transaction', $order->uuid)" :label="'Cetak'" :class="'w-100'" :variant="'primary'" :icon="'file-download-outline me-2'" />
+        @if ($order->status === 'paid')
+          <x-basic-button :href="route('preview.transaction', $order->uuid)" :label="'Preview'" :class="'w-100'" :variant="'outline-primary'" :icon="'note-search-outline me-2'" />
+          <x-basic-button :href="route('download.transaction', $order->uuid)" :label="'Cetak'" :class="'w-100'" :variant="'primary'" :icon="'file-download-outline me-2'" />
+        @elseif ($order->status === 'unpaid')
+          <x-basic-button :href="route('rajaongkir.editShipping', $order->shipping->uuid)" :label="'Edit Pengiriman'" :class="'w-100'" :variant="'dark'"
+            :icon="'truck-fast-outline me-2'" />
+        @endif
       </div>
     </div>
     <div class="col-12 col-lg-4">
       <div class="card mb-3">
         <div class="card-body">
-          <h5 class="card-title mb-4">Detail Penjual</h5>
+          <h5 class="card-title mb-4 d-flex align-items-center">
+            <i class="mdi mdi-store mdi-24px me-2"></i>
+            <span>Detail Penjual</span>
+          </h5>
           <div class="d-flex justify-content-start align-items-center mb-4">
             <div class="avatar me-3">
               <img src="{{ asset('storage/' . $order->product->seller->image) }}"
@@ -405,7 +444,10 @@
 
       <div class="card mb-3">
         <div class="card-body">
-          <h5 class="card-title mb-4">Detail Pelanggan</h5>
+          <h5 class="card-title mb-4 d-flex align-items-center">
+            <i class="mdi mdi-account-details mdi-24px me-2"></i>
+            <span>Detail Pelanggan</span>
+          </h5>
           <div class="d-flex justify-content-start align-items-center mb-4">
             <div class="avatar me-3">
               <img src="{{ asset('storage/' . $order->customer->image) }}" alt="{{ $order->customer->full_name }}"
@@ -430,7 +472,41 @@
 
       <div class="card mb-3">
         <div class="card-body">
-          <h5 class="card-title mb-4">Detail Pembayaran</h5>
+          <h5 class="card-title mb-4 d-flex align-items-center">
+            <i class="mdi mdi-truck-fast mdi-24px me-2"></i>
+            <span>Detail Pengiriman</span>
+          </h5>
+          <div class="d-flex justify-content-between">
+            <h6 class="mb-1">Info Kurir</h6>
+            {{-- <a href="{{ route('rajaongkir.editShipping', $order->uuid) }}"
+              class="text-dark badge bg-label-primary">Ganti Kurir</a> --}}
+          </div>
+          <p class="mb-1">Kurir : {{ $order->courier }}</p>
+          <p class="mb-1">Servis : {{ $order->shipping->description }}</p>
+          <p class="mb-1">Estimasi Pengiriman : {{ $order->shipping->etd }} hari</p>
+          <p class="mb-1">Status :
+            @if ($order->shipping->status == 'diterima')
+              <span class="text-uppercase badge bg-label-success rounded">{{ $order->shipping->status }}</span>
+            @elseif ($order->shipping->status == 'diproses')
+              <span class="text-uppercase badge bg-label-warning rounded">{{ $order->shipping->status }}</span>
+            @elseif ($order->shipping->status == 'dikirim')
+              <span class="text-uppercase badge bg-label-dark rounded">{{ $order->shipping->status }}</span>
+            @endif
+          </p>
+          @if ($order->shipping->resi)
+            <p class="mb-1">Nomor Resi : {{ $order->shipping->resi }}</p>
+          @else
+            <p class="mb-1">Nomor Resi : -</p>
+          @endif
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title mb-4 d-flex align-items-center">
+            <i class="mdi mdi-wallet mdi-24px me-2"></i>
+            <span>Detail Pembayaran</span>
+          </h5>
           <div class="d-flex justify-content-between">
             <h6 class="mb-1">Info Pembayaran</h6>
           </div>

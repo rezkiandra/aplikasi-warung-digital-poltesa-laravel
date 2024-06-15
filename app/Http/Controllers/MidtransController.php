@@ -6,6 +6,7 @@ use Exception;
 use Midtrans\Snap;
 use Midtrans\Config;
 use App\Models\Order;
+use App\Models\Shipping;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -31,26 +32,56 @@ class MidtransController extends Controller
   public function processPayment(string $uuid)
   {
     $order = Order::where('uuid', $uuid)->first();
-    $params = array(
-      'transaction_details' => array(
+    $shippingCost = Order::with('shipping')->where('uuid', $uuid)->first()->shipping->price;
+    $adminCost = 1000;
+    $gross_amount = $order->total_price + $shippingCost + $adminCost;
+    $params = [
+      'transaction_details' => [
         'order_id' => $order->uuid,
-        'gross_amount' => $order->total_price + $order->fee
-      ),
-      'item_details' => array(
+        'currency' => 'IDR',
+        'courier' => $order->shipping->courier,
+        'service_code' => $order->shipping->code,
+        'service' => $order->shipping->description,
+        'etd' => $order->shipping->etd,
+        'admin_cost' => $adminCost,
+        'shipping_cost' => $shippingCost,
+        'total_price' => $order->total_price,
+        'gross_amount' => $gross_amount,
+      ],
+      'item_details' => [
         [
           'id' => $order->product->uuid,
-          'price' => $order->product->price + $order->fee,
+          'name' => $order->product->name,
+          'price' => $order->product->price,
           'quantity' => $order->quantity,
-          'name' => $order->product->name
-        ]
-      ),
-      'customer_details' => array(
+          'weight' => $order->product->weight
+        ],
+        [
+          'id' => $order->shipping->uuid,
+          'name' => $order->shipping->courier . ' - ' . $order->shipping->code,
+          'price' => $order->shipping->price,
+          'quantity' => 1
+        ],
+        [
+          'id' => 'ADM-01',
+          'name' => 'Biaya Admin',
+          'price' => $adminCost,
+          'quantity' => 1
+        ],
+      ],
+      'customer_details' => [
         'first_name' => $order->customer->full_name,
-        'email' => Auth::user()->email,
+        'email' => $order->customer->user->email,
         'address' => $order->customer->address,
-        'phone' => $order->customer->phone_number
-      ),
-    );
+        'phone' => $order->customer->phone_number,
+        'gender' => $order->customer->gender,
+        'shipping_address' => [
+          'first_name' => $order->customer->full_name,
+          'phone' => $order->customer->phone_number,
+          'address' => $order->customer->address,
+        ],
+      ],
+    ];
 
     try {
       $snapToken = Snap::getSnapToken($params);
@@ -60,7 +91,7 @@ class MidtransController extends Controller
       $response_body = json_decode($e->getMessage(), true);
       return redirect()->back();
     }
-    return view('customer.order-detail', compact('order', 'snapToken'));
+    return view('customer.checkout', compact('order', 'snapToken'));
   }
 
   public function detailPayment(string $uuid)

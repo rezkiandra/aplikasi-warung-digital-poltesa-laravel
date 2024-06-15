@@ -22,8 +22,6 @@
 
   // Top Card Content
   $topSellers = \App\Models\Order::selectRaw('seller_id, count(*) as total')
-      ->join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->join('sellers', 'products.seller_id', '=', 'sellers.id', 'left')
       ->where('orders.status', 'paid')
       ->groupBy('seller_id')
       ->selectRaw('SUM(orders.total_price) as total_price')
@@ -48,7 +46,6 @@
 
   $users = \App\Models\User::with('seller', 'customer')->orderBy('role_id', 'asc')->paginate(8);
 ?>
-
 
 <?php $__env->startSection('title', 'Dashboard'); ?>
 <?php $__env->startPush('styles'); ?>
@@ -93,7 +90,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
       <?php if (isset($component)) { $__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Penjual','value' => $totalSeller,'variant' => 'info','icon' => 'account-group-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Penjual','value' => $totalSeller,'variant' => 'info','icon' => 'account-group-outline','href' => route('admin.sellers')]); ?>
 <?php $component->withName('transaction-item-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -105,7 +102,7 @@
 <?php unset($__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Pelanggan','value' => $totalCustomer,'variant' => 'success','icon' => 'account-multiple-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Pelanggan','value' => $totalCustomer,'variant' => 'success','icon' => 'account-multiple-outline','href' => route('admin.customers')]); ?>
 <?php $component->withName('transaction-item-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -117,7 +114,7 @@
 <?php unset($__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Produk','value' => $totalProduct,'variant' => 'warning','icon' => 'package']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Produk','value' => $totalProduct,'variant' => 'warning','icon' => 'package','href' => route('admin.products')]); ?>
 <?php $component->withName('transaction-item-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -129,7 +126,7 @@
 <?php unset($__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal0a3b608f2cb7d83364075f4271355675a19a9172 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Pesanan','value' => $totalOrder,'variant' => 'danger','icon' => 'basket-outline']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TransactionItemCard::class, ['label' => 'Pesanan','value' => $totalOrder,'variant' => 'danger','icon' => 'basket-outline','href' => route('admin.orders')]); ?>
 <?php $component->withName('transaction-item-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -159,19 +156,6 @@
 <?php $component = $__componentOriginal572d97b9c9bda7cc0369287a8488fa397cd3f9e3; ?>
 <?php unset($__componentOriginal572d97b9c9bda7cc0369287a8488fa397cd3f9e3); ?>
 <?php endif; ?>
-
-    <?php if (isset($component)) { $__componentOriginal5d689d0efd7f7c0b8d44bda7e143fd11b0ffef95 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\TopSellersCard::class, ['datas' => $topSellers,'title' => 'Penjual Teratas 🎉','class' => 'col-12 col-lg-4 col-md-12']); ?>
-<?php $component->withName('top-sellers-card'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes([]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginal5d689d0efd7f7c0b8d44bda7e143fd11b0ffef95)): ?>
-<?php $component = $__componentOriginal5d689d0efd7f7c0b8d44bda7e143fd11b0ffef95; ?>
-<?php unset($__componentOriginal5d689d0efd7f7c0b8d44bda7e143fd11b0ffef95); ?>
-<?php endif; ?>
     <?php if (isset($component)) { $__componentOriginalb9783c6f7c28aed40cbc0e3f994fe6ef23b75a4c = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\TopCustomersCard::class, ['datas' => $topCustomers,'title' => 'Pelanggan Teratas 🎉','class' => 'col-lg-4 col-md-12 col-12']); ?>
 <?php $component->withName('top-customers-card'); ?>
@@ -195,6 +179,18 @@
 <?php if (isset($__componentOriginal4980b8428731110d8ba140e84171140e339b1ec2)): ?>
 <?php $component = $__componentOriginal4980b8428731110d8ba140e84171140e339b1ec2; ?>
 <?php unset($__componentOriginal4980b8428731110d8ba140e84171140e339b1ec2); ?>
+<?php endif; ?>
+    <?php if (isset($component)) { $__componentOriginal5d689d0efd7f7c0b8d44bda7e143fd11b0ffef95 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\TopSellersCard::class, ['datas' => $topSellers,'title' => 'Penjual Teratas 🎉','class' => 'col-12 col-lg-4 col-md-12']); ?>
+<?php $component->withName('top-sellers-card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal5d689d0efd7f7c0b8d44bda7e143fd11b0ffef95)): ?>
+<?php $component = $__componentOriginal5d689d0efd7f7c0b8d44bda7e143fd11b0ffef95; ?>
+<?php unset($__componentOriginal5d689d0efd7f7c0b8d44bda7e143fd11b0ffef95); ?>
 <?php endif; ?>
 
     <?php if (isset($component)) { $__componentOriginal6eefcb7fa1bcb53edb319a43e172c5a5ad5f4c5a = $component; } ?>

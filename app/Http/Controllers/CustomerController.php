@@ -18,6 +18,7 @@ use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use App\Http\Requests\BiodataRequest;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -27,7 +28,7 @@ class CustomerController extends Controller
 {
   public function index()
   {
-    $topProducts = Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->where('status', 'paid')->orderBy('total_price', 'desc')->limit(4)->get('products.*', 'orders.*');
+    $topProducts = Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->where('status', 'paid')->orderBy('quantity', 'desc')->orderBy('products.price', 'desc')->limit(4)->get('products.*', 'orders.*');
     return view('customer.home', compact('topProducts'));
   }
 
@@ -102,8 +103,12 @@ class CustomerController extends Controller
 
   public function biodata()
   {
+    $api_key = config('rajaongkir.key');
     $customer = Customer::where('user_id', Auth::user()->id)->get();
-    return view('customer.biodata', compact('customer'));
+    $response = Http::withHeaders(['key' => $api_key,])->get('https://api.rajaongkir.com/starter/city');
+
+    $cities = $response['rajaongkir']['results'];
+    return view('customer.biodata', compact('customer', 'cities'));
   }
 
   public function cart()
@@ -171,9 +176,11 @@ class CustomerController extends Controller
       'full_name' => $request->full_name,
       'slug' => Str::slug($request->full_name),
       'address' => $request->address,
+      'origin' => $request->origin,
       'phone_number' => $request->phone_number,
       'gender' => $request->gender,
       'image' => $request->image->store('customers', 'public'),
+      'status' => 'active',
     ]);
 
     Alert::toast('Berhasil menambahkan biodata', 'success');
@@ -197,6 +204,7 @@ class CustomerController extends Controller
         'full_name' => $request->full_name,
         'slug' => Str::slug($request->full_name),
         'address' => $request->address,
+        'origin' => $request->origin,
         'phone_number' => $request->phone_number,
         'gender' => $request->gender,
         'status' => $customer->status,

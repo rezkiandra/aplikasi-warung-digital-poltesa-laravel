@@ -7,6 +7,7 @@ use App\Models\Products;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use App\Http\Requests\ProductsRequest;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -37,6 +38,7 @@ class ProductsController extends Controller
       'description' => $request->description,
       'price' => $request->price,
       'stock' => $request->stock,
+      'weight' => $request->weight,
       'unit' => $request->unit,
       'category_id' => $request->category_id,
       'image' => $request->image->store('products', 'public'),
@@ -80,6 +82,7 @@ class ProductsController extends Controller
         'description' => $request->description,
         'price' => $request->price,
         'stock' => $request->stock,
+        'weight' => $request->weight,
         'unit' => $request->unit,
         'category_id' => $request->category_id,
       ]);

@@ -9,7 +9,6 @@
           <th>ID</th>
           <th>Pelanggan</th>
           <th>Produk</th>
-          <th>PPN 3%</th>
           <th>Total Harga</th>
           <th>Status</th>
           <th>Tanggal Pemesanan</th>
@@ -53,10 +52,6 @@
                     {{ $data->quantity }} {{ $data->product->unit }}</small>
                 </div>
               </div>
-            </td>
-            <td>
-              <span class="text-truncate text-dark">Rp
-                {{ number_format(($data->product->price / 100) * 3, 0, ',', '.') }}</span>
             </td>
             <td>
               <span class="text-truncate text-dark">Rp {{ number_format($data->total_price, 0, ',', '.') }}</span>
