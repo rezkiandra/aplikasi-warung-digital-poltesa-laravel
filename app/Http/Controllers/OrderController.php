@@ -50,7 +50,7 @@ class OrderController extends Controller
       'uuid' => Str::uuid()->toString(),
       'customer_id' => Auth::user()->customer->id,
       'product_id' => $order->product_id,
-      'seller_id' => $order->product->seller->id,
+      'seller_id' => $order->seller_id,
       'quantity' => $order->quantity,
       'total_price' => $order->total_price,
       'snap_token' => $order->snap_token,
