@@ -12,7 +12,7 @@ class GuestController extends Controller
 {
   public function index()
   {
-    $topProducts = Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->where('status', 'paid')->orderBy('total_price', 'desc')->limit(4)->get('products.*', 'orders.*');
+    $topProducts = Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->where('status', 'paid')->orderBy('quantity', 'desc')->orderBy('products.price', 'desc')->limit(4)->get('products.*', 'orders.*');
     return view('pages.home', compact('topProducts'));
   }
 

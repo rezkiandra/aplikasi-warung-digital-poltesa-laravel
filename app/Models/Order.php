@@ -18,7 +18,6 @@ class Order extends Model
     'seller_id',
     'quantity',
     'total_price',
-    'fee',
     'status',
     'payment_method',
     'store',
@@ -50,5 +49,10 @@ class Order extends Model
   public function user()
   {
     return $this->belongsTo(User::class);
+  }
+
+  public function shipping()
+  {
+    return $this->hasOne(Shipping::class);
   }
 }

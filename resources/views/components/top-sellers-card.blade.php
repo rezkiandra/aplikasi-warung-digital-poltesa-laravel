@@ -1,6 +1,6 @@
 <div class="{{ $class }}">
   <div class="card">
-    <div class="card-header d-flex align-items-center justify-content-start">
+    <div class="card-header d-flex align-items-center justify-content-between">
       <h5 class="card-title m-0 me-2">{{ $title }}</h5>
     </div>
     <div class="card-body">

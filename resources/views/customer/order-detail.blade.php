@@ -5,7 +5,10 @@
     <div class="col-12 col-lg-8">
       <div class="card mb-3">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <h5 class="card-title m-0">Detail Pesanan</h5>
+          <h5 class="card-title mb-0 d-flex align-items-center">
+            <i class="mdi mdi-cart-variant mdi-24px me-2"></i>
+            <span>Detail Pesanan</span>
+          </h5>
         </div>
         <div class="card-datatable table-responsive">
           <div>
@@ -43,23 +46,30 @@
                     <div class="d-flex flex-column align-items-start justify-content-end">
                       <span class="text-nowrap text-heading fw-medium mb-3">Rincian Pesanan (IDR)</span>
                       <span class="text-truncate">
-                        Quantity &nbsp;&nbsp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp; : {{ $order->quantity }}
-                        pcs
+                        Quantity &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp; : {{ $order->quantity }}
+                        {{ $order->product->unit }}
                       </span>
                       <span class="text-truncate">
-                        Subtotal Harga &emsp; : Rp {{ number_format($order->product->price, 0, ',', '.') }}
+                        Berat &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; : {{ $order->product->weight }} gram
                       </span>
                       <span class="text-truncate">
-                        PPN 1% &emsp;&emsp;&emsp;&emsp;&ensp;&ensp;&ensp; : Rp
-                        {{ number_format($order->fee, 0, ',', '.') }}
+                        Subtotal Produk &emsp;&emsp;&ensp; : Rp {{ number_format($order->product->price, 0, ',', '.') }}
                       </span>
                       <span class="text-truncate">
-                        PPN * Quantity &emsp;&ensp; : Rp
-                        {{ number_format($order->fee * $order->quantity, 0, ',', '.') }}
+                        Total Harga Produk &emsp; : Rp {{ number_format($order->total_price, 0, ',', '.') }}
+                      </span>
+                      <br>
+                      <span class="text-truncate">
+                        Biaya Admin &emsp;&emsp;&emsp;&emsp;&nbsp; : Rp {{ number_format(1000, 0, ',', '.') }}
                       </span>
                       <span class="text-truncate">
-                        Total Harga &emsp;&emsp;&ensp;&nbsp;&nbsp;: Rp
-                        {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                        Biaya Pengiriman &emsp;&ensp;&nbsp; : Rp
+                        {{ number_format($order->shipping->price, 0, ',', '.') }}
+                      </span>
+                      <br>
+                      <span class="text-truncate">
+                        Harga Keseluruhan &emsp; : Rp
+                        {{ number_format($order->total_price + 1000 + $order->shipping->price, 0, ',', '.') }}
                       </span>
                     </div>
                   </div>
@@ -71,7 +81,10 @@
       </div>
       <div class="card mb-3">
         <div class="card-header">
-          <h5 class="card-title m-0">Aktivitas Pemesanan</h5>
+          <h5 class="card-title mb-0 d-flex align-items-center">
+            <i class="mdi mdi-timeline-text mdi-24px me-2"></i>
+            <span>Aktivitas Pemesanan</span>
+          </h5>
         </div>
         <div class="card-body">
           <ul class="timeline pb-0 mb-0">
@@ -85,6 +98,16 @@
                   <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->created_at)) }}</small>
                 </div>
                 <p class="mt-1 mb-3">Anda harus menyelesaikan proses pembayaran</p>
+              </div>
+            </li>
+            <li class="timeline-item timeline-item-transparent border-primary">
+              <span class="timeline-point timeline-point-primary"></span>
+              <div class="timeline-event">
+                <div class="timeline-header mb-1">
+                  <h6 class="mb-0">Ekspedisi pengiriman menggunakan {{ $order->shipping->courier }}</h6>
+                  <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->shipping->created_at)) }}</small>
+                </div>
+                <p class="mt-1 mb-3">Estimasi pengiriman produk anda {{ $order->shipping->etd }} hari</p>
               </div>
             </li>
 
@@ -113,7 +136,7 @@
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
                       <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
-                        {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                        {{ number_format($order->total_price + 1000 + $order->shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
@@ -140,7 +163,7 @@
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda harus segera membayar pesanan sebesar Rp
-                      {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                      {{ number_format($order->total_price + 1000 + $order->shipping->price, 0, ',', '.') }}
                     </p>
                   </div>
                 </li>
@@ -170,7 +193,7 @@
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
                       <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
-                        {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                        {{ number_format($order->total_price + 1000 + $order->shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
@@ -197,7 +220,7 @@
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda harus segera membayar pesanan sebesar Rp
-                      {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                      {{ number_format($order->total_price + 1000 + $order->shipping->price, 0, ',', '.') }}
                     </p>
                   </div>
                 </li>
@@ -225,7 +248,7 @@
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
                       <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
-                        {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                        {{ number_format($order->total_price + 1000 + $order->shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
@@ -252,7 +275,7 @@
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda harus segera membayar pesanan sebesar Rp
-                      {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                      {{ number_format($order->total_price + 1000 + $order->shipping->price, 0, ',', '.') }}
                     </p>
                   </div>
                 </li>
@@ -282,7 +305,7 @@
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
                       <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
-                        {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                        {{ number_format($order->total_price + 1000 + $order->shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
@@ -309,7 +332,7 @@
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda harus segera membayar pesanan sebesar Rp
-                      {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
+                      {{ number_format($order->total_price + 1000 + $order->shipping->price, 0, ',', '.') }}
                     </p>
                   </div>
                 </li>
@@ -408,7 +431,10 @@
     <div class="col-12 col-lg-4">
       <div class="card mb-3">
         <div class="card-body">
-          <h5 class="card-title mb-4">Detail Penjual</h5>
+          <h5 class="card-title mb-4 d-flex align-items-center">
+            <i class="mdi mdi-store mdi-24px me-2"></i>
+            <span>Detail Penjual</span>
+          </h5>
           <div class="d-flex justify-content-start align-items-center mb-4">
             <div class="avatar me-3">
               <img src="{{ asset('storage/' . $order->product->seller->image) }}"
@@ -433,7 +459,10 @@
 
       <div class="card mb-3">
         <div class="card-body">
-          <h5 class="card-title mb-4">Detail Pelanggan</h5>
+          <h5 class="card-title mb-4 d-flex align-items-center">
+            <i class="mdi mdi-account-details mdi-24px me-2"></i>
+            <span>Detail Pelanggan</span>
+          </h5>
           <div class="d-flex justify-content-start align-items-center mb-4">
             <div class="avatar me-3">
               <img src="{{ asset('storage/' . $order->customer->image) }}" alt="{{ $order->customer->full_name }}"
@@ -458,7 +487,25 @@
 
       <div class="card mb-3">
         <div class="card-body">
-          <h5 class="card-title mb-4">Detail Pembayaran</h5>
+          <h5 class="card-title mb-4 d-flex align-items-center">
+            <i class="mdi mdi-truck-fast mdi-24px me-2"></i>
+            <span>Detail Pengiriman</span>
+          </h5>
+          <div class="d-flex justify-content-between">
+            <h6 class="mb-1">Info Kurir</h6>
+          </div>
+          <p class="mb-1">Kurir : {{ $order->shipping->courier }}</p>
+          <p class="mb-1">Servis : {{ $order->shipping->description }} - {{ $order->shipping->code }}</p>
+          <p class="mb-1">Estimasi Pengiriman : {{ $order->shipping->etd }} hari</p>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title mb-4 d-flex align-items-center">
+            <i class="mdi mdi-wallet mdi-24px me-2"></i>
+            <span>Detail Pembayaran</span>
+          </h5>
           <div class="d-flex justify-content-between">
             <h6 class="mb-1">Info Pembayaran</h6>
           </div>

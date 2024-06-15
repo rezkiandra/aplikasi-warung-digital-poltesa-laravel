@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Seller;
+use App\Models\Customer;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use App\Http\Requests\BiodataRequest;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -16,8 +18,12 @@ class BiodataController extends Controller
 {
   public function index()
   {
+    $api_key = config('rajaongkir.key');
+    $response = Http::withHeaders(['key' => $api_key,])->get('https://api.rajaongkir.com/starter/city');
+    $cities = $response['rajaongkir']['results'];
+
     $seller = Seller::where('user_id', Auth::user()->id)->get();
-    return view('seller.biodata.index', compact('seller'));
+    return view('seller.biodata.index', compact('seller', 'cities'));
   }
 
   public function store(BiodataRequest $request)
@@ -28,6 +34,7 @@ class BiodataController extends Controller
       'full_name' => $request->full_name,
       'slug' => Str::slug($request->full_name),
       'address' => $request->address,
+      'origin' => $request->origin,
       'phone_number' => $request->phone_number,
       'gender' => $request->gender,
       'bank_account_id' => $request->bank_account_id,
@@ -68,6 +75,7 @@ class BiodataController extends Controller
         'full_name' => $request->full_name,
         'slug' => Str::slug($request->full_name),
         'address' => $request->address,
+        'origin' => $request->origin,
         'phone_number' => $request->phone_number,
         'gender' => $request->gender,
         'bank_account_id' => $request->bank_account_id,

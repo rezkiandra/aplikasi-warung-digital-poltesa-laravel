@@ -17,6 +17,7 @@ class Seller extends Model
     'full_name',
     'slug',
     'address',
+    'origin',
     'phone_number',
     'gender',
     'bank_account_id',

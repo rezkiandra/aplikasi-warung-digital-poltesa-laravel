@@ -1,27 +1,24 @@
 @php
-  $orders = \App\Models\Order::with('seller')->paginate(10);
+  $orders = \App\Models\Order::where('seller_id', auth()->user()->seller->id)
+      ->orderBy('orders.id', 'desc')
+      ->paginate(10);
 
-  $totalPaid = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->where('products.seller_id', auth()->user()->seller->id)
+  $totalPaid = \App\Models\Order::where('seller_id', auth()->user()->seller->id)
       ->where('orders.status', 'paid')
       ->count();
 
-  $totalUnpaid = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->where('products.seller_id', auth()->user()->seller->id)
+  $totalUnpaid = \App\Models\Order::where('seller_id', auth()->user()->seller->id)
       ->where('orders.status', 'unpaid')
       ->count();
 
-  $totalExpire = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->where('products.seller_id', auth()->user()->seller->id)
+  $totalExpire = \App\Models\Order::where('seller_id', auth()->user()->seller->id)
       ->where('orders.status', 'expire')
       ->count();
 
-  $totalCancelled = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->where('products.seller_id', auth()->user()->seller->id)
+  $totalCancelled = \App\Models\Order::where('seller_id', auth()->user()->seller->id)
       ->where('orders.status', 'cancelled')
       ->count();
 @endphp
-
 @extends('layouts.authenticated')
 @section('title', 'Pesanan')
 @section('content')

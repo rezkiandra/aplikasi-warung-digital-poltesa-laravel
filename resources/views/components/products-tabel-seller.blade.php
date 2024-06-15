@@ -8,6 +8,7 @@
         <th>Kategori</th>
         <th>Harga</th>
         <th>Stok</th>
+        <th>Berat (gram)</th>
         <th>Dipublish Pada</th>
         <th>Aksi</th>
       </thead>
@@ -38,6 +39,9 @@
             </td>
             <td>
               <span class="fw-medium text-dark">{{ $data->stock }} {{ $data->unit }}</span>
+            </td>
+            <td>
+              <span class="fw-medium text-dark">{{ $data->weight }}</span>
             </td>
             <td>
               <span

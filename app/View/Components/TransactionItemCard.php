@@ -10,17 +10,19 @@ class TransactionItemCard extends Component
   public $value;
   public $icon;
   public $variant;
+  public $href;
   /**
    * Create a new component instance.
    *
    * @return void
    */
-  public function __construct($label, $value = 0, $icon, $variant)
+  public function __construct($label, $value = 0, $icon, $variant, $href = '')
   {
     $this->label = $label;
     $this->value = $value;
     $this->icon = $icon;
     $this->variant = $variant;
+    $this->href = $href;
   }
 
   /**

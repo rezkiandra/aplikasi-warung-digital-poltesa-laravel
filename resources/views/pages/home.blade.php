@@ -42,7 +42,7 @@
 @endpush
 @section('content')
   <div
-    class="fixed-left d-none position-fixed py-4 bg-white d-lg-flex d-md-flex flex-column gap-4 px-3 rounded rounded-lg shadow">
+    class="fixed-left d-none position-fixed py-4 bg-white d-lg-flex d-md-flex flex-column gap-4 px-3 rounded rounded-lg shadow" data-aos="fade-right" data-aos-duration="1200">
     <a href="https://github.com/rezkiandra" class="">
       <i class="mdi mdi-github mdi-24px"></i>
     </a>
@@ -63,19 +63,19 @@
     </a>
   </div>
   <main class="container">
-    <section class="row my-5 pt-lg-5 d-flex align-items-center gap-5">
+    <section class="row my-5 pt-5 pt-lg-5 pt-md-5 d-flex d-md-flex align-items-center gap-5">
       <div class="col-lg" data-aos="fade-right" data-aos-duration="1200">
-        <h5 class="mb-4">Pre-Release <span class="badge bg-label-primary rounded-pill">V.1.0</span></h5>
+        <h5 class="mb-4 fw-bold">Pre-Release <span class="badge bg-label-primary rounded-pill">V.1.0</span></h5>
         <h1 class="text-uppercase fw-bold">Warung <span class="text-primary">Digital</span></h1>
         <div class="mb-4">
           <h5 class="text-wrap text-secondary line-height">Aplikasi e-commerce sederhana yang terintegrasi dengan
             payment gateway.
-            Memudahkan pelaku bisnis di Politeknik Negeri Sambas. Tersedia berbagai macam produk dengan kualitas terbaik
+            Memudahkan pelaku bisnis di Politeknik Negeri Sambas dalam mengelola produk dan transaksi. Tersedia berbagai macam produk dengan kualitas terbaik
           </h5>
         </div>
         <a href="{{ route('guest.products') }}" class="btn btn-primary">
           <i class="mdi mdi-cart-outline me-2"></i>
-          <span>Lihat Produk</span>
+          <span>Belanja Sekarang</span>
         </a>
       </div>
       <div class="col-lg" data-aos="fade-left" data-aos-duration="1200">

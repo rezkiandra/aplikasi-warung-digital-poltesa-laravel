@@ -14,13 +14,13 @@
                 </div>
               </div>
               <div class="">
-                <div class="d-flex d-none d-lg-block d-md-block flex-row align-items-start justify-content-start gap-1">
+                <div class="d-lg-flex d-md-flex d-none flex-row align-items-start justify-content-start gap-1">
                   <span class="text-dark text-capitalize fw-medium">{{ $data->product->name }}</span>
                 </div>
-                <div class="d-lg-flex flex-row d-lg-none d-md-none align-items-start justify-content-start gap-1">
+                <div class="d-lg-none d-block d-md-none align-items-start justify-content-start gap-1">
                   <span class="text-dark text-capitalize fw-medium">{{ Str::limit($data->product->name, 20) }}</span>
                 </div>
-                <small>Rp {{ number_format($data->product->price, 0, ',', '.') }}</small>
+                <small class="d-block">Rp {{ number_format($data->product->price, 0, ',', '.') }}</small>
               </div>
             </div>
             @if (Auth::user()->customer)
@@ -32,20 +32,24 @@
             @elseif(Auth::user()->seller)
               <div class="text-end">
                 <h6 class="mb-0">
-                  {{ $data->total }}</h6>
+                  {{ $data->total }} {{ $data->product->unit }}</h6>
                 <small>Terjual</small>
               </div>
             @else
               <div class="text-end">
                 <h6 class="mb-0">
-                  {{ $data->total }}</h6>
+                  {{ $data->total }} {{ $data->product->unit }}</h6>
                 <small>Terjual</small>
               </div>
             @endif
           </div>
         @endforeach
       @else
-        <small class="card-text">Belum ada produk terjual</small>
+        @if (Auth::user()->customer)
+          <small class="card-text">Belum ada pembelian anda</small>
+        @else
+          <small class="card-text">Belum ada produk terjual</small>
+        @endif
       @endif
     </div>
   </div>

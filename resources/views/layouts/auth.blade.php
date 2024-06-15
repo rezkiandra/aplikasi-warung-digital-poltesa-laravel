@@ -30,6 +30,26 @@
       * {
         font-family: Poppins;
       }
+
+      .img-animation {
+        transition: all 0.3s ease;
+        transform: scale(1.01);
+        animation: floating 5s ease-in-out infinite;
+      }
+
+      @keyframes floating {
+        0% {
+          transform: translate(0, 0px);
+        }
+
+        50% {
+          transform: translate(0, 20px);
+        }
+
+        100% {
+          transform: translate(0, -0px);
+        }
+      }
     </style>
   </head>
 
@@ -44,13 +64,13 @@
           {{-- End card --}}
         </div>
         <img src="{{ asset('materio/assets/img/illustrations/tree-3.png') }}" alt="auth-tree"
-          class="authentication-image-object-left d-lg-block" />
+          class="authentication-image-object-left d-lg-block img-animation" />
         <img src="{{ asset('materio/assets/img/illustrations/auth-basic-mask-light.png') }}"
           class="authentication-image d-lg-block" alt="triangle-bg"
           data-app-light-img="illustrations/auth-basic-mask-light.png"
           data-app-dark-img="illustrations/auth-basic-mask-dark.png" />
         <img src="{{ asset('materio/assets/img/illustrations/tree.png') }}" alt="auth-tree"
-          class="authentication-image-object-right d-lg-block" />
+          class="authentication-image-object-right d-lg-block img-animation" />
       </div>
     </div>
     {{-- End content --}}

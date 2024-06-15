@@ -25,7 +25,14 @@
           </x-form-floating>
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-3">
+          <x-form-floating>
+            <x-input-form-label :label="'Jenis Kelamin'" :name="'gender'" :type="'select'" :value="old('gender')"
+              :options="$gender" :select="'- Pilih jenis kelamin'" />
+          </x-form-floating>
+        </div>
+
+        <div class="col-lg-3">
           <x-form-floating>
             <x-input-form-label :label="'Jenis Kelamin'" :name="'gender'" :type="'select'" :value="old('gender')"
               :options="$gender" :select="'- Pilih jenis kelamin'" />
@@ -99,7 +106,7 @@
                 </x-form-floating>
               </div>
 
-              <div class="col-lg-6">
+              <div class="col-lg-3">
                 <x-form-floating>
                   <select name="gender" id="gender" class="form-select text-capitalize">
                     <option value="{{ $data->gender }}">{{ $data->gender }}</option>
@@ -108,6 +115,20 @@
                         @continue
                       @endif
                       <option value="{{ $key }}">{{ $value }}</option>
+                    @endforeach
+                  </select>
+                </x-form-floating>
+              </div>
+
+              <div class="col-lg-3">
+                <x-form-floating>
+                  <select name="origin" id="origin" class="form-select text-capitalize">
+                    <option value="{{ $data->origin }}">{{ $data->origin }}</option>
+                    @foreach ($cities as $value)
+                      @if ($value == $data->origin)
+                        @continue
+                      @endif
+                      <option value="{{ $value['city_id'] }}">{{ $value['city_name'] }}</option>
                     @endforeach
                   </select>
                 </x-form-floating>

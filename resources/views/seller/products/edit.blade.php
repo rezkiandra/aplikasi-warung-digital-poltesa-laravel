@@ -31,9 +31,15 @@
           </x-form-floating>
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-lg-2">
           <x-form-floating>
             <x-input-form-label :label="'Harga'" :name="'price'" :type="'text'" :value="$product->price" />
+          </x-form-floating>
+        </div>
+
+        <div class="col-lg-2">
+          <x-form-floating>
+            <x-input-form-label :label="'Berat(gram)'" :name="'weight'" :type="'number'" :value="$product->weight" />
           </x-form-floating>
         </div>
 
