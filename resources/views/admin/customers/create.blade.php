@@ -29,10 +29,22 @@
         </x-form-floating>
       </div>
 
-      <div class="col-lg-4">
+      <div class="col-lg-2">
         <x-form-floating>
           <x-input-form-label :label="'Status'" :name="'status'" :type="'select'" :options="$status"
             :select="'Pilih Status'" :value="old('status')" />
+        </x-form-floating>
+      </div>
+
+      <div class="col-lg-2">
+        <x-form-floating>
+          <select name="origin" id="origin" class="form-select text-capitalize">
+            <option selected disabled>Pilih Kota Asal</option>
+            @foreach ($cities as $value)
+              <option value="{{ $value['city_id'] }}">{{ $value['city_name'] }}</option>
+            @endforeach
+          </select>
+          <label for="origin">Kota Asal</label>
         </x-form-floating>
       </div>
 

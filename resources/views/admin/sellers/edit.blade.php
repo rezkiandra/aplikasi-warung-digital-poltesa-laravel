@@ -47,16 +47,16 @@
 
             <div class="col-lg-4">
               <x-form-floating>
-                <select name="bank_account_id" id="bank_account_id" class="form-select">
-                  <option value="{{ $seller->bank_account_id }}">
-                    {{ \App\Models\BankAccount::find($seller->bank_account_id)->bank_name }}</option>
-                  @foreach ($bank as $key => $value)
-                    @if ($key == $seller->bank_account_id)
+                <select name="origin" id="origin" class="form-select text-capitalize">
+                  <option value="{{ $seller->origin }}">{{ $city_name }}</option>
+                  @foreach ($cities as $value)
+                    @if ($value == $seller->origin)
                       @continue
                     @endif
-                    <option value="{{ $key }}">{{ $value }}</option>
+                    <option value="{{ $value['city_id'] }}">{{ $value['city_name'] }}</option>
                   @endforeach
                 </select>
+                <label for="origin">Kota Asal</label>
               </x-form-floating>
             </div>
 
@@ -71,6 +71,7 @@
                     <option value="{{ $key }}">{{ $value }}</option>
                   @endforeach
                 </select>
+                <label for="gender">Jenis Kelamin</label>
               </x-form-floating>
             </div>
 
@@ -85,10 +86,27 @@
                     <option value="{{ $key }}">{{ $value }}</option>
                   @endforeach
                 </select>
+                <label for="status">Status</label>
               </x-form-floating>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-lg-2">
+              <x-form-floating>
+                <select name="bank_account_id" id="bank_account_id" class="form-select">
+                  <option value="{{ $seller->bank_account_id }}">
+                    {{ \App\Models\BankAccount::find($seller->bank_account_id)->bank_name }}</option>
+                  @foreach ($bank as $key => $value)
+                    @if ($key == $seller->bank_account_id)
+                      @continue
+                    @endif
+                    <option value="{{ $key }}">{{ $value }}</option>
+                  @endforeach
+                </select>
+                <label for="bank_account_id">Bank</label>
+              </x-form-floating>
+            </div>
+
+            <div class="col-lg-2">
               <x-form-floating>
                 <x-input-form-label :label="'Nomor Rekening'" :name="'account_number'" :type="'text'" :value="$seller->account_number" />
               </x-form-floating>

@@ -39,9 +39,24 @@
               </x-form-floating>
             </div>
 
-            <div class="col-lg-6">
+            <div class="col-lg-3">
               <x-form-floating>
                 <x-input-form-label :label="'Nomor HP'" :name="'phone_number'" :type="'text'" :value="$customer->phone_number" />
+              </x-form-floating>
+            </div>
+
+            <div class="col-lg-3">
+              <x-form-floating>
+                <select name="origin" id="origin" class="form-select text-capitalize">
+                  <option value="{{ $customer->origin }}">{{ $city_name }}</option>
+                  @foreach ($cities as $value)
+                    @if ($value == $customer->origin)
+                      @continue
+                    @endif
+                    <option value="{{ $value['city_id'] }}">{{ $value['city_name'] }}</option>
+                  @endforeach
+                </select>
+                <label for="origin">Kota Asal</label>
               </x-form-floating>
             </div>
 
@@ -56,6 +71,7 @@
                     <option value="{{ $key }}">{{ $value }}</option>
                   @endforeach
                 </select>
+                <label for="gender">Jenis Kelamin</label>
               </x-form-floating>
             </div>
 
@@ -70,6 +86,7 @@
                     <option value="{{ $key }}">{{ $value }}</option>
                   @endforeach
                 </select>
+                <label for="status">Status</label>
               </x-form-floating>
             </div>
 
