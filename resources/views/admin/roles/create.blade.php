@@ -1,7 +1,5 @@
 @extends('layouts.authenticated')
-
 @section('title', 'Tambah Role')
-
 @section('content')
   <x-create-form :title="'Tambah role baru'" :action="route('admin.store.role')" :route="route('admin.roles')">
     <x-form-floating>

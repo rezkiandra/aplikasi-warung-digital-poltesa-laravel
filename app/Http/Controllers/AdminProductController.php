@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Seller;
 use App\Models\Products;
 use Illuminate\Support\Str;
+use App\Models\ProductCategory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductsRequest;
 use Illuminate\Support\Facades\Storage;
@@ -16,7 +18,9 @@ class AdminProductController extends Controller
    */
   public function create()
   {
-    return view('admin.products.create');
+    $categories = ProductCategory::pluck('name', 'id')->toArray();
+    $seller = Seller::pluck('full_name', 'id')->toArray();
+    return view('admin.products.create', compact('categories', 'seller'));
   }
 
   /**
@@ -56,7 +60,8 @@ class AdminProductController extends Controller
   public function edit(string $uuid)
   {
     $product = Products::where('uuid', $uuid)->firstOrFail();
-    return view('admin.products.edit', compact('product'));
+    $categories = ProductCategory::pluck('name', 'id')->toArray();
+    return view('admin.products.edit', compact('product', 'categories'));
   }
 
   /**

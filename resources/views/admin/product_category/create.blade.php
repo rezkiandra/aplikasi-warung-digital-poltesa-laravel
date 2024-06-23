@@ -1,7 +1,5 @@
 @extends('layouts.authenticated')
-
 @section('title', 'Tambah Kategori')
-
 @section('content')
   <x-create-form :title="'Tambah kategori baru'" :action="route('admin.store.category')" :route="route('admin.product_category')">
     <x-form-floating>

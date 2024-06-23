@@ -1,25 +1,3 @@
-@php
-  $totalOrder = \App\Models\Order::where('customer_id', $customer->id)->count();
-  $spentCost = number_format(
-      \App\Models\Order::where('customer_id', $customer->id)
-          ->where('orders.status', 'paid')
-          ->sum('total_price'),
-      0,
-      ',',
-      '.',
-  );
-  $totalCarts = \App\Models\ProductsCart::where('customer_id', $customer->id)->count();
-  $totalWishlist = \App\Models\Wishlist::where('customer_id', $customer->id)->count();
-  $orders = \App\Models\Order::where('customer_id', $customer->id)
-      ->orderBy('updated_at', 'desc')
-      ->paginate(5);
-
-  $username = \App\Models\User::where('id', $customer->user_id)->first()->name;
-  $email = \App\Models\User::where('id', $customer->user_id)->first()->email;
-  $customer_id = Str::substr($customer->uuid, 0, 5);
-  $customer_id = Str::upper($customer_id);
-@endphp
-
 @extends('layouts.authenticated')
 @section('title', 'Detail Pelanggan')
 @section('content')

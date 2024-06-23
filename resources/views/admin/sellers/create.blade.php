@@ -1,25 +1,5 @@
-@php
-  $user = \App\Models\User::where('role_id', '2')
-      ->join('sellers', 'users.id', '=', 'sellers.user_id', 'left')
-      ->where('sellers.user_id', null)
-      ->pluck('name', 'users.id')
-      ->toArray();
-  $gender = [
-      'laki-laki' => 'laki-laki',
-      'perempuan' => 'perempuan',
-  ];
-  $status = [
-      'active' => 'Aktif',
-      'inactive' => 'Tidak Aktif',
-      'pending' => 'pending',
-  ];
-  $bank = \App\Models\BankAccount::pluck('bank_name', 'id')->toArray();
-@endphp
-
 @extends('layouts.authenticated')
-
 @section('title', 'Tambah Penjual')
-
 @section('content')
   <x-create-form :title="'Tambah penjual baru'" :action="route('admin.store.seller')" :route="route('admin.sellers')">
     <div class="row">

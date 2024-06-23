@@ -1,21 +1,5 @@
-@php
-  $currentSeller = \App\Models\Seller::where('user_id', Auth::user()->id)->first();
-  $categories = \App\Models\ProductCategory::pluck('name', 'id')->toArray();
-
-  $totalProductCurrentSeller = \App\Models\Products::where('seller_id', Auth::user()->seller->id)->count();
-  $totalProductTopSaleCurrentSeller = \App\Models\Products::where('products.seller_id', Auth::user()->seller->id)
-      ->join('orders', 'products.id', '=', 'orders.product_id', 'left')
-      ->where('orders.product_id', '>=', 20)
-      ->count();
-  $totalProductDiscountCurrentSeller = 0;
-  $totalProductOutOfStockCurrentSeller = \App\Models\Products::where('stock', '=', 0)
-      ->where('seller_id', Auth::user()->seller->id)
-      ->count();
-@endphp
-
 @extends('layouts.authenticated')
 @section('title', 'Produk')
-
 @section('content')
   <h4 class="mb-1">Daftar Produk</h4>
   <p class="mb-3">Sebuah produk akan dibeli oleh pelanggan</p>

@@ -1,10 +1,3 @@
-@php
-  $customerCount = $customers->count();
-  $activeCustomer = \App\Models\Customer::where('status', 'active')->count();
-  $inactiveCustomer = \App\Models\Customer::where('status', 'inactive')->count();
-  $pendingCustomer = \App\Models\Customer::where('status', 'pending')->count();
-@endphp
-
 @extends('layouts.authenticated')
 @section('title', 'Pelanggan')
 @section('content')

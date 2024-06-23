@@ -66,7 +66,8 @@
             <i class="mdi mdi-cart-outline me-2"></i>
             <span class="text-dark">Terjual</span>
             <span
-              class="ms-1 text-secondary">{{ \App\Models\Order::where('product_id', $product->id)->sum('quantity') }}</span>
+              class="ms-1 text-secondary">{{ \App\Models\Order::where('product_id', $product->id)->sum('quantity') }}
+            </span>
           </p>
           <p class="d-lg-flex align-items-center gap-1">
             <i class="mdi mdi-star-half-full text-warning"></i>

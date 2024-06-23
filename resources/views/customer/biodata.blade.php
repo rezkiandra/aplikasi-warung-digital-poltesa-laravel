@@ -1,11 +1,3 @@
-@php
-  $gender = [
-      'laki-laki' => 'laki-laki',
-      'perempuan' => 'perempuan',
-  ];
-  $currentCustomer = \App\Models\Customer::where('user_id', Auth::user()->id)->first();
-@endphp
-
 @extends('layouts.authenticated')
 @section('title', 'Biodata')
 @section('content')

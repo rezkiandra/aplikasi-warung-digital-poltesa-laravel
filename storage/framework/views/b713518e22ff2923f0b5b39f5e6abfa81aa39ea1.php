@@ -1,10 +1,3 @@
-<?php
-  $sellerCount = \App\Models\Seller::all()->count();
-  $activeSeller = \App\Models\Seller::where('status', 'active')->count();
-  $inactiveSeller = \App\Models\Seller::where('status', 'inactive')->count();
-  $pendingSeller = \App\Models\Seller::where('status', 'pending')->count();
-?>
-
 
 <?php $__env->startSection('title', 'Penjual'); ?>
 <?php $__env->startSection('content'); ?>

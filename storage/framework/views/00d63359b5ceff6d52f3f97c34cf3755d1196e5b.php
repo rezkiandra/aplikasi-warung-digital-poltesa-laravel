@@ -1,7 +1,5 @@
 <?php
-  $alertMessage =
-      'Anda memiliki kendali penuh terhadap aplikasi ini. Jadilah seorang administrator yang bertanggung jawab!!';
-  // Greetings Card
+  $alertMessage = 'Anda memiliki kendali penuh terhadap aplikasi ini. Jadilah seorang administrator yang bertanggung jawab!!';
   $message = 'Dashboard admin berisi informasi tentang transaksi, pengguna, penjual, dan produk';
   $greetings = 'Halo, ' . auth()->user()->name;
   $descriptionGreetings = 'Selamat datang di dashboard admin';
@@ -9,42 +7,8 @@
   $value = \App\Models\User::count();
   $actionLabel = 'Selengkapnya';
   $route = route('admin.users');
-
-  // Transaction Card
   $title = 'Data Master';
   $description = 'Total data master keseluruhan';
-
-  // Transaction Item Card
-  $totalSeller = \App\Models\Seller::count();
-  $totalCustomer = \App\Models\Customer::count();
-  $totalProduct = \App\Models\Products::count();
-  $totalOrder = \App\Models\Order::count();
-
-  // Top Card Content
-  $topSellers = \App\Models\Order::selectRaw('seller_id, count(*) as total')
-      ->where('orders.status', 'sudah bayar')
-      ->groupBy('seller_id')
-      ->selectRaw('SUM(orders.total_price) as total_price')
-      ->orderBy('total_price', 'desc')
-      ->take(5)
-      ->get();
-
-  $topCustomers = \App\Models\Order::selectRaw('customer_id, count(*) as total')
-      ->where('orders.status', 'sudah bayar')
-      ->groupBy('customer_id')
-      ->orderBy('total', 'desc')
-      ->take(5)
-      ->get();
-
-  $topProducts = \App\Models\Order::select('product_id', DB::raw('SUM(quantity) as total'))
-      ->join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->groupBy('product_id')
-      ->orderBy('total', 'desc')
-      ->orderBy('products.price', 'desc')
-      ->take(5)
-      ->get();
-
-  $users = \App\Models\User::with('seller', 'customer')->orderBy('role_id', 'asc')->paginate(8);
 ?>
 
 <?php $__env->startSection('title', 'Dashboard'); ?>

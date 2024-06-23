@@ -1,22 +1,9 @@
-<?php
-  $products = \App\Models\Products::paginate(10);
-  $totalProducts = \App\Models\Products::count();
-  $categories = \App\Models\ProductCategory::pluck('name', 'id')->toArray();
-
-  $totalOrders = \App\Models\Order::all()->count();
-  $totalTopSale = \App\Models\Order::join('products', 'products.id', '=', 'orders.product_id', 'left')
-      ->where('orders.product_id', '>=', 20)
-      ->count();
-  $totalDiscount = 0;
-  $totalOutOfStock = \App\Models\Products::where('stock', '=', 0)->count();
-?>
-
 
 <?php $__env->startSection('title', 'Produk'); ?>
 <?php $__env->startSection('content'); ?>
   <h4 class="mb-1">Daftar Produk</h4>
   <p class="mb-3">Sebuah produk akan dibeli oleh pelanggan</p>
-  <?php if(Auth::user()->role_id == 2): ?>
+  <?php if(Auth::user()->seller): ?>
     <?php if (isset($component)) { $__componentOriginal884241e53d2640b5f4918f6ac6f391c8aaea60a8 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\BasicButton::class, ['label' => 'Tambah Produk','icon' => 'plus','class' => 'w-0 text-uppercase mb-4','variant' => 'primary','href' => route('admin.create.product')]); ?>
 <?php $component->withName('basic-button'); ?>
@@ -93,7 +80,7 @@
 <?php endif; ?>
 
   <?php if (isset($component)) { $__componentOriginal42c34a2cee95a541f23e2bf4c5fd2cd07a02f245 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\ProductsTabel::class, ['title' => 'Data Produk','datas' => $products,'fields' => ['no', 'produk', 'kategori / penjual', 'harga', 'stok', 'Publish Pada', 'Aksi']]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\ProductsTabel::class, ['title' => 'Data Produk','datas' => $products,'fields' => ['no', 'produk', 'kategori / penjual', 'harga', 'stok', 'terjual', 'Publish Pada', 'Aksi']]); ?>
 <?php $component->withName('products-tabel'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

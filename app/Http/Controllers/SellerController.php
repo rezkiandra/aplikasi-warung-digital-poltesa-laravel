@@ -53,8 +53,42 @@ class SellerController extends Controller
         ],
       ];
 
+      $earnings = Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
+        ->where('products.seller_id', auth()->user()->seller->id)
+        ->where('orders.status', 'sudah bayar')
+        ->orderBy('orders.created_at', 'desc')
+        ->take(5)
+        ->get();
+      $titleEarnings = 'Total Pendapatan';
+      $earningsValue = 'Rp ' . number_format($earnings->sum('total_price'), 0, ',', '.');
+      $descriptionEarnings = 'Total pendapatan keseluruhan';
+
+      $totalPaid = Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->where('products.seller_id', auth()->user()->seller->id)->where('orders.status', 'sudah bayar')->count();
+      $totalUnpaid = Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->where('products.seller_id', auth()->user()->seller->id)->where('orders.status', 'belum bayar')->count();
+      $totalExpire = Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->where('products.seller_id', auth()->user()->seller->id)->where('orders.status', 'kadaluarsa')->count();
+      $totalCancelled = Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->where('products.seller_id', auth()->user()->seller->id)->where('orders.status', 'dibatalkan')->count();
+
+      $topCustomers = Order::selectRaw('customer_id, count(*) as total')
+        ->join('products', 'orders.product_id', '=', 'products.id', 'left')
+        ->where('products.seller_id', auth()->user()->seller->id)
+        ->where('orders.status', 'sudah bayar')
+        ->groupBy('customer_id')
+        ->orderBy('total', 'desc')
+        ->take(5)
+        ->get();
+
+      $topProducts = Order::selectRaw('product_id, count(*) as total')
+        ->join('products', 'orders.product_id', '=', 'products.id', 'left')
+        ->where('products.seller_id', auth()->user()->seller->id)
+        ->where('orders.status', 'sudah bayar')
+        ->groupBy('product_id')
+        ->selectRaw('SUM(orders.quantity) as total')
+        ->orderBy('product_id', 'asc')
+        ->take(5)
+        ->get();
+
       $products = Products::where('seller_id', Auth::user()->seller->id)->orderBy('created_at', 'desc')->paginate(6) ?? collect([]);
-      return view('seller.dashboard', compact('products', 'data'));
+      return view('seller.dashboard', compact('products', 'data', 'titleEarnings', 'earningsValue', 'descriptionEarnings', 'totalPaid', 'totalUnpaid', 'totalExpire', 'totalCancelled', 'topCustomers', 'topProducts'));
     } else {
       $products = collect([]);
       return view('seller.anonymous', compact('products'));
@@ -63,7 +97,12 @@ class SellerController extends Controller
 
   public function orders()
   {
-    return view('seller.orders.index');
+    $orders = Order::where('seller_id', auth()->user()->seller->id)->orderBy('orders.id', 'desc')->paginate(10);
+    $totalPaid = Order::where('seller_id', auth()->user()->seller->id)->where('orders.status', 'sudah bayar')->count();
+    $totalUnpaid = Order::where('seller_id', auth()->user()->seller->id)->where('orders.status', 'belum bayar')->count();
+    $totalExpire = Order::where('seller_id', auth()->user()->seller->id)->where('orders.status', 'kadaluarsa')->count();
+    $totalCancelled = Order::where('seller_id', auth()->user()->seller->id)->where('orders.status', 'dibatalkan')->count();
+    return view('seller.orders.index', compact('orders', 'totalPaid', 'totalUnpaid', 'totalExpire', 'totalCancelled'));
   }
 
   public function orderDetail(string $uuid)
@@ -101,7 +140,8 @@ class SellerController extends Controller
 
   public function settings()
   {
-    return view('seller.settings');
+    $userSeller = User::where('uuid', Auth::user()->uuid)->first();
+    return view('seller.settings', compact('userSeller'));
   }
 
   public function updateProfile(UserRequest $request, string $uuid)

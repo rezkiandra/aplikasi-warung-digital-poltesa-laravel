@@ -1,17 +1,3 @@
-@php
-  $user = \App\Models\User::where('role_id', '2')->pluck('name', 'id')->toArray();
-  $gender = [
-      'male' => 'male',
-      'female' => 'female',
-  ];
-  $status = [
-      'active' => 'active',
-      'inactive' => 'inactive',
-      'pending' => 'pending',
-  ];
-  $bank = \App\Models\BankAccount::pluck('bank_name', 'id')->toArray();
-@endphp
-
 @extends('layouts.authenticated')
 @section('title', 'Edit Pelanggan')
 @section('content')

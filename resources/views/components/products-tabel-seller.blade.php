@@ -8,6 +8,7 @@
         <th>Kategori</th>
         <th>Harga</th>
         <th>Stok</th>
+        <th>Terjual</th>
         <th>Berat (gram)</th>
         <th>Dipublish Pada</th>
         <th>Aksi</th>
@@ -39,6 +40,16 @@
             </td>
             <td>
               <span class="fw-medium text-dark">{{ $data->stock }} {{ $data->unit }}</span>
+            </td>
+            <td>
+              @if (App\Models\Order::where('product_id', $data->id)->sum('quantity') > 0)
+                <span
+                  class="text-truncate text-dark">{{ \App\Models\Order::where('product_id', $data->id)->sum('quantity') }}
+                  {{ $data->unit }}
+                </span>
+              @else
+                <span class="text-truncate text-dark">-</span>
+              @endif
             </td>
             <td>
               <span class="fw-medium text-dark">{{ $data->weight }}</span>

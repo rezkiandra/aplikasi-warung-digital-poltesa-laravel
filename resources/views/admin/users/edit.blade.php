@@ -1,15 +1,3 @@
-@php
-  $gender = [
-      'male' => 'male',
-      'female' => 'female',
-  ];
-  $status = [
-      'active' => 'active',
-      'inactive' => 'inactive',
-      'pending' => 'pending',
-  ];
-  $role = \App\Models\Role::where('role_name', '!=', 'Admin')->pluck('role_name', 'id')->toArray();
-@endphp
 @extends('layouts.authenticated')
 @section('title', 'Edit Pengguna')
 @section('content')

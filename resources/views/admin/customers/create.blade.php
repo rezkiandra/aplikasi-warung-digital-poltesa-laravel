@@ -1,24 +1,5 @@
-@php
-  $user = \App\Models\User::where('role_id', '3')
-      ->join('customers', 'users.id', '=', 'customers.user_id', 'left')
-      ->where('customers.user_id', null)
-      ->pluck('name', 'users.id')
-      ->toArray();
-  $gender = [
-      'laki-laki' => 'laki-laki',
-      'perempuan' => 'perempuan',
-  ];
-  $status = [
-      'active' => 'active',
-      'inactive' => 'inactive',
-      'pending' => 'pending',
-  ];
-@endphp
-
 @extends('layouts.authenticated')
-
 @section('title', 'Tambah Customer')
-
 @section('content')
   <x-create-form :title="'Tambah customer baru'" :action="route('admin.store.customer')" :route="route('admin.customers')">
     <div class="row">

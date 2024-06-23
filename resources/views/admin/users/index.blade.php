@@ -1,17 +1,3 @@
-|@php
-  $users = \App\Models\User::orderBy('role_id', 'asc')->paginate(10);
-  $totalUsers = \App\Models\User::count();
-  $totalAdmins = \App\Models\User::join('roles', 'users.role_id', '=', 'roles.id', 'left')
-      ->where('roles.role_name', 'Admin')
-      ->count();
-  $totalSellers = \App\Models\User::join('roles', 'users.role_id', '=', 'roles.id', 'left')
-      ->where('roles.role_name', 'Seller')
-      ->count();
-  $totalCustomers = \App\Models\User::join('roles', 'users.role_id', '=', 'roles.id', 'left')
-      ->where('roles.role_name', 'Customer')
-      ->count();
-@endphp
-
 @extends('layouts.authenticated')
 @section('title', 'Pengguna')
 @section('content')

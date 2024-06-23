@@ -13,6 +13,7 @@ use App\Models\ProductsCart;
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -80,8 +81,34 @@ class CustomerController extends Controller
         ],
       ];
 
+      $spent = Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->get();
+      $titleSpent = 'Pengeluaran biaya tanpa pengiriman';
+      $spentValue = 'Rp ' . number_format($spent->sum('total_price'), 0, ',', '.');
+      $descriptionSpent = 'Total pengeluaran keseluruhan';
+
+      $totalPaid = Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->count();
+      $totalUnpaid = Order::where('customer_id', auth()->user()->customer->id)->where('status', 'belum bayar')->count();
+      $totalExpire = Order::where('customer_id', auth()->user()->customer->id)->where('status', 'kadaluarsa')->count();
+      $totalCancelled = Order::where('customer_id', auth()->user()->customer->id)->where('status', 'dibatalkan')->count();
+
+      $topProducts = Order::select('product_id', DB::raw('SUM(quantity) as total'))
+        ->join('products', 'orders.product_id', '=', 'products.id', 'left')
+        ->where('orders.customer_id', auth()->user()->customer->id)
+        ->where('status', 'sudah bayar')
+        ->groupBy('product_id')
+        ->orderBy('total', 'desc')
+        ->orderBy('products.price', 'desc')
+        ->take(5)
+        ->get();
+
+      $labelCart = 'Keranjang Produk';
+      $valueCart = ProductsCart::where('customer_id', auth()->user()->customer->id)->count();
+
+      $labelWishlist = 'Wishlist Produk';
+      $valueWishlist = Wishlist::where('customer_id', auth()->user()->customer->id)->count();
+
       $orders = Order::with('product')->where('customer_id', Auth::user()->customer->id)->orderBy('created_at', 'desc')->paginate(6) ?? collect([]);
-      return view('customer.dashboard', compact('orders', 'data'));
+      return view('customer.dashboard', compact('orders', 'data', 'titleSpent', 'spentValue', 'descriptionSpent', 'totalPaid', 'totalUnpaid', 'totalExpire', 'totalCancelled', 'topProducts', 'labelCart', 'valueCart', 'labelWishlist', 'valueWishlist'));
     } else {
       $orders = collect([]);
       return view('customer.anonymous', compact('orders'));
@@ -116,13 +143,18 @@ class CustomerController extends Controller
 
   public function biodata()
   {
+    $gender = [
+      'laki-laki' => 'laki-laki',
+      'perempuan' => 'perempuan',
+    ];
+    $currentCustomer = Customer::where('user_id', Auth::user()->id)->first();
     $customer = Customer::where('user_id', Auth::user()->id)->get();
     $response = Http::withHeaders(['key' => $this->api_key])->get($this->endpoint . '/city');
     $cities = $response['rajaongkir']['results'];
 
     $city_id = $customer->pluck('origin')->first();
     $city_name = $this->getCityName($city_id);
-    return view('customer.biodata', compact('customer', 'cities', 'city_name'));
+    return view('customer.biodata', compact('customer', 'cities', 'city_name', 'gender', 'currentCustomer'));
   }
 
   public function cart()
@@ -142,7 +174,14 @@ class CustomerController extends Controller
     } else {
       $wishlists = collect([]);
     }
-    return view('customer.wishlist', compact('wishlists'));
+
+    $user_role = Auth::user()->role_id ?? '';
+    if (Auth::check() && auth()->user()->customer) {
+      $wishlistUUID = Wishlist::where('customer_id', auth()->user()->customer->id)
+        ->pluck('uuid')
+        ->toArray();
+    }
+    return view('customer.wishlist', compact('wishlists', 'user_role', 'wishlistUUID'));
   }
 
   public function orders()
@@ -165,7 +204,8 @@ class CustomerController extends Controller
 
   public function settings()
   {
-    return view('customer.settings');
+    $userCustomer = User::where('uuid', Auth::user()->uuid)->first();
+    return view('customer.settings', compact('userCustomer'));
   }
 
   public function updateProfile(UserRequest $request, string $uuid)

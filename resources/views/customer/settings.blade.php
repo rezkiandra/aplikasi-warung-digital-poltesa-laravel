@@ -1,7 +1,3 @@
-@php
-  $userCustomer = \App\Models\User::where('uuid', Auth::user()->uuid)->first();
-@endphp
-
 @extends('layouts.authenticated')
 @section('title', 'Profile')
 @section('content')

@@ -11,6 +11,7 @@ use App\Models\Customer;
 use App\Models\Products;
 use App\Models\BankAccount;
 use App\Models\ProductCategory;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -92,37 +93,91 @@ class AdminController extends Controller
       ],
     ];
 
-    return view('admin.dashboard', compact('data'));
+    $totalSeller = Seller::count();
+    $totalCustomer = Customer::count();
+    $totalProduct = Products::count();
+    $totalOrder = Order::count();
+
+    $topSellers = Order::selectRaw('seller_id, count(*) as total')
+      ->where('orders.status', 'sudah bayar')
+      ->groupBy('seller_id')
+      ->selectRaw('SUM(orders.total_price) as total_price')
+      ->orderBy('total_price', 'desc')
+      ->take(5)
+      ->get();
+
+    $topCustomers = Order::selectRaw('customer_id, count(*) as total')
+      ->where('orders.status', 'sudah bayar')
+      ->groupBy('customer_id')
+      ->orderBy('total', 'desc')
+      ->take(5)
+      ->get();
+
+    $topProducts = Order::select('product_id', DB::raw('SUM(quantity) as total'))
+      ->join('products', 'orders.product_id', '=', 'products.id', 'left')
+      ->groupBy('product_id')
+      ->orderBy('total', 'desc')
+      ->orderBy('products.price', 'desc')
+      ->take(5)
+      ->get();
+
+    $users = User::with('seller', 'customer')->orderBy('role_id', 'asc')->paginate(8);
+    return view('admin.dashboard', compact('data', 'totalSeller', 'totalCustomer', 'totalProduct', 'totalOrder', 'topSellers', 'topCustomers', 'topProducts', 'users'));
   }
 
   public function sellers()
   {
     $sellers = Seller::all();
-    return view('admin.sellers.index', compact('sellers'));
+    $sellerCount = Seller::all()->count();
+    $activeSeller = Seller::where('status', 'active')->count();
+    $inactiveSeller = Seller::where('status', 'inactive')->count();
+    $pendingSeller = Seller::where('status', 'pending')->count();
+
+    return view('admin.sellers.index', compact('sellers', 'sellerCount', 'activeSeller', 'inactiveSeller', 'pendingSeller'));
   }
 
   public function customers()
   {
     $customers = Customer::all();
-    return view('admin.customers.index', compact('customers'));
+    $customerCount = $customers->count();
+    $activeCustomer = Customer::where('status', 'active')->count();
+    $inactiveCustomer = Customer::where('status', 'inactive')->count();
+    $pendingCustomer = Customer::where('status', 'pending')->count();
+
+    return view('admin.customers.index', compact('customers', 'customerCount', 'activeCustomer', 'inactiveCustomer', 'pendingCustomer'));
   }
 
   public function users()
   {
-    $users = User::all();
-    return view('admin.users.index', compact('users'));
+    $users = User::orderBy('role_id', 'asc')->paginate(10);
+    $totalUsers = User::count();
+    $totalAdmins = User::join('roles', 'users.role_id', '=', 'roles.id', 'left')->where('role_name', 'Admin')->count();
+    $totalSellers = User::join('roles', 'users.role_id', '=', 'roles.id', 'left')->where('role_name', 'Seller')->count();
+    $totalCustomers = User::join('roles', 'users.role_id', '=', 'roles.id', 'left')->where('role_name', 'Customer')->count();
+    return view('admin.users.index', compact('users', 'totalUsers', 'totalAdmins', 'totalSellers', 'totalCustomers'));
   }
 
   public function products()
   {
-    $products = Products::all();
-    return view('admin.products.index', compact('products'));
+    $products = Products::paginate(10);
+    $totalProducts = Products::count();
+    $categories = ProductCategory::pluck('name', 'id')->toArray();
+
+    $totalTopSale = Order::where('product_id', '>=', 3)->count();
+    $totalDiscount = 0;
+    $totalOutOfStock = Products::where('stock', '=', 0)->count();
+    return view('admin.products.index', compact('products', 'totalProducts', 'categories', 'totalTopSale', 'totalDiscount', 'totalOutOfStock'));
   }
 
   public function orders()
   {
-    $orders = Order::all();
-    return view('admin.orders.index', compact('orders'));
+    $orders = Order::paginate(10);
+    $totalPaid = Order::where('status', 'sudah bayar')->count();
+    $totalUnpaid = Order::where('status', 'belum bayar')->count();
+    $totalExpire = Order::where('status', 'kadaluarsa')->count();
+    $totalCancelled = Order::where('status', 'dibatalkan')->count();
+
+    return view('admin.orders.index', compact('orders', 'totalPaid', 'totalUnpaid', 'totalExpire', 'totalCancelled'));
   }
 
   public function detailOrder(string $uuid)
@@ -152,6 +207,7 @@ class AdminController extends Controller
 
   public function settings()
   {
-    return view('admin.settings.index');
+    $user = User::where('role_id', '1')->first();
+    return view('admin.settings.index', compact('user'));
   }
 }
