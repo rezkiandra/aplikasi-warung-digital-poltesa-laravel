@@ -4,19 +4,19 @@
       ->paginate(10);
 
   $totalPaid = \App\Models\Order::where('seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'paid')
+      ->where('orders.status', 'sudah bayar')
       ->count();
 
   $totalUnpaid = \App\Models\Order::where('seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'unpaid')
+      ->where('orders.status', 'belum bayar')
       ->count();
 
   $totalExpire = \App\Models\Order::where('seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'expire')
+      ->where('orders.status', 'kadaluarsa')
       ->count();
 
   $totalCancelled = \App\Models\Order::where('seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'cancelled')
+      ->where('orders.status', 'dibatalkan')
       ->count();
 @endphp
 @extends('layouts.authenticated')

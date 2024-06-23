@@ -99,7 +99,7 @@
                       class="text-uppercase">{{ Str::substr($shipping->uuid, 0, 5) }}</span>)</h6>
                   <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->created_at)) }}</small>
                 </div>
-                <p class="mt-1 mb-3">Anda harus menyelesaikan proses pembayaran</p>
+                <p class="mt-1 mb-3">Pelanggan anda harus menyelesaikan proses pembayaran</p>
               </div>
             </li>
             <li class="timeline-item timeline-item-transparent border-primary">
@@ -109,7 +109,7 @@
                   <h6 class="mb-0">Ekspedisi pengiriman menggunakan {{ $shipping->courier }}</h6>
                   <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->created_at)) }}</small>
                 </div>
-                <p class="mt-1 mb-3">Estimasi pengiriman produk anda {{ $shipping->etd }} hari</p>
+                <p class="mt-1 mb-3">Estimasi pengiriman produk {{ $shipping->etd }} hari</p>
               </div>
             </li>
 
@@ -117,9 +117,9 @@
             {{-- E-Channel --}}
             @if (
                 $shipping->order->payment_method &&
-                    ($shipping->order->status == 'paid' ||
-                        $shipping->order->status == 'expire' ||
-                        $shipping->order->status == 'unpaid') &&
+                    ($shipping->order->status == 'sudah bayar' ||
+                        $shipping->order->status == 'kadaluarsa' ||
+                        $shipping->order->status == 'belum bayar') &&
                     $shipping->order->bill_key &&
                     $shipping->order->biller_code)
               <li class="timeline-item timeline-item-transparent border-primary">
@@ -128,45 +128,45 @@
                   <div class="timeline-header mb-1">
                     <h6 class="mb-0">Metode pembayaran menggunakan <span
                         class="text-uppercase">{{ $shipping->order->payment_method }}</span></h6>
-                    <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->transaction_time)) }}</small>
+                    <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->order->transaction_time)) }}</small>
                   </div>
                   <p class="mt-1 mb-3">Selesaikan pembayaran sebelum
-                    {{ date('d M Y, H:i:s', strtotime($shipping->expiry_time)) }}</p>
+                    {{ date('d M Y, H:i:s', strtotime($shipping->order->expiry_time)) }}</p>
                 </div>
               </li>
-              @if ($shipping->order->status == 'paid')
+              @if ($shipping->order->status == 'sudah bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
+                      <h6 class="mb-0">Pelanggan berhasil membayar sebesar Rp
                         {{ number_format($shipping->order->total_price + 1000 + $shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Anda sudah membayar pesanan</p>
+                    <p class="mt-1 mb-3">Pelanggan sudah membayar pesanan</p>
                   </div>
                 </li>
-              @elseif ($shipping->order->status == 'expire')
+              @elseif ($shipping->order->status == 'kadaluarsa')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda telah kadaluarsa</h6>
+                      <h6 class="mb-0">Pelanggan anda telah membatalkan pesanan</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda tidak dapat membeli produk</p>
                   </div>
                 </li>
-              @elseif ($shipping->order->status == 'unpaid')
+              @elseif ($shipping->order->status == 'belum bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda belum dibayar</h6>
+                      <h6 class="mb-0">Pelanggan belum membayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Anda harus segera membayar pesanan sebesar Rp
+                    <p class="mt-1 mb-3">Pelanggan anda harus segera membayar pesanan sebesar Rp
                       {{ number_format($shipping->order->total_price + 1000 + $shipping->price, 0, ',', '.') }}
                     </p>
                   </div>
@@ -176,9 +176,9 @@
               {{-- QRIS --}}
             @elseif (
                 $shipping->order->payment_method &&
-                    ($shipping->order->status == 'paid' ||
-                        $shipping->order->status == 'expire' ||
-                        $shipping->order->status == 'unpaid') &&
+                    ($shipping->order->status == 'sudah bayar' ||
+                        $shipping->order->status == 'kadaluarsa' ||
+                        $shipping->order->status == 'belum bayar') &&
                     $shipping->order->issuer &&
                     $shipping->order->acquirer)
               <li class="timeline-item timeline-item-transparent border-primary">
@@ -187,45 +187,45 @@
                   <div class="timeline-header mb-1">
                     <h6 class="mb-0">Metode pembayaran menggunakan <span
                         class="text-uppercase">{{ $shipping->order->payment_method }}</span></h6>
-                    <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->transaction_time)) }}</small>
+                    <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->order->transaction_time)) }}</small>
                   </div>
                   <p class="mt-1 mb-3">Selesaikan pembayaran sebelum
-                    {{ date('d M Y, H:i:s', strtotime($shipping->expiry_time)) }}</p>
+                    {{ date('d M Y, H:i:s', strtotime($shipping->order->expiry_time)) }}</p>
                 </div>
               </li>
-              @if ($shipping->order->status == 'paid')
+              @if ($shipping->order->status == 'sudah bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
+                      <h6 class="mb-0">Pelanggan berhasil membayar sebesar Rp
                         {{ number_format($shipping->order->total_price + 1000 + $shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Anda sudah membayar pesanan</p>
+                    <p class="mt-1 mb-3">Pelanggan sudah membayar pesanan</p>
                   </div>
                 </li>
-              @elseif ($shipping->order->status == 'expire')
+              @elseif ($shipping->order->status == 'kadaluarsa')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda telah kadaluarsa</h6>
+                      <h6 class="mb-0">Pelanggan anda telah membatalkan pesanan</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda tidak dapat membeli produk</p>
                   </div>
                 </li>
-              @elseif ($shipping->order->status == 'unpaid')
+              @elseif ($shipping->order->status == 'belum bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda belum dibayar</h6>
+                      <h6 class="mb-0">Pelanggan belum membayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Anda harus segera membayar pesanan sebesar Rp
+                    <p class="mt-1 mb-3">Pelanggan anda harus segera membayar pesanan sebesar Rp
                       {{ number_format($shipping->order->total_price + 1000 + $shipping->price, 0, ',', '.') }}
                     </p>
                   </div>
@@ -235,54 +235,54 @@
               {{-- Virtual Account --}}
             @elseif (
                 $shipping->order->payment_method == 'bank_transfer' &&
-                    ($shipping->order->status == 'paid' ||
-                        $shipping->order->status == 'expire' ||
-                        $shipping->order->status == 'unpaid'))
+                    ($shipping->order->status == 'sudah bayar' ||
+                        $shipping->order->status == 'kadaluarsa' ||
+                        $shipping->order->status == 'belum bayar'))
               <li class="timeline-item timeline-item-transparent border-primary">
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
                   <div class="timeline-header mb-1">
                     <h6 class="mb-0">Metode pembayaran menggunakan <span
                         class="text-uppercase">{{ $shipping->order->payment_method }}</span></h6>
-                    <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->transaction_time)) }}</small>
+                    <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->order->transaction_time)) }}</small>
                   </div>
                   <p class="mt-1 mb-3">Selesaikan pembayaran sebelum
-                    {{ date('d M Y, H:i:s', strtotime($shipping->expiry_time)) }}</p>
+                    {{ date('d M Y, H:i:s', strtotime($shipping->order->expiry_time)) }}</p>
                 </div>
               </li>
-              @if ($shipping->order->status == 'paid')
+              @if ($shipping->order->status == 'sudah bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
+                      <h6 class="mb-0">Pelanggan berhasil membayar sebesar Rp
                         {{ number_format($shipping->order->total_price + 1000 + $shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Anda sudah membayar pesanan</p>
+                    <p class="mt-1 mb-3">Pelanggan sudah membayar pesanan</p>
                   </div>
                 </li>
-              @elseif ($shipping->order->status == 'expire')
+              @elseif ($shipping->order->status == 'kadaluarsa')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda telah kadaluarsa</h6>
+                      <h6 class="mb-0">Pelanggan anda telah membatalkan pesanan</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda tidak dapat membeli produk</p>
                   </div>
                 </li>
-              @elseif ($shipping->order->status == 'unpaid')
+              @elseif ($shipping->order->status == 'belum bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda belum dibayar</h6>
+                      <h6 class="mb-0">Pelanggan belum membayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Anda harus segera membayar pesanan sebesar Rp
+                    <p class="mt-1 mb-3">Pelanggan anda harus segera membayar pesanan sebesar Rp
                       {{ number_format($shipping->order->total_price + 1000 + $shipping->price, 0, ',', '.') }}
                     </p>
                   </div>
@@ -292,67 +292,67 @@
               {{-- Alfamart / Indomaret Group --}}
             @elseif (
                 $shipping->order->payment_method &&
-                    ($shipping->order->status == 'paid' ||
-                        $shipping->order->status == 'expire' ||
-                        $shipping->order->status == 'unpaid') &&
-                    $shipping->payment_code &&
-                    $shipping->store)
+                    ($shipping->order->status == 'sudah bayar' ||
+                        $shipping->order->status == 'kadaluarsa' ||
+                        $shipping->order->status == 'belum bayar') &&
+                    $shipping->order->payment_code &&
+                    $shipping->order->store)
               <li class="timeline-item timeline-item-transparent border-primary">
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
                   <div class="timeline-header mb-1">
                     <h6 class="mb-0">Metode pembayaran menggunakan <span
                         class="text-uppercase">{{ $shipping->order->payment_method }}</span></h6>
-                    <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->transaction_time)) }}</small>
+                    <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->order->transaction_time)) }}</small>
                   </div>
                   <p class="mt-1 mb-3">Selesaikan pembayaran sebelum
-                    {{ date('d M Y, H:i:s', strtotime($shipping->expiry_time)) }}</p>
+                    {{ date('d M Y, H:i:s', strtotime($shipping->order->expiry_time)) }}</p>
                 </div>
               </li>
-              @if ($shipping->order->status == 'paid')
+              @if ($shipping->order->status == 'sudah bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
+                      <h6 class="mb-0">Pelanggan berhasil membayar sebesar Rp
                         {{ number_format($shipping->order->total_price + 1000 + $shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Anda sudah membayar pesanan</p>
+                    <p class="mt-1 mb-3">Pelanggan sudah membayar pesanan</p>
                   </div>
                 </li>
-              @elseif ($shipping->order->status == 'expire')
+              @elseif ($shipping->order->status == 'kadaluarsa')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda telah kadaluarsa</h6>
+                      <h6 class="mb-0">Pelanggan anda telah membatalkan pesanan</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda tidak dapat membeli produk</p>
                   </div>
                 </li>
-              @elseif ($shipping->order->status == 'unpaid')
+              @elseif ($shipping->order->status == 'belum bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda belum dibayar</h6>
+                      <h6 class="mb-0">Pelanggan belum membayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Anda harus segera membayar pesanan sebesar Rp
+                    <p class="mt-1 mb-3">Pelanggan anda harus segera membayar pesanan sebesar Rp
                       {{ number_format($shipping->order->total_price + 1000 + $shipping->price, 0, ',', '.') }}
                     </p>
                   </div>
                 </li>
               @endif
-            @elseif($shipping->order->status == 'cancelled')
+            @elseif($shipping->order->status == 'dibatalkan')
               <li class="timeline-item timeline-item-transparent border-primary">
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
                   <div class="timeline-header mb-1">
-                    <h6 class="mb-0">Pesanan anda telah dibatalkan</h6>
+                    <h6 class="mb-0">Pelanggan anda telah membatalkan pesanan</h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                   </div>
                   <p class="mt-1 mb-3">Anda berhasil membatalkan pesanan</p>
@@ -361,12 +361,12 @@
             @endif
 
             {{-- Row 3 --}}
-            @if ($shipping->order->status == 'paid')
+            @if ($shipping->order->status == 'sudah bayar')
               <li class="timeline-item timeline-item-transparent border-primary">
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
                   <div class="timeline-header mb-1">
-                    <h6 class="mb-0">Status pesanan anda <span class="text-uppercase badge bg-label-success">
+                    <h6 class="mb-0">Status Pesanan <span class="text-uppercase badge bg-label-success">
                         Berhasil Dibayar</span></h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                   </div>
@@ -375,24 +375,24 @@
                   </p>
                 </div>
               </li>
-            @elseif ($shipping->order->status == 'cancelled')
+            @elseif ($shipping->order->status == 'dibatalkan')
               <li class="timeline-item timeline-item-transparent border-primary">
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
                   <div class="timeline-header mb-1">
-                    <h6 class="mb-0">Status pesanan anda <span class="text-uppercase badge bg-label-dark">
+                    <h6 class="mb-0">Status Pesanan <span class="text-uppercase badge bg-label-dark">
                         Dibatalkan</span></h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                   </div>
-                  <p class="mt-1 mb-3">Anda dapat membeli kembali produk dari pesanan ini</p>
+                  <p class="mt-1 mb-3">Pelanggan dapat membeli kembali produk dari pesanan ini</p>
                 </div>
               </li>
-            @elseif ($shipping->order->status == 'expire')
+            @elseif ($shipping->order->status == 'kadaluarsa')
               <li class="timeline-item timeline-item-transparent border-primary">
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
                   <div class="timeline-header mb-1">
-                    <h6 class="mb-0">Status pesanan anda <span
+                    <h6 class="mb-0">Status Pesanan <span
                         class="text-uppercase badge bg-label-danger">Kadaluarsa</span></h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                   </div>
@@ -403,7 +403,7 @@
           </ul>
         </div>
       </div>
-      @if ($shipping->order->status == 'unpaid')
+      @if ($shipping->order->status == 'belum bayar')
         <div class="card card-body text-dark mb-3">
           <h5 class="card-title mb-3">Ketentuan Berlaku :</h5>
           <ol>
@@ -528,7 +528,7 @@
             <h6 class="mb-1">Info Pembayaran</h6>
           </div>
 
-          @if ($shipping->order->status == 'paid')
+          @if ($shipping->order->status == 'sudah bayar')
             @if ($shipping->order->acquirer && $shipping->order->issuer)
               <p class="mb-1">Metode :
                 <span class="text-uppercase">{{ $shipping->order->payment_method }}</span>
@@ -583,12 +583,12 @@
               <p class="mb-1">Metode :
                 <span class="text-uppercase">{{ $shipping->order->payment_method }}</span>
               </p>
-              @if ($shipping->store && $shipping->payment_code)
+              @if ($shipping->order->store && $shipping->order->payment_code)
                 <p class="mb-1">Gerai :
-                  <span class="text-capitalize">{{ $shipping->store }}</span>
+                  <span class="text-capitalize">{{ $shipping->order->store }}</span>
                 </p>
                 <p class="mb-1">Kode Pembayaran :
-                  <span class="text-capitalize">{{ $shipping->payment_code }}</span>
+                  <span class="text-capitalize">{{ $shipping->order->payment_code }}</span>
                 </p>
               @endif
               <p class="mb-1">Tgl. Pemesanan :
@@ -607,16 +607,16 @@
                 <span class="text-uppercase badge bg-label-success rounded">{{ $shipping->order->status }}</span>
               </p>
             @endif
-          @elseif($shipping->order->status == 'unpaid')
-            @if ($shipping->store)
+          @elseif($shipping->order->status == 'belum bayar')
+            @if ($shipping->order->store)
               <p class="mb-1">Metode :
                 <span class="text-uppercase">{{ $shipping->order->payment_method }}</span>
               </p>
               <p class="mb-1">Gerai :
-                <span class="text-capitalize">{{ $shipping->store }}</span>
+                <span class="text-capitalize">{{ $shipping->order->store }}</span>
               </p>
               <p class="mb-1">Kode Pembayaran :
-                <span class="text-capitalize">{{ $shipping->payment_code }}</span>
+                <span class="text-capitalize">{{ $shipping->order->payment_code }}</span>
               </p>
               <p class="mb-1">Tgl. Pemesanan :
                 <span
@@ -670,7 +670,7 @@
                 <span class="text-uppercase badge bg-label-warning rounded">{{ $shipping->order->status }}</span>
               </p>
             @endif
-          @elseif($shipping->order->status == 'cancelled')
+          @elseif($shipping->order->status == 'dibatalkan')
             @if ($shipping->order->payment_method && $shipping->order->biller_code && $shipping->order->bill_key)
               <p class="mb-1">Metode :
                 <span class="text-uppercase">{{ $shipping->order->payment_method }}</span>
@@ -681,15 +681,15 @@
               <p class="mb-1">Nomor Virtual Account :
                 <span class="text-uppercase">{{ $shipping->order->bill_key }}</span>
               </p>
-            @elseif ($shipping->order->payment_method && $shipping->store)
+            @elseif ($shipping->order->payment_method && $shipping->order->store)
               <p class="mb-1">Metode :
                 <span class="text-uppercase">{{ $shipping->order->payment_method }}</span>
               </p>
               <p class="mb-1">Gerai :
-                <span class="text-uppercase">{{ $shipping->store }}</span>
+                <span class="text-uppercase">{{ $shipping->order->store }}</span>
               </p>
               <p class="mb-1">Kode Pembayaran :
-                <span class="text-uppercase">{{ $shipping->payment_code }}</span>
+                <span class="text-uppercase">{{ $shipping->order->payment_code }}</span>
               </p>
             @elseif ($shipping->order->payment_method && $shipping->order->issuer && $shipping->order->acquirer)
               <p class="mb-1">Metode :
@@ -717,16 +717,16 @@
             <p class="mb-1">Status :
               <span class="text-uppercase badge bg-label-dark rounded">{{ $shipping->order->status }}</span>
             </p>
-          @elseif ($shipping->order->status == 'expire')
+          @elseif ($shipping->order->status == 'kadaluarsa')
             <p class="mb-1">Metode :
               <span class="text-uppercase">{{ $shipping->order->payment_method }}</span>
             </p>
-            @if ($shipping->store)
+            @if ($shipping->order->store)
               <p class="mb-1">Gerai :
-                <span class="text-capitalize">{{ $shipping->store }}</span>
+                <span class="text-capitalize">{{ $shipping->order->store }}</span>
               </p>
               <p class="mb-1">Kode Pembayaran :
-                <span class="text-capitalize">{{ $shipping->payment_code }}</span>
+                <span class="text-capitalize">{{ $shipping->order->payment_code }}</span>
               </p>
             @elseif($shipping->order->biller_code && $shipping->order->bill_key)
               <p class="mb-1">Kode Perusahaan :
@@ -745,12 +745,12 @@
             @endif
             <p class="mb-1">Tgl. Pemesanan :
               <span
-                class="text-uppercase badge bg-label-info rounded">{{ date('d M Y, H:i:s', strtotime($shipping->transaction_time)) }}
+                class="text-uppercase badge bg-label-info rounded">{{ date('d M Y, H:i:s', strtotime($shipping->order->transaction_time)) }}
               </span>
             </p>
             <p class="mb-1">Tgl. Kadaluarsa :
               <span
-                class="text-uppercase badge bg-label-dark rounded">{{ date('d M Y, H:i:s', strtotime($shipping->expiry_time)) }}
+                class="text-uppercase badge bg-label-dark rounded">{{ date('d M Y, H:i:s', strtotime($shipping->order->expiry_time)) }}
               </span>
             </p>
             <p class="mb-1">Status :

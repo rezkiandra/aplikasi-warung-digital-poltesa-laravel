@@ -12,7 +12,7 @@ class CustomerCard extends Component
 	 *
 	 * @return void
 	 */
-	public function __construct($datas, $label, $icon, $variant, $condition = '', $percentage = '', $description = 'Analitik pelanggan minggu ini')
+	public function __construct($datas, $label, $icon, $variant, $condition = '', $percentage = '', $description = 'Total')
 	{
 		$this->datas = $datas;
 		$this->label = $label;

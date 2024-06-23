@@ -42,7 +42,8 @@
 <?php $__env->stopPush(); ?>
 <?php $__env->startSection('content'); ?>
   <div
-    class="fixed-left d-none position-fixed py-4 bg-white d-lg-flex d-md-flex flex-column gap-4 px-3 rounded rounded-lg shadow" data-aos="fade-right" data-aos-duration="1200">
+    class="fixed-left d-none position-fixed py-4 bg-white d-lg-flex d-md-flex flex-column gap-4 px-3 rounded rounded-lg shadow"
+    data-aos="fade-right" data-aos-duration="1200">
     <a href="https://github.com/rezkiandra" class="">
       <i class="mdi mdi-github mdi-24px"></i>
     </a>
@@ -70,7 +71,8 @@
         <div class="mb-4">
           <h5 class="text-wrap text-secondary line-height">Aplikasi e-commerce sederhana yang terintegrasi dengan
             payment gateway.
-            Memudahkan pelaku bisnis di Politeknik Negeri Sambas dalam mengelola produk dan transaksi. Tersedia berbagai macam produk dengan kualitas terbaik
+            Memudahkan pelaku bisnis di Politeknik Negeri Sambas dalam mengelola produk dan transaksi. Tersedia berbagai
+            macam produk dengan kualitas terbaik
           </h5>
         </div>
         <a href="<?php echo e(route('guest.products')); ?>" class="btn btn-primary">
@@ -149,18 +151,19 @@
       </div>
     </section>
 
-    <section class="" data-aos="fade-up" data-aos-duration="1000">
-      <div class="d-flex justify-content-between align-items-center">
-        <h5 class="text-dark text-capitalize mb-4">Produk Teratas</h5>
-        <a href="<?php echo e(route('guest.products')); ?>" class="btn btn-primary btn-sm mb-4">Lihat Semua</a>
-      </div>
-      <?php if (isset($component)) { $__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62 = $component; } ?>
+    <?php if($topProducts->count() > 0): ?>
+      <section class="" data-aos="fade-up" data-aos-duration="1000">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5 class="text-dark text-capitalize mb-4">Produk Teratas</h5>
+          <a href="<?php echo e(route('guest.products')); ?>" class="btn btn-primary btn-sm mb-4">Lihat Semua</a>
+        </div>
+        <?php if (isset($component)) { $__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\GridCard::class, ['class' => 'mb-5 pb-5']); ?>
 <?php $component->withName('grid-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
-        <?php if (isset($component)) { $__componentOriginalb7c8a2c1fc2b8ded9c60b45d3eb870d1c3408e01 = $component; } ?>
+          <?php if (isset($component)) { $__componentOriginalb7c8a2c1fc2b8ded9c60b45d3eb870d1c3408e01 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\ProductGrid::class, ['datas' => $topProducts]); ?>
 <?php $component->withName('product-grid'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -172,13 +175,14 @@
 <?php $component = $__componentOriginalb7c8a2c1fc2b8ded9c60b45d3eb870d1c3408e01; ?>
 <?php unset($__componentOriginalb7c8a2c1fc2b8ded9c60b45d3eb870d1c3408e01); ?>
 <?php endif; ?>
-       <?php echo $__env->renderComponent(); ?>
+         <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62)): ?>
 <?php $component = $__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62; ?>
 <?php unset($__componentOriginale96be6e73177399ecc28bfca7687b53f2b97aa62); ?>
 <?php endif; ?>
-    </section>
+      </section>
+    <?php endif; ?>
   </main>
 <?php $__env->stopSection(); ?>
 

@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Midtrans\Snap;
 use App\Models\User;
-use Midtrans\Config;
 use App\Models\Order;
 use App\Models\Customer;
 use App\Models\Products;
@@ -22,13 +20,28 @@ use Illuminate\Support\Facades\Http;
 use App\Http\Requests\BiodataRequest;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use Kavist\RajaOngkir\Facades\RajaOngkir;
 use App\Http\Requests\UpdateBiodataRequest;
 
 class CustomerController extends Controller
 {
+  protected $api_key;
+  protected $endpoint;
+
+  public function __construct()
+  {
+    $this->api_key = config('rajaongkir.key');
+    $this->endpoint = config('rajaongkir.endpoint');
+  }
+
   public function index()
   {
-    $topProducts = Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->where('status', 'paid')->orderBy('quantity', 'desc')->orderBy('products.price', 'desc')->limit(4)->get('products.*', 'orders.*');
+    $topProducts = Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
+      ->where('status', 'paid')
+      ->orderBy('quantity', 'desc')
+      ->orderBy('products.price', 'desc')
+      ->limit(4)
+      ->get('products.*', 'orders.*');
     return view('customer.home', compact('topProducts'));
   }
 
@@ -52,18 +65,18 @@ class CustomerController extends Controller
       $data = [
         'labels'  => ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
         'data'    => [
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJan)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanFeb)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMar)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanApr)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMei)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJun)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJul)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanAgu)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanSep)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanOkt)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanNov)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'paid')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanDes)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJan)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanFeb)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMar)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanApr)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMei)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJun)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJul)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanAgu)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanSep)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanOkt)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanNov)->sum('total_price'),
+          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanDes)->sum('total_price'),
         ],
       ];
 
@@ -103,12 +116,13 @@ class CustomerController extends Controller
 
   public function biodata()
   {
-    $api_key = config('rajaongkir.key');
     $customer = Customer::where('user_id', Auth::user()->id)->get();
-    $response = Http::withHeaders(['key' => $api_key,])->get('https://api.rajaongkir.com/starter/city');
-
+    $response = Http::withHeaders(['key' => $this->api_key])->get($this->endpoint . '/city');
     $cities = $response['rajaongkir']['results'];
-    return view('customer.biodata', compact('customer', 'cities'));
+
+    $city_id = $customer->pluck('origin')->first();
+    $city_name = $this->getCityName($city_id);
+    return view('customer.biodata', compact('customer', 'cities', 'city_name'));
   }
 
   public function cart()
@@ -141,10 +155,10 @@ class CustomerController extends Controller
       $customer_id = null;
     }
 
-    $countPaid = Order::where('customer_id', $customer_id)->where('status', 'paid')->count();
-    $countUnpaid = Order::where('customer_id', $customer_id)->where('status', 'unpaid')->count();
-    $countExpire = Order::where('customer_id', $customer_id)->where('status', 'expire')->count();
-    $countCancelled = Order::where('customer_id', $customer_id)->where('status', 'cancelled')->count();
+    $countPaid = Order::where('customer_id', $customer_id)->where('status', 'sudah bayar')->count();
+    $countUnpaid = Order::where('customer_id', $customer_id)->where('status', 'belum bayar')->count();
+    $countExpire = Order::where('customer_id', $customer_id)->where('status', 'kadaluarsa')->count();
+    $countCancelled = Order::where('customer_id', $customer_id)->where('status', 'dibatalkan')->count();
 
     return view('customer.orders', compact('orders', 'countPaid', 'countUnpaid', 'countExpire', 'countCancelled'));
   }
@@ -213,5 +227,24 @@ class CustomerController extends Controller
 
     Alert::toast('Berhasil mengupdate biodata', 'success');
     return redirect()->route('customer.biodata');
+  }
+
+  private function getCityName($city_id)
+  {
+    $response = Http::get("{$this->endpoint}/city", [
+      'key' => $this->api_key,
+    ]);
+
+    $data = $response->json();
+
+    if (isset($data['rajaongkir']['results']) && !empty($data['rajaongkir']['results'])) {
+      foreach ($data['rajaongkir']['results'] as $result) {
+        if ($result['city_id'] == $city_id) {
+          return $result['city_name'];
+        }
+      }
+    }
+
+    return null;
   }
 }

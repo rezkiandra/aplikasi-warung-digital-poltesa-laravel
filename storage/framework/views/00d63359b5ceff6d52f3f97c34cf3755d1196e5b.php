@@ -22,7 +22,7 @@
 
   // Top Card Content
   $topSellers = \App\Models\Order::selectRaw('seller_id, count(*) as total')
-      ->where('orders.status', 'paid')
+      ->where('orders.status', 'sudah bayar')
       ->groupBy('seller_id')
       ->selectRaw('SUM(orders.total_price) as total_price')
       ->orderBy('total_price', 'desc')
@@ -30,7 +30,7 @@
       ->get();
 
   $topCustomers = \App\Models\Order::selectRaw('customer_id, count(*) as total')
-      ->where('orders.status', 'paid')
+      ->where('orders.status', 'sudah bayar')
       ->groupBy('customer_id')
       ->orderBy('total', 'desc')
       ->take(5)
@@ -51,7 +51,6 @@
 <?php $__env->startPush('styles'); ?>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <?php $__env->stopPush(); ?>
-
 <?php $__env->startSection('content'); ?>
   <?php if (isset($component)) { $__componentOriginala426b5c7ddf0d9a3e246fc8c9c16bafcb85e59bf = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\CustomerDashboardCard::class, ['description' => $alertMessage]); ?>
@@ -221,32 +220,32 @@
       data: {
         labels: <?php echo json_encode($data['labels'], 15, 512) ?>,
         datasets: [{
-            label: 'Paid',
-            data: <?php echo json_encode($data['paid'], 15, 512) ?>,
+            label: 'Sudah Bayar',
+            data: <?php echo json_encode($data['sudah bayar'], 15, 512) ?>,
             backgroundColor: 'rgba(86, 202, 0, 0.5)',
             borderColor: 'rgba(86, 202, 0, 1)',
             borderWidth: 1,
             tension: 0
           },
           {
-            label: 'Unpaid',
-            data: <?php echo json_encode($data['unpaid'], 15, 512) ?>,
+            label: 'Belum Bayar',
+            data: <?php echo json_encode($data['belum bayar'], 15, 512) ?>,
             backgroundColor: 'rgba(255, 180, 0, 0.5)',
             borderColor: 'rgba(255, 180, 0, 1)',
             borderWidth: 1,
             tension: 0
           },
           {
-            label: 'Expire',
-            data: <?php echo json_encode($data['expire'], 15, 512) ?>,
+            label: 'Kadaluarsa',
+            data: <?php echo json_encode($data['kadaluarsa'], 15, 512) ?>,
             backgroundColor: 'rgba(255, 76, 81, 0.5)',
             borderColor: 'rgba(255, 76, 81, 1)',
             borderWidth: 1,
             tension: 0
           },
           {
-            label: 'Cancel',
-            data: <?php echo json_encode($data['cancel'], 15, 512) ?>,
+            label: 'Dibatalkan',
+            data: <?php echo json_encode($data['dibatalkan'], 15, 512) ?>,
             backgroundColor: 'rgba(2, 11, 12, 0.5)',
             borderColor: 'rgba(2, 11, 12, 1)',
             borderWidth: 1,

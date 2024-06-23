@@ -3,63 +3,14 @@
   $categories = \App\Models\ProductCategory::pluck('name', 'id')->toArray();
 
   $totalProductCurrentSeller = \App\Models\Products::where('seller_id', Auth::user()->seller->id)->count();
-  $productPercentageCurrentSeller = round(
-      (\App\Models\Products::where('seller_id', Auth::user()->seller->id)->count() ??
-          0 / \App\Models\ProductCategory::count()) *
-          100,
-      2,
-  );
-
-  $totalProductTopSaleCurrentSeller = \App\Models\Products::where('seller_id', Auth::user()->seller->id)
-      ->join('orders', 'products.id', '=', 'orders.product_id', 'left')
-      ->where('orders.product_id', '>=', 50)
-      ->count();
-  $productPercentageTopSaleCurrentSeller = round(
-      (\App\Models\Products::where('seller_id', Auth::user()->seller->id)
-          ->join('orders', 'products.id', '=', 'orders.product_id', 'left')
-          ->where('orders.product_id', '>=', 20)
-          ->count() ??
-          0 / \App\Models\ProductCategory::count()) *
-          100,
-      2,
-  );
-
-  $totalProductDiscountCurrentSeller = \App\Models\Products::where('seller_id', Auth::user()->seller->id)
+  $totalProductTopSaleCurrentSeller = \App\Models\Products::where('products.seller_id', Auth::user()->seller->id)
       ->join('orders', 'products.id', '=', 'orders.product_id', 'left')
       ->where('orders.product_id', '>=', 20)
       ->count();
-  $productPercentageDiscountCurrentSeller = round(
-      (\App\Models\Products::where('seller_id', Auth::user()->seller->id)
-          ->join('orders', 'products.id', '=', 'orders.product_id', 'left')
-          ->where('orders.product_id', '>=', 20)
-          ->count() ??
-          0 / \App\Models\ProductCategory::count()) *
-          100,
-      2,
-  );
-
+  $totalProductDiscountCurrentSeller = 0;
   $totalProductOutOfStockCurrentSeller = \App\Models\Products::where('stock', '=', 0)
       ->where('seller_id', Auth::user()->seller->id)
       ->count();
-  $productPercentageOutOfStockCurrentSeller = round(
-      (\App\Models\Products::where('stock', '=', 0)
-          ->where('seller_id', Auth::user()->seller->id)
-          ->count() ??
-          0 / \App\Models\ProductCategory::count()) *
-          100,
-      2,
-  );
-
-  $productPrePercentageCurrentSeller = \App\Models\Products::where('seller_id', Auth::user()->seller->id)->count();
-  $productPrePercentageTopSaleCurrentSeller = \App\Models\Products::where('seller_id', Auth::user()->seller->id)
-      ->join('orders', 'products.id', '=', 'orders.product_id', 'left')
-      ->where('orders.product_id', '>=', 20)
-      ->count();
-  $productPrePercentageDiscountCurrentSeller = \App\Models\Products::where('seller_id', Auth::user()->seller->id)
-      ->join('orders', 'products.id', '=', 'orders.product_id', 'left')
-      ->where('orders.product_id', '>=', 20)
-      ->count();
-  $productPrePentageOutOfStockCurrentSeller = \App\Models\Products::where('stock', '=', 0)->count();
 @endphp
 
 @extends('layouts.authenticated')
@@ -79,24 +30,12 @@
 
   <x-product-separator>
     <x-product-card :datas="$products" :condition="$totalProductCurrentSeller" :label="'Produk'" :icon="'cart-outline'" :variant="'primary'"
-      :percentage="$productPercentageCurrentSeller
-          ? '+' . $productPercentageCurrentSeller . '%'
-          : '-' . $productPrePercentageCurrentSeller . '%'" :class="'border-end'" :description="'Jumlah Produk'" />
-
+      :class="'border-end'" :description="'Jumlah Produk'" />
     <x-product-card :datas="$products" :condition="$totalProductTopSaleCurrentSeller" :label="'Produk Terjual'" :icon="'shopping-outline'" :variant="'info'"
-      :percentage="$productPercentageTopSaleCurrentSeller
-          ? '+' . $productPercentageTopSaleCurrentSeller . '%'
-          : '-' . $productPrePercentageTopSaleCurrentSeller . '%'" :class="'border-end'" />
-
+      :class="'border-end'" />
     <x-product-card :datas="$products" :condition="$totalProductDiscountCurrentSeller" :label="'Produk Diskon'" :icon="'wallet-giftcard'" :variant="'success'"
-      :percentage="$productPercentageDiscountCurrentSeller
-          ? '+' . $totalProductDiscountCurrentSeller . '%'
-          : '-' . $productPrePercentageDiscountCurrentSeller . '%'" :class="'border-end'" />
-
-    <x-product-card :datas="$products" :condition="$totalProductOutOfStockCurrentSeller" :label="'Produk Habis'" :icon="'sale-outline'" :variant="'dark'"
-      :percentage="$productPercentageOutOfStockCurrentSeller
-          ? '+' . $totalProductOutOfStockCurrentSeller . '%'
-          : '-' . $productPrePentageOutOfStockCurrentSeller . '%'" />
+      :class="'border-end'" />
+    <x-product-card :datas="$products" :condition="$totalProductOutOfStockCurrentSeller" :label="'Produk Habis'" :icon="'sale-outline'" :variant="'dark'" />
   </x-product-separator>
 
   <x-products-tabel-seller :title="'Data Produk'" :datas="$products" />

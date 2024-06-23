@@ -2,16 +2,12 @@
   $products = \App\Models\Products::paginate(10);
   $totalProducts = \App\Models\Products::count();
   $categories = \App\Models\ProductCategory::pluck('name', 'id')->toArray();
-  $productPercentage = round((\App\Models\Products::count() ?? 0 / \App\Models\ProductCategory::count()) * 100, 2);
-  $productPrePercentage = \App\Models\Products::count();
 
   $totalOrders = \App\Models\Order::all()->count();
   $totalTopSale = \App\Models\Order::join('products', 'products.id', '=', 'orders.product_id', 'left')
       ->where('orders.product_id', '>=', 20)
       ->count();
-  $totalDiscount = \App\Models\Order::join('products', 'products.id', '=', 'orders.product_id', 'left')
-      ->where('orders.product_id', '>=', 20)
-      ->count();
+  $totalDiscount = 0;
   $totalOutOfStock = \App\Models\Products::where('stock', '=', 0)->count();
 @endphp
 
@@ -26,13 +22,12 @@
 
   <x-product-separator>
     <x-product-card :datas="$products" :condition="$totalProducts" :label="'Produk'" :icon="'cart-outline'" :variant="'primary'"
-      :percentage="$productPercentage ? '+' . $productPercentage . '%' : '-' . $productPrePercentage . '%'" :class="'border-end'" :description="'Jumlah Produk'" />
-    <x-product-card :datas="$products" :condition="$totalTopSale" :label="'Produk Teratas'" :icon="'shopping-outline'" :variant="'info'"
-      :percentage="$totalTopSale ? '+' . $totalTopSale . '%' : '-' . $totalTopSale . '%'" :class="'border-end'" />
+      :class="'border-end'" :description="'Jumlah Produk'" />
+    <x-product-card :datas="$products" :condition="$totalTopSale" :label="'Produk Paling Laku'" :icon="'shopping-outline'" :variant="'info'"
+      :class="'border-end'" />
     <x-product-card :datas="$products" :condition="$totalDiscount" :label="'Produk Diskon'" :icon="'wallet-giftcard'" :variant="'success'"
-      :percentage="$totalDiscount ? '+' . $totalDiscount . '%' : '-' . $totalDiscount . '%'" :class="'border-end'" />
-    <x-product-card :datas="$products" :condition="$totalOutOfStock" :label="'Produk Habis'" :icon="'sale-outline'" :variant="'dark'"
-      :percentage="$totalOutOfStock ? '+' . $totalOutOfStock . '%' : '-' . $totalOutOfStock . '%'" />
+      :class="'border-end'" />
+    <x-product-card :datas="$products" :condition="$totalOutOfStock" :label="'Produk Habis'" :icon="'sale-outline'" :variant="'dark'" />
   </x-product-separator>
 
   <x-products-tabel :title="'Data Produk'" :datas="$products" :fields="['no', 'produk', 'kategori / penjual', 'harga', 'stok', 'Publish Pada', 'Aksi']" />

@@ -6,7 +6,6 @@
           <p class="text-heading mb-2">{{ $label }}</p>
           <div class="d-flex align-items-center">
             <h4 class="mb-2 me-2 display-6">{{ $condition }}</h4>
-            <p class="text-{{ $percentage > 0 ? 'success' : 'danger' }} mb-2">{{ $percentage }}</p>
           </div>
           <p class="mb-0">{{ $description }}</p>
         </div>

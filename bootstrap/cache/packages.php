@@ -1,15 +1,4 @@
 <?php return array (
-  'arielmejiadev/larapex-charts' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'ArielMejiaDev\\LarapexCharts\\LarapexChartsServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'LarapexChart' => 'ArielMejiaDev\\LarapexCharts\\Facades\\LarapexChart',
-    ),
-  ),
   'barryvdh/laravel-dompdf' => 
   array (
     'providers' => 
@@ -31,6 +20,17 @@
     'aliases' => 
     array (
       'Flare' => 'Facade\\Ignition\\Facades\\Flare',
+    ),
+  ),
+  'kavist/rajaongkir' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Kavist\\RajaOngkir\\Providers\\LaravelServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'RajaOngkir' => 'Kavist\\RajaOngkir\\Facades\\RajaOngkir',
     ),
   ),
   'laravel/sail' => 

@@ -195,6 +195,7 @@ Route::middleware('auth', 'mustLogin', 'checkRole:Customer')->group(function () 
     ->prefix('customer/dashboard')
     ->group(function () {
       Route::post('/process-shipping/{order}', 'store')->name('rajaongkir.storeShipping');
+      Route::put('/arrive-shipping/{order}', 'arrive')->name('rajaongkir.arriveShipping');
     });
 
   Route::controller(CustomerController::class)

@@ -2,16 +2,12 @@
   $products = \App\Models\Products::paginate(10);
   $totalProducts = \App\Models\Products::count();
   $categories = \App\Models\ProductCategory::pluck('name', 'id')->toArray();
-  $productPercentage = round((\App\Models\Products::count() ?? 0 / \App\Models\ProductCategory::count()) * 100, 2);
-  $productPrePercentage = \App\Models\Products::count();
 
   $totalOrders = \App\Models\Order::all()->count();
   $totalTopSale = \App\Models\Order::join('products', 'products.id', '=', 'orders.product_id', 'left')
       ->where('orders.product_id', '>=', 20)
       ->count();
-  $totalDiscount = \App\Models\Order::join('products', 'products.id', '=', 'orders.product_id', 'left')
-      ->where('orders.product_id', '>=', 20)
-      ->count();
+  $totalDiscount = 0;
   $totalOutOfStock = \App\Models\Products::where('stock', '=', 0)->count();
 ?>
 
@@ -42,7 +38,7 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
     <?php if (isset($component)) { $__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalProducts,'label' => 'Produk','icon' => 'cart-outline','variant' => 'primary','percentage' => $productPercentage ? '+' . $productPercentage . '%' : '-' . $productPrePercentage . '%','class' => 'border-end','description' => 'Jumlah Produk']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalProducts,'label' => 'Produk','icon' => 'cart-outline','variant' => 'primary','class' => 'border-end','description' => 'Jumlah Produk']); ?>
 <?php $component->withName('product-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -54,7 +50,7 @@
 <?php unset($__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalTopSale,'label' => 'Produk Teratas','icon' => 'shopping-outline','variant' => 'info','percentage' => $totalTopSale ? '+' . $totalTopSale . '%' : '-' . $totalTopSale . '%','class' => 'border-end']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalTopSale,'label' => 'Produk Paling Laku','icon' => 'shopping-outline','variant' => 'info','class' => 'border-end']); ?>
 <?php $component->withName('product-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -66,7 +62,7 @@
 <?php unset($__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalDiscount,'label' => 'Produk Diskon','icon' => 'wallet-giftcard','variant' => 'success','percentage' => $totalDiscount ? '+' . $totalDiscount . '%' : '-' . $totalDiscount . '%','class' => 'border-end']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalDiscount,'label' => 'Produk Diskon','icon' => 'wallet-giftcard','variant' => 'success','class' => 'border-end']); ?>
 <?php $component->withName('product-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -78,7 +74,7 @@
 <?php unset($__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginal5e109b4b7def75bd69cfe491f655f877e39a59a5 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalOutOfStock,'label' => 'Produk Habis','icon' => 'sale-outline','variant' => 'dark','percentage' => $totalOutOfStock ? '+' . $totalOutOfStock . '%' : '-' . $totalOutOfStock . '%']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\ProductCard::class, ['datas' => $products,'condition' => $totalOutOfStock,'label' => 'Produk Habis','icon' => 'sale-outline','variant' => 'dark']); ?>
 <?php $component->withName('product-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
