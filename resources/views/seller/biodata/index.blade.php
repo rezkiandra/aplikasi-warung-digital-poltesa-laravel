@@ -39,6 +39,7 @@
                 <option value="{{ $value['city_id'] }}">{{ $value['city_name'] }}</option>
               @endforeach
             </select>
+            <label for="origin">Kota Asal</label>
           </x-form-floating>
         </div>
 
@@ -127,6 +128,7 @@
                       <option value="{{ $key }}">{{ $value }}</option>
                     @endforeach
                   </select>
+                  <label for="gender">Jenis Kelamin</label>
                 </x-form-floating>
               </div>
 
@@ -142,6 +144,7 @@
                       <option value="{{ $key }}">{{ $value }}</option>
                     @endforeach
                   </select>
+                  <label for="origin">Kota Asal</label>
                 </x-form-floating>
               </div>
 

@@ -17,6 +17,7 @@ use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SellerRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use App\Http\Requests\CustomerRequest;
 use App\Http\Requests\AdminUserRequest;
 use Illuminate\Support\Facades\Storage;
@@ -26,6 +27,15 @@ use App\Http\Requests\EditCustomerRequest;
 
 class UserController extends Controller
 {
+  protected $api_key;
+  protected $endpoint;
+
+  public function __construct()
+  {
+    $this->api_key = config('rajaongkir.key');
+    $this->endpoint = config('rajaongkir.endpoint');
+  }
+
   public function createSeller()
   {
     $user = User::where('role_id', '2')
@@ -44,7 +54,10 @@ class UserController extends Controller
       'pending' => 'pending',
     ];
     $bank = BankAccount::pluck('bank_name', 'id')->toArray();
-    return view('admin.sellers.create', compact('user', 'gender', 'status', 'bank'));
+
+    $response = Http::withHeaders(['key' => $this->api_key])->get($this->endpoint . '/city');
+    $cities = $response['rajaongkir']['results'];
+    return view('admin.sellers.create', compact('user', 'gender', 'status', 'bank', 'cities'));
   }
 
   public function storeSeller(SellerRequest $request)
@@ -55,6 +68,7 @@ class UserController extends Controller
       'full_name' => $request->full_name,
       'slug' => Str::slug($request->full_name),
       'address' => $request->address,
+      'origin' => $request->origin,
       'phone_number' => $request->phone_number,
       'gender' => $request->gender,
       'bank_account_id' => $request->bank_account_id,
@@ -100,7 +114,13 @@ class UserController extends Controller
       'pending' => 'Pending',
     ];
     $bank = BankAccount::pluck('bank_name', 'id')->toArray();
-    return view('admin.sellers.edit', compact('seller', 'user', 'gender', 'status', 'bank'));
+
+    $response = Http::withHeaders(['key' => $this->api_key])->get($this->endpoint . '/city');
+    $cities = $response['rajaongkir']['results'];
+
+    $city_id = $seller->pluck('origin')->first();
+    $city_name = $this->getCityName($city_id);
+    return view('admin.sellers.edit', compact('seller', 'user', 'gender', 'status', 'bank', 'cities', 'city_name'));
   }
 
   public function updateSeller(EditSellerRequest $request, string $uuid)
@@ -165,7 +185,9 @@ class UserController extends Controller
       'inactive' => 'inactive',
       'pending' => 'pending',
     ];
-    return view('admin.customers.create', compact('user', 'gender', 'status'));
+    $response = Http::withHeaders(['key' => $this->api_key])->get($this->endpoint . '/city');
+    $cities = $response['rajaongkir']['results'];
+    return view('admin.customers.create', compact('user', 'gender', 'status', 'cities'));
   }
 
   public function storeCustomer(CustomerRequest $request)
@@ -176,6 +198,7 @@ class UserController extends Controller
       'full_name' => $request->full_name,
       'slug' => Str::slug($request->full_name),
       'address' => $request->address,
+      'origin' => $request->origin,
       'phone_number' => $request->phone_number,
       'gender' => $request->gender,
       'image' => $request->image->store('customers', 'public'),
@@ -220,7 +243,13 @@ class UserController extends Controller
       'pending' => 'pending',
     ];
     $bank = BankAccount::pluck('bank_name', 'id')->toArray();
-    return view('admin.customers.edit', compact('customer', 'user', 'gender', 'status', 'bank'));
+
+    $response = Http::withHeaders(['key' => $this->api_key])->get($this->endpoint . '/city');
+    $cities = $response['rajaongkir']['results'];
+
+    $city_id = $customer->pluck('origin')->first();
+    $city_name = $this->getCityName($city_id);
+    return view('admin.customers.edit', compact('customer', 'user', 'gender', 'status', 'bank', 'cities', 'city_name'));
   }
 
   public function updateCustomer(EditCustomerRequest $request, string $uuid)
@@ -358,5 +387,24 @@ class UserController extends Controller
     Alert::toast('Berhasil menghapus pengguna', 'success');
     session()->flash('action', 'delete');
     return redirect()->route('admin.users');
+  }
+
+  private function getCityName($city_id)
+  {
+    $response = Http::get("{$this->endpoint}/city", [
+      'key' => $this->api_key,
+    ]);
+
+    $data = $response->json();
+
+    if (isset($data['rajaongkir']['results']) && !empty($data['rajaongkir']['results'])) {
+      foreach ($data['rajaongkir']['results'] as $result) {
+        if ($result['city_id'] == $city_id) {
+          return $result['city_name'];
+        }
+      }
+    }
+
+    return null;
   }
 }
