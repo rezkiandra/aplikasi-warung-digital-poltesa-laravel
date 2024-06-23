@@ -1,12 +1,5 @@
-@php
-  $categories = \App\Models\ProductCategory::pluck('name', 'id')->toArray();
-  $seller = \App\Models\Seller::pluck('full_name', 'id')->toArray();
-@endphp
-
 @extends('layouts.authenticated')
-
 @section('title', 'Add Product')
-
 @section('content')
   <x-create-form :title="'Add new product'" :action="route('admin.store.product')" :route="route('admin.products')">
     <div class="row">

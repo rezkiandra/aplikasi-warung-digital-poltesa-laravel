@@ -1,8 +1,5 @@
 @php
-  // Alert Card
   $messageAlert = 'Biodata anda sudah lengkap. Anda dapat menggunakan aplikasi ini.';
-
-  // Greetings Card
   $message = 'Dashboard penjual berisi informasi produk penjual dan transaksi';
   $greetings = 'Halo, ' . auth()->user()->customer->full_name;
   $descriptionGreetings = 'Selamat datang di dashboard customer';
@@ -11,48 +8,8 @@
   $actionLabel = 'Selengkapnya';
   $route = route('customer.orders');
 
-  // Transaction Card
   $title = 'Pesanan';
   $description = 'Total pesanan akhir ini';
-
-  // Earnings Card
-  $spent = \App\Models\Order::where('customer_id', auth()->user()->customer->id)
-      ->where('status', 'sudah bayar')
-      ->get();
-  $titleSpent = 'Pengeluaran biaya tanpa pengiriman';
-  $spentValue = 'Rp ' . number_format($spent->sum('total_price'), 0, ',', '.');
-  $descriptionSpent = 'Total pengeluaran keseluruhan';
-
-  // Transaction Item Card
-  $totalPaid = \App\Models\Order::where('customer_id', auth()->user()->customer->id)
-      ->where('status', 'sudah bayar')
-      ->count();
-  $totalUnpaid = \App\Models\Order::where('customer_id', auth()->user()->customer->id)
-      ->where('status', 'belum bayar')
-      ->count();
-  $totalExpire = \App\Models\Order::where('customer_id', auth()->user()->customer->id)
-      ->where('status', 'kadaluarsa')
-      ->count();
-  $totalCancelled = \App\Models\Order::where('customer_id', auth()->user()->customer->id)
-      ->where('status', 'dibatalkan')
-      ->count();
-
-  $topProducts = \App\Models\Order::select('product_id', DB::raw('SUM(quantity) as total'))
-      ->join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->where('orders.customer_id', auth()->user()->customer->id)
-      ->where('status', 'sudah bayar')
-      ->groupBy('product_id')
-      ->orderBy('total', 'desc')
-      ->orderBy('products.price', 'desc')
-      ->take(5)
-      ->get();
-
-  // Graph Content
-  $labelCart = 'Keranjang Produk';
-  $valueCart = \App\Models\ProductsCart::where('customer_id', auth()->user()->customer->id)->count();
-
-  $labelWishlist = 'Wishlist Produk';
-  $valueWishlist = \App\Models\Wishlist::where('customer_id', auth()->user()->customer->id)->count();
 @endphp
 
 @extends('layouts.authenticated')

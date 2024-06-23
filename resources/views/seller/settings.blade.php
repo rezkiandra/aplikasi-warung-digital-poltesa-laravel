@@ -1,7 +1,3 @@
-@php
-  $userSeller = \App\Models\User::where('uuid', Auth::user()->uuid)->first();
-@endphp
-
 @extends('layouts.authenticated')
 @section('title', 'Pengaturan')
 @section('content')

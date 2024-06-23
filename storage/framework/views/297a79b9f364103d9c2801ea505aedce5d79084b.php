@@ -49,8 +49,20 @@
               <span class="text-truncate text-dark"><?php echo e($data->stock); ?> <?php echo e($data->unit); ?></span>
             </td>
             <td>
+              <?php if(App\Models\Order::where('product_id', $data->id)->sum('quantity') > 0): ?>
+                <span
+                  class="text-truncate text-dark"><?php echo e(\App\Models\Order::where('product_id', $data->id)->sum('quantity')); ?>
+
+                  <?php echo e($data->unit); ?>
+
+                </span>
+              <?php else: ?>
+                <span class="text-truncate text-dark">-</span>
+              <?php endif; ?>
+            </td>
+            <td>
               <span
-                class="fw-medium badge rounded-pill bg-label-info"><?php echo e(date('d M Y, H:i:s', strtotime($data->created_at))); ?>
+                class="fw-medium badge rounded-pill bg-label-info"><?php echo e(date('d M Y', strtotime($data->created_at))); ?>
 
                 <?php echo e($data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM'); ?>
 

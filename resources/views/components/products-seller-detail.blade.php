@@ -8,6 +8,7 @@
           <th>Kategori / Penjual</th>
           <th>Harga</th>
           <th>Stok</th>
+          <th>Terjual</th>
         </thead>
         <tbody>
           @foreach ($datas as $data)
@@ -46,6 +47,16 @@
               </td>
               <td>
                 <span class="fw-medium">{{ $data->stock }} pcs</span>
+              </td>
+              <td>
+                @if (App\Models\Order::where('product_id', $data->id)->sum('quantity') > 0)
+                  <span
+                    class="text-truncate text-dark">{{ \App\Models\Order::where('product_id', $data->id)->sum('quantity') }}
+                    {{ $data->unit }}
+                  </span>
+                @else
+                  <span class="text-truncate text-dark">-</span>
+                @endif
               </td>
             </tr>
           @endforeach

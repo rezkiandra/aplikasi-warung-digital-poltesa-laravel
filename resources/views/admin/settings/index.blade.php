@@ -1,7 +1,3 @@
-@php
-  $user = \App\Models\User::where('role_id', '1')->first();
-@endphp
-
 @extends('layouts.authenticated')
 @section('title', 'Pengaturan')
 @section('content')

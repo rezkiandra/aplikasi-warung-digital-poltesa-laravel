@@ -16,59 +16,7 @@
 
   $title = 'Transaksi';
   $description = 'Total transaksi dibulan ini';
-
-  // Earnings Card
-  $earnings = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->where('products.seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'sudah bayar')
-      ->orderBy('orders.created_at', 'desc')
-      ->take(5)
-      ->get();
-  $titleEarnings = 'Total Pendapatan';
-  $earningsValue = 'Rp ' . number_format($earnings->sum('total_price'), 0, ',', '.');
-  $descriptionEarnings = 'Total pendapatan keseluruhan';
-
-  // Transaction Item Card
-  $totalPaid = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->where('products.seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'sudah bayar')
-      ->count();
-  $totalUnpaid = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->where('products.seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'belum bayar')
-      ->count();
-  $totalExpire = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->where('products.seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'kadaluarsa')
-      ->count();
-  $totalCancelled = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->where('products.seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'dibatalkan')
-      ->count();
-
-  // Top Card Content
-  $topCustomers = \App\Models\Order::selectRaw('customer_id, count(*) as total')
-      ->join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->where('products.seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'sudah bayar')
-      ->groupBy('customer_id')
-      ->orderBy('total', 'desc')
-      ->take(5)
-      ->get();
-
-  $topProducts = \App\Models\Order::selectRaw('product_id, count(*) as total')
-      ->join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->where('products.seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'sudah bayar')
-      ->groupBy('product_id')
-      ->selectRaw('SUM(orders.quantity) as total')
-      ->orderBy('product_id', 'asc')
-      ->take(5)
-      ->get();
-
-  $products = \App\Models\Products::where('seller_id', auth()->user()->seller->id)->paginate(6);
 @endphp
-
 @extends('layouts.authenticated')
 @section('title', 'Dashboard')
 @push('styles')

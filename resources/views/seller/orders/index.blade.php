@@ -1,24 +1,3 @@
-@php
-  $orders = \App\Models\Order::where('seller_id', auth()->user()->seller->id)
-      ->orderBy('orders.id', 'desc')
-      ->paginate(10);
-
-  $totalPaid = \App\Models\Order::where('seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'sudah bayar')
-      ->count();
-
-  $totalUnpaid = \App\Models\Order::where('seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'belum bayar')
-      ->count();
-
-  $totalExpire = \App\Models\Order::where('seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'kadaluarsa')
-      ->count();
-
-  $totalCancelled = \App\Models\Order::where('seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'dibatalkan')
-      ->count();
-@endphp
 @extends('layouts.authenticated')
 @section('title', 'Pesanan')
 @section('content')

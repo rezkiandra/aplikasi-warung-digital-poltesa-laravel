@@ -1,11 +1,3 @@
-@php
-  $orders = \App\Models\Order::paginate(10);
-  $totalPaid = \App\Models\Order::where('status', 'sudah bayar')->count();
-  $totalUnpaid = \App\Models\Order::where('status', 'belum bayar')->count();
-  $totalExpire = \App\Models\Order::where('status', 'kadaluarsa')->count();
-  $totalCancelled = \App\Models\Order::where('status', 'dibatalkan')->count();
-@endphp
-
 @extends('layouts.authenticated')
 @section('title', 'Pesanan')
 @section('content')

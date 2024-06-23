@@ -1,6 +1,5 @@
 @extends('layouts.guest')
 @section('title', 'Tentang Kami')
-
 @section('content')
   <section class="my-5 py-5" data-aos="fade" data-aos-duration="1500">
     <div class="container-fluid bg-icon-right">

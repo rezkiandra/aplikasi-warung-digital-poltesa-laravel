@@ -1,13 +1,3 @@
-@php
-  $units = [
-      'kg' => 'Kilogram',
-      'pcs' => 'Pcs',
-      'pack' => 'Package',
-      'box' => 'Box',
-  ];
-  $categories = \App\Models\ProductCategory::pluck('name', 'id')->toArray();
-@endphp
-
 @extends('layouts.authenticated')
 @section('title', 'Tambah Produk')
 @section('content')

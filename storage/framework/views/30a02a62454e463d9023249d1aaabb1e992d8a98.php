@@ -1,10 +1,3 @@
-<?php
-  $customerCount = $customers->count();
-  $activeCustomer = \App\Models\Customer::where('status', 'active')->count();
-  $inactiveCustomer = \App\Models\Customer::where('status', 'inactive')->count();
-  $pendingCustomer = \App\Models\Customer::where('status', 'pending')->count();
-?>
-
 
 <?php $__env->startSection('title', 'Pelanggan'); ?>
 <?php $__env->startSection('content'); ?>

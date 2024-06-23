@@ -1,11 +1,3 @@
-@php
-  $user_role = Auth::user()->role_id ?? '';
-  if (Auth::check() && auth()->user()->customer) {
-      $wishlistUUID = \App\Models\Wishlist::where('customer_id', auth()->user()->customer->id)
-          ->pluck('uuid')
-          ->toArray();
-  }
-@endphp
 @push('styles')
   <style>
     .card:hover {

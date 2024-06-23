@@ -8,6 +8,7 @@
             <th class="text-truncate">Produk</th>
             <th class="text-truncate">Harga Produk</th>
             <th class="text-truncate">Stok</th>
+            <th class="text-truncate">Terjual</th>
             <th class="text-truncate">Kategori</th>
             <th class="text-truncate">Dipublish Pada</th>
           </tr>
@@ -45,6 +46,16 @@
                     <h6 class="mb-1 text-truncate">{{ $data->stock }} {{ $data->unit }}</h6>
                   </div>
                 </div>
+              </td>
+              <td>
+                @if (App\Models\Order::where('product_id', $data->id)->sum('quantity') > 0)
+                  <span
+                    class="text-truncate text-dark">{{ \App\Models\Order::where('product_id', $data->id)->sum('quantity') }}
+                    {{ $data->unit }}
+                  </span>
+                @else
+                  <span class="text-truncate text-dark">-</span>
+                @endif
               </td>
               <td class="text-truncate">
                 <span class="badge bg-label-primary rounded text-uppercase">{{ $data->category->name }}</span>

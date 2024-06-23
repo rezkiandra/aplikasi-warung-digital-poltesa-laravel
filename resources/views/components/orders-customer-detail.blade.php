@@ -42,12 +42,16 @@
               <td class="">
                 <span class="badge bg-label-info">{{ date('d M Y, H:i:s', strtotime($data->updated_at)) }}</span>
               </td>
-              <td>
-                <h6
-                  class="mb-0 w-px-100 d-flex align-items-center @if ($data->status == 'unpaid') text-warning @elseif ($data->status == 'canceled') text-dark @elseif($data->status == 'paid') text-success @endif text-uppercase">
-                  <i class="mdi mdi-circle fs-tiny me-1"></i>
-                  {{ $data->status }}
-                </h6>
+              <td class="text-truncate">
+                @if ($data->status == 'sudah bayar')
+                  <span class="badge bg-label-success rounded text-uppercase">{{ $data->status }}</span>
+                @elseif ($data->status == 'belum bayar')
+                  <span class="badge bg-label-warning rounded text-uppercase">{{ $data->status }}</span>
+                @elseif ($data->status == 'kadaluarsa')
+                  <span class="badge bg-label-danger rounded text-uppercase">{{ $data->status }}</span>
+                @elseif ($data->status == 'dibatalkan')
+                  <span class="badge bg-label-dark rounded text-uppercase">{{ $data->status }}</span>
+                @endif
               </td>
             </tr>
           @endforeach

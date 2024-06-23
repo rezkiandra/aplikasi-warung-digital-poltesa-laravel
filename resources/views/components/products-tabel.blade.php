@@ -47,8 +47,18 @@
               <span class="text-truncate text-dark">{{ $data->stock }} {{ $data->unit }}</span>
             </td>
             <td>
+              @if (App\Models\Order::where('product_id', $data->id)->sum('quantity') > 0)
+                <span
+                  class="text-truncate text-dark">{{ \App\Models\Order::where('product_id', $data->id)->sum('quantity') }}
+                  {{ $data->unit }}
+                </span>
+              @else
+                <span class="text-truncate text-dark">-</span>
+              @endif
+            </td>
+            <td>
               <span
-                class="fw-medium badge rounded-pill bg-label-info">{{ date('d M Y, H:i:s', strtotime($data->created_at)) }}
+                class="fw-medium badge rounded-pill bg-label-info">{{ date('d M Y', strtotime($data->created_at)) }}
                 {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
               </span>
             </td>

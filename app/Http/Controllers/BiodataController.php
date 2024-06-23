@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Seller;
 use App\Models\Customer;
+use App\Models\BankAccount;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -27,13 +28,20 @@ class BiodataController extends Controller
 
   public function index()
   {
+    $gender = [
+      'laki-laki' => 'laki-laki',
+      'perempuan' => 'perempuan',
+    ];
+    $bank = BankAccount::pluck('bank_name', 'id')->toArray();
+    
+    $currentSeller = Seller::where('user_id', Auth::user()->id)->first();
     $seller = Seller::where('user_id', Auth::user()->id)->get();
     $response = Http::withHeaders(['key' => $this->api_key])->get($this->endpoint . '/city');
     $cities = $response['rajaongkir']['results'];
 
     $city_id = $seller->pluck('origin')->first();
     $city_name = $this->getCityName($city_id);
-    return view('seller.biodata.index', compact('seller', 'cities', 'city_name'));
+    return view('seller.biodata.index', compact('seller', 'cities', 'city_name', 'gender', 'bank', 'currentSeller'));
   }
 
   public function store(BiodataRequest $request)

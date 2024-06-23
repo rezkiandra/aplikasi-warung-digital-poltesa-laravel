@@ -1,12 +1,3 @@
-@php
-  $gender = [
-      'laki-laki' => 'laki-laki',
-      'perempuan' => 'perempuan',
-  ];
-  $bank = \App\Models\BankAccount::pluck('bank_name', 'id')->toArray();
-  $currentSeller = \App\Models\Seller::where('user_id', Auth::user()->id)->first();
-@endphp
-
 @extends('layouts.authenticated')
 @section('title', 'Biodata')
 @section('content')

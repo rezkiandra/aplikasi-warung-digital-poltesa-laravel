@@ -1,7 +1,5 @@
 @extends('layouts.authenticated')
-
 @section('title', 'Detail Role')
-
 @section('content')
   <div class="card mb-4 col-lg-6">
     <div class="card-body">

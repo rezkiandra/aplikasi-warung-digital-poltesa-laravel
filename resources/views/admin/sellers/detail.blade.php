@@ -1,31 +1,3 @@
-@php
-  $products = \App\Models\Products::where('seller_id', $seller->id)
-      ->orderBy('id', 'desc')
-      ->paginate(5);
-  $totalProducts = \App\Models\Products::where('seller_id', $seller->id)->count();
-  $totalEarnings = number_format(
-      \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
-          ->join('sellers', 'products.seller_id', '=', 'sellers.id', 'left')
-          ->where('sellers.id', $seller->id)
-          ->where('orders.status', 'paid')
-          ->sum('total_price'),
-      0,
-      ',',
-      '.',
-  );
-
-  $bank = \App\Models\BankAccount::pluck('bank_name', 'id')->toArray();
-
-  $totalOrders = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->join('sellers', 'products.seller_id', '=', 'sellers.id', 'left')
-      ->where('sellers.id', $seller->id)
-      ->count();
-
-  $username = \App\Models\User::where('id', $seller->user_id)->first()->name;
-  $email = \App\Models\User::where('id', $seller->user_id)->first()->email;
-  $seller_id = Str::substr($seller->uuid, 0, 5);
-  $seller_id = Str::upper($seller_id);
-@endphp
 @extends('layouts.authenticated')
 @section('title', 'Detail Penjual')
 @section('content')
@@ -44,8 +16,6 @@
     </div>
 
     <x-detail-card-content>
-      <x-detail-card :title="'Pesanan'" :count="$totalOrders" :countDescription="'items pesanan'" :icon="'basket-outline'" :variant="'primary'" />
-      <x-detail-card :title="'Produk'" :count="$totalProducts" :countDescription="'items produk'" :icon="'cart-outline'" :variant="'info'" />
       @if ($products->count() > 0)
         <x-products-seller-detail :datas="$products" :title="'Produk terbaru'" />
       @endif

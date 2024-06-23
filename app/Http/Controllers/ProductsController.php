@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Seller;
 use App\Models\Products;
 use Illuminate\Support\Str;
+use App\Models\ProductCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -18,12 +20,26 @@ class ProductsController extends Controller
   public function index()
   {
     $products = Products::where('seller_id', Auth::user()->seller->id)->paginate(8);
-    return view('seller.products.index', compact('products'));
+    $currentSeller = Seller::where('user_id', Auth::user()->id)->first();
+    $categories = ProductCategory::pluck('name', 'id')->toArray();
+
+    $totalProductCurrentSeller = Products::where('seller_id', Auth::user()->seller->id)->count();
+    $totalProductTopSaleCurrentSeller = Order::where('product_id', '>=', 3)->where('seller_id', Auth::user()->seller->id)->count();
+    $totalProductOutOfStockCurrentSeller = Products::where('stock', '=', 0)->where('seller_id', Auth::user()->seller->id)->count();
+    $totalProductDiscountCurrentSeller = 0;
+    return view('seller.products.index', compact('products', 'currentSeller', 'categories', 'totalProductCurrentSeller', 'totalProductTopSaleCurrentSeller', 'totalProductOutOfStockCurrentSeller', 'totalProductDiscountCurrentSeller'));
   }
 
   public function create()
   {
-    return view('seller.products.create');
+    $units = [
+      'kg' => 'Kilogram',
+      'pcs' => 'Pcs',
+      'pack' => 'Package',
+      'box' => 'Box',
+    ];
+    $categories = ProductCategory::pluck('name', 'id')->toArray();
+    return view('seller.products.create', compact('units', 'categories'));
   }
 
   public function store(ProductsRequest $request)
@@ -58,7 +74,14 @@ class ProductsController extends Controller
   public function edit(string $uuid)
   {
     $product = Products::where('uuid', $uuid)->firstOrFail();
-    return view('seller.products.edit', compact('product'));
+    $units = [
+      'kg' => 'Kilogram',
+      'pcs' => 'Pcs',
+      'pack' => 'Package',
+      'box' => 'Box',
+    ];
+    $categories = ProductCategory::pluck('name', 'id')->toArray();
+    return view('seller.products.edit', compact('product', 'categories', 'units'));
   }
 
   public function update(EditProductsRequest $request, string $uuid)

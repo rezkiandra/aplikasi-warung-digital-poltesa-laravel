@@ -1,21 +1,5 @@
-@php
-  $user = \App\Models\User::pluck('name', 'id')->toArray();
-  $gender = [
-      'male' => 'male',
-      'female' => 'female',
-  ];
-  $status = [
-      'active' => 'active',
-      'inactive' => 'inactive',
-      'pending' => 'pending',
-  ];
-  $role = \App\Models\Role::where('role_name', '!=', 'Admin')->pluck('role_name', 'id')->toArray();
-@endphp
-
 @extends('layouts.authenticated')
-
 @section('title', 'Tambah Pengguna')
-
 @section('content')
   <x-create-form :title="'Tambah pengguna baru'" :action="route('admin.store.user')" :route="route('admin.users')">
     <div class="row">

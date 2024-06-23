@@ -1,11 +1,5 @@
-@php
-  $categories = \App\Models\ProductCategory::pluck('name', 'id')->toArray();
-@endphp
-
 @extends('layouts.authenticated')
-
 @section('title', 'Edit Product')
-
 @section('content')
   <div class="d-lg-flex justify-content-between gap-4">
     <div class="col-lg-2 card-body">
