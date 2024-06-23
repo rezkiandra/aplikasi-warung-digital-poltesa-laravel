@@ -12,7 +12,7 @@ class ProductCard extends Component
    *
    * @return void
    */
-  public function __construct($datas, $icon, $variant, $label, $class = '', $condition, $percentage = '', $action = '', $description = 'Analitik produk minggu ini')
+  public function __construct($datas, $icon, $variant, $label, $class = '', $condition, $percentage = '', $action = '', $description = 'Total')
   {
     $this->datas = $datas;
     $this->icon = $icon;

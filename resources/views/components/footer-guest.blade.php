@@ -83,18 +83,15 @@
             <a href="javascript:void(0)" class="footer-link">Wishlist</a>
           </li>
           <li class="mb-3">
+            <a href="javascript:void(0)" class="footer-link">Keranjang</a>
+          </li>
+          <li class="mb-3">
             <a href="javascript:void(0)" class="footer-link">Payment Gateway<span
                 class="badge rounded-pill bg-primary ms-2">New</span></a>
           </li>
           <li class="mb-3">
-            <a href="javascript:void(0)" class="footer-link">Keranjang</a>
-          </li>
-          <li class="mb-3">
-            @if (auth()->check() && auth()->user()->role_id == 3)
-              <a href="{{ route('customer.faq') }}" class="footer-link">FAQ</a>
-            @else
-              <a href="{{ route('guest.faq') }}" class="footer-link">FAQ</a>
-            @endif
+            <a href="javascript:void(0)" class="footer-link">Shipping Gateway<span
+                class="badge rounded-pill bg-primary ms-2">New</span></a>
           </li>
           <li>
             <a href="{{ route('login') }}" class="footer-link">Login/Register</a>

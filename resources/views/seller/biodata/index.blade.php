@@ -33,10 +33,21 @@
           </x-form-floating>
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-lg-2">
           <x-form-floating>
             <x-input-form-label :label="'Bank'" :name="'bank_account_id'" :type="'select'" :value="old('bank_account_id')"
               :options="$bank" :select="'- Pilih bank'" />
+          </x-form-floating>
+        </div>
+
+        <div class="col-lg-2">
+          <x-form-floating>
+            <select name="origin" id="origin" class="form-select text-capitalize">
+              <option selected disabled>- Pilih Kota Asal</option>
+              @foreach ($cities as $value)
+                <option value="{{ $value['city_id'] }}">{{ $value['city_name'] }}</option>
+              @endforeach
+            </select>
           </x-form-floating>
         </div>
 
@@ -152,7 +163,7 @@
               <div class="col-lg-4">
                 <x-form-floating>
                   <select name="origin" id="origin" class="form-select text-capitalize">
-                    <option value="{{ $data->origin }}">{{ $data->origin }}</option>
+                    <option value="{{ $data->origin }}">{{ $city_name }}</option>
                     @foreach ($cities as $value)
                       @if ($value == $data->origin)
                         @continue

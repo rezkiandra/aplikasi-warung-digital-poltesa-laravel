@@ -6,9 +6,19 @@ use App\Models\Order;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
 use Illuminate\Support\Facades\Http;
+use Kavist\RajaOngkir\Facades\RajaOngkir;
 
 class OngkirController extends Controller
 {
+  protected $api_key;
+  protected $endpoint;
+
+  public function __construct()
+  {
+    $this->api_key = config('rajaongkir.key');
+    $this->endpoint = config('rajaongkir.endpoint');
+  }
+
   public function ongkir(string $uuid)
   {
     $order = Order::where('uuid', $uuid)->firstOrFail();
@@ -22,19 +32,16 @@ class OngkirController extends Controller
     $destination = $order->customer->origin;
     $weight = $order->product->weight;
 
-    $api_key = config('rajaongkir.key');
     $response = Http::withHeaders([
-      'key' => $api_key,
-    ])->post('https://api.rajaongkir.com/starter/cost', [
+      'key' => $this->api_key,
+    ])->post($this->endpoint . '/cost', [
       'origin' => $origin,
       'destination' => $destination,
       'weight' => $weight,
       'courier' => $request->courier,
     ]);
 
-    // dd($response->json());
     $response = $response['rajaongkir'];
-
     return view('customer.ongkir.cek', compact('response', 'order'));
   }
 }

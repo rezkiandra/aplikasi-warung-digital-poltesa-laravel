@@ -125,7 +125,7 @@
     </div>
   </div>
 
-  <div class="row mb-3">
+  <div class="row gy-3">
     @if (count($response['results'][0]['costs']) > 0)
       <div class="col col-lg col-md">
         <div class="card">

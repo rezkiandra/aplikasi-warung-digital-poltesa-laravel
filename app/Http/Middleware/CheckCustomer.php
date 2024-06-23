@@ -27,6 +27,6 @@ class CheckCustomer
 
   private function hasRequiredInfoCustomer($customer)
   {
-    return !empty($customer->full_name) && !empty($customer->address) && !empty($customer->phone_number) && !empty($customer->gender) && !empty($customer->status);
+    return !empty($customer->full_name) && !empty($customer->address) && !empty($customer->origin) && !empty($customer->phone_number) && !empty($customer->gender) && !empty($customer->status);
   }
 }

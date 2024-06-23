@@ -8,7 +8,7 @@
           <th class="text-truncate">Pengiriman</th>
           <th class="text-truncate">Total Pesanan</th>
           <th class="text-truncate">Status Pesanan</th>
-          <th class="text-truncate">Status Pengiriman</th>
+          <th class="text-truncate">Status Paket</th>
           <th>Aksi</th>
         </tr>
       </thead>
@@ -31,8 +31,7 @@
                     class="text-truncate text-heading">
                     <span class="fw-medium">{{ $data->product->name }}</span>
                   </a>
-                  <small class="text-truncate">Rp {{ number_format($data->product->price, 0, ',', '.') }} -
-                    {{ $data->quantity }} {{ $data->product->unit }}</small>
+                  <small class="text-truncate">Rp {{ number_format($data->total_price, 0, ',', '.') }}</small>
                 </div>
               </div>
             </td>
@@ -61,13 +60,13 @@
               @endif
             </td>
             <td class="text-truncate">
-              @if ($data->status == 'paid')
+              @if ($data->status == 'sudah bayar')
                 <span class="badge bg-label-success rounded text-uppercase">{{ $data->status }}</span>
-              @elseif ($data->status == 'unpaid')
+              @elseif ($data->status == 'belum bayar')
                 <span class="badge bg-label-warning rounded text-uppercase">{{ $data->status }}</span>
-              @elseif ($data->status == 'expire')
+              @elseif ($data->status == 'kadaluarsa')
                 <span class="badge bg-label-danger rounded text-uppercase">{{ $data->status }}</span>
-              @elseif ($data->status == 'cancelled')
+              @elseif ($data->status == 'dibatalkan')
                 <span class="badge bg-label-dark rounded text-uppercase">{{ $data->status }}</span>
               @endif
             </td>
@@ -92,15 +91,15 @@
                   </button>
                   <div class="dropdown-menu">
                     @if (auth()->user()->customer)
-                      @if ($data->status === 'unpaid' && $data->payment_method)
+                      @if ($data->status === 'belum bayar' && $data->payment_method)
                         <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
-                      @elseif ($data->status === 'unpaid' && !$data->shipping)
+                      @elseif ($data->status === 'belum bayar' && !$data->shipping)
                         <x-dropdown-item :label="'Pilih Kurir'" :variant="'info'" :icon="'truck-fast-outline'" :route="route('rajaongkir.ongkir', $data->uuid)" />
                         <x-dropdown-item :label="'Batal'" :variant="'danger'" :icon="'trash-can-outline'" :route="route('midtrans.cancelled', $data->uuid)" />
-                      @elseif ($data->status === 'unpaid')
+                      @elseif ($data->status === 'belum bayar')
                         <x-dropdown-item :label="'Bayar'" :variant="'success'" :icon="'credit-card-outline'" :route="route('midtrans.checkout', $data->uuid)" />
                         <x-dropdown-item :label="'Batal'" :variant="'danger'" :icon="'trash-can-outline'" :route="route('midtrans.cancelled', $data->uuid)" />
-                      @elseif ($data->status === 'paid')
+                      @elseif ($data->status === 'sudah bayar' && $data->shipping->status == 'diterima')
                         <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
                         <form action="{{ route('order.update', $data->uuid) }}" method="POST">
                           @csrf
@@ -109,7 +108,9 @@
                             <i class="mdi mdi-cart-outline text-primary me-2"></i>Beli Kembali
                           </button>
                         </form>
-                      @elseif($data->status === 'cancelled' || $data->status === 'expire')
+                      @elseif($data->status == 'sudah bayar')
+                        <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
+                      @elseif($data->status === 'dibatalkan' || $data->status === 'kadaluarsa')
                         <x-dropdown-item :label="'Detail'" :variant="'dark'" :icon="'eye-outline'" :route="route('midtrans.detail', $data->uuid)" />
                         <form action="{{ route('order.update', $data->uuid) }}" method="POST">
                           @csrf

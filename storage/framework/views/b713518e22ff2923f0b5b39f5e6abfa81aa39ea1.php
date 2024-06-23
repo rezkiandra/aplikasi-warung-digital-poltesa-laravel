@@ -3,24 +3,6 @@
   $activeSeller = \App\Models\Seller::where('status', 'active')->count();
   $inactiveSeller = \App\Models\Seller::where('status', 'inactive')->count();
   $pendingSeller = \App\Models\Seller::where('status', 'pending')->count();
-  $sellerPercentage = round((\App\Models\Seller::count() ?? 0 / \App\Models\Seller::count()) * 100, 2);
-  $sellerPrePercentage = \App\Models\Seller::count();
-
-  $sellerActivePercentage = round(
-      (\App\Models\Seller::where('status', 'active')->count() ?? 0 / \App\Models\Seller::count()) * 100,
-      2,
-  );
-  $sellerActivePrePercentage = \App\Models\Seller::where('status', 'active')->count();
-  $sellerInactivePercentage = round(
-      (\App\Models\Seller::where('status', 'inactive')->count() ?? 0 / \App\Models\Seller::count()) * 100,
-      2,
-  );
-  $sellerInactivePrePercentage = \App\Models\Seller::where('status', 'inactive')->count();
-  $sellerPendingPercentage = round(
-      (\App\Models\Seller::where('status', 'pending')->count() ?? 0 / \App\Models\Seller::count()) * 100,
-      2,
-  );
-  $sellerPendingPrePercentage = \App\Models\Seller::where('status', 'pending')->count();
 ?>
 
 
@@ -43,7 +25,7 @@
 
   <div class="row g-4 mb-4">
     <?php if (isset($component)) { $__componentOriginal9049a18a59945f39a111fd2612c24a09679f82a8 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SellerCard::class, ['datas' => $sellers,'label' => 'Sesi','count' => $sellerCount,'description' => 'Jumlah Penjual','icon' => 'account-outline','variant' => 'primary','growth' => $sellerPercentage ? '+' . $sellerPercentage . '%' : '-' . $sellerPrePercentage . '%']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SellerCard::class, ['datas' => $sellers,'label' => 'Sesi','count' => $sellerCount,'description' => 'Jumlah Penjual','icon' => 'account-outline','variant' => 'primary']); ?>
 <?php $component->withName('seller-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -55,7 +37,7 @@
 <?php unset($__componentOriginal9049a18a59945f39a111fd2612c24a09679f82a8); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginal9049a18a59945f39a111fd2612c24a09679f82a8 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SellerCard::class, ['datas' => $sellers,'label' => 'Penjual Aktif','count' => $activeSeller,'icon' => 'account-check-outline','variant' => 'success','growth' => $sellerActivePercentage ? '+' . $sellerActivePercentage . '%' : '-' . $sellerActivePrePercentage . '%']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SellerCard::class, ['datas' => $sellers,'label' => 'Penjual Aktif','count' => $activeSeller,'icon' => 'account-check-outline','variant' => 'success']); ?>
 <?php $component->withName('seller-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -67,9 +49,7 @@
 <?php unset($__componentOriginal9049a18a59945f39a111fd2612c24a09679f82a8); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginal9049a18a59945f39a111fd2612c24a09679f82a8 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SellerCard::class, ['datas' => $sellers,'label' => 'Penjual Tidak Aktif','count' => $inactiveSeller,'icon' => 'account-off-outline','variant' => 'danger','growth' => $sellerInactivePercentage
-          ? '+' . $sellerInactivePercentage . '%'
-          : '-' . $sellerInactivePrePercentage . '%']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SellerCard::class, ['datas' => $sellers,'label' => 'Penjual Tidak Aktif','count' => $inactiveSeller,'icon' => 'account-off-outline','variant' => 'danger']); ?>
 <?php $component->withName('seller-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -81,9 +61,7 @@
 <?php unset($__componentOriginal9049a18a59945f39a111fd2612c24a09679f82a8); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginal9049a18a59945f39a111fd2612c24a09679f82a8 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SellerCard::class, ['datas' => $sellers,'label' => 'Penjual Pending','count' => $pendingSeller,'icon' => 'account-search-outline','variant' => 'warning','growth' => $sellerPendingPercentage
-          ? '+' . $sellerPendingPercentage . '%'
-          : '-' . $sellerPendingPrePercentage . '%']); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SellerCard::class, ['datas' => $sellers,'label' => 'Penjual Pending','count' => $pendingSeller,'icon' => 'account-search-outline','variant' => 'warning']); ?>
 <?php $component->withName('seller-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

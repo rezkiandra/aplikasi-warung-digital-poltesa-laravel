@@ -20,7 +20,7 @@
   // Earnings Card
   $earnings = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
       ->where('products.seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'paid')
+      ->where('orders.status', 'sudah bayar')
       ->orderBy('orders.created_at', 'desc')
       ->take(5)
       ->get();
@@ -31,26 +31,26 @@
   // Transaction Item Card
   $totalPaid = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
       ->where('products.seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'paid')
+      ->where('orders.status', 'sudah bayar')
       ->count();
   $totalUnpaid = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
       ->where('products.seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'unpaid')
+      ->where('orders.status', 'belum bayar')
       ->count();
   $totalExpire = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
       ->where('products.seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'expire')
+      ->where('orders.status', 'kadaluarsa')
       ->count();
   $totalCancelled = \App\Models\Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
       ->where('products.seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'cancelled')
+      ->where('orders.status', 'dibatalkan')
       ->count();
 
   // Top Card Content
   $topCustomers = \App\Models\Order::selectRaw('customer_id, count(*) as total')
       ->join('products', 'orders.product_id', '=', 'products.id', 'left')
       ->where('products.seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'paid')
+      ->where('orders.status', 'sudah bayar')
       ->groupBy('customer_id')
       ->orderBy('total', 'desc')
       ->take(5)
@@ -59,7 +59,7 @@
   $topProducts = \App\Models\Order::selectRaw('product_id, count(*) as total')
       ->join('products', 'orders.product_id', '=', 'products.id', 'left')
       ->where('products.seller_id', auth()->user()->seller->id)
-      ->where('orders.status', 'paid')
+      ->where('orders.status', 'sudah bayar')
       ->groupBy('product_id')
       ->selectRaw('SUM(orders.quantity) as total')
       ->orderBy('product_id', 'asc')
@@ -87,7 +87,7 @@
     </x-transactions-card>
 
     <x-bar-graph-card :height="'300'" :title="'Total Pendapatan Tahun Ini (' . date('Y') . ')'" :id="'monthlyEarnings'" :class="'col-lg-8 col-md-12 col-12'" />
-    <x-top-products-card :datas="$topProducts" :title="'Penjualan Produk Teratas 🎉'" :class="'col-12 col-lg-4 col-md-12'" />
+    <x-top-products-card :datas="$topProducts" :title="'Produk Terjual 🎉'" :class="'col-12 col-lg-4 col-md-12'" />
 
     <x-earnings-card :title="$titleEarnings" :description="$descriptionEarnings" :earnings="$earningsValue" :class="'col-lg-6 col-md-6 col-12'" />
     <x-top-customers-card :datas="$topCustomers" :title="'Pelanggan Teratas 🎉'" :class="'col-lg-6 col-md-6 col-12'" />

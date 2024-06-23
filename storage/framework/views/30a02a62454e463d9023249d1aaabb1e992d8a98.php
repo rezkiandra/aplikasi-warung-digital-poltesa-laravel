@@ -3,23 +3,6 @@
   $activeCustomer = \App\Models\Customer::where('status', 'active')->count();
   $inactiveCustomer = \App\Models\Customer::where('status', 'inactive')->count();
   $pendingCustomer = \App\Models\Customer::where('status', 'pending')->count();
-  $customerPercentage = round((\App\Models\Customer::count() ?? 0 / \App\Models\Customer::count()) * 100, 2);
-  $customerPrePercentage = \App\Models\Customer::count();
-  $customerActivePercentage = round(
-      (\App\Models\Customer::where('status', 'active')->count() ?? 0 / \App\Models\Customer::count()) * 100,
-      2,
-  );
-  $customerActivePrePercentage = \App\Models\Customer::where('status', 'active')->count();
-  $customerInactivePercentage = round(
-      (\App\Models\Customer::where('status', 'inactive')->count() ?? 0 / \App\Models\Customer::count()) * 100,
-      2,
-  );
-  $customerInactivePrePercentage = \App\Models\Customer::where('status', 'inactive')->count();
-  $customerPendingPercentage = round(
-      (\App\Models\Customer::where('status', 'pending')->count() ?? 0 / \App\Models\Customer::count()) * 100,
-      2,
-  );
-  $customerPendingPrePercentage = \App\Models\Customer::where('status', 'pending')->count();
 ?>
 
 
@@ -41,7 +24,7 @@
 <?php endif; ?>
   <div class="row g-4 mb-4">
     <?php if (isset($component)) { $__componentOriginala863cd47245cc584b2bc16239844e17d2d05b0e3 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\CustomerCard::class, ['datas' => $customers,'label' => 'Sesi','description' => 'Jumlah Pelanggan','icon' => 'account-outline','variant' => 'primary','percentage' => $customerPercentage ? '+' . $customerPercentage . '%' : '-' . $customerPrePercentage . '%','condition' => $customerCount]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\CustomerCard::class, ['datas' => $customers,'label' => 'Sesi','description' => 'Jumlah Pelanggan','icon' => 'account-outline','variant' => 'primary','condition' => $customerCount]); ?>
 <?php $component->withName('customer-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -53,9 +36,7 @@
 <?php unset($__componentOriginala863cd47245cc584b2bc16239844e17d2d05b0e3); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginala863cd47245cc584b2bc16239844e17d2d05b0e3 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\CustomerCard::class, ['datas' => $customers,'label' => 'Pelanggan Aktif','icon' => 'account-check-outline','variant' => 'success','percentage' => $customerActivePercentage
-          ? '+' . $customerActivePercentage . '%'
-          : '-' . $customerActivePrePercentage . '%','condition' => $activeCustomer]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\CustomerCard::class, ['datas' => $customers,'label' => 'Pelanggan Aktif','icon' => 'account-check-outline','variant' => 'success','condition' => $activeCustomer]); ?>
 <?php $component->withName('customer-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -67,9 +48,7 @@
 <?php unset($__componentOriginala863cd47245cc584b2bc16239844e17d2d05b0e3); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginala863cd47245cc584b2bc16239844e17d2d05b0e3 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\CustomerCard::class, ['datas' => $customers,'label' => 'Pelanggan Tidak Aktif','icon' => 'account-off-outline','variant' => 'danger','percentage' => $customerInactivePercentage
-          ? '+' . $customerInactivePercentage . '%'
-          : '-' . $customerInactivePrePercentage . '%','condition' => $inactiveCustomer]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\CustomerCard::class, ['datas' => $customers,'label' => 'Pelanggan Tidak Aktif','icon' => 'account-off-outline','variant' => 'danger','condition' => $inactiveCustomer]); ?>
 <?php $component->withName('customer-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -81,9 +60,7 @@
 <?php unset($__componentOriginala863cd47245cc584b2bc16239844e17d2d05b0e3); ?>
 <?php endif; ?>
     <?php if (isset($component)) { $__componentOriginala863cd47245cc584b2bc16239844e17d2d05b0e3 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\CustomerCard::class, ['datas' => $customers,'label' => 'Pelanggan Pending','icon' => 'account-search-outline','variant' => 'warning','percentage' => $customerPendingPercentage
-          ? '+' . $customerPendingPercentage . '%'
-          : '-' . $customerPendingPrePercentage . '%','condition' => $pendingCustomer]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\CustomerCard::class, ['datas' => $customers,'label' => 'Pelanggan Pending','icon' => 'account-search-outline','variant' => 'warning','condition' => $pendingCustomer]); ?>
 <?php $component->withName('customer-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

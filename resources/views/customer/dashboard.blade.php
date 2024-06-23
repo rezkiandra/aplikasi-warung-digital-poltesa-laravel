@@ -17,29 +17,30 @@
 
   // Earnings Card
   $spent = \App\Models\Order::where('customer_id', auth()->user()->customer->id)
-      ->where('status', 'paid')
+      ->where('status', 'sudah bayar')
       ->get();
-  $titleSpent = 'Pengeluaran Tanpa PPN 1%';
+  $titleSpent = 'Pengeluaran biaya tanpa pengiriman';
   $spentValue = 'Rp ' . number_format($spent->sum('total_price'), 0, ',', '.');
   $descriptionSpent = 'Total pengeluaran keseluruhan';
 
   // Transaction Item Card
   $totalPaid = \App\Models\Order::where('customer_id', auth()->user()->customer->id)
-      ->where('status', 'paid')
+      ->where('status', 'sudah bayar')
       ->count();
   $totalUnpaid = \App\Models\Order::where('customer_id', auth()->user()->customer->id)
-      ->where('status', 'unpaid')
+      ->where('status', 'belum bayar')
       ->count();
   $totalExpire = \App\Models\Order::where('customer_id', auth()->user()->customer->id)
-      ->where('status', 'expire')
+      ->where('status', 'kadaluarsa')
       ->count();
   $totalCancelled = \App\Models\Order::where('customer_id', auth()->user()->customer->id)
-      ->where('status', 'cancelled')
+      ->where('status', 'dibatalkan')
       ->count();
 
   $topProducts = \App\Models\Order::select('product_id', DB::raw('SUM(quantity) as total'))
       ->join('products', 'orders.product_id', '=', 'products.id', 'left')
       ->where('orders.customer_id', auth()->user()->customer->id)
+      ->where('status', 'sudah bayar')
       ->groupBy('product_id')
       ->orderBy('total', 'desc')
       ->orderBy('products.price', 'desc')

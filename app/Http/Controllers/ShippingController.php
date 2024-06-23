@@ -46,4 +46,13 @@ class ShippingController extends Controller
     Alert::toast('Berhasil mengubah status pengiriman', 'success');
     return redirect()->route('seller.orders');
   }
+
+  public function arrive(ShippingRequest $request, string $uuid)
+  {
+    $shipping = Shipping::where('uuid', $uuid)->firstOrFail();
+    $shipping->update(['status' => 'diterima']);
+
+    Alert::toast('Berhasil menerima paket', 'success');
+    return redirect()->route('customer.orders');
+  }
 }

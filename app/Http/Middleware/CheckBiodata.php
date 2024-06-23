@@ -27,6 +27,6 @@ class CheckBiodata
 
   private function hasRequiredInfoSeller($seller)
   {
-    return !empty($seller->full_name) && !empty($seller->address) && !empty($seller->phone_number) && !empty($seller->gender) && !empty($seller->bank_account_id) && !empty($seller->account_number) && !empty($seller->status);
+    return !empty($seller->full_name) && !empty($seller->address) && !empty($seller->origin) && !empty($seller->phone_number) && !empty($seller->gender) && !empty($seller->bank_account_id) && !empty($seller->account_number) && !empty($seller->status);
   }
 }

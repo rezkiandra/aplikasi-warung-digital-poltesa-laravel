@@ -4,7 +4,6 @@
       <p class="mb-2"><?php echo e($label); ?></p>
       <div class="d-flex align-items-center">
         <h4 class="mb-2 me-2 display-6"><?php echo e($condition); ?></h4>
-        
       </div>
       <p class="mb-0">
         <span class="me-2"><?php echo e($description); ?></span>

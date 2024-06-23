@@ -6,7 +6,6 @@
           <p class="text-heading mb-2"><?php echo e($label); ?></p>
           <div class="d-flex align-items-center">
             <h4 class="mb-2 me-2 display-6"><?php echo e($condition); ?></h4>
-            <p class="text-<?php echo e($percentage > 0 ? 'success' : 'danger'); ?> mb-2"><?php echo e($percentage); ?></p>
           </div>
           <p class="mb-0"><?php echo e($description); ?></p>
         </div>

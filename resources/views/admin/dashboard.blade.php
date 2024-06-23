@@ -22,7 +22,7 @@
 
   // Top Card Content
   $topSellers = \App\Models\Order::selectRaw('seller_id, count(*) as total')
-      ->where('orders.status', 'paid')
+      ->where('orders.status', 'sudah bayar')
       ->groupBy('seller_id')
       ->selectRaw('SUM(orders.total_price) as total_price')
       ->orderBy('total_price', 'desc')
@@ -30,7 +30,7 @@
       ->get();
 
   $topCustomers = \App\Models\Order::selectRaw('customer_id, count(*) as total')
-      ->where('orders.status', 'paid')
+      ->where('orders.status', 'sudah bayar')
       ->groupBy('customer_id')
       ->orderBy('total', 'desc')
       ->take(5)
@@ -51,7 +51,6 @@
 @push('styles')
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @endpush
-
 @section('content')
   <x-customer-dashboard-card :description="$alertMessage" />
   <x-content-card>
@@ -85,32 +84,32 @@
       data: {
         labels: @json($data['labels']),
         datasets: [{
-            label: 'Paid',
-            data: @json($data['paid']),
+            label: 'Sudah Bayar',
+            data: @json($data['sudah bayar']),
             backgroundColor: 'rgba(86, 202, 0, 0.5)',
             borderColor: 'rgba(86, 202, 0, 1)',
             borderWidth: 1,
             tension: 0
           },
           {
-            label: 'Unpaid',
-            data: @json($data['unpaid']),
+            label: 'Belum Bayar',
+            data: @json($data['belum bayar']),
             backgroundColor: 'rgba(255, 180, 0, 0.5)',
             borderColor: 'rgba(255, 180, 0, 1)',
             borderWidth: 1,
             tension: 0
           },
           {
-            label: 'Expire',
-            data: @json($data['expire']),
+            label: 'Kadaluarsa',
+            data: @json($data['kadaluarsa']),
             backgroundColor: 'rgba(255, 76, 81, 0.5)',
             borderColor: 'rgba(255, 76, 81, 1)',
             borderWidth: 1,
             tension: 0
           },
           {
-            label: 'Cancel',
-            data: @json($data['cancel']),
+            label: 'Dibatalkan',
+            data: @json($data['dibatalkan']),
             backgroundColor: 'rgba(2, 11, 12, 0.5)',
             borderColor: 'rgba(2, 11, 12, 1)',
             borderWidth: 1,

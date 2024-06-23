@@ -42,7 +42,8 @@
 @endpush
 @section('content')
   <div
-    class="fixed-left d-none position-fixed py-4 bg-white d-lg-flex d-md-flex flex-column gap-4 px-3 rounded rounded-lg shadow" data-aos="fade-right" data-aos-duration="1200">
+    class="fixed-left d-none position-fixed py-4 bg-white d-lg-flex d-md-flex flex-column gap-4 px-3 rounded rounded-lg shadow"
+    data-aos="fade-right" data-aos-duration="1200">
     <a href="https://github.com/rezkiandra" class="">
       <i class="mdi mdi-github mdi-24px"></i>
     </a>
@@ -70,7 +71,8 @@
         <div class="mb-4">
           <h5 class="text-wrap text-secondary line-height">Aplikasi e-commerce sederhana yang terintegrasi dengan
             payment gateway.
-            Memudahkan pelaku bisnis di Politeknik Negeri Sambas dalam mengelola produk dan transaksi. Tersedia berbagai macam produk dengan kualitas terbaik
+            Memudahkan pelaku bisnis di Politeknik Negeri Sambas dalam mengelola produk dan transaksi. Tersedia berbagai
+            macam produk dengan kualitas terbaik
           </h5>
         </div>
         <a href="{{ route('guest.products') }}" class="btn btn-primary">
@@ -94,14 +96,16 @@
       </div>
     </section>
 
-    <section class="" data-aos="fade-up" data-aos-duration="1000">
-      <div class="d-flex justify-content-between align-items-center">
-        <h5 class="text-dark text-capitalize mb-4">Produk Teratas</h5>
-        <a href="{{ route('guest.products') }}" class="btn btn-primary btn-sm mb-4">Lihat Semua</a>
-      </div>
-      <x-grid-card :class="'mb-5 pb-5'">
-        <x-product-grid :datas="$topProducts" />
-      </x-grid-card>
-    </section>
+    @if ($topProducts->count() > 0)
+      <section class="" data-aos="fade-up" data-aos-duration="1000">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5 class="text-dark text-capitalize mb-4">Produk Teratas</h5>
+          <a href="{{ route('guest.products') }}" class="btn btn-primary btn-sm mb-4">Lihat Semua</a>
+        </div>
+        <x-grid-card :class="'mb-5 pb-5'">
+          <x-product-grid :datas="$topProducts" />
+        </x-grid-card>
+      </section>
+    @endif
   </main>
 @endsection

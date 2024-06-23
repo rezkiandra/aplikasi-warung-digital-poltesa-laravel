@@ -87,7 +87,7 @@
             {{-- E-Channel --}}
             @if (
                 $order->payment_method &&
-                    ($order->status == 'paid' || $order->status == 'expire' || $order->status == 'unpaid') &&
+                    ($order->status == 'sudah bayar' || $order->status == 'kadaluarsa' || $order->status == 'belum bayar') &&
                     $order->bill_key &&
                     $order->biller_code)
               <li class="timeline-item timeline-item-transparent border-primary">
@@ -102,7 +102,7 @@
                     {{ date('d M Y, H:i:s', strtotime($order->expiry_time)) }}</p>
                 </div>
               </li>
-              @if ($order->status == 'paid')
+              @if ($order->status == 'sudah bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
@@ -115,7 +115,7 @@
                     <p class="mt-1 mb-3">Anda sudah membayar pesanan</p>
                   </div>
                 </li>
-              @elseif ($order->status == 'expire')
+              @elseif ($order->status == 'kadaluarsa')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
@@ -126,7 +126,7 @@
                     <p class="mt-1 mb-3">Anda tidak dapat membeli produk</p>
                   </div>
                 </li>
-              @elseif ($order->status == 'unpaid')
+              @elseif ($order->status == 'belum bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
@@ -144,7 +144,7 @@
               {{-- QRIS --}}
             @elseif (
                 $order->payment_method &&
-                    ($order->status == 'paid' || $order->status == 'expire' || $order->status == 'unpaid') &&
+                    ($order->status == 'sudah bayar' || $order->status == 'kadaluarsa' || $order->status == 'belum bayar') &&
                     $order->issuer &&
                     $order->acquirer)
               <li class="timeline-item timeline-item-transparent border-primary">
@@ -159,7 +159,7 @@
                     {{ date('d M Y, H:i:s', strtotime($order->expiry_time)) }}</p>
                 </div>
               </li>
-              @if ($order->status == 'paid')
+              @if ($order->status == 'sudah bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
@@ -172,7 +172,7 @@
                     <p class="mt-1 mb-3">Anda sudah membayar pesanan</p>
                   </div>
                 </li>
-              @elseif ($order->status == 'expire')
+              @elseif ($order->status == 'kadaluarsa')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
@@ -183,7 +183,7 @@
                     <p class="mt-1 mb-3">Anda tidak dapat membeli produk</p>
                   </div>
                 </li>
-              @elseif ($order->status == 'unpaid')
+              @elseif ($order->status == 'belum bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
@@ -201,7 +201,7 @@
               {{-- Virtual Account --}}
             @elseif (
                 $order->payment_method == 'bank_transfer' &&
-                    ($order->status == 'paid' || $order->status == 'expire' || $order->status == 'unpaid'))
+                    ($order->status == 'sudah bayar' || $order->status == 'kadaluarsa' || $order->status == 'belum bayar'))
               <li class="timeline-item timeline-item-transparent border-primary">
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
@@ -214,7 +214,7 @@
                     {{ date('d M Y, H:i:s', strtotime($order->expiry_time)) }}</p>
                 </div>
               </li>
-              @if ($order->status == 'paid')
+              @if ($order->status == 'sudah bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
@@ -227,7 +227,7 @@
                     <p class="mt-1 mb-3">Anda sudah membayar pesanan</p>
                   </div>
                 </li>
-              @elseif ($order->status == 'expire')
+              @elseif ($order->status == 'kadaluarsa')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
@@ -238,7 +238,7 @@
                     <p class="mt-1 mb-3">Anda tidak dapat membeli produk</p>
                   </div>
                 </li>
-              @elseif ($order->status == 'unpaid')
+              @elseif ($order->status == 'belum bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
@@ -256,7 +256,7 @@
               {{-- Alfamart / Indomaret Group --}}
             @elseif (
                 $order->payment_method &&
-                    ($order->status == 'paid' || $order->status == 'expire' || $order->status == 'unpaid') &&
+                    ($order->status == 'sudah bayar' || $order->status == 'kadaluarsa' || $order->status == 'belum bayar') &&
                     $order->payment_code &&
                     $order->store)
               <li class="timeline-item timeline-item-transparent border-primary">
@@ -271,7 +271,7 @@
                     {{ date('d M Y, H:i:s', strtotime($order->expiry_time)) }}</p>
                 </div>
               </li>
-              @if ($order->status == 'paid')
+              @if ($order->status == 'sudah bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
@@ -284,7 +284,7 @@
                     <p class="mt-1 mb-3">Anda sudah membayar pesanan</p>
                   </div>
                 </li>
-              @elseif ($order->status == 'expire')
+              @elseif ($order->status == 'kadaluarsa')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
@@ -295,7 +295,7 @@
                     <p class="mt-1 mb-3">Anda tidak dapat membeli produk</p>
                   </div>
                 </li>
-              @elseif ($order->status == 'unpaid')
+              @elseif ($order->status == 'belum bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
@@ -309,7 +309,7 @@
                   </div>
                 </li>
               @endif
-            @elseif($order->status == 'cancelled')
+            @elseif($order->status == 'dibatalkan')
               <li class="timeline-item timeline-item-transparent border-primary">
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
@@ -323,7 +323,7 @@
             @endif
 
             {{-- Row 3 --}}
-            @if ($order->status == 'paid')
+            @if ($order->status == 'sudah bayar')
               <li class="timeline-item timeline-item-transparent border-primary">
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
@@ -337,7 +337,7 @@
                   </p>
                 </div>
               </li>
-            @elseif ($order->status == 'cancelled')
+            @elseif ($order->status == 'dibatalkan')
               <li class="timeline-item timeline-item-transparent border-primary">
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
@@ -349,7 +349,7 @@
                   <p class="mt-1 mb-3">Anda dapat membeli kembali produk dari pesanan ini</p>
                 </div>
               </li>
-            @elseif ($order->status == 'expire')
+            @elseif ($order->status == 'kadaluarsa')
               <li class="timeline-item timeline-item-transparent border-primary">
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
@@ -365,7 +365,7 @@
           </ul>
         </div>
       </div>
-      @if ($order->status == 'unpaid')
+      @if ($order->status == 'belum bayar')
         <div class="card card-body text-dark mb-3">
           <h5 class="card-title mb-3">Ketentuan Berlaku :</h5>
           <ol>

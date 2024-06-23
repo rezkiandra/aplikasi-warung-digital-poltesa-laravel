@@ -125,7 +125,7 @@ class MidtransController extends Controller
         $order = Order::where('uuid', $request->order_id)->firstOrFail();
         if ($request->transaction_status == 'settlement') {
           $order->update([
-            'status' => 'paid',
+            'status' => 'sudah bayar',
             'payment_method' => $request->payment_type,
             'store' => $request->store,
             'payment_code' => $request->payment_code,
@@ -137,7 +137,7 @@ class MidtransController extends Controller
           ]);
         } elseif ($request->transaction_status == 'pending') {
           $order->update([
-            'status' => 'unpaid',
+            'status' => 'belum bayar',
             'payment_method' => $request->payment_type,
             'store' => $request->store,
             'payment_code' => $request->payment_code,
@@ -149,7 +149,7 @@ class MidtransController extends Controller
           ]);
         } elseif ($request->transaction_status == 'expire') {
           $order->update([
-            'status' => 'expire',
+            'status' => 'kadaluarsa',
             'payment_method' => $request->payment_type,
             'store' => $request->store,
             'payment_code' => $request->payment_code,
