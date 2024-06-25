@@ -15,9 +15,11 @@ class CustomerRequest extends FormRequest
   public function rules(): array
   {
     return [
+      'nik_nim' => 'required|unique:customers,nik_nim|min:8|max:20',
       'user_id' => 'required|unique:customers,full_name',
       'full_name' => 'required|unique:customers,id|min:6|max:30',
       'address' => 'required',
+      'origin' => 'required',
       'phone_number' => 'required|numeric|regex:/^\d{8,13}$/|unique:customers,phone_number',
       'gender' => 'required',
       'image' => 'required:image,null|mimes:png,jpg,jpeg|max:2048',
@@ -28,6 +30,11 @@ class CustomerRequest extends FormRequest
   public function messages(): array
   {
     return [
+      'nik_nim.required' => 'NIK / NIM diperlukan',
+      'nik_nim.unique' => 'NIK / NIM sudah ada',
+      'nik_nim.min' => 'NIK / NIM minimal 8 karakter',
+      'nik_nim.max' => 'NIK / NIM maksimal 20 karakter',
+
       'user_id.required' => 'Harap pilih user',
       'user_id.unique' => 'User sudah menjadi customer',
 
@@ -37,6 +44,8 @@ class CustomerRequest extends FormRequest
       'full_name.max' => 'Nama customer maksimal 30 karakter',
 
       'address.required' => 'Alamat diperlukan',
+
+      'origin.required' => 'Kota diperlukan',
 
       'phone_number.required' => 'Nomor handphone diperlukan',
       'phone_number.numeric' => 'Nomor handphone dalam bentuk angka',

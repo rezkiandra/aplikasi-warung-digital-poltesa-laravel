@@ -1,7 +1,3 @@
-@php
-  $totalProducts = \App\Models\Seller::join('products', 'sellers.id', '=', 'products.seller_id', 'left')->count();
-@endphp
-
 <div class="card">
   <h5 class="card-header">{{ $title }}</h5>
   <div class="table-responsive text-nowrap">
@@ -15,6 +11,9 @@
         @foreach ($datas as $data)
           <tr>
             <td>{{ $loop->iteration }}</td>
+            <td>
+              <span class="text-dark">{{ $data->nik_nim }}</span>
+            </td>
             <td class="sorting_1">
               <div class="d-flex justify-content-start align-items-center product-name">
                 <div class="avatar-wrapper me-3">
@@ -43,7 +42,7 @@
                   </span>
                   <small class="text-truncate">
                     <span class="fw-medium text-capitalize">
-                      {{ Str::limit($data->address, 50) }}
+                      {{ Str::limit($data->address, 70) }}
                     </span>
                   </small>
                 </div>
@@ -97,11 +96,8 @@
           </tr>
         @endforeach
       </tbody>
-      <tfoot class="table-border-bottom-0">
-        @foreach ($fields as $field)
-          <th>{{ $field }}</th>
-        @endforeach
-      </tfoot>
     </table>
   </div>
+
+  <x-pagination :pages="$datas" />
 </div>

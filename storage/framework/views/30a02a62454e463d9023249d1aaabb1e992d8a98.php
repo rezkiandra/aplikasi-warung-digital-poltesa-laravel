@@ -66,7 +66,7 @@
 <?php endif; ?>
   </div>
   <?php if (isset($component)) { $__componentOriginalc6ba6500e6bfea952115c941efc7d1759239a6d5 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\CustomerTable::class, ['title' => 'Data Pelanggan','datas' => $customers,'fields' => ['No', 'Pelanggan', 'Gender / Alamat', 'Status / Nomor HP', 'Dibuat Pada', 'Aksi']]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\CustomerTable::class, ['title' => 'Data Pelanggan','datas' => $customers,'fields' => ['No', 'NIK / NIM', 'Pelanggan', 'Gender / Alamat', 'Status / Nomor HP', 'Dibuat Pada', 'Aksi']]); ?>
 <?php $component->withName('customer-table'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

@@ -14,6 +14,7 @@ class Seller extends Model
   protected $fillable = [
     'uuid',
     'user_id',
+    'nik_nim',
     'full_name',
     'slug',
     'address',
@@ -33,7 +34,7 @@ class Seller extends Model
 
   public function bank()
   {
-    return $this->belongsTo(BankAccount::class);
+    return $this->belongsTo(BankAccount::class, 'bank_account_id');
   }
 
   public function product()

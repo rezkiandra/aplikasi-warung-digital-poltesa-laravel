@@ -68,7 +68,7 @@
   </div>
 
   <?php if (isset($component)) { $__componentOriginal0df6ad5cc98fac9acf20a54534b0d87f650a1863 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SellerTable::class, ['title' => 'Data Penjual','datas' => $sellers,'fields' => ['No', 'Penjual', 'Gender / Alamat', 'Status / Nomor HP', 'Bank', 'Dibuat Pada', 'Aksi']]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SellerTable::class, ['title' => 'Data Penjual','datas' => $sellers,'fields' => ['No', 'NIK / NIM', 'Penjual', 'Gender / Alamat', 'Status / Nomor HP', 'Bank', 'Dibuat Pada', 'Aksi']]); ?>
 <?php $component->withName('seller-table'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

@@ -9,12 +9,20 @@
         </x-form-floating>
       </div>
 
-      <div class="col-lg-4">
+      <div class="col-lg-2">
+        <x-form-floating>
+          <x-input-form-label :label="'NIK / NIM'" :name="'nik_nim'" :type="'tel'" :value="old('nik_nim')"
+            :placeholder="'1234567890'" />
+        </x-form-floating>
+      </div>
+
+      <div class="col-lg-2">
         <x-form-floating>
           <x-input-form-label :label="'Nomor Telepon'" :name="'phone_number'" :type="'tel'" :value="old('phone_number')"
             :placeholder="'081234567890'" />
         </x-form-floating>
       </div>
+
       <div class="col-lg-4">
         <x-form-floating>
           <x-input-form-label :label="'Gender'" :name="'gender'" :type="'select'" :options="$gender"
@@ -45,6 +53,7 @@
             @endforeach
           </select>
           <label for="origin">Kota Asal</label>
+          <x-validation-error :name="'origin'" />
         </x-form-floating>
       </div>
 

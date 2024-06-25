@@ -15,9 +15,11 @@ class SellerRequest extends FormRequest
   public function rules(): array
   {
     return [
+      'nik_nim' => 'required|unique:sellers,nik_nim|min:8|max:20',
       'user_id' => 'required|unique:sellers,id',
       'full_name' => 'required|unique:sellers,id|min:4|max:30',
       'address' => 'required',
+      'origin' => 'required',
       'phone_number' => 'required|unique:sellers,phone_number|regex:/^(08)[0-9]{9,12}$/',
       'gender' => 'required',
       'bank_account_id' => 'required',
@@ -30,6 +32,11 @@ class SellerRequest extends FormRequest
   public function messages(): array
   {
     return [
+      'nik_nim.required' => 'NIK / NIM diperlukan',
+      'nik_nim.unique' => 'NIK / NIM sudah ada',
+      'nik_nim.min' => 'NIK / NIM minimal 8 karakter',
+      'nik_nim.max' => 'NIK / NIM maksimal 20 karakter',
+
       'user_id.required' => 'Harap pilih user',
       'user_id.unique' => 'User sudah menjadi seller',
 
@@ -39,6 +46,8 @@ class SellerRequest extends FormRequest
       'full_name.max' => 'Nama seller maksimal 30 karakter',
 
       'address.required' => 'Alamat diperlukan',
+
+      'origin.required' => 'Kota diperlukan',
 
       'phone_number.required' => 'Nomor handphone diperlukan',
       'phone_number.number' => 'Nomor handphone dalam bentuk angka',

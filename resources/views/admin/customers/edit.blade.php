@@ -19,13 +19,32 @@
               <img src="{{ asset('storage/' . $customer->image) }}" alt="" class="img-fluid rounded-circle"
                 width="200">
             </div>
-            <div class="mt-3 text-center fw-medium text-capitalize text-dark">
-              <h5 class="mb-3">{{ $customer->full_name }}</h5>
-              <p class="mb-1">{{ $customer->gender }}</p>
-              <p class="mb-1">{{ $customer->phone_number }}</p>
-              <p class="mb-1 text-lowercase">{{ $customer->user->email }}</p>
-              <p class="mb-1">{{ $customer->account_number }}</p>
-              <p class="mb-3">{{ $customer->address }}</p>
+            <div class="mt-3 fw-medium text-capitalize text-dark">
+              <h5 class="mb-3 text-center text-uppercase">{{ $customer->full_name }}</h5>
+              <p class="mb-1">
+                <i class="mdi mdi-gender-male me-2"></i>
+                {{ $customer->gender }}
+              </p>
+              <p class="mb-1">
+                <i class="mdi mdi-identifier me-2"></i>
+                {{ $customer->nik_nim }}
+              </p>
+              <p class="mb-1">
+                <i class="mdi mdi-phone-outline me-2"></i>
+                {{ $customer->phone_number }}
+              </p>
+              <p class="mb-1 text-lowercase">
+                <i class="mdi mdi-email-outline me-2"></i>
+                {{ $customer->user->email }}
+              </p>
+              <p class="mb-1">
+                <i class="mdi mdi-map-marker-outline me-2"></i>
+                Kota {{ $city_name }}
+              </p>
+              <p class="mb-1">
+                <i class="mdi mdi-home-outline me-2"></i>
+                {{ $customer->address }}
+              </p>
             </div>
           </div>
         </div>
@@ -33,9 +52,15 @@
       <div class="col-lg-8">
         <x-edit-form :title="'Edit biodata pelanggan'" :action="route('admin.update.customer', $customer->uuid)">
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-3">
               <x-form-floating>
                 <x-input-form-label :label="'Nama Lengkap'" :name="'full_name'" :type="'text'" :value="$customer->full_name" />
+              </x-form-floating>
+            </div>
+
+            <div class="col-lg-3">
+              <x-form-floating>
+                <x-input-form-label :label="'NIK / NIM'" :name="'nik_nim'" :type="'text'" :value="$customer->nik_nim" />
               </x-form-floating>
             </div>
 
@@ -57,6 +82,7 @@
                   @endforeach
                 </select>
                 <label for="origin">Kota Asal</label>
+                <x-validation-error :name="'origin'" />
               </x-form-floating>
             </div>
 
@@ -72,6 +98,7 @@
                   @endforeach
                 </select>
                 <label for="gender">Jenis Kelamin</label>
+                <x-validation-error :name="'gender'" />
               </x-form-floating>
             </div>
 
@@ -87,6 +114,7 @@
                   @endforeach
                 </select>
                 <label for="status">Status</label>
+                <x-validation-error :name="'status'" />
               </x-form-floating>
             </div>
 

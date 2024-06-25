@@ -65,6 +65,7 @@ class UserController extends Controller
     Seller::create([
       'uuid' => Str::uuid('id'),
       'user_id' => $request->user_id,
+      'nik_nim' => $request->nik_nim,
       'full_name' => $request->full_name,
       'slug' => Str::slug($request->full_name),
       'address' => $request->address,
@@ -118,8 +119,7 @@ class UserController extends Controller
     $response = Http::withHeaders(['key' => $this->api_key])->get($this->endpoint . '/city');
     $cities = $response['rajaongkir']['results'];
 
-    $city_id = $seller->pluck('origin')->first();
-    $city_name = $this->getCityName($city_id);
+    $city_name = $this->getCityName($seller->origin);
     return view('admin.sellers.edit', compact('seller', 'user', 'gender', 'status', 'bank', 'cities', 'city_name'));
   }
 
@@ -138,6 +138,7 @@ class UserController extends Controller
     } else {
       $seller->update([
         'user_id' => $seller->user_id,
+        'nik_nim' => $request->nik_nim,
         'full_name' => $request->full_name,
         'slug' => Str::slug($request->full_name),
         'address' => $request->address,
@@ -195,6 +196,7 @@ class UserController extends Controller
     Customer::create([
       'uuid' => Str::uuid('id'),
       'user_id' => $request->user_id,
+      'nik_nim' => $request->nik_nim,
       'full_name' => $request->full_name,
       'slug' => Str::slug($request->full_name),
       'address' => $request->address,
@@ -247,8 +249,7 @@ class UserController extends Controller
     $response = Http::withHeaders(['key' => $this->api_key])->get($this->endpoint . '/city');
     $cities = $response['rajaongkir']['results'];
 
-    $city_id = $customer->pluck('origin')->first();
-    $city_name = $this->getCityName($city_id);
+    $city_name = $this->getCityName($customer->origin);
     return view('admin.customers.edit', compact('customer', 'user', 'gender', 'status', 'bank', 'cities', 'city_name'));
   }
 
@@ -267,9 +268,11 @@ class UserController extends Controller
     } else {
       $customer->update([
         'user_id' => $customer->user_id,
+        'nik_nim' => $request->nik_nim,
         'full_name' => $request->full_name,
         'slug' => Str::slug($request->full_name),
         'address' => $request->address,
+        'origin' => $request->origin,
         'phone_number' => $request->phone_number,
         'gender' => $request->gender,
         'status' => $request->status,

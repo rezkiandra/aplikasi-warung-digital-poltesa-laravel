@@ -11,6 +11,9 @@
         <?php $__currentLoopData = $datas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           <tr>
             <td><?php echo e($loop->iteration); ?></td>
+            <td>
+              <span class="text-dark"><?php echo e($data->nik_nim); ?></span>
+            </td>
             <td class="sorting_1">
               <div class="d-flex justify-content-start align-items-center product-name">
                 <div class="avatar-wrapper me-3">
@@ -130,12 +133,20 @@
           </tr>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
       </tbody>
-      <tfoot class="table-border-bottom-0">
-        <?php $__currentLoopData = $fields; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $field): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-          <th><?php echo e($field); ?></th>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-      </tfoot>
     </table>
   </div>
+
+  <?php if (isset($component)) { $__componentOriginal41fa1a726c2cdc888fd1699c1c531da853ade966 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\Pagination::class, ['pages' => $datas]); ?>
+<?php $component->withName('pagination'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal41fa1a726c2cdc888fd1699c1c531da853ade966)): ?>
+<?php $component = $__componentOriginal41fa1a726c2cdc888fd1699c1c531da853ade966; ?>
+<?php unset($__componentOriginal41fa1a726c2cdc888fd1699c1c531da853ade966); ?>
+<?php endif; ?>
 </div>
 <?php /**PATH C:\laragon\www\warungdigital\resources\views/components/seller/seller-table.blade.php ENDPATH**/ ?>

@@ -127,7 +127,7 @@ class AdminController extends Controller
 
   public function sellers()
   {
-    $sellers = Seller::all();
+    $sellers = Seller::paginate(10);
     $sellerCount = Seller::all()->count();
     $activeSeller = Seller::where('status', 'active')->count();
     $inactiveSeller = Seller::where('status', 'inactive')->count();
@@ -138,7 +138,7 @@ class AdminController extends Controller
 
   public function customers()
   {
-    $customers = Customer::all();
+    $customers = Customer::paginate(10);
     $customerCount = $customers->count();
     $activeCustomer = Customer::where('status', 'active')->count();
     $inactiveCustomer = Customer::where('status', 'inactive')->count();
@@ -195,13 +195,13 @@ class AdminController extends Controller
 
   public function product_category()
   {
-    $category = ProductCategory::all();
+    $category = ProductCategory::paginate(10);
     return view('admin.product_category.index', compact('category'));
   }
 
   public function bank_account()
   {
-    $banks = BankAccount::all();
+    $banks = BankAccount::paginate(10);
     return view('admin.bank_account.index', compact('banks'));
   }
 

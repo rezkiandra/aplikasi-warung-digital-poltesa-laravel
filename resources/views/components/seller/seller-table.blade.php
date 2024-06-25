@@ -11,6 +11,9 @@
         @foreach ($datas as $data)
           <tr>
             <td>{{ $loop->iteration }}</td>
+            <td>
+              <span class="text-dark">{{ $data->nik_nim }}</span>
+            </td>
             <td class="sorting_1">
               <div class="d-flex justify-content-start align-items-center product-name">
                 <div class="avatar-wrapper me-3">
@@ -103,11 +106,8 @@
           </tr>
         @endforeach
       </tbody>
-      <tfoot class="table-border-bottom-0">
-        @foreach ($fields as $field)
-          <th>{{ $field }}</th>
-        @endforeach
-      </tfoot>
     </table>
   </div>
+
+  <x-pagination :pages="$datas" />
 </div>

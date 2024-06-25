@@ -14,5 +14,5 @@
     <x-customer-card :datas="$customers" :label="'Pelanggan Pending'" :count="$pendingCustomer" :icon="'account-search-outline'" :variant="'warning'"
       :condition="$pendingCustomer" />
   </div>
-  <x-customer-table :title="'Data Pelanggan'" :datas="$customers" :fields="['No', 'Pelanggan', 'Gender / Alamat', 'Status / Nomor HP', 'Dibuat Pada', 'Aksi']" />
+  <x-customer-table :title="'Data Pelanggan'" :datas="$customers" :fields="['No', 'NIK / NIM', 'Pelanggan', 'Gender / Alamat', 'Status / Nomor HP', 'Dibuat Pada', 'Aksi']" />
 @endsection

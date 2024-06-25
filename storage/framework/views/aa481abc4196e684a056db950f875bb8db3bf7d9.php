@@ -3,7 +3,7 @@
     <div class="d-flex align-items-center flex-column">
       <img class="img-fluid rounded mb-3 mt-3" src="<?php echo e($image); ?>" height="120" width="120" alt="User avatar">
       <div class="customer-info text-center mb-4">
-        <h5 class="mb-1 text-capitalize"><?php echo e($name); ?></h5>
+        <h5 class="mb-1 text-uppercase"><?php echo e($name); ?></h5>
         <span><?php echo e($id); ?></span>
       </div>
     </div>
