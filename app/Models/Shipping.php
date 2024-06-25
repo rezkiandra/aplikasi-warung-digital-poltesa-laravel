@@ -12,6 +12,7 @@ class Shipping extends Model
   protected $fillable = [
     'uuid',
     'order_id',
+    'customer_id',
     'courier',
     'code',
     'etd',

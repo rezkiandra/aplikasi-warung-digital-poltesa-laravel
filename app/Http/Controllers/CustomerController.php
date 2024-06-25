@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Order;
 use App\Models\Customer;
 use App\Models\Products;
+use App\Models\Shipping;
 use App\Models\Wishlist;
 use Illuminate\Support\Str;
 use App\Models\ProductsCart;
@@ -42,90 +43,105 @@ class CustomerController extends Controller
       ->orderBy('quantity', 'desc')
       ->orderBy('products.price', 'desc')
       ->limit(4)
-      ->get('products.*', 'orders.*');
+      ->get(['products.*', 'orders.*']);
+
     return view('customer.home', compact('topProducts'));
   }
 
   public function dashboard()
   {
-    if (auth()->user()->customer) {
-      $bulanJan = date('01');
-      $bulanFeb = date('02');
-      $bulanMar = date('03');
-      $bulanApr = date('04');
-      $bulanMei = date('05');
-      $bulanJun = date('06');
-      $bulanJul = date('07');
-      $bulanAgu = date('08');
-      $bulanSep = date('09');
-      $bulanOkt = date('10');
-      $bulanNov = date('11');
-      $bulanDes = date('12');
-
-      $tahun = Carbon::now()->year;
-      $data = [
-        'labels'  => ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
-        'data'    => [
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJan)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanFeb)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMar)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanApr)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanMei)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJun)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanJul)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanAgu)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanSep)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanOkt)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanNov)->sum('total_price'),
-          Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->whereYear('created_at', $tahun)->whereMonth('created_at', $bulanDes)->sum('total_price'),
-        ],
-      ];
-
-      $spent = Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->get();
-      $titleSpent = 'Pengeluaran biaya tanpa pengiriman';
-      $spentValue = 'Rp ' . number_format($spent->sum('total_price'), 0, ',', '.');
-      $descriptionSpent = 'Total pengeluaran keseluruhan';
-
-      $totalPaid = Order::where('customer_id', auth()->user()->customer->id)->where('status', 'sudah bayar')->count();
-      $totalUnpaid = Order::where('customer_id', auth()->user()->customer->id)->where('status', 'belum bayar')->count();
-      $totalExpire = Order::where('customer_id', auth()->user()->customer->id)->where('status', 'kadaluarsa')->count();
-      $totalCancelled = Order::where('customer_id', auth()->user()->customer->id)->where('status', 'dibatalkan')->count();
-
-      $topProducts = Order::select('product_id', DB::raw('SUM(quantity) as total'))
-        ->join('products', 'orders.product_id', '=', 'products.id', 'left')
-        ->where('orders.customer_id', auth()->user()->customer->id)
-        ->where('status', 'sudah bayar')
-        ->groupBy('product_id')
-        ->orderBy('total', 'desc')
-        ->orderBy('products.price', 'desc')
-        ->take(5)
-        ->get();
-
-      $labelCart = 'Keranjang Produk';
-      $valueCart = ProductsCart::where('customer_id', auth()->user()->customer->id)->count();
-
-      $labelWishlist = 'Wishlist Produk';
-      $valueWishlist = Wishlist::where('customer_id', auth()->user()->customer->id)->count();
-
-      $orders = Order::with('product')->where('customer_id', Auth::user()->customer->id)->orderBy('created_at', 'desc')->paginate(6) ?? collect([]);
-      return view('customer.dashboard', compact('orders', 'data', 'titleSpent', 'spentValue', 'descriptionSpent', 'totalPaid', 'totalUnpaid', 'totalExpire', 'totalCancelled', 'topProducts', 'labelCart', 'valueCart', 'labelWishlist', 'valueWishlist'));
-    } else {
-      $orders = collect([]);
-      return view('customer.anonymous', compact('orders'));
+    if (!auth()->user()->customer) {
+      return view('customer.anonymous', ['orders' => collect([])]);
     }
+
+    $bulan = [
+      'Jan' => '01', 'Feb' => '02', 'Mar' => '03', 'Apr' => '04',
+      'Mei' => '05', 'Jun' => '06', 'Jul' => '07', 'Agu' => '08',
+      'Sep' => '09', 'Okt' => '10', 'Nov' => '11', 'Des' => '12'
+    ];
+    $tahun = Carbon::now()->year;
+    $customerId = auth()->user()->customer->id;
+
+    $data = [
+      'labels' => array_keys($bulan),
+      'data' => []
+    ];
+
+    foreach ($bulan as $monthName => $monthNumber) {
+      $totalOrders = Order::where('customer_id', $customerId)
+        ->where('status', 'sudah bayar')
+        ->whereYear('created_at', $tahun)
+        ->whereMonth('created_at', $monthNumber)
+        ->sum('total_price');
+
+      $totalShipping = Shipping::join('orders', 'shippings.order_id', '=', 'orders.id')
+        ->where('orders.customer_id', $customerId)
+        ->whereYear('shippings.created_at', $tahun)
+        ->whereMonth('shippings.created_at', $monthNumber)
+        ->sum('shippings.price');
+
+      $data['data'][] = $totalOrders + $totalShipping;
+    }
+
+    $orders = Order::where('customer_id', $customerId)->get();
+    $spent = $orders->where('status', 'sudah bayar');
+    $shippingCost = Shipping::where('customer_id', $customerId)->sum('price');
+
+    $topProducts = Order::select('product_id', DB::raw('SUM(quantity) as total'))
+      ->join('products', 'orders.product_id', '=', 'products.id', 'left')
+      ->where('orders.customer_id', $customerId)
+      ->where('status', 'sudah bayar')
+      ->groupBy('product_id')
+      ->orderBy('total', 'desc')
+      ->orderBy('products.price', 'desc')
+      ->take(5)
+      ->get();
+
+    $stats = [
+      'paid' => $spent->count(),
+      'unpaid' => $orders->where('status', 'belum bayar')->count(),
+      'expired' => $orders->where('status', 'kadaluarsa')->count(),
+      'cancelled' => $orders->where('status', 'dibatalkan')->count(),
+      'spentValue' => 'Rp ' . number_format($spent->sum('total_price') + $shippingCost, 0, ',', '.'),
+      'shippingCost' => 'Rp ' . number_format($shippingCost, 0, ',', '.'),
+      'titleSpent' => 'Pengeluaran',
+      'descSpent' => 'Total pengeluaran keseluruhan',
+    ];
+
+    $labelCart = 'Keranjang Produk';
+    $valueCart = ProductsCart::where('customer_id', $customerId)->count();
+
+    $labelWishlist = 'Wishlist Produk';
+    $valueWishlist = Wishlist::where('customer_id', $customerId)->count();
+
+    $orders = Order::with('product')->where('customer_id', $customerId)
+      ->orderBy('created_at', 'desc')
+      ->paginate(6);
+
+    return view('customer.dashboard', compact(
+      'orders',
+      'data',
+      'stats',
+      'topProducts',
+      'labelCart',
+      'valueCart',
+      'labelWishlist',
+      'valueWishlist'
+    ));
   }
 
   public function products(Request $request)
   {
-    if ($request->search) {
-      $query = $request->input('search');
+    $query = $request->input('search');
+    if ($query) {
       $products = Products::where('name', 'LIKE', "%{$query}%")->get();
-      $totalProducts = $products->count();
     } else {
       $products = Products::orderBy('category_id', 'asc')->get();
-      $totalProducts = $products->count();
     }
+
+    $totalProducts = $products->count();
     $category = ProductCategory::pluck('name', 'id')->toArray();
+
     return view('customer.products', compact('products', 'totalProducts', 'category'));
   }
 
@@ -137,69 +153,66 @@ class CustomerController extends Controller
   public function product(string $slug)
   {
     $product = Products::where('slug', $slug)->firstOrFail();
-    $relatedProducts = Products::where('category_id', $product->category_id)->where('id', '!=', $product->id)->get();
+    $relatedProducts = Products::where('category_id', $product->category_id)
+      ->where('id', '!=', $product->id)
+      ->get();
+
     return view('customer.detail-product', compact('product', 'relatedProducts'));
   }
 
   public function biodata()
   {
-    $gender = [
-      'laki-laki' => 'laki-laki',
-      'perempuan' => 'perempuan',
-    ];
+    $gender = ['laki-laki' => 'laki-laki', 'perempuan' => 'perempuan'];
     $currentCustomer = Customer::where('user_id', Auth::user()->id)->first();
     $customer = Customer::where('user_id', Auth::user()->id)->get();
+
     $response = Http::withHeaders(['key' => $this->api_key])->get($this->endpoint . '/city');
     $cities = $response['rajaongkir']['results'];
-
     $city_id = $customer->pluck('origin')->first();
     $city_name = $this->getCityName($city_id);
+
     return view('customer.biodata', compact('customer', 'cities', 'city_name', 'gender', 'currentCustomer'));
   }
 
   public function cart()
   {
-    if (Auth::user()->customer) {
-      $carts = ProductsCart::where('customer_id', Auth::user()->customer->id)->get();
-    } else {
-      $carts = collect([]);
-    }
+    $carts = Auth::user()->customer
+      ? ProductsCart::where('customer_id', Auth::user()->customer->id)->get()
+      : collect([]);
+
     return view('customer.cart', compact('carts'));
   }
 
   public function wishlist()
   {
-    if (Auth::user()->customer) {
-      $wishlists = Wishlist::where('customer_id', Auth::user()->customer->id)->get();
-    } else {
-      $wishlists = collect([]);
-    }
+    $wishlists = Auth::user()->customer
+      ? Wishlist::where('customer_id', Auth::user()->customer->id)->get()
+      : collect([]);
 
     $user_role = Auth::user()->role_id ?? '';
-    if (Auth::check() && auth()->user()->customer) {
-      $wishlistUUID = Wishlist::where('customer_id', auth()->user()->customer->id)
-        ->pluck('uuid')
-        ->toArray();
-    }
+    $wishlistUUID = Auth::check() && auth()->user()->customer
+      ? Wishlist::where('customer_id', auth()->user()->customer->id)->pluck('uuid')->toArray()
+      : [];
+
     return view('customer.wishlist', compact('wishlists', 'user_role', 'wishlistUUID'));
   }
 
   public function orders()
   {
-    if (Auth::user()->customer) {
-      $orders = Order::with('product')->where('customer_id', Auth::user()->customer->id)->orderBy('created_at', 'desc')->paginate(8);
-      $customer_id = Auth::user()->customer->id;
-    } else {
-      $orders = collect([]);
-      $customer_id = null;
-    }
+    $customerId = Auth::user()->customer->id ?? null;
 
-    $countPaid = Order::where('customer_id', $customer_id)->where('status', 'sudah bayar')->count();
-    $countUnpaid = Order::where('customer_id', $customer_id)->where('status', 'belum bayar')->count();
-    $countExpire = Order::where('customer_id', $customer_id)->where('status', 'kadaluarsa')->count();
-    $countCancelled = Order::where('customer_id', $customer_id)->where('status', 'dibatalkan')->count();
+    $orders = $customerId
+      ? Order::with('product')->where('customer_id', $customerId)->orderBy('created_at', 'desc')->paginate(8)
+      : collect([]);
 
-    return view('customer.orders', compact('orders', 'countPaid', 'countUnpaid', 'countExpire', 'countCancelled'));
+    $orderCounts = [
+      'paid' => Order::where('customer_id', $customerId)->where('status', 'sudah bayar')->count(),
+      'unpaid' => Order::where('customer_id', $customerId)->where('status', 'belum bayar')->count(),
+      'expire' => Order::where('customer_id', $customerId)->where('status', 'kadaluarsa')->count(),
+      'cancelled' => Order::where('customer_id', $customerId)->where('status', 'dibatalkan')->count(),
+    ];
+
+    return view('customer.orders', compact('orders', 'orderCounts'));
   }
 
   public function settings()
@@ -215,7 +228,9 @@ class CustomerController extends Controller
     $userCustomer->update([
       'name' => $request->name,
       'email' => $request->email,
-      'password' => Hash::make($request->new_password) ?? $userCustomer->password,
+      'password' => $request->new_password
+        ? Hash::make($request->new_password)
+        : $userCustomer->password,
     ]);
 
     Alert::toast('Berhasil update profile', 'success');
@@ -225,8 +240,9 @@ class CustomerController extends Controller
   public function store(BiodataRequest $request)
   {
     Customer::create([
-      'uuid' => Str::uuid('id'),
+      'uuid' => Str::uuid(),
       'user_id' => Auth::user()->id,
+      'nik_nim' => $request->nik_nim,
       'full_name' => $request->full_name,
       'slug' => Str::slug($request->full_name),
       'address' => $request->address,
@@ -244,7 +260,7 @@ class CustomerController extends Controller
   public function update(UpdateBiodataRequest $request, string $uuid)
   {
     $customer = Customer::where('uuid', $uuid)->firstOrFail();
-    $customerImage = Customer::where('uuid', $uuid)->pluck('image')->first();
+    $customerImage = $customer->image;
 
     if ($request->hasFile('image')) {
       if ($customerImage) {
@@ -253,17 +269,11 @@ class CustomerController extends Controller
       $customer->update([
         'image' => $request->image->store('customers', 'public'),
       ]);
-    } else {
-      $customer->update([
-        'full_name' => $request->full_name,
-        'slug' => Str::slug($request->full_name),
-        'address' => $request->address,
-        'origin' => $request->origin,
-        'phone_number' => $request->phone_number,
-        'gender' => $request->gender,
-        'status' => $customer->status,
-      ]);
     }
+
+    $customer->update($request->only([
+      'nik_nim', 'full_name', 'slug', 'address', 'origin', 'phone_number', 'gender', 'status'
+    ]));
 
     Alert::toast('Berhasil mengupdate biodata', 'success');
     return redirect()->route('customer.biodata');
@@ -275,13 +285,11 @@ class CustomerController extends Controller
       'key' => $this->api_key,
     ]);
 
-    $data = $response->json();
+    $cities = $response->json()['rajaongkir']['results'] ?? [];
 
-    if (isset($data['rajaongkir']['results']) && !empty($data['rajaongkir']['results'])) {
-      foreach ($data['rajaongkir']['results'] as $result) {
-        if ($result['city_id'] == $city_id) {
-          return $result['city_name'];
-        }
+    foreach ($cities as $city) {
+      if ($city['city_id'] == $city_id) {
+        return $city['city_name'];
       }
     }
 

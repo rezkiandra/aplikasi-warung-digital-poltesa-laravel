@@ -11,7 +11,14 @@
           </x-form-floating>
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-3">
+          <x-form-floating>
+            <x-input-form-label :label="'NIK / NIM'" :name="'nik_nim'" :type="'text'" :value="old('nik_nim')"
+              :placeholder="'1234567890'" />
+          </x-form-floating>
+        </div>
+
+        <div class="col-lg-3">
           <x-form-floating>
             <x-input-form-label :label="'Nomor HP'" :name="'phone_number'" :type="'text'" :value="old('phone_number')" />
           </x-form-floating>
@@ -33,6 +40,7 @@
               @endforeach
             </select>
             <label for="origin">Kota Asal</label>
+            <x-validation-error :name="'origin'" />
           </x-form-floating>
         </div>
 
@@ -78,12 +86,32 @@
                 <img src="{{ asset('storage/' . $data->image) }}" alt="" class="img-fluid rounded-circle"
                   width="200">
               </div>
-              <div class="mt-4 text-center fw-medium text-capitalize">
-                <h5 class="mb-3">{{ $data->full_name }}</h5>
-                <p class="mb-1">{{ $data->gender }}</p>
-                <p class="mb-1">{{ $data->phone_number }}</p>
-                <p class="mb-1 text-lowercase">{{ $data->user->email }}</p>
-                <p class="mb-1">{{ $data->address }}</p>
+              <div class="mt-3 fw-medium text-capitalize text-dark">
+                <h5 class="mb-3 text-center text-uppercase">{{ $data->full_name }}</h5>
+                <p class="mb-1">
+                  <i class="mdi mdi-gender-male me-2"></i>
+                  {{ $data->gender }}
+                </p>
+                <p class="mb-1">
+                  <i class="mdi mdi-identifier me-2"></i>
+                  {{ $data->nik_nim }}
+                </p>
+                <p class="mb-1">
+                  <i class="mdi mdi-phone-outline me-2"></i>
+                  {{ $data->phone_number }}
+                </p>
+                <p class="mb-1 text-lowercase">
+                  <i class="mdi mdi-email-outline me-2"></i>
+                  {{ $data->user->email }}
+                </p>
+                <p class="mb-1">
+                  <i class="mdi mdi-map-marker-outline me-2"></i>
+                  Kota {{ $city_name }}
+                </p>
+                <p class="mb-1">
+                  <i class="mdi mdi-home-outline me-2"></i>
+                  {{ $data->address }}
+                </p>
               </div>
             </div>
           </div>
@@ -97,7 +125,14 @@
                 </x-form-floating>
               </div>
 
-              <div class="col-lg-6">
+              <div class="col-lg-3">
+                <x-form-floating>
+                  <x-input-form-label :label="'NIK / NIM'" :name="'nik_nim'" :type="'text'" :value="$data->nik_nim"
+                    :placeholder="'1234567890'" />
+                </x-form-floating>
+              </div>
+
+              <div class="col-lg-3">
                 <x-form-floating>
                   <x-input-form-label :label="'Nomor HP'" :name="'phone_number'" :type="'text'" :value="$data->phone_number" />
                 </x-form-floating>
@@ -115,6 +150,7 @@
                     @endforeach
                   </select>
                   <label for="gender">Jenis Kelamin</label>
+                  <x-validation-error :name="'gender'" />
                 </x-form-floating>
               </div>
 
@@ -130,6 +166,7 @@
                     @endforeach
                   </select>
                   <label for="origin">Kota Asal</label>
+                  <x-validation-error :name="'origin'" />
                 </x-form-floating>
               </div>
 

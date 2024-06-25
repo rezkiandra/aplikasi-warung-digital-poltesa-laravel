@@ -18,6 +18,7 @@ class ShippingController extends Controller
     Shipping::create([
       'uuid' => Str::uuid(''),
       'order_id' => $order->id,
+      'order_id' => $order->customer_id,
       'courier' => $request->courier,
       'code' => $request->code,
       'etd' => $request->etd,
