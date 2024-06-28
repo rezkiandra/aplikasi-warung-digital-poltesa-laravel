@@ -16,9 +16,9 @@ class ShippingController extends Controller
   {
     $order = Order::where('uuid', $uuid)->firstOrFail();
     Shipping::create([
-      'uuid' => Str::uuid(''),
+      'uuid' => Str::uuid(),
       'order_id' => $order->id,
-      'order_id' => $order->customer_id,
+      'customer_id' => $order->customer_id,
       'courier' => $request->courier,
       'code' => $request->code,
       'etd' => $request->etd,

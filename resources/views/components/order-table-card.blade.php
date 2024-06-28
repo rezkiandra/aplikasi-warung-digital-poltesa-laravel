@@ -11,6 +11,7 @@
           <tr>
             <th class="text-truncate">Tgl. Pemesanan</th>
             <th class="text-truncate">Produk</th>
+            <th class="text-truncate">Tipe Pesanan</th>
             <th class="text-truncate">Pengiriman</th>
             <th class="text-truncate">Total Pesanan</th>
             <th class="text-truncate">Status Pesanan</th>
@@ -42,6 +43,13 @@
                 </div>
               </td>
               <td>
+                @if ($data->order_type == 'ambil_sendiri')
+                  <span class="text-truncate text-dark">Ambil Sendiri</span>
+                @elseif ($data->order_type == 'jasa_kirim')
+                  <span class="text-truncate text-dark">Jasa Kirim</span>
+                @endif
+              </td>
+              <td>
                 <div class="d-flex justify-content-start align-items-center user-name">
                   @if ($data->shipping)
                     <div class="d-flex flex-column">
@@ -49,8 +57,10 @@
                       <small class="text-truncate">Rp {{ number_format($data->shipping->price, 0, ',', '.') }}
                         ({{ $data->shipping->etd }} hari)</small>
                     </div>
+                  @elseif($data->order_type == 'ambil_sendiri')
+                    <span class="text-uppercase">-</span>
                   @else
-                    <span class="badge bg-label-danger rounded text-uppercase">Belum memilih kurir</span>
+                    <span class="text-uppercase">-</span>
                   @endif
                 </div>
               </td>
@@ -85,10 +95,10 @@
                   @elseif ($data->shipping->status == 'diterima')
                     <span class="badge bg-label-success rounded text-uppercase">{{ $data->shipping->status }}</span>
                   @endif
+                @elseif($data->order_type == 'ambil_sendiri')
+                  <span class="text-uppercase">-</span>
                 @else
-                  <span class="badge bg-label-danger rounded text-uppercase">
-                    Belum memilih kurir
-                  </span>
+                  <span class="text-uppercase">-</span>
                 @endif
               </td>
             </tr>

@@ -1,5 +1,5 @@
 @extends('layouts.authenticated')
-@section('title', 'Kurir Pengiriman')
+@section('title', 'Opsi Pengiriman')
 @section('content')
   <div class="row">
     <div class="col-12 col-lg-8">
@@ -50,7 +50,8 @@
                         Berat &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; : {{ $order->product->weight }} gram
                       </span>
                       <span class="text-truncate">
-                        Subtotal Produk &emsp;&emsp;&ensp;&nbsp; : Rp {{ number_format($order->product->price, 0, ',', '.') }}
+                        Subtotal Produk &emsp;&emsp;&ensp;&nbsp; : Rp
+                        {{ number_format($order->product->price, 0, ',', '.') }}
                       </span>
                       <br>
                       <span class="text-truncate">
@@ -433,22 +434,70 @@
       <div class="card mb-3">
         <div class="card-body">
           <h5 class="card-title mb-4">Opsi Pengiriman</h5>
-          <form action="" method="POST">
+          <form action="" method="POST" id="form-ongkir">
             @csrf
             <x-form-floating>
-              <select name="courier" id="courier" class="form-select">
+              <select name="order_type" id="order_type" class="form-select">
+                <option selected disabled>Pilih Tipe Pesanan</option>
+                <option value="ambil_sendiri">Ambil Sendiri</option>
+                <option value="jasa_kirim">Jasa Kirim</option>
+              </select>
+              <x-validation-error :name="'order_type'" />
+              <label for="order_type">Tipe Pesanan</label>
+            </x-form-floating>
+
+            <x-form-floating>
+              <select name="courier" id="courier" class="form-select courier d-none">
                 <option selected disabled>Pilih Kurir</option>
                 <option value="jne">JNE</option>
                 <option value="tiki">TIKI</option>
                 <option value="pos">POS Indonesia</option>
               </select>
               <x-validation-error :name="'courier'" />
+              <label for="courier" class="courier d-none">Kurir</label>
             </x-form-floating>
 
-            <x-submit-button :label="'Cek Ongkos Kirim'" :type="'submit'" :variant="'primary w-100'" :icon="'check-circle-outline'" />
+            <x-submit-button :label="'Submit'" id="btn-submit" :type="'submit'" :variant="'primary w-100'" :icon="'check-circle-outline'" />
           </form>
         </div>
       </div>
     </div>
   </div>
 @endsection
+
+@push('scripts')
+  <script>
+    $(document).ready(function() {
+      let oldValue = null;
+      const savedValue = localStorage.getItem('order_type');
+      const savedOldValue = localStorage.getItem('old_order_type');
+
+      if (savedValue) {
+        $('#order_type').val(savedValue).trigger('change');
+      }
+
+      $('#order_type').on('focus', function() {
+        $('.courier').removeClass('d-none');
+        oldValue = $(this).val();
+      }).on('change', function() {
+        const newValue = $(this).val();
+
+        localStorage.setItem('order_type', newValue);
+        localStorage.setItem('old_order_type', oldValue);
+
+        if (newValue === 'jasa_kirim') {
+          $('.courier').removeClass('d-none');
+          $('#btn-submit').html('<i class="mdi mdi-truck-fast-outline me-1"></i>Cek Ongkos Kirim');
+        } else {
+          $('.courier').addClass('d-none');
+          $('#btn-submit').html('<i class="mdi mdi-check-circle-outline me-1"></i>Submit');
+        }
+
+        if (oldValue !== newValue) {
+          console.log('Nilai lama:', oldValue);
+          console.log('Nilai baru:', newValue);
+        }
+      });
+    })
+  </script>
+@endpush

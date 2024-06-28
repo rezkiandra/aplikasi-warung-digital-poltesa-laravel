@@ -76,6 +76,7 @@ class CustomerController extends Controller
 
       $totalShipping = Shipping::join('orders', 'shippings.order_id', '=', 'orders.id')
         ->where('orders.customer_id', $customerId)
+        ->where('shippings.status', 'diterima')
         ->whereYear('shippings.created_at', $tahun)
         ->whereMonth('shippings.created_at', $monthNumber)
         ->sum('shippings.price');
@@ -85,7 +86,7 @@ class CustomerController extends Controller
 
     $orders = Order::where('customer_id', $customerId)->get();
     $spent = $orders->where('status', 'sudah bayar');
-    $shippingCost = Shipping::where('customer_id', $customerId)->sum('price');
+    $shippingCost = Shipping::where('customer_id', $customerId)->where('status', 'diterima')->sum('price');
 
     $topProducts = Order::select('product_id', DB::raw('SUM(quantity) as total'))
       ->join('products', 'orders.product_id', '=', 'products.id', 'left')

@@ -14,6 +14,7 @@ use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\AdminCostController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\CallToActionController;
@@ -52,6 +53,13 @@ Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
       Route::get('/list-product-category', 'product_category')->name('admin.product_category');
       Route::get('/list-bank-accounts', 'bank_account')->name('admin.bank_accounts');
       Route::get('/settings', 'settings')->name('admin.settings');
+    });
+
+  Route::controller(AdminCostController::class)
+    ->prefix('admin/dashboard')
+    ->group(function () {
+      Route::get('/edit-cost', 'editAdminCost')->name('admin.edit.cost');
+      Route::put('/update-cost', 'updateAdminCost')->name('admin.update.cost');
     });
 
   Route::controller(AdminProductController::class)

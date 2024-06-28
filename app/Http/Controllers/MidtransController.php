@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Shipping;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -33,13 +34,21 @@ class MidtransController extends Controller
   {
     try {
       $order = Order::with(['shipping', 'product', 'customer.user'])->where('uuid', $uuid)->firstOrFail();
-      $shippingCost = $order->shipping->price;
-      $adminCost = 1000;
-      $grossAmount = $order->total_price + $shippingCost + $adminCost;
+      $adminCost = Setting::getValue('admin_cost');
 
-      $params = $this->buildPaymentParams($order, $grossAmount, $adminCost);
+      if ($order->order_type == 'jasa_kirim') {
+        $shippingCost = $order->shipping->price;
+        $grossAmount = $order->total_price + $shippingCost + $adminCost;
+
+        $params = $this->buildPaymentParams($order, $grossAmount, $adminCost);
+      } elseif ($order->order_type == 'ambil_sendiri') {
+        $grossAmount = $order->total_price + $adminCost;
+
+        $params = $this->buildPaymentParamsWithoutShipping($order, $grossAmount, $adminCost);
+      }
 
       $snapToken = Snap::getSnapToken($params);
+
       $order->snap_token = $snapToken;
       $order->save();
 
@@ -58,7 +67,7 @@ class MidtransController extends Controller
   public function cancelPayment(string $uuid)
   {
     $order = Order::where('uuid', $uuid)->firstOrFail();
-    $order->update(['status' => 'cancelled']);
+    $order->update(['status' => 'dibatalkan']);
 
     $order->product->increment('stock', $order->quantity);
     $order->product->update();
@@ -146,6 +155,39 @@ class MidtransController extends Controller
           'phone' => $order->customer->phone_number,
           'address' => $order->customer->address,
         ],
+      ],
+    ];
+  }
+
+  private function buildPaymentParamsWithoutShipping($order, $grossAmount, $adminCost)
+  {
+    return [
+      'transaction_details' => [
+        'order_id' => $order->uuid,
+        'currency' => 'IDR',
+        'gross_amount' => $grossAmount,
+      ],
+      'item_details' => [
+        [
+          'id' => $order->product->uuid,
+          'name' => $order->product->name,
+          'price' => $order->product->price,
+          'quantity' => $order->quantity,
+          'weight' => $order->product->weight
+        ],
+        [
+          'id' => 'ADM-01',
+          'name' => 'Biaya Admin',
+          'price' => $adminCost,
+          'quantity' => 1
+        ],
+      ],
+      'customer_details' => [
+        'first_name' => $order->customer->full_name,
+        'email' => $order->customer->user->email,
+        'address' => $order->customer->address,
+        'phone' => $order->customer->phone_number,
+        'gender' => $order->customer->gender,
       ],
     ];
   }
