@@ -60,7 +60,8 @@
                       </span>
                       <br>
                       <span class="text-truncate">
-                        Biaya Admin &emsp;&emsp;&emsp;&emsp;&nbsp; : Rp {{ number_format(\App\Models\Setting::getValue('admin_cost'), 0, ',', '.') }}
+                        Biaya Admin &emsp;&emsp;&emsp;&emsp;&nbsp; : Rp
+                        {{ number_format(\App\Models\Setting::getValue('admin_cost'), 0, ',', '.') }}
                       </span>
                       @if ($order->shipping)
                         <span class="text-truncate">
@@ -71,6 +72,11 @@
                         <span class="text-truncate">
                           Harga Keseluruhan &emsp; : Rp
                           {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost') + $order->shipping->price, 0, ',', '.') }}
+                        </span>
+                      @else
+                        <span class="text-truncate">
+                          Harga Keseluruhan &emsp; : Rp
+                          {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost'), 0, ',', '.') }}
                         </span>
                       @endif
                     </div>
@@ -113,7 +119,7 @@
                   @endif
                   <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->created_at)) }}</small>
                 </div>
-                <p class="mt-1 mb-3">Pelangan anda telah memilih tipe pesanan</p>
+                <p class="mt-1 mb-3">Pelanggan telah memilih tipe pesanan</p>
               </div>
             </li>
             @if ($order->shipping)
@@ -124,7 +130,7 @@
                     <h6 class="mb-0">Ekspedisi pengiriman menggunakan {{ $order->shipping->courier }}</h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->shipping->created_at)) }}</small>
                   </div>
-                  <p class="mt-1 mb-3">Estimasi pengiriman produk {{ $order->shipping->etd }} hari</p>
+                  <p class="mt-1 mb-3">Estimasi pengiriman produk anda {{ $order->shipping->etd }} hari</p>
                 </div>
               </li>
             @endif
@@ -148,12 +154,12 @@
                     {{ date('d M Y, H:i:s', strtotime($order->expiry_time)) }}</p>
                 </div>
               </li>
-              @if ($order->status == 'sudah bayar' && $order->shipping)
+              @if ($order->status == 'sudah bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan berhasil dibayar sebesar Rp
+                      <h6 class="mb-0">Pelanggan anda berhasil membayar sebesar Rp
                         {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost') + $order->shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
@@ -166,13 +172,13 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda telah kadaluarsa</h6>
+                      <h6 class="mb-0">Pesanan pelanggan anda telah kadaluarsa</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Pelanggan tidak dapat membeli produk</p>
+                    <p class="mt-1 mb-3">Pelanggan anda dapat membeli kembali produk</p>
                   </div>
                 </li>
-              @elseif ($order->status == 'belum bayar' && $order->shipping)
+              @elseif ($order->status == 'belum bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
@@ -180,7 +186,7 @@
                       <h6 class="mb-0">Pesanan anda belum dibayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Pelanggan anda harus segera membayar pesanan sebesar Rp
+                    <p class="mt-1 mb-3">Pelanggan anda harus segera membayar pesanannya sebesar Rp
                       {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost') + $order->shipping->price, 0, ',', '.') }}
                     </p>
                   </div>
@@ -205,12 +211,12 @@
                     {{ date('d M Y, H:i:s', strtotime($order->expiry_time)) }}</p>
                 </div>
               </li>
-              @if ($order->status == 'sudah bayar' && $order->shipping)
+              @if ($order->status == 'sudah bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan berhasil dibayar sebesar Rp
+                      <h6 class="mb-0">Pelanggan anda berhasil membayar sebesar Rp
                         {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost') + $order->shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
@@ -223,10 +229,10 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda telah kadaluarsa</h6>
+                      <h6 class="mb-0">Pesanan pelanggan anda telah kadaluarsa</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Anda tidak dapat membeli produk</p>
+                    <p class="mt-1 mb-3">Pelanggan anda dapat membeli kembali produk</p>
                   </div>
                 </li>
               @elseif ($order->status == 'belum bayar')
@@ -237,7 +243,7 @@
                       <h6 class="mb-0">Pesanan anda belum dibayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Pelanggan anda harus segera membayar pesanan sebesar Rp
+                    <p class="mt-1 mb-3">Pelanggan anda harus segera membayar pesanannya sebesar Rp
                       {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost') + $order->shipping->price, 0, ',', '.') }}
                     </p>
                   </div>
@@ -260,12 +266,12 @@
                     {{ date('d M Y, H:i:s', strtotime($order->expiry_time)) }}</p>
                 </div>
               </li>
-              @if ($order->status == 'sudah bayar' && $order->shipping)
+              @if ($order->status == 'sudah bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan berhasil dibayar sebesar Rp
+                      <h6 class="mb-0">Pelanggan anda berhasil membayar sebesar Rp
                         {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost') + $order->shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
@@ -278,13 +284,13 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda telah kadaluarsa</h6>
+                      <h6 class="mb-0">Pesanan pelanggan anda telah kadaluarsa</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Anda tidak dapat membeli produk</p>
+                    <p class="mt-1 mb-3">Pelanggan anda dapat membeli kembali produk</p>
                   </div>
                 </li>
-              @elseif ($order->status == 'belum bayar' && $order->shipping)
+              @elseif ($order->status == 'belum bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
@@ -292,7 +298,7 @@
                       <h6 class="mb-0">Pesanan anda belum dibayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Pelanggan anda harus segera membayar pesanan sebesar Rp
+                    <p class="mt-1 mb-3">Pelanggan anda harus segera membayar pesanannya sebesar Rp
                       {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost') + $order->shipping->price, 0, ',', '.') }}
                     </p>
                   </div>
@@ -317,12 +323,12 @@
                     {{ date('d M Y, H:i:s', strtotime($order->expiry_time)) }}</p>
                 </div>
               </li>
-              @if ($order->status == 'sudah bayar' && $order->shipping)
+              @if ($order->status == 'sudah bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan berhasil dibayar sebesar Rp
+                      <h6 class="mb-0">Pelanggan anda berhasil membayar sebesar Rp
                         {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost') + $order->shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
@@ -335,13 +341,13 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda telah kadaluarsa</h6>
+                      <h6 class="mb-0">Pesanan pelanggan anda telah kadaluarsa</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Anda tidak dapat membeli produk</p>
+                    <p class="mt-1 mb-3">Pelanggan anda dapat membeli kembali produk</p>
                   </div>
                 </li>
-              @elseif ($order->status == 'belum bayar' && $order->shipping)
+              @elseif ($order->status == 'belum bayar')
                 <li class="timeline-item timeline-item-transparent border-primary">
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
@@ -349,7 +355,7 @@
                       <h6 class="mb-0">Pesanan anda belum dibayar</h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
-                    <p class="mt-1 mb-3">Pelanggan anda harus segera membayar pesanan sebesar Rp
+                    <p class="mt-1 mb-3">Pelanggan anda harus segera membayar pesanannya sebesar Rp
                       {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost') + $order->shipping->price, 0, ',', '.') }}
                     </p>
                   </div>
@@ -368,13 +374,13 @@
               </li>
             @endif
 
-            {{-- Row 3 --}}
+            {{-- Row 4 --}}
             @if ($order->status == 'sudah bayar')
               <li class="timeline-item timeline-item-transparent border-primary">
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
                   <div class="timeline-header mb-1">
-                    <h6 class="mb-0">Status pesanan <span class="text-uppercase badge bg-label-success">
+                    <h6 class="mb-0">Status pesanan anda <span class="text-uppercase badge bg-label-success">
                         Berhasil Dibayar</span></h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                   </div>
@@ -388,7 +394,7 @@
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
                   <div class="timeline-header mb-1">
-                    <h6 class="mb-0">Status pesanan <span class="text-uppercase badge bg-label-dark">
+                    <h6 class="mb-0">Status pesanan anda <span class="text-uppercase badge bg-label-dark">
                         Dibatalkan</span></h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                   </div>
@@ -400,7 +406,7 @@
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">
                   <div class="timeline-header mb-1">
-                    <h6 class="mb-0">Status pesanan <span
+                    <h6 class="mb-0">Status pesanan anda <span
                         class="text-uppercase badge bg-label-danger">Kadaluarsa</span></h6>
                     <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                   </div>
@@ -411,26 +417,19 @@
           </ul>
         </div>
       </div>
-      @if ($order->status == 'belum bayar')
-        <div class="card card-body text-dark mb-3">
-          <h5 class="card-title mb-3">Ketentuan Berlaku :</h5>
-          <ol>
-            <li class="mb-1">Jika sudah memilih metode pembayaran. Anda tidak dapat membatalkan pesanan!</li>
-            <li class="mb-0">Jika anda ingin membatalkan pesanan, silahkan tunggu hingga waktu pembayaran sudah habis
-            </li>
-          </ol>
-        </div>
-      @endif
       <div class="d-flex justify-content-center align-items-center gap-3 mb-3">
         @if ($order->status === 'sudah bayar' && $order->shipping->status == 'diterima')
           <x-basic-button :href="route('preview.transaction', $order->uuid)" :label="'Preview'" :class="'w-100'" :variant="'outline-primary'" :icon="'note-search-outline me-2'" />
           <x-basic-button :href="route('download.transaction', $order->uuid)" :label="'Cetak'" :class="'w-100'" :variant="'primary'" :icon="'file-download-outline me-2'" />
-        @elseif ($order->status === 'belum bayar' || ($order->status == 'sudah bayar' && $order->shipping->status == 'dikirim'))
+        @elseif (
+            ($order->order_type == 'jasa_kirim' && $order->shipping && $order->status === 'belum bayar') ||
+                ($order->status == 'sudah bayar' && $order->shipping->status == 'dikirim'))
           <x-basic-button :href="route('rajaongkir.editShipping', $order->shipping->uuid)" :label="'Edit Pengiriman'" :class="'w-100'" :variant="'dark'"
             :icon="'truck-fast-outline me-2'" />
         @endif
       </div>
     </div>
+
     <div class="col-12 col-lg-4">
       <div class="card mb-3">
         <div class="card-body">

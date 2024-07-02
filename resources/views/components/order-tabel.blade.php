@@ -41,6 +41,8 @@
                 <span class="text-truncate text-dark">Ambil Sendiri</span>
               @elseif ($data->order_type == 'jasa_kirim')
                 <span class="text-truncate text-dark">Jasa Kirim</span>
+              @else
+                <span class="text-truncate text-dark">-</span>
               @endif
             </td>
             <td>
