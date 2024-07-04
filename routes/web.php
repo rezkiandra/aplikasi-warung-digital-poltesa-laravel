@@ -6,15 +6,15 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\OngkirController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DistanceController;
 use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\WishlistController;
-use App\Http\Controllers\AdminCostController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\CallToActionController;
@@ -55,11 +55,11 @@ Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
       Route::get('/settings', 'settings')->name('admin.settings');
     });
 
-  Route::controller(AdminCostController::class)
+  Route::controller(SettingsController::class)
     ->prefix('admin/dashboard')
     ->group(function () {
-      Route::get('/edit-cost', 'editAdminCost')->name('admin.edit.cost');
-      Route::put('/update-cost', 'updateAdminCost')->name('admin.update.cost');
+      Route::get('/edit-cost', 'edit')->name('admin.edit.cost');
+      Route::put('/update-cost', 'update')->name('admin.update.cost');
     });
 
   Route::controller(AdminProductController::class)
@@ -192,7 +192,7 @@ Route::middleware('auth', 'mustLogin', 'checkRole:Customer')->group(function () 
       Route::put('/settings/edit-profile/{customer}', 'updateProfile')->name('customer.update.profile');
     });
 
-  Route::controller(OngkirController::class)
+  Route::controller(DistanceController::class)
     ->prefix('customer/dashboard')
     ->group(function () {
       Route::get('/process-ongkir/{order}', 'ongkir')->name('rajaongkir.ongkir');

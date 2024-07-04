@@ -441,7 +441,7 @@
 <?php unset($__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394); ?>
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Biaya Admin','route' => route('admin.edit.cost'),'icon' => 'currency-usd','active' => request()->routeIs('admin.edit.cost')]); ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Tarif','route' => route('admin.edit.cost'),'icon' => 'currency-usd','active' => request()->routeIs('admin.edit.cost')]); ?>
 <?php $component->withName('sidebar-item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

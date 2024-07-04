@@ -449,8 +449,9 @@
             <x-form-floating>
               <select name="courier" id="courier" class="form-select courier d-none">
                 <option selected disabled>Pilih Kurir</option>
-                <option value="jne">JNE</option>
-                <option value="tiki">TIKI</option>
+                <option value="maxim driver">Maxim Driver</option>
+                {{-- <option value="jne">JNE</option>
+                <option value="tiki">TIKI</option> --}}
                 <option value="pos">POS Indonesia</option>
               </select>
               <x-validation-error :name="'courier'" />

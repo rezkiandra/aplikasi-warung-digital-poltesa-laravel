@@ -94,7 +94,7 @@
       <x-sidebar-item :label="'Kategori Produk'" :route="route('admin.product_category')" :icon="'filter-outline'" :active="request()->routeIs('admin.product_category', 'admin.*.category')" />
       <x-sidebar-item :label="'Role'" :route="route('admin.roles')" :icon="'format-list-checkbox'" :active="request()->routeIs('admin.roles', 'admin.*.role')" />
       <x-sidebar-item :label="'Bank'" :route="route('admin.bank_accounts')" :icon="'bank-outline'" :active="request()->routeIs('admin.bank_accounts', 'admin.*.bank')" />
-      <x-sidebar-item :label="'Biaya Admin'" :route="route('admin.edit.cost')" :icon="'currency-usd'" :active="request()->routeIs('admin.edit.cost')" />
+      <x-sidebar-item :label="'Tarif'" :route="route('admin.edit.cost')" :icon="'currency-usd'" :active="request()->routeIs('admin.edit.cost')" />
     @endif
 
     @if (Auth::user()->role_id == 1)

@@ -15,7 +15,7 @@ class OrderRequest extends FormRequest
   {
     return [
       'order_type' => 'required|in:jasa_kirim,ambil_sendiri',
-      'courier' => 'required_if:order_type,==,jasa_kirim|in:jne,tiki,pos',
+      'courier' => 'required_if:order_type,==,jasa_kirim|in:jne,maxim',
     ];
   }
 

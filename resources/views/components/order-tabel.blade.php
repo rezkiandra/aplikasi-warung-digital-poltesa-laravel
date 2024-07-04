@@ -32,7 +32,7 @@
                     class="text-truncate text-heading">
                     <span class="fw-medium">{{ $data->product->name }}</span>
                   </a>
-                  <small class="text-truncate">Rp {{ number_format($data->total_price, 0, ',', '.') }}</small>
+                  <small class="text-truncate">Rp {{ number_format($data->total_price, 0, ',', '.') }} - {{ $data->quantity }} {{ $data->product->unit }}</small>
                 </div>
               </div>
             </td>
