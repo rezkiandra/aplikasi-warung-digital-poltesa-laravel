@@ -17,8 +17,7 @@
         @foreach ($orders as $data)
           <tr>
             <td class="">
-              <span class="badge bg-label-info">{{ date('d M Y, H:i:s', strtotime($data->created_at)) }}
-                {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}</span>
+              <span class="badge bg-label-info">{{ date('d M Y', strtotime($data->created_at)) }}</span>
             </td>
             <td>
               <div class="d-flex justify-content-start align-items-center user-name">
@@ -32,14 +31,15 @@
                     class="text-truncate text-heading">
                     <span class="fw-medium">{{ $data->product->name }}</span>
                   </a>
-                  <small class="text-truncate">Rp {{ number_format($data->total_price, 0, ',', '.') }} - {{ $data->quantity }} {{ $data->product->unit }}</small>
+                  <small class="text-truncate text-dark">Rp {{ number_format($data->total_price, 0, ',', '.') }} -
+                    {{ $data->quantity }} {{ $data->product->unit }}</small>
                 </div>
               </div>
             </td>
             <td>
-              @if ($data->order_type == 'ambil_sendiri')
+              @if ($data->order_type == 'ambil sendiri')
                 <span class="text-truncate text-dark">Ambil Sendiri</span>
-              @elseif ($data->order_type == 'jasa_kirim')
+              @elseif ($data->order_type == 'jasa kirim')
                 <span class="text-truncate text-dark">Jasa Kirim</span>
               @else
                 <span class="text-truncate text-dark">-</span>
@@ -50,10 +50,10 @@
                 @if ($data->shipping)
                   <div class="d-flex flex-column">
                     <span class="fw-medium text-heading">{{ $data->shipping->courier }}</span>
-                    <small class="text-truncate">Rp {{ number_format($data->shipping->price, 0, ',', '.') }}
+                    <small class="text-truncate text-dark">Rp {{ number_format($data->shipping->price, 0, ',', '.') }}
                       ({{ $data->shipping->etd }} hari)</small>
                   </div>
-                @elseif($data->order_type == 'ambil_sendiri')
+                @elseif($data->order_type == 'ambil sendiri')
                   <span class="text-uppercase">-</span>
                 @else
                   <span class="text-uppercase">-</span>
@@ -91,7 +91,7 @@
                 @elseif ($data->shipping->status == 'diterima')
                   <span class="badge bg-label-success rounded text-uppercase">{{ $data->shipping->status }}</span>
                 @endif
-              @elseif($data->order_type == 'ambil_sendiri')
+              @elseif($data->order_type == 'ambil sendiri')
                 <span class="text-uppercase">-</span>
               @else
                 <span class="text-uppercase">-</span>
@@ -110,7 +110,7 @@
                       @elseif ($data->status === 'belum bayar' && !$data->order_type)
                         <x-dropdown-item :label="'Pilih Tipe Pesanan'" :variant="'info'" :icon="'cog-outline'" :route="route('rajaongkir.ongkir', $data->uuid)" />
                         <x-dropdown-item :label="'Batal'" :variant="'danger'" :icon="'trash-can-outline'" :route="route('midtrans.cancelled', $data->uuid)" />
-                      @elseif ($data->status === 'belum bayar' && $data->order_type === 'jasa_kirim' && !$data->shipping)
+                      @elseif ($data->status === 'belum bayar' && $data->order_type === 'jasa kirim' && !$data->shipping)
                         <x-dropdown-item :label="'Pilih Kurir'" :variant="'info'" :icon="'truck-fast-outline'" :route="route('rajaongkir.ongkir', $data->uuid)" />
                         <x-dropdown-item :label="'Batal'" :variant="'danger'" :icon="'trash-can-outline'" :route="route('midtrans.cancelled', $data->uuid)" />
                       @elseif ($data->status === 'belum bayar')

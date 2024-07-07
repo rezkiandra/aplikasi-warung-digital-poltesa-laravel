@@ -1,3 +1,17 @@
+@php
+  $data = [
+      'order_type' => [
+          'ambil sendiri' => 'Ambil Sendiri',
+          'jasa kirim' => 'Jasa Kirim',
+      ],
+      'courier' => [
+          'maxim driver' => 'Maxim Driver',
+          'jne' => 'JNE',
+          // 'tiki' => 'TIKI',
+          // 'pos' => 'POS Indonesia',
+      ],
+  ];
+@endphp
 @extends('layouts.authenticated')
 @section('title', 'Opsi Pengiriman')
 @section('content')
@@ -439,8 +453,9 @@
             <x-form-floating>
               <select name="order_type" id="order_type" class="form-select">
                 <option selected disabled>Pilih Tipe Pesanan</option>
-                <option value="ambil_sendiri">Ambil Sendiri</option>
-                <option value="jasa_kirim">Jasa Kirim</option>
+                @foreach ($data['order_type'] as $key => $value)
+                  <option value="{{ $key }}">{{ $value }}</option>
+                @endforeach
               </select>
               <x-validation-error :name="'order_type'" />
               <label for="order_type">Tipe Pesanan</label>
@@ -449,10 +464,9 @@
             <x-form-floating>
               <select name="courier" id="courier" class="form-select courier d-none">
                 <option selected disabled>Pilih Kurir</option>
-                <option value="maxim driver">Maxim Driver</option>
-                {{-- <option value="jne">JNE</option>
-                <option value="tiki">TIKI</option> --}}
-                <option value="pos">POS Indonesia</option>
+                @foreach ($data['courier'] as $key => $value)
+                  <option value="{{ $key }}">{{ $value }}</option>
+                @endforeach
               </select>
               <x-validation-error :name="'courier'" />
               <label for="courier" class="courier d-none">Kurir</label>
@@ -469,36 +483,15 @@
 @push('scripts')
   <script>
     $(document).ready(function() {
-      let oldValue = null;
-      const savedValue = localStorage.getItem('order_type');
-      const savedOldValue = localStorage.getItem('old_order_type');
-
-      if (savedValue) {
-        $('#order_type').val(savedValue).trigger('change');
-      }
-
-      $('#order_type').on('focus', function() {
-        $('.courier').removeClass('d-none');
-        oldValue = $(this).val();
-      }).on('change', function() {
-        const newValue = $(this).val();
-
-        localStorage.setItem('order_type', newValue);
-        localStorage.setItem('old_order_type', oldValue);
-
-        if (newValue === 'jasa_kirim') {
+      $('#order_type').change(function() {
+        if ($(this).val() == 'jasa kirim') {
           $('.courier').removeClass('d-none');
           $('#btn-submit').html('<i class="mdi mdi-truck-fast-outline me-1"></i>Cek Ongkos Kirim');
         } else {
           $('.courier').addClass('d-none');
           $('#btn-submit').html('<i class="mdi mdi-check-circle-outline me-1"></i>Submit');
         }
-
-        if (oldValue !== newValue) {
-          console.log('Nilai lama:', oldValue);
-          console.log('Nilai baru:', newValue);
-        }
       });
-    })
+    });
   </script>
 @endpush

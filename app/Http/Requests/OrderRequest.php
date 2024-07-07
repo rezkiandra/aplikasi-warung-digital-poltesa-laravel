@@ -14,8 +14,8 @@ class OrderRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'order_type' => 'required|in:jasa_kirim,ambil_sendiri',
-      'courier' => 'required_if:order_type,==,jasa_kirim|in:jne,maxim',
+      'order_type' => 'required|in:jasa kirim,ambil sendiri',
+      'courier' => 'required_if:order_type,jasa kirim|in:jne,maxim'
     ];
   }
 
@@ -33,6 +33,7 @@ class OrderRequest extends FormRequest
   public function attributes(): array
   {
     return [
+      'order_type' => 'Tipe Pesanan',
       'courier' => 'Kurir',
     ];
   }

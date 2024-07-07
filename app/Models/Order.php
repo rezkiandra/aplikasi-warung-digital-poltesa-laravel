@@ -20,6 +20,7 @@ class Order extends Model
     'total_price',
     'status',
     'order_type',
+    'courier',
     'payment_method',
     'store',
     'payment_code',

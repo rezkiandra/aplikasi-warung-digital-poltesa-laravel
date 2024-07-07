@@ -1,7 +1,7 @@
 <div class="card">
   <h5 class="card-header">{{ $title }}</h5>
   <div class="table-responsive text-nowrap">
-    <table class="table table-hover table-responsive">
+    <table class="table table-hover table-responsive" id="productsTable">
       <thead>
         @foreach ($fields as $field)
           <th>{{ $field }}</th>

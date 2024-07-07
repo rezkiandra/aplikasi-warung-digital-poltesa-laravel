@@ -22,9 +22,7 @@
           @foreach ($datas as $data)
             <tr>
               <td class="text-truncate fw-medium">
-                <span class="badge bg-label-info rounded">{{ date('d M Y, H:i:s', strtotime($data->created_at)) }}
-                  {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
-                </span>
+                <span class="badge bg-label-info rounded">{{ date('d M Y', strtotime($data->created_at)) }}</span>
               </td>
               <td>
                 <div class="d-flex align-items-center">
@@ -37,7 +35,7 @@
                     <div class="d-flex flex-row align-items-start justify-content-start gap-1">
                       <span class="text-dark text-capitalize fw-medium">{{ $data->product->name }}</span>
                     </div>
-                    <small class="text-truncate">Rp {{ number_format($data->product->price, 0, ',', '.') }} -
+                    <small class="text-truncate text-dark">Rp {{ number_format($data->product->price, 0, ',', '.') }} -
                       {{ $data->quantity }} {{ $data->product->unit }}</small>
                   </div>
                 </div>

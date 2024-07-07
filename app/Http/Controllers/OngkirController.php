@@ -7,7 +7,6 @@ use App\Http\Requests\OrderRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
 use RealRashid\SweetAlert\Facades\Alert;
-use Kavist\RajaOngkir\Facades\RajaOngkir;
 
 class OngkirController extends Controller
 {
@@ -46,6 +45,7 @@ class OngkirController extends Controller
 
       $order->update([
         'order_type' => $request->order_type,
+        'courier' => $request->courier,
       ]);
 
       $response = $response['rajaongkir'];
@@ -53,6 +53,7 @@ class OngkirController extends Controller
     } else {
       $order->update([
         'order_type' => $request->order_type,
+        'courier' => $request->courier,
       ]);
 
       Alert::toast('Tipe pesanan akan diambil sendiri', 'success');

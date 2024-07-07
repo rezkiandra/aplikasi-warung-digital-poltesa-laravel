@@ -1,7 +1,7 @@
 <div class="card">
   <h5 class="card-header"><?php echo e($title); ?></h5>
   <div class="table-responsive text-nowrap">
-    <table class="table table-hover table-responsive">
+    <table class="table table-hover table-responsive" id="productsTable">
       <thead>
         <?php $__currentLoopData = $fields; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $field): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           <th><?php echo e($field); ?></th>
