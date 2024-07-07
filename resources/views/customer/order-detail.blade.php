@@ -53,17 +53,14 @@
                         Berat &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; : {{ $order->product->weight }} gram
                       </span>
                       <span class="text-truncate">
-                        Subtotal Produk &emsp;&emsp;&ensp; : Rp {{ number_format($order->product->price, 0, ',', '.') }}
-                      </span>
-                      <span class="text-truncate">
-                        Total Harga Produk &emsp; : Rp {{ number_format($order->total_price, 0, ',', '.') }}
+                        Subtotal Produk &emsp;&emsp;&ensp;&nbsp; : Rp
+                        {{ number_format($order->product->price, 0, ',', '.') }}
                       </span>
                       <br>
                       <span class="text-truncate">
-                        Biaya Admin &emsp;&emsp;&emsp;&emsp;&nbsp; : Rp
-                        {{ number_format(\App\Models\Setting::getValue('admin_cost'), 0, ',', '.') }}
+                        Total Harga Produk &emsp; : Rp {{ number_format($order->total_price, 0, ',', '.') }}
                       </span>
-                      @if ($order->shipping)
+                      @if ($order->shipping->courier != 'Maxim')
                         <span class="text-truncate">
                           Biaya Pengiriman &emsp;&ensp;&nbsp; : Rp
                           {{ number_format($order->shipping->price, 0, ',', '.') }}
@@ -71,12 +68,54 @@
                         <br>
                         <span class="text-truncate">
                           Harga Keseluruhan &emsp; : Rp
-                          {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost') + $order->shipping->price, 0, ',', '.') }}
+                          {{ number_format($order->total_price + $adminCost + $order->shipping->price, 0, ',', '.') }}
+                        </span>
+                      @endif
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4" class="text-start text-dark">
+                  <div class="d-flex justify-content-start align-items-center my-2">
+                    <div class="d-flex flex-column align-items-start justify-content-end">
+                      <span class="text-nowrap text-heading fw-medium mb-3">Rincian Pengiriman</span>
+                      <span class="text-truncate">
+                        Durasi Perjalanan &emsp;&emsp; : {{ $order->shipping->etd }}
+                      </span>
+                      <span class="text-truncate">
+                        Jarak Perjalanan &emsp;&emsp;&nbsp; : {{ $order->shipping->description }}
+                      </span>
+                      <span class="text-truncate">
+                        Tarif Per Kilometer &emsp;&ensp;&nbsp; : Rp {{ number_format($maximCost, 0, ',', '.') }}
+                      </span>
+                      <br>
+                      @if ($order->shipping->courier != 'Maxim')
+                        <span class="text-truncate">
+                          Biaya Admin &emsp;&emsp;&emsp;&emsp;&nbsp; : Rp {{ $data['biayaAdmin'] }}
+                        </span>
+                      @endif
+                      <span class="text-truncate">
+                        Biaya Perjalanan &emsp;&emsp;&nbsp; : Rp
+                        {{ number_format($order->shipping->price, 0, ',', '.') }}
+                      </span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4" class="text-start text-dark">
+                  <div class="d-flex justify-content-start align-items-center my-2">
+                    <div class="d-flex flex-column align-items-start justify-content-end">
+                      @if ($order->shipping->courier != 'Maxim')
+                        <span class="text-truncate">
+                          Total Keseluruhan &emsp;&ensp;&nbsp; : Rp
+                          {{ number_format($order->total_price + $adminCost + $order->shipping->price, 0, ',', '.') }}
                         </span>
                       @else
                         <span class="text-truncate">
-                          Harga Keseluruhan &emsp; : Rp
-                          {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost'), 0, ',', '.') }}
+                          Total Keseluruhan &emsp;&ensp;&nbsp; : Rp
+                          {{ number_format($order->total_price + $order->shipping->price, 0, ',', '.') }}
                         </span>
                       @endif
                     </div>
@@ -112,9 +151,9 @@
               <span class="timeline-point timeline-point-primary"></span>
               <div class="timeline-event">
                 <div class="timeline-header mb-1">
-                  @if ($order->order_type == 'ambil_sendiri')
+                  @if ($order->order_type == 'ambil sendiri')
                     <h6 class="mb-0">Anda memilih tipe pesanan Ambil Sendiri</h6>
-                  @elseif($order->order_type == 'jasa_kirim')
+                  @elseif($order->order_type == 'jasa kirim')
                     <h6 class="mb-0">Anda memilih tipe pesanan Jasa Kirim</h6>
                   @endif
                   <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->created_at)) }}</small>

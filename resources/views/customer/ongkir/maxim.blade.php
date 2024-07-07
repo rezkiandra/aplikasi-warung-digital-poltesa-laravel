@@ -122,143 +122,72 @@
               <div class="d-flex justify-content-start align-items-center my-2">
                 <div class="d-flex flex-column align-items-start justify-content-end">
                   <span class="text-nowrap text-heading fw-medium mb-3">Rincian Pengiriman</span>
-                  <span class="text-truncate">
+                  <span class="text-truncate" id="etdInput">
                     Durasi Perjalanan &emsp;&emsp; : {{ $data['duration'] }}
                   </span>
-                  <span class="text-truncate">
+                  <span class="text-truncate" id="descriptionInput">
                     Jarak Perjalanan &emsp;&emsp;&nbsp; : {{ $data['jarakKm'] }}
                   </span>
+                  <br>
                   <span class="text-truncate">
-                    Tarif Per Kilometer &emsp;&ensp;&nbsp; : Rp {{ $data['biayaMaxim'] }}
+                    Biaya Per Kilometer &emsp; : Rp {{ number_format($data['biayaMaxim'], 0, ',', '.') }}
+                  </span>
+                  {{-- <span class="text-truncate">
+                    Biaya Admin &emsp;&emsp;&emsp;&emsp;&nbsp; : Rp {{ number_format($data['biayaAdmin'], 0, ',', '.') }}
+                  </span> --}}
+                  <span class="text-truncate" id="priceInput">
+                    Biaya Pengiriman &emsp;&emsp; : Rp {{ number_format($data['biayaJarak'], 0, ',', '.') }}
                   </span>
                   <br>
                   <span class="text-truncate">
-                    Biaya Admin &emsp;&emsp;&emsp;&emsp;&nbsp; : Rp {{ $data['biayaAdmin'] }}
-                  </span>
-                  <span class="text-truncate">
-                    Biaya Per Kilometer &ensp;&nbsp; : Rp {{ $data['biayaJarak'] }}
-                  </span>
-                  <br>
-                  <span class="text-truncate">
-                    Total Keseluruhan &emsp; : Rp {{ $data['biayaTotal'] }}
+                    Total Keseluruhan &emsp;&emsp;: Rp {{ number_format($data['biayaTotal'], 0, ',', '.') }}
                   </span>
                 </div>
               </div>
             </td>
           </tr>
         </table>
+        <div class="p-3">
+          <button type="submit" class="btn btn-sm btn-primary choose-service">Konfirmasi Pengiriman</button>
+        </div>
       </div>
     </div>
   </div>
 
-  {{-- <div class="row gy-3">
-    @if (count($response['results'][0]['costs']) > 0)
-      <div class="col col-lg col-md">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="courier-code">{{ $response['results'][0]['costs'][0]['service'] }}</h5>
-            <p class="mb-1 courier-desc">Deskripsi : {{ $response['results'][0]['costs'][0]['description'] }}</p>
-            @if ($response['results'][0]['name'] === 'POS Indonesia (POS)')
-              <p class="mb-1 text-capitalize courier-etd">Estimasi Pengiriman :
-                {{ $response['results'][0]['costs'][0]['cost'][0]['etd'] }}
-              </p>
-            @else
-              <p class="mb-1 text-capitalize courier-etd">Estimasi Pengiriman :
-                {{ $response['results'][0]['costs'][0]['cost'][0]['etd'] }}
-                hari
-              </p>
-            @endif
-            <p class="mb-3 courier-cost">Biaya : Rp
-              {{ number_format($response['results'][0]['costs'][0]['cost'][0]['value'], 0, ',', '.') }}</p>
-            <button type="submit" class="btn btn-sm btn-primary choose-service">Pilih Servis</button>
-          </div>
-        </div>
-      </div>
-    @endif
-    @if (count($response['results'][0]['costs']) > 1)
-      <div class="col col-lg col-md">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="courier-code">{{ $response['results'][0]['costs'][1]['description'] }}</h5>
-            <p class="mb-1 courier-desc">Deskripsi : {{ $response['results'][0]['costs'][1]['service'] }}</p>
-            @if ($response['results'][0]['name'] === 'POS Indonesia (POS)')
-              <p class="mb-1 text-capitalize courier-etd">Estimasi Pengiriman :
-                {{ $response['results'][0]['costs'][1]['cost'][0]['etd'] }}
-              </p>
-            @else
-              <p class="mb-1 text-capitalize courier-etd">Estimasi Pengiriman :
-                {{ $response['results'][0]['costs'][1]['cost'][0]['etd'] }}
-                hari
-              </p>
-            @endif
-            <p class="mb-3 courier-cost">Biaya : Rp
-              {{ number_format($response['results'][0]['costs'][1]['cost'][0]['value'], 0, ',', '.') }}</p>
-            <button type="submit" class="btn btn-sm btn-primary choose-service">Pilih Servis</button>
-          </div>
-        </div>
-      </div>
-    @endif
-    @if (count($response['results'][0]['costs']) > 2)
-      <div class="col col-lg col-md">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="courier-code">{{ $response['results'][0]['costs'][2]['description'] }}</h5>
-            <p class="mb-1 courier-desc">Deskripsi : {{ $response['results'][0]['costs'][2]['service'] }}</p>
-            @if ($response['results'][0]['name'] === 'POS Indonesia (POS)')
-              <p class="mb-1 text-capitalize courier-etd">Estimasi Pengiriman :
-                {{ $response['results'][0]['costs'][2]['cost'][0]['etd'] }}
-              </p>
-            @else
-              <p class="mb-1 text-capitalize courier-etd">Estimasi Pengiriman :
-                {{ $response['results'][0]['costs'][2]['cost'][0]['etd'] }}
-                hari
-              </p>
-            @endif
-            <p class="mb-3 courier-cost">Biaya : Rp
-              {{ number_format($response['results'][0]['costs'][2]['cost'][0]['value'], 0, ',', '.') }}</p>
-            <button type="submit" class="btn btn-sm btn-primary choose-service">Pilih Servis</button>
-          </div>
-        </div>
-      </div>
-    @endif
-  </div> --}}
-
   <form action="{{ route('rajaongkir.storeShipping', $order->uuid) }}" method="POST" id="shippingForm">
     @csrf
-    <input type="hidden" id="courierInput" name="courier">
-    <input type="hidden" id="codeInput" name="code">
-    <input type="hidden" id="etdInput" name="etd">
-    <input type="hidden" id="priceInput" name="price">
-    <input type="hidden" id="descriptionInput" name="description">
+    <input type="hidden" id="courierInput" name="courier" value="{{ $data['courier'] }}">
+    <input type="hidden" id="codeInput" name="code"
+      value="{{ Str::upper($data['courier']) . time() . Str::random(5) }}">
+    <input type="hidden" id="etdInput" name="etd" value="{{ $data['duration'] }}">
+    <input type="hidden" id="priceInput" name="price" value="{{ $data['biayaJarak'] }}">
+    <input type="hidden" id="descriptionInput" name="description" value="{{ $data['jarakKm'] }}">
   </form>
 @endsection
 
 @push('scripts')
   <script>
-    let courierInput = document.getElementById('courierInput').value
-    let codeInput = document.getElementById('codeInput').value
-    let etdInput = document.getElementById('etdInput').value
-    let priceInput = document.getElementById('priceInput').value
-    let descriptionInput = document.getElementById('descriptionInput').value
-    let chooseService = document.querySelectorAll('.choose-service')
-    let shippingForm = document.getElementById('shippingForm')
+    function updateInputs() {
+      let courierInput = document.getElementById('courierInput').value;
+      let codeInput = document.getElementById('codeInput').value;
+      let etdInput = document.getElementById('etdInput').value;
+      let priceInput = document.getElementById('priceInput').value;
+      let descriptionInput = document.getElementById('descriptionInput').value;
 
-    chooseService.forEach((item, index) => {
-      item.addEventListener('click', () => {
-        courierInput = response.results[0]['name']
-        codeInput = response.results[0]['costs'][index]['service']
-        etdInput = response.results[0]['costs'][index]['cost'][0]['etd']
-        priceInput = response.results[0]['costs'][index]['cost'][0]['value']
-        descriptionInput = response.results[0]['costs'][index]['description']
+      $('#courierInput').val(courierInput);
+      $('#codeInput').val(codeInput);
+      $('#etdInput').val(etdInput);
+      $('#priceInput').val(priceInput);
+      $('#descriptionInput').val(descriptionInput);
+    }
 
-        $('#courierInput').val(courierInput);
-        $('#codeInput').val(codeInput);
-        $('#etdInput').val(etdInput);
-        $('#priceInput').val(priceInput);
-        $('#descriptionInput').val(descriptionInput);
+    function handleServiceClick() {
+      updateInputs();
+      document.getElementById('shippingForm').submit();
+    }
 
-        shippingForm.submit();
-      })
-    })
+    document.querySelectorAll('.choose-service').forEach(service => {
+      service.addEventListener('click', handleServiceClick);
+    });
   </script>
 @endpush

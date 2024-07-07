@@ -211,6 +211,7 @@
     let etdInput = document.getElementById('etdInput').value
     let priceInput = document.getElementById('priceInput').value
     let descriptionInput = document.getElementById('descriptionInput').value
+    
     let chooseService = document.querySelectorAll('.choose-service')
     let shippingForm = document.getElementById('shippingForm')
 

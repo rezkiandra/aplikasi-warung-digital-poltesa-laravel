@@ -7,6 +7,7 @@
           <th class="text-truncate">Produk</th>
           <th class="text-truncate">Tipe Pesanan</th>
           <th class="text-truncate">Pengiriman</th>
+          <th class="text-truncate">Biaya Admin</th>
           <th class="text-truncate">Total Pesanan</th>
           <th class="text-truncate">Status Pesanan</th>
           <th class="text-truncate">Status Paket</th>
@@ -61,9 +62,20 @@
               </div>
             </td>
             <td>
-              @if ($data->shipping)
+              @if ($data->shipping && $data->shipping->courier != 'Maxim')
+                <span class="text-dark">Rp {{ number_format(\App\Models\Setting::getValue('admin_cost'), 0, ',', '.') }}</span>
+              @else
+                <span class="text-dark">-</span>
+              @endif
+            </td>
+            <td>
+              @if ($data->shipping && $data->shipping->courier != 'Maxim')
                 <span class="text-truncate text-dark">Rp
-                  {{ number_format($data->total_price + 1000 + $data->shipping->price, 0, ',', '.') }}
+                  {{ number_format($data->total_price + \App\Models\Setting::getValue('admin_cost') + $data->shipping->price, 0, ',', '.') }}
+                </span>
+              @elseif ($data->shipping && $data->shipping->courier == 'Maxim')
+                <span class="text-truncate text-dark">Rp
+                  {{ number_format($data->total_price + $data->shipping->price, 0, ',', '.') }}
                 </span>
               @else
                 <span class="text-truncate text-dark">Rp

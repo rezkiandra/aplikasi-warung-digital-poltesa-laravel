@@ -1,17 +1,3 @@
-@php
-  $data = [
-      'order_type' => [
-          'ambil sendiri' => 'Ambil Sendiri',
-          'jasa kirim' => 'Jasa Kirim',
-      ],
-      'courier' => [
-          'maxim driver' => 'Maxim Driver',
-          'jne' => 'JNE',
-          // 'tiki' => 'TIKI',
-          // 'pos' => 'POS Indonesia',
-      ],
-  ];
-@endphp
 @extends('layouts.authenticated')
 @section('title', 'Opsi Pengiriman')
 @section('content')
@@ -451,28 +437,17 @@
           <form action="" method="POST" id="form-ongkir">
             @csrf
             <x-form-floating>
-              <select name="order_type" id="order_type" class="form-select">
-                <option selected disabled>Pilih Tipe Pesanan</option>
-                @foreach ($data['order_type'] as $key => $value)
-                  <option value="{{ $key }}">{{ $value }}</option>
-                @endforeach
-              </select>
-              <x-validation-error :name="'order_type'" />
-              <label for="order_type">Tipe Pesanan</label>
+              <x-input-form-label :label="'Metode Pengiriman'" :name="'order_type'" :type="'select'" :options="$data['order_type']"
+                :select="'Pilih Metode Pengiriman'" :value="old('order_type')" />
             </x-form-floating>
 
-            <x-form-floating>
-              <select name="courier" id="courier" class="form-select courier d-none">
-                <option selected disabled>Pilih Kurir</option>
-                @foreach ($data['courier'] as $key => $value)
-                  <option value="{{ $key }}">{{ $value }}</option>
-                @endforeach
-              </select>
-              <x-validation-error :name="'courier'" />
-              <label for="courier" class="courier d-none">Kurir</label>
+            <x-form-floating :class="'courier'">
+              <x-input-form-label :label="'Kurir'" :name="'courier'" :type="'select'" :options="$data['courier']"
+                :select="'Pilih Kurir'" />
             </x-form-floating>
 
-            <x-submit-button :label="'Submit'" id="btn-submit" :type="'submit'" :variant="'primary w-100'" :icon="'check-circle-outline'" />
+            <x-submit-button :label="'Submit'" id="btn-submit" :type="'submit'" :variant="'primary w-100'"
+              :icon="'check-circle-outline'" />
           </form>
         </div>
       </div>
@@ -482,16 +457,31 @@
 
 @push('scripts')
   <script>
-    $(document).ready(function() {
-      $('#order_type').change(function() {
-        if ($(this).val() == 'jasa kirim') {
-          $('.courier').removeClass('d-none');
-          $('#btn-submit').html('<i class="mdi mdi-truck-fast-outline me-1"></i>Cek Ongkos Kirim');
-        } else {
-          $('.courier').addClass('d-none');
-          $('#btn-submit').html('<i class="mdi mdi-check-circle-outline me-1"></i>Submit');
-        }
-      });
-    });
+    let orderType = document.getElementById('order_type')
+    let courier = document.getElementById('courier')
+
+    if (orderType.value == 'jasa kirim') {
+      courier.disabled = false
+      $('#btn-submit').html('<i class="mdi mdi-truck-fast-outline me-1"></i>Cek Ongkos Kirim');
+    } else {
+      courier.disabled = true
+    }
+
+    orderType.onchange = function() {
+      if (orderType.value == 'jasa kirim') {
+        courier.disabled = false
+        $('#btn-submit').html('<i class="mdi mdi-truck-fast-outline me-1"></i>Cek Ongkos Kirim');
+      } else {
+        courier.disabled = true
+        courier.value = 'Pilih Kurir'
+        $('#btn-submit').html('<i class="mdi mdi-check-circle-outline me-1"></i>Submit');
+      }
+    }
+
+    courier.onfocus = function() {
+      if (orderType.value == 'jasa kirim') {
+        $('#btn-submit').html('<i class="mdi mdi-truck-fast-outline me-1"></i>Cek Ongkos Kirim');
+      }
+    }
   </script>
 @endpush

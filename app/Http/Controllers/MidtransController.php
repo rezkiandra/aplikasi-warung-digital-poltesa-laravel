@@ -34,16 +34,22 @@ class MidtransController extends Controller
   {
     try {
       $order = Order::with(['shipping', 'product', 'customer.user'])->where('uuid', $uuid)->firstOrFail();
+
       $adminCost = Setting::getValue('admin_cost');
+      $maximCost = Setting::getValue('maxim_cost');
 
-      if ($order->order_type == 'jasa_kirim') {
-        $shippingCost = $order->shipping->price;
-        $grossAmount = $order->total_price + $shippingCost + $adminCost;
-
-        $params = $this->buildPaymentParams($order, $grossAmount, $adminCost);
-      } elseif ($order->order_type == 'ambil_sendiri') {
+      if ($order->order_type == 'jasa kirim') {
+        if ($order->courier != 'Maxim') {
+          $shippingCost = $order->shipping->price;
+          $grossAmount = $order->total_price + $shippingCost;
+          $params = $this->buildPaymentParams($order, $grossAmount, $adminCost);
+        } else {
+          $shippingCost = $order->shipping->price;
+          $grossAmount = $order->total_price + $shippingCost;
+          $params = $this->buildPaymentsParamsMaxim($order, $grossAmount);
+        }
+      } else {
         $grossAmount = $order->total_price + $adminCost;
-
         $params = $this->buildPaymentParamsWithoutShipping($order, $grossAmount, $adminCost);
       }
 
@@ -52,7 +58,7 @@ class MidtransController extends Controller
       $order->snap_token = $snapToken;
       $order->save();
 
-      return view('customer.checkout', compact('order', 'snapToken'));
+      return view('customer.checkout', compact('order', 'snapToken', 'maximCost', 'adminCost'));
     } catch (Exception $e) {
       return redirect()->back()->withErrors(['error' => json_decode($e->getMessage(), true)]);
     }
@@ -61,7 +67,11 @@ class MidtransController extends Controller
   public function detailPayment(string $uuid)
   {
     $order = Order::where('uuid', $uuid)->firstOrFail();
-    return view('customer.order-detail', compact('order'));
+
+    $adminCost = Setting::getValue('admin_cost');
+    $maximCost = Setting::getValue('maxim_cost');
+
+    return view('customer.order-detail', compact('order', 'maximCost', 'adminCost'));
   }
 
   public function cancelPayment(string $uuid)
@@ -108,6 +118,11 @@ class MidtransController extends Controller
             $order->product->increment('stock', $order->quantity);
             $order->product->update();
             break;
+          case 'cancel':
+            $order->update(array_merge($commonData, ['status' => 'dibatalkan']));
+            $order->product->increment('stock', $order->quantity);
+            $order->product->update();
+            break;
         }
       }
     } catch (Exception $e) {
@@ -115,7 +130,7 @@ class MidtransController extends Controller
     }
   }
 
-  private function buildPaymentParams($order, $grossAmount, $adminCost)
+  private function buildPaymentParams($order, $grossAmount, $adminCost = 0)
   {
     return [
       'transaction_details' => [
@@ -179,6 +194,45 @@ class MidtransController extends Controller
           'id' => 'ADM-01',
           'name' => 'Biaya Admin',
           'price' => $adminCost,
+          'quantity' => 1
+        ],
+        [
+          'id' => 'SHI-01',
+          'name' => 'Biaya Maxim',
+          'price' => $order->shipping->price,
+          'quantity' => 1
+        ],
+      ],
+      'customer_details' => [
+        'first_name' => $order->customer->full_name,
+        'email' => $order->customer->user->email,
+        'address' => $order->customer->address,
+        'phone' => $order->customer->phone_number,
+        'gender' => $order->customer->gender,
+      ],
+    ];
+  }
+
+  private function buildPaymentsParamsMaxim($order, $grossAmount)
+  {
+    return [
+      'transaction_details' => [
+        'order_id' => $order->uuid,
+        'currency' => 'IDR',
+        'gross_amount' => $grossAmount,
+      ],
+      'item_details' => [
+        [
+          'id' => $order->product->uuid,
+          'name' => $order->product->name,
+          'price' => $order->product->price,
+          'quantity' => $order->quantity,
+          'weight' => $order->product->weight
+        ],
+        [
+          'id' => $order->shipping->uuid,
+          'name' => $order->shipping->courier . ' - ' . $order->shipping->code,
+          'price' => $order->shipping->price,
           'quantity' => 1
         ],
       ],
