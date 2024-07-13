@@ -179,7 +179,7 @@
 
             <div class="col-lg-12">
               <x-form-floating>
-                <x-input-form-label :label="'Alamat'" :name="'address'" :type="'textarea'" :height="'140px'"
+                <x-input-form-label :label="'Alamat'" :name="'address'" :type="'textarea'" :height="'130px'"
                   :value="$data->address" />
               </x-form-floating>
             </div>

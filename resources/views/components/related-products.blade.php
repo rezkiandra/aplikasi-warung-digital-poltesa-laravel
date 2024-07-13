@@ -7,7 +7,6 @@
           ->toArray();
   }
 @endphp
-
 @push('styles')
   <style>
     img {
@@ -19,7 +18,7 @@
 
     @media screen and (max-width: 768px) {
       img {
-        height: 140px;
+        height: 180px;
         width: 100%;
         background-position: center;
         background-size: cover;
@@ -36,7 +35,6 @@
     }
   </style>
 @endpush
-
 <h5 class="fw-medium mt-2 mt-lg-5 mb-4 text-uppercase">Produk Kategori Sama Lainnya</h5>
 <div class="row row-cols-1 row-cols-md-3 g-3 mb-5 pb-5 pb-lg-5">
   @foreach ($relatedProducts as $data)
@@ -87,7 +85,7 @@
                   Rp {{ number_format($data->price, 0, ',', '.') }}
                 </small>
               </div>
-              <small class="d-none d-lg-flex d-md-flex align-items-center justify-content-between">
+              {{-- <small class="d-none d-lg-flex d-md-flex align-items-center justify-content-between">
                 <span>
                   <span class="d-lg-flex d-md-flex align-items-center gap-1">
                     <i class="mdi mdi-star-half-full text-warning"></i>
@@ -99,7 +97,7 @@
                   Terjual
                   {{ \App\Models\Order::where('product_id', $data->id)->where('status', 'paid')->sum('quantity') }}
                 </span>
-              </small>
+              </small> --}}
             </div>
           </div>
         </div>
@@ -121,7 +119,7 @@
                     Rp {{ number_format($data->price, 0, ',', '.') }}
                   </small>
                 </div>
-                <small class="d-none d-lg-flex d-md-flex align-items-center justify-content-between">
+                {{-- <small class="d-none d-lg-flex d-md-flex align-items-center justify-content-between">
                   <span>
                     <span class="d-lg-flex d-md-flex align-items-center gap-1">
                       <i class="mdi mdi-star-half-full text-warning"></i>
@@ -133,7 +131,7 @@
                     Terjual
                     {{ \App\Models\Order::where('product_id', $data->id)->where('status', 'paid')->sum('quantity') }}
                   </span>
-                </small>
+                </small> --}}
               </div>
             </div>
           </div>
@@ -155,7 +153,7 @@
                     Rp {{ number_format($data->price, 0, ',', '.') }}
                   </small>
                 </div>
-                <small class="d-none d-lg-flex d-md-flex align-items-center justify-content-between">
+                {{-- <small class="d-none d-lg-flex d-md-flex align-items-center justify-content-between">
                   <span>
                     <span class="d-lg-flex d-md-flex align-items-center gap-1">
                       <i class="mdi mdi-star-half-full text-warning"></i>
@@ -167,7 +165,7 @@
                     Terjual
                     {{ \App\Models\Order::where('product_id', $data->id)->where('status', 'paid')->sum('quantity') }}
                   </span>
-                </small>
+                </small> --}}
               </div>
             </div>
           </div>

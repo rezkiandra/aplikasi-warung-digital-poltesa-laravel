@@ -3,7 +3,7 @@
 @endphp
 
 <div class="fixed-top">
-  <nav class="layout-navbar shadow bg-white border">
+  <nav class="layout-navbar shadow-sm bg-white border">
     <div class="navbar navbar-expand-lg landing-navbar border-top-0 px-3 px-md-4 bg-white rounded">
       <div class="navbar-brand app-brand demo d-flex py-0 py-lg-2 me-lg-5 me-md-4 me-2">
         <button class="navbar-toggler border-0 px-0 me-lg-5 me-md-4 me-3 d-inline-block d-lg-none" type="button"
@@ -58,10 +58,7 @@
             <a class="nav-link fw-medium {{ request()->routeIs('guest.home', 'customer.home') ? 'active text-primary' : 'text-dark' }}"
               href="@if ($user_role == 3) {{ route('customer.home') }} @else {{ route('guest.home') }} @endif">Beranda</a>
           </li>
-          <li class="nav-item my-lg-0 my-2">
-            <a class="nav-link fw-medium text-dark {{ request()->routeIs('guest.products', 'customer.products', 'guest.*.product', 'customer.*.product') ? 'active text-primary' : 'text-dark' }}"
-              href="@if ($user_role == 3) {{ route('customer.products') }} @else {{ route('guest.products') }} @endif">Produk</a>
-          </li>
+          <x-dropdown-nav :label="__('Produk')" />
           <li class="nav-item my-lg-0 my-2">
             <a class="nav-link fw-medium {{ request()->routeIs('guest.faq', 'customer.faq') ? 'active text-primary' : 'text-dark' }}"
               href="@if ($user_role == 3) {{ route('customer.faq') }} @else {{ route('guest.faq') }} @endif">FAQ</a>

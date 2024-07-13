@@ -19,3 +19,19 @@
 
   <x-products-tabel :title="'Data Produk'" :datas="$products" :fields="['no', 'produk', 'kategori / penjual', 'harga', 'stok', 'terjual', 'Publish Pada', 'Aksi']" />
 @endsection
+
+{{-- @push('styles')
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
+@endpush
+
+@push('scripts')
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#productsTable').DataTable();
+    });
+  </script>
+@endpush --}}

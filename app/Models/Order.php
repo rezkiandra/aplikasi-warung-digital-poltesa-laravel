@@ -19,6 +19,8 @@ class Order extends Model
     'quantity',
     'total_price',
     'status',
+    'order_type',
+    'courier',
     'payment_method',
     'store',
     'payment_code',
@@ -38,7 +40,7 @@ class Order extends Model
 
   public function product()
   {
-    return $this->belongsTo(Products::class);
+    return $this->belongsTo(Products::class, 'product_id');
   }
 
   public function seller()

@@ -116,7 +116,7 @@
         <a href="https://themeselection.com" target="_blank" class="footer-link fw-medium footer-theme-link">Kyy
           Studio</a>
       </div>
-      <div>
+      {{-- <div>
         <a href="https://github.com/rezkiandra" class="footer-link me-2" target="_blank"><i
             class="mdi mdi-github"></i></a>
         <a href="https://gitlab.com/rezkiandra" class="footer-link me-2" target="_blank"><i
@@ -129,7 +129,7 @@
             class="mdi mdi-linkedin"></i></a>
         <a href="https://www.instagram.com/kyy.fe" class="footer-link" target="_blank"><i
             class="mdi mdi-instagram"></i></a>
-      </div>
+      </div> --}}
     </div>
   </div>
 </footer>

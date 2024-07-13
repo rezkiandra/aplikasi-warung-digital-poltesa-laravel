@@ -38,14 +38,13 @@ class CustomerController extends Controller
 
   public function index()
   {
-    $topProducts = Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->where('status', 'paid')
-      ->orderBy('quantity', 'desc')
-      ->orderBy('products.price', 'desc')
-      ->limit(4)
-      ->get(['products.*', 'orders.*']);
+    $categories = ProductCategory::has('product')->get('slug');
+    $data = [
+      'foodProducts' => $this->getTopProductsByCategory('makanan'),
+      'beautyProducts' => $this->getTopProductsByCategory('kecantikan'),
+    ];
 
-    return view('customer.home', compact('topProducts'));
+    return view('customer.home', compact('categories', 'data'));
   }
 
   public function dashboard()
@@ -76,6 +75,7 @@ class CustomerController extends Controller
 
       $totalShipping = Shipping::join('orders', 'shippings.order_id', '=', 'orders.id')
         ->where('orders.customer_id', $customerId)
+        ->where('shippings.status', 'diterima')
         ->whereYear('shippings.created_at', $tahun)
         ->whereMonth('shippings.created_at', $monthNumber)
         ->sum('shippings.price');
@@ -85,7 +85,7 @@ class CustomerController extends Controller
 
     $orders = Order::where('customer_id', $customerId)->get();
     $spent = $orders->where('status', 'sudah bayar');
-    $shippingCost = Shipping::where('customer_id', $customerId)->sum('price');
+    $shippingCost = Shipping::where('customer_id', $customerId)->where('status', 'diterima')->sum('price');
 
     $topProducts = Order::select('product_id', DB::raw('SUM(quantity) as total'))
       ->join('products', 'orders.product_id', '=', 'products.id', 'left')
@@ -133,16 +133,25 @@ class CustomerController extends Controller
   public function products(Request $request)
   {
     $query = $request->input('search');
+    $categorySlug = $request->input('category');
+
+    $products = Products::query();
+
     if ($query) {
-      $products = Products::where('name', 'LIKE', "%{$query}%")->get();
-    } else {
-      $products = Products::orderBy('category_id', 'asc')->get();
+      $products->where('name', 'LIKE', "%{$query}%");
     }
 
-    $totalProducts = $products->count();
-    $category = ProductCategory::pluck('name', 'id')->toArray();
+    if ($categorySlug) {
+      $category = ProductCategory::where('slug', $categorySlug)->first();
+      if ($category) {
+        $products->where('category_id', $category->id);
+      }
+    }
 
-    return view('customer.products', compact('products', 'totalProducts', 'category'));
+    $products = $products->orderBy('category_id', 'asc')->get();
+    $totalProducts = $products->count();
+
+    return view('pages.products', compact('products', 'totalProducts'));
   }
 
   public function faq()
@@ -190,11 +199,7 @@ class CustomerController extends Controller
       : collect([]);
 
     $user_role = Auth::user()->role_id ?? '';
-    $wishlistUUID = Auth::check() && auth()->user()->customer
-      ? Wishlist::where('customer_id', auth()->user()->customer->id)->pluck('uuid')->toArray()
-      : [];
-
-    return view('customer.wishlist', compact('wishlists', 'user_role', 'wishlistUUID'));
+    return view('customer.wishlist', compact('wishlists', 'user_role'));
   }
 
   public function orders()
@@ -294,5 +299,17 @@ class CustomerController extends Controller
     }
 
     return null;
+  }
+
+  private function getTopProductsByCategory($categorySlug)
+  {
+    return Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
+      ->join('product_categories', 'products.category_id', '=', 'product_categories.id', 'left')
+      ->where('product_categories.slug', $categorySlug)
+      ->where('status', 'sudah bayar')
+      ->orderBy('products.price', 'desc')
+      ->orderBy('quantity', 'desc')
+      ->take(4)
+      ->get(['products.*', 'orders.*']);
   }
 }

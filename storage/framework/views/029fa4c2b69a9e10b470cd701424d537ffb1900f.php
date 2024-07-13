@@ -336,7 +336,7 @@
               'midtrans.checkout',
               'midtrans.detail',
               'midtrans.cancelled',
-              'rajaongkir.*'
+              'rajaongkir.*',
           )]); ?>
 <?php $component->withName('sidebar-item'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -430,6 +430,18 @@
 <?php endif; ?>
       <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Bank','route' => route('admin.bank_accounts'),'icon' => 'bank-outline','active' => request()->routeIs('admin.bank_accounts', 'admin.*.bank')]); ?>
+<?php $component->withName('sidebar-item'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394)): ?>
+<?php $component = $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394; ?>
+<?php unset($__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394); ?>
+<?php endif; ?>
+      <?php if (isset($component)) { $__componentOriginal6575204421d4ede9ffd0a82ba21b4d926afb5394 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\SidebarItem::class, ['label' => 'Tarif','route' => route('admin.edit.cost'),'icon' => 'currency-usd','active' => request()->routeIs('admin.edit.cost')]); ?>
 <?php $component->withName('sidebar-item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

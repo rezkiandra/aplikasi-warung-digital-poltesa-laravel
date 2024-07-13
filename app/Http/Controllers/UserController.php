@@ -142,6 +142,7 @@ class UserController extends Controller
         'full_name' => $request->full_name,
         'slug' => Str::slug($request->full_name),
         'address' => $request->address,
+        'origin' => $request->origin,
         'phone_number' => $request->phone_number,
         'gender' => $request->gender,
         'bank_account_id' => $request->bank_account_id,

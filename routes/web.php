@@ -6,12 +6,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\OngkirController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DistanceController;
 use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\BankAccountController;
@@ -52,6 +53,13 @@ Route::middleware(['auth', 'checkRole:Admin'])->group(function () {
       Route::get('/list-product-category', 'product_category')->name('admin.product_category');
       Route::get('/list-bank-accounts', 'bank_account')->name('admin.bank_accounts');
       Route::get('/settings', 'settings')->name('admin.settings');
+    });
+
+  Route::controller(SettingsController::class)
+    ->prefix('admin/dashboard')
+    ->group(function () {
+      Route::get('/edit-cost', 'edit')->name('admin.edit.cost');
+      Route::put('/update-cost', 'update')->name('admin.update.cost');
     });
 
   Route::controller(AdminProductController::class)
@@ -180,11 +188,10 @@ Route::middleware('auth', 'mustLogin', 'checkRole:Customer')->group(function () 
       Route::get('/settings', 'settings')->name('customer.settings');
       Route::post('store-biodata', 'store')->name('customer.store.biodata');
       Route::put('/update-biodata/{biodata}', 'update')->name('customer.update.biodata');
-      Route::get('/detail-product/{product}', 'product')->name('customer.detail.product');
       Route::put('/settings/edit-profile/{customer}', 'updateProfile')->name('customer.update.profile');
     });
 
-  Route::controller(OngkirController::class)
+  Route::controller(DistanceController::class)
     ->prefix('customer/dashboard')
     ->group(function () {
       Route::get('/process-ongkir/{order}', 'ongkir')->name('rajaongkir.ongkir');
@@ -203,6 +210,7 @@ Route::middleware('auth', 'mustLogin', 'checkRole:Customer')->group(function () 
     ->group(function () {
       Route::get('/home', 'index')->name('customer.home');
       Route::get('/products', 'products')->name('customer.products');
+      Route::get('/detail-product/{product}', 'product')->name('customer.detail.product');
       Route::get('/faq', 'faq')->name('customer.faq');
     });
 });

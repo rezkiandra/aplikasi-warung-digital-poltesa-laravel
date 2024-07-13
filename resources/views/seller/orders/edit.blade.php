@@ -62,7 +62,7 @@
                       </span>
                       <br>
                       <span class="text-truncate">
-                        Biaya Admin &emsp;&emsp;&emsp;&emsp;&nbsp; : Rp {{ number_format(1000, 0, ',', '.') }}
+                        Biaya Admin &emsp;&emsp;&emsp;&emsp;&nbsp; : Rp {{ number_format(\App\Models\Setting::getValue('admin_cost'), 0, ',', '.') }}
                       </span>
                       <span class="text-truncate">
                         Biaya Pengiriman &emsp;&ensp;&nbsp; : Rp
@@ -71,7 +71,7 @@
                       <br>
                       <span class="text-truncate">
                         Harga Keseluruhan &emsp; : Rp
-                        {{ number_format($shipping->order->total_price + 1000 + $shipping->price, 0, ',', '.') }}
+                        {{ number_format($shipping->order->total_price + \App\Models\Setting::getValue('admin_cost') + $shipping->price, 0, ',', '.') }}
                       </span>
                     </div>
                   </div>
@@ -106,12 +106,28 @@
               <span class="timeline-point timeline-point-primary"></span>
               <div class="timeline-event">
                 <div class="timeline-header mb-1">
-                  <h6 class="mb-0">Ekspedisi pengiriman menggunakan {{ $shipping->courier }}</h6>
-                  <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->created_at)) }}</small>
+                  @if ($shipping->order->order_type == 'ambil sendiri')
+                    <h6 class="mb-0">Pelanggan anda memilih tipe pesanan Ambil Sendiri</h6>
+                  @elseif($shipping->order->order_type == 'jasa kirim')
+                    <h6 class="mb-0">Pelanggan anda memilih tipe pesanan Jasa Kirim</h6>
+                  @endif
+                  <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->order->created_at)) }}</small>
                 </div>
-                <p class="mt-1 mb-3">Estimasi pengiriman produk {{ $shipping->etd }} hari</p>
+                <p class="mt-1 mb-3">Pelanggan anda telah memilih tipe pesanan</p>
               </div>
             </li>
+            @if ($shipping->order)
+              <li class="timeline-item timeline-item-transparent border-primary">
+                <span class="timeline-point timeline-point-primary"></span>
+                <div class="timeline-event">
+                  <div class="timeline-header mb-1">
+                    <h6 class="mb-0">Ekspedisi pengiriman menggunakan {{ $shipping->courier }}</h6>
+                    <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->created_at)) }}</small>
+                  </div>
+                  <p class="mt-1 mb-3">Estimasi pengiriman produk {{ $shipping->etd }} hari</p>
+                </div>
+              </li>
+            @endif
 
             {{-- Row 2 --}}
             {{-- E-Channel --}}
@@ -128,7 +144,8 @@
                   <div class="timeline-header mb-1">
                     <h6 class="mb-0">Metode pembayaran menggunakan <span
                         class="text-uppercase">{{ $shipping->order->payment_method }}</span></h6>
-                    <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->order->transaction_time)) }}</small>
+                    <small
+                      class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->order->transaction_time)) }}</small>
                   </div>
                   <p class="mt-1 mb-3">Selesaikan pembayaran sebelum
                     {{ date('d M Y, H:i:s', strtotime($shipping->order->expiry_time)) }}</p>
@@ -140,7 +157,7 @@
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
                       <h6 class="mb-0">Pelanggan berhasil membayar sebesar Rp
-                        {{ number_format($shipping->order->total_price + 1000 + $shipping->price, 0, ',', '.') }}
+                        {{ number_format($shipping->order->total_price + \App\Models\Setting::getValue('admin_cost') + $shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
@@ -167,7 +184,7 @@
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Pelanggan anda harus segera membayar pesanan sebesar Rp
-                      {{ number_format($shipping->order->total_price + 1000 + $shipping->price, 0, ',', '.') }}
+                      {{ number_format($shipping->order->total_price + \App\Models\Setting::getValue('admin_cost') + $shipping->price, 0, ',', '.') }}
                     </p>
                   </div>
                 </li>
@@ -187,7 +204,8 @@
                   <div class="timeline-header mb-1">
                     <h6 class="mb-0">Metode pembayaran menggunakan <span
                         class="text-uppercase">{{ $shipping->order->payment_method }}</span></h6>
-                    <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->order->transaction_time)) }}</small>
+                    <small
+                      class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->order->transaction_time)) }}</small>
                   </div>
                   <p class="mt-1 mb-3">Selesaikan pembayaran sebelum
                     {{ date('d M Y, H:i:s', strtotime($shipping->order->expiry_time)) }}</p>
@@ -199,7 +217,7 @@
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
                       <h6 class="mb-0">Pelanggan berhasil membayar sebesar Rp
-                        {{ number_format($shipping->order->total_price + 1000 + $shipping->price, 0, ',', '.') }}
+                        {{ number_format($shipping->order->total_price + \App\Models\Setting::getValue('admin_cost') + $shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
@@ -226,7 +244,7 @@
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Pelanggan anda harus segera membayar pesanan sebesar Rp
-                      {{ number_format($shipping->order->total_price + 1000 + $shipping->price, 0, ',', '.') }}
+                      {{ number_format($shipping->order->total_price + \App\Models\Setting::getValue('admin_cost') + $shipping->price, 0, ',', '.') }}
                     </p>
                   </div>
                 </li>
@@ -244,7 +262,8 @@
                   <div class="timeline-header mb-1">
                     <h6 class="mb-0">Metode pembayaran menggunakan <span
                         class="text-uppercase">{{ $shipping->order->payment_method }}</span></h6>
-                    <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->order->transaction_time)) }}</small>
+                    <small
+                      class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->order->transaction_time)) }}</small>
                   </div>
                   <p class="mt-1 mb-3">Selesaikan pembayaran sebelum
                     {{ date('d M Y, H:i:s', strtotime($shipping->order->expiry_time)) }}</p>
@@ -256,7 +275,7 @@
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
                       <h6 class="mb-0">Pelanggan berhasil membayar sebesar Rp
-                        {{ number_format($shipping->order->total_price + 1000 + $shipping->price, 0, ',', '.') }}
+                        {{ number_format($shipping->order->total_price + \App\Models\Setting::getValue('admin_cost') + $shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
@@ -283,7 +302,7 @@
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Pelanggan anda harus segera membayar pesanan sebesar Rp
-                      {{ number_format($shipping->order->total_price + 1000 + $shipping->price, 0, ',', '.') }}
+                      {{ number_format($shipping->order->total_price + \App\Models\Setting::getValue('admin_cost') + $shipping->price, 0, ',', '.') }}
                     </p>
                   </div>
                 </li>
@@ -303,7 +322,8 @@
                   <div class="timeline-header mb-1">
                     <h6 class="mb-0">Metode pembayaran menggunakan <span
                         class="text-uppercase">{{ $shipping->order->payment_method }}</span></h6>
-                    <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->order->transaction_time)) }}</small>
+                    <small
+                      class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->order->transaction_time)) }}</small>
                   </div>
                   <p class="mt-1 mb-3">Selesaikan pembayaran sebelum
                     {{ date('d M Y, H:i:s', strtotime($shipping->order->expiry_time)) }}</p>
@@ -315,7 +335,7 @@
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
                       <h6 class="mb-0">Pelanggan berhasil membayar sebesar Rp
-                        {{ number_format($shipping->order->total_price + 1000 + $shipping->price, 0, ',', '.') }}
+                        {{ number_format($shipping->order->total_price + \App\Models\Setting::getValue('admin_cost') + $shipping->price, 0, ',', '.') }}
                       </h6>
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
@@ -342,7 +362,7 @@
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Pelanggan anda harus segera membayar pesanan sebesar Rp
-                      {{ number_format($shipping->order->total_price + 1000 + $shipping->price, 0, ',', '.') }}
+                      {{ number_format($shipping->order->total_price + \App\Models\Setting::getValue('admin_cost') + $shipping->price, 0, ',', '.') }}
                     </p>
                   </div>
                 </li>

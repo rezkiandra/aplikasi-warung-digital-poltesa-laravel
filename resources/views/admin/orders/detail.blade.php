@@ -57,17 +57,25 @@
                       </span>
                       <br>
                       <span class="text-truncate">
-                        Biaya Admin &emsp;&emsp;&emsp;&emsp;&nbsp; : Rp {{ number_format(1000, 0, ',', '.') }}
+                        Biaya Admin &emsp;&emsp;&emsp;&emsp;&nbsp; : Rp
+                        {{ number_format(\App\Models\Setting::getValue('admin_cost'), 0, ',', '.') }}
                       </span>
-                      <span class="text-truncate">
-                        Biaya Pengiriman &emsp;&ensp;&nbsp; : Rp
-                        {{ number_format($order->shipping->price, 0, ',', '.') }}
-                      </span>
-                      <br>
-                      <span class="text-truncate">
-                        Harga Keseluruhan &emsp; : Rp
-                        {{ number_format($order->total_price + 1000 + $order->shipping->price, 0, ',', '.') }}
-                      </span>
+                      @if ($order->shipping)
+                        <span class="text-truncate">
+                          Biaya Pengiriman &emsp;&ensp;&nbsp; : Rp
+                          {{ number_format($order->shipping->price, 0, ',', '.') }}
+                        </span>
+                        <br>
+                        <span class="text-truncate">
+                          Harga Keseluruhan &emsp; : Rp
+                          {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost') + $order->shipping->price, 0, ',', '.') }}
+                        </span>
+                      @else
+                        <span class="text-truncate">
+                          Harga Keseluruhan &emsp; : Rp
+                          {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost'), 0, ',', '.') }}
+                        </span>
+                      @endif
                     </div>
                   </div>
                 </td>
@@ -92,6 +100,20 @@
                   <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->created_at)) }}</small>
                 </div>
                 <p class="mt-1 mb-3">Pelanggan telah melakukan pemesanan</p>
+              </div>
+            </li>
+            <li class="timeline-item timeline-item-transparent border-primary">
+              <span class="timeline-point timeline-point-primary"></span>
+              <div class="timeline-event">
+                <div class="timeline-header mb-1">
+                  @if ($order->order_type == 'ambil sendiri')
+                    <h6 class="mb-0">Pelanggan memilih tipe pesanan Ambil Sendiri</h6>
+                  @elseif($order->order_type == 'jasa kirim')
+                    <h6 class="mb-0">Pelanggan memilih tipe pesanan Jasa Kirim</h6>
+                  @endif
+                  <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->created_at)) }}</small>
+                </div>
+                <p class="mt-1 mb-3">Pelanggan telah memilih tipe pesanan</p>
               </div>
             </li>
             @if ($order->shipping)
@@ -131,9 +153,15 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
-                        {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
-                      </h6>
+                      @if ($order->shipping)
+                        <h6 class="mb-0">Pelanggan berhasil membayar sebesar Rp
+                          {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost') + $order->shipping->price, 0, ',', '.') }}
+                        </h6>
+                      @else
+                        <h6 class="mb-0">Pelanggan berhasil membayar sebesar Rp
+                          {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost'), 0, ',', '.') }}
+                        </h6>
+                      @endif
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Anda sudah membayar pesanan</p>
@@ -186,9 +214,15 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
-                        {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
-                      </h6>
+                      @if ($order->shipping)
+                        <h6 class="mb-0">Pelanggan berhasil membayar sebesar Rp
+                          {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost') + $order->shipping->price, 0, ',', '.') }}
+                        </h6>
+                      @else
+                        <h6 class="mb-0">Pelanggan berhasil membayar sebesar Rp
+                          {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost'), 0, ',', '.') }}
+                        </h6>
+                      @endif
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Pelanggan sudah membayar pesanan</p>
@@ -239,9 +273,15 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
-                        {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
-                      </h6>
+                      @if ($order->shipping)
+                        <h6 class="mb-0">Pelanggan berhasil membayar sebesar Rp
+                          {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost') + $order->shipping->price, 0, ',', '.') }}
+                        </h6>
+                      @else
+                        <h6 class="mb-0">Pelanggan berhasil membayar sebesar Rp
+                          {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost'), 0, ',', '.') }}
+                        </h6>
+                      @endif
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Pelanggan sudah membayar pesanan</p>
@@ -294,9 +334,15 @@
                   <span class="timeline-point timeline-point-primary"></span>
                   <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                      <h6 class="mb-0">Pesanan anda berhasil dibayar sebesar Rp
-                        {{ number_format($order->total_price + $order->fee * $order->quantity, 0, ',', '.') }}
-                      </h6>
+                      @if ($order->shipping)
+                        <h6 class="mb-0">Pelanggan berhasil membayar sebesar Rp
+                          {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost') + $order->shipping->price, 0, ',', '.') }}
+                        </h6>
+                      @else
+                        <h6 class="mb-0">Pelanggan berhasil membayar sebesar Rp
+                          {{ number_format($order->total_price + \App\Models\Setting::getValue('admin_cost'), 0, ',', '.') }}
+                        </h6>
+                      @endif
                       <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->updated_at)) }}</small>
                     </div>
                     <p class="mt-1 mb-3">Pelanggan sudah membayar pesanan</p>
@@ -449,32 +495,34 @@
         </div>
       </div>
 
-      <div class="card mb-3">
-        <div class="card-body">
-          <h5 class="card-title mb-4 d-flex align-items-center">
-            <i class="mdi mdi-truck-fast mdi-24px me-2"></i>
-            <span>Detail Pengiriman</span>
-          </h5>
-          <div class="d-flex justify-content-between">
-            <h6 class="mb-1">Info Kurir</h6>
-          </div>
-          <p class="mb-1">Kurir : {{ $order->shipping->courier }}</p>
-          <p class="mb-1">Servis : {{ $order->shipping->description }} - {{ $order->shipping->code }}</p>
-          <p class="mb-1">Estimasi Pengiriman : {{ $order->shipping->etd }} hari</p>
-          <p class="mb-1">Status Pengiriman :
-            @if ($order->shipping->status == 'dikirim')
-              <span class="text-uppercase badge bg-label-dark rounded">{{ $order->shipping->status }}</span>
-            @elseif ($order->shipping->status == 'diproses')
-              <span class="text-uppercase badge bg-label-warning rounded">{{ $order->shipping->status }}</span>
-            @elseif ($order->shipping->status == 'diterima')
-              <span class="text-uppercase badge bg-label-success rounded">{{ $order->shipping->status }}</span>
+      @if ($order->shipping)
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title mb-4 d-flex align-items-center">
+              <i class="mdi mdi-truck-fast mdi-24px me-2"></i>
+              <span>Detail Pengiriman</span>
+            </h5>
+            <div class="d-flex justify-content-between">
+              <h6 class="mb-1">Info Kurir</h6>
+            </div>
+            <p class="mb-1">Kurir : {{ $order->shipping->courier }}</p>
+            <p class="mb-1">Servis : {{ $order->shipping->description }} - {{ $order->shipping->code }}</p>
+            <p class="mb-1">Estimasi Pengiriman : {{ $order->shipping->etd }} hari</p>
+            <p class="mb-1">Status Pengiriman :
+              @if ($order->shipping->status == 'dikirim')
+                <span class="text-uppercase badge bg-label-dark rounded">{{ $order->shipping->status }}</span>
+              @elseif ($order->shipping->status == 'diproses')
+                <span class="text-uppercase badge bg-label-warning rounded">{{ $order->shipping->status }}</span>
+              @elseif ($order->shipping->status == 'diterima')
+                <span class="text-uppercase badge bg-label-success rounded">{{ $order->shipping->status }}</span>
+              @endif
+            </p>
+            @if ($order->shipping->resi)
+              <p class="mb-1">Nomor Resi : {{ $order->shipping->resi }}</p>
             @endif
-          </p>
-          @if ($order->shipping->resi)
-            <p class="mb-1">Nomor Resi : {{ $order->shipping->resi }}</p>
-          @endif
+          </div>
         </div>
-      </div>
+      @endif
 
       <div class="card mb-3">
         <div class="card-body">

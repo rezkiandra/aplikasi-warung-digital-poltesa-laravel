@@ -1,4 +1,4 @@
-<div class="form-floating form-floating-outline mb-4">
+<div class="form-floating form-floating-outline mb-4 <?php echo e($class); ?>">
   <?php echo e($slot); ?>
 
 </div>

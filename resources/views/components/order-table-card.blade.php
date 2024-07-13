@@ -11,6 +11,7 @@
           <tr>
             <th class="text-truncate">Tgl. Pemesanan</th>
             <th class="text-truncate">Produk</th>
+            <th class="text-truncate">Tipe Pesanan</th>
             <th class="text-truncate">Pengiriman</th>
             <th class="text-truncate">Total Pesanan</th>
             <th class="text-truncate">Status Pesanan</th>
@@ -21,9 +22,7 @@
           @foreach ($datas as $data)
             <tr>
               <td class="text-truncate fw-medium">
-                <span class="badge bg-label-info rounded">{{ date('d M Y, H:i:s', strtotime($data->created_at)) }}
-                  {{ $data->created_at->format('H:i') > '12:00' ? 'PM' : 'AM' }}
-                </span>
+                <span class="badge bg-label-info rounded">{{ date('d M Y', strtotime($data->created_at)) }}</span>
               </td>
               <td>
                 <div class="d-flex align-items-center">
@@ -36,10 +35,17 @@
                     <div class="d-flex flex-row align-items-start justify-content-start gap-1">
                       <span class="text-dark text-capitalize fw-medium">{{ $data->product->name }}</span>
                     </div>
-                    <small class="text-truncate">Rp {{ number_format($data->product->price, 0, ',', '.') }} -
+                    <small class="text-truncate text-dark">Rp {{ number_format($data->product->price, 0, ',', '.') }} -
                       {{ $data->quantity }} {{ $data->product->unit }}</small>
                   </div>
                 </div>
+              </td>
+              <td>
+                @if ($data->order_type == 'ambil_sendiri')
+                  <span class="text-truncate text-dark">Ambil Sendiri</span>
+                @elseif ($data->order_type == 'jasa_kirim')
+                  <span class="text-truncate text-dark">Jasa Kirim</span>
+                @endif
               </td>
               <td>
                 <div class="d-flex justify-content-start align-items-center user-name">
@@ -49,8 +55,10 @@
                       <small class="text-truncate">Rp {{ number_format($data->shipping->price, 0, ',', '.') }}
                         ({{ $data->shipping->etd }} hari)</small>
                     </div>
+                  @elseif($data->order_type == 'ambil_sendiri')
+                    <span class="text-uppercase">-</span>
                   @else
-                    <span class="badge bg-label-danger rounded text-uppercase">Belum memilih kurir</span>
+                    <span class="text-uppercase">-</span>
                   @endif
                 </div>
               </td>
@@ -85,10 +93,10 @@
                   @elseif ($data->shipping->status == 'diterima')
                     <span class="badge bg-label-success rounded text-uppercase">{{ $data->shipping->status }}</span>
                   @endif
+                @elseif($data->order_type == 'ambil_sendiri')
+                  <span class="text-uppercase">-</span>
                 @else
-                  <span class="badge bg-label-danger rounded text-uppercase">
-                    Belum memilih kurir
-                  </span>
+                  <span class="text-uppercase">-</span>
                 @endif
               </td>
             </tr>

@@ -1,5 +1,5 @@
 @extends('layouts.authenticated')
-@section('title', 'Kurir Pengiriman')
+@section('title', 'Opsi Pengiriman')
 @section('content')
   <div class="row">
     <div class="col-12 col-lg-8">
@@ -50,7 +50,8 @@
                         Berat &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; : {{ $order->product->weight }} gram
                       </span>
                       <span class="text-truncate">
-                        Subtotal Produk &emsp;&emsp;&ensp;&nbsp; : Rp {{ number_format($order->product->price, 0, ',', '.') }}
+                        Subtotal Produk &emsp;&emsp;&ensp;&nbsp; : Rp
+                        {{ number_format($order->product->price, 0, ',', '.') }}
                       </span>
                       <br>
                       <span class="text-truncate">
@@ -433,22 +434,54 @@
       <div class="card mb-3">
         <div class="card-body">
           <h5 class="card-title mb-4">Opsi Pengiriman</h5>
-          <form action="" method="POST">
+          <form action="" method="POST" id="form-ongkir">
             @csrf
             <x-form-floating>
-              <select name="courier" id="courier" class="form-select">
-                <option selected disabled>Pilih Kurir</option>
-                <option value="jne">JNE</option>
-                <option value="tiki">TIKI</option>
-                <option value="pos">POS Indonesia</option>
-              </select>
-              <x-validation-error :name="'courier'" />
+              <x-input-form-label :label="'Metode Pengiriman'" :name="'order_type'" :type="'select'" :options="$data['order_type']"
+                :select="'Pilih Metode Pengiriman'" :value="old('order_type')" />
             </x-form-floating>
 
-            <x-submit-button :label="'Cek Ongkos Kirim'" :type="'submit'" :variant="'primary w-100'" :icon="'check-circle-outline'" />
+            <x-form-floating :class="'courier'">
+              <x-input-form-label :label="'Kurir'" :name="'courier'" :type="'select'" :options="$data['courier']"
+                :select="'Pilih Kurir'" />
+            </x-form-floating>
+
+            <x-submit-button :label="'Submit'" id="btn-submit" :type="'submit'" :variant="'primary w-100'"
+              :icon="'check-circle-outline'" />
           </form>
         </div>
       </div>
     </div>
   </div>
 @endsection
+
+@push('scripts')
+  <script>
+    let orderType = document.getElementById('order_type')
+    let courier = document.getElementById('courier')
+
+    if (orderType.value == 'jasa kirim') {
+      courier.disabled = false
+      $('#btn-submit').html('<i class="mdi mdi-truck-fast-outline me-1"></i>Cek Ongkos Kirim');
+    } else {
+      courier.disabled = true
+    }
+
+    orderType.onchange = function() {
+      if (orderType.value == 'jasa kirim') {
+        courier.disabled = false
+        $('#btn-submit').html('<i class="mdi mdi-truck-fast-outline me-1"></i>Cek Ongkos Kirim');
+      } else {
+        courier.disabled = true
+        courier.value = 'Pilih Kurir'
+        $('#btn-submit').html('<i class="mdi mdi-check-circle-outline me-1"></i>Submit');
+      }
+    }
+
+    courier.onfocus = function() {
+      if (orderType.value == 'jasa kirim') {
+        $('#btn-submit').html('<i class="mdi mdi-truck-fast-outline me-1"></i>Cek Ongkos Kirim');
+      }
+    }
+  </script>
+@endpush
