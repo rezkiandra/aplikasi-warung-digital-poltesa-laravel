@@ -35,22 +35,24 @@ class MidtransController extends Controller
     try {
       $order = Order::with(['shipping', 'product', 'customer.user'])->where('uuid', $uuid)->firstOrFail();
 
-      $adminCost = Setting::getValue('admin_cost');
-      $maximCost = Setting::getValue('maxim_cost');
+      $data = [
+        'adminCost' => Setting::getValue('admin_cost'),
+        'maximCost' => Setting::getValue('maxim_cost')
+      ];
 
       if ($order->order_type == 'jasa kirim') {
         if ($order->courier != 'Maxim') {
           $shippingCost = $order->shipping->price;
           $grossAmount = $order->total_price + $shippingCost;
-          $params = $this->buildPaymentParams($order, $grossAmount, $adminCost);
+          $params = $this->buildPaymentParams($order, $grossAmount, $data['adminCost']);
         } else {
           $shippingCost = $order->shipping->price;
           $grossAmount = $order->total_price + $shippingCost;
-          $params = $this->buildPaymentsParamsMaxim($order, $grossAmount);
+          $params = $this->buildPaymentsParamsMaxim($order, $grossAmount, $data['adminCost']);
         }
       } else {
-        $grossAmount = $order->total_price + $adminCost;
-        $params = $this->buildPaymentParamsWithoutShipping($order, $grossAmount, $adminCost);
+        $grossAmount = $order->total_price + $data['adminCost'];
+        $params = $this->buildPaymentParamsWithoutShipping($order, $grossAmount, $data['adminCost']);
       }
 
       $snapToken = Snap::getSnapToken($params);
@@ -58,7 +60,7 @@ class MidtransController extends Controller
       $order->snap_token = $snapToken;
       $order->save();
 
-      return view('customer.checkout', compact('order', 'snapToken', 'maximCost', 'adminCost'));
+      return view('customer.checkout', compact('order', 'snapToken', 'data'));
     } catch (Exception $e) {
       return redirect()->back()->withErrors(['error' => json_decode($e->getMessage(), true)]);
     }
@@ -67,11 +69,11 @@ class MidtransController extends Controller
   public function detailPayment(string $uuid)
   {
     $order = Order::where('uuid', $uuid)->firstOrFail();
-
-    $adminCost = Setting::getValue('admin_cost');
-    $maximCost = Setting::getValue('maxim_cost');
-
-    return view('customer.order-detail', compact('order', 'maximCost', 'adminCost'));
+    $data = [
+      'adminCost' => Setting::getValue('admin_cost'),
+      'maximCost' => Setting::getValue('maxim_cost')
+    ];
+    return view('customer.order-detail', compact('order', 'data'));
   }
 
   public function cancelPayment(string $uuid)
@@ -196,12 +198,6 @@ class MidtransController extends Controller
           'price' => $adminCost,
           'quantity' => 1
         ],
-        [
-          'id' => 'SHI-01',
-          'name' => 'Biaya Maxim',
-          'price' => $order->shipping->price,
-          'quantity' => 1
-        ],
       ],
       'customer_details' => [
         'first_name' => $order->customer->full_name,
@@ -213,7 +209,7 @@ class MidtransController extends Controller
     ];
   }
 
-  private function buildPaymentsParamsMaxim($order, $grossAmount)
+  private function buildPaymentsParamsMaxim($order, $grossAmount, $adminCost)
   {
     return [
       'transaction_details' => [
@@ -233,6 +229,12 @@ class MidtransController extends Controller
           'id' => $order->shipping->uuid,
           'name' => $order->shipping->courier . ' - ' . $order->shipping->code,
           'price' => $order->shipping->price,
+          'quantity' => 1
+        ],
+        [
+          'id' => 'ADM-01',
+          'name' => 'Biaya Admin',
+          'price' => $adminCost,
           'quantity' => 1
         ],
       ],

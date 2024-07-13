@@ -38,14 +38,13 @@ class CustomerController extends Controller
 
   public function index()
   {
-    $topProducts = Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
-      ->where('status', 'paid')
-      ->orderBy('quantity', 'desc')
-      ->orderBy('products.price', 'desc')
-      ->limit(4)
-      ->get(['products.*', 'orders.*']);
+    $categories = ProductCategory::has('product')->get('slug');
+    $data = [
+      'foodProducts' => $this->getTopProductsByCategory('makanan'),
+      'beautyProducts' => $this->getTopProductsByCategory('kecantikan'),
+    ];
 
-    return view('customer.home', compact('topProducts'));
+    return view('customer.home', compact('categories', 'data'));
   }
 
   public function dashboard()
@@ -200,11 +199,7 @@ class CustomerController extends Controller
       : collect([]);
 
     $user_role = Auth::user()->role_id ?? '';
-    $wishlistUUID = Auth::check() && auth()->user()->customer
-      ? Wishlist::where('customer_id', auth()->user()->customer->id)->pluck('uuid')->toArray()
-      : [];
-
-    return view('customer.wishlist', compact('wishlists', 'user_role', 'wishlistUUID'));
+    return view('customer.wishlist', compact('wishlists', 'user_role'));
   }
 
   public function orders()
@@ -304,5 +299,17 @@ class CustomerController extends Controller
     }
 
     return null;
+  }
+
+  private function getTopProductsByCategory($categorySlug)
+  {
+    return Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
+      ->join('product_categories', 'products.category_id', '=', 'product_categories.id', 'left')
+      ->where('product_categories.slug', $categorySlug)
+      ->where('status', 'sudah bayar')
+      ->orderBy('products.price', 'desc')
+      ->orderBy('quantity', 'desc')
+      ->take(4)
+      ->get(['products.*', 'orders.*']);
   }
 }

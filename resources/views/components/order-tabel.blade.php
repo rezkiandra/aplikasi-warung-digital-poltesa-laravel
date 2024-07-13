@@ -1,3 +1,6 @@
+@php
+  $adminCost = \App\Models\Setting::getValue('admin_cost');
+@endphp
 <div class="card">
   <div class="table-responsive">
     <table class="table">
@@ -51,8 +54,14 @@
                 @if ($data->shipping)
                   <div class="d-flex flex-column">
                     <span class="fw-medium text-heading">{{ $data->shipping->courier }}</span>
-                    <small class="text-truncate text-dark">Rp {{ number_format($data->shipping->price, 0, ',', '.') }}
-                      ({{ $data->shipping->etd }} hari)</small>
+                    @if ($data->shipping->courier == 'Maxim')
+                      <small class="text-truncate text-dark">Rp {{ number_format($data->shipping->price, 0, ',', '.') }}
+                        ({{ $data->shipping->etd }})</small>
+                    @else
+                      <small class="text-truncate text-dark">Rp
+                        {{ number_format($data->shipping->price, 0, ',', '.') }}
+                        ({{ $data->shipping->etd }} hari)</small>
+                    @endif
                   </div>
                 @elseif($data->order_type == 'ambil sendiri')
                   <span class="text-uppercase">-</span>
@@ -62,24 +71,20 @@
               </div>
             </td>
             <td>
-              @if ($data->shipping && $data->shipping->courier != 'Maxim')
-                <span class="text-dark">Rp {{ number_format(\App\Models\Setting::getValue('admin_cost'), 0, ',', '.') }}</span>
-              @else
-                <span class="text-dark">-</span>
-              @endif
+              <span class="text-dark">Rp {{ number_format($adminCost, 0, ',', '.') }}</span>
             </td>
             <td>
               @if ($data->shipping && $data->shipping->courier != 'Maxim')
                 <span class="text-truncate text-dark">Rp
-                  {{ number_format($data->total_price + \App\Models\Setting::getValue('admin_cost') + $data->shipping->price, 0, ',', '.') }}
+                  {{ number_format($data->total_price + $adminCost + $data->shipping->price, 0, ',', '.') }}
                 </span>
               @elseif ($data->shipping && $data->shipping->courier == 'Maxim')
                 <span class="text-truncate text-dark">Rp
-                  {{ number_format($data->total_price + $data->shipping->price, 0, ',', '.') }}
+                  {{ number_format($data->total_price + $adminCost + $data->shipping->price, 0, ',', '.') }}
                 </span>
               @else
                 <span class="text-truncate text-dark">Rp
-                  {{ number_format($data->total_price, 0, ',', '.') }}
+                  {{ number_format($data->total_price + $adminCost, 0, ',', '.') }}
                 </span>
               @endif
             </td>

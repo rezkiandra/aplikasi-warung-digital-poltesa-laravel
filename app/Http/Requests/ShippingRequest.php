@@ -15,7 +15,7 @@ class ShippingRequest extends FormRequest
   {
     return [
       'shipping_status' => 'required_if:shipping_status,null|in:diproses,dikirim,diterima',
-      'resi' => 'required_if:shipping_status,dikirim',
+      'resi' => 'required_if:shipping_status,dikirim|required_if:courier,jne',
     ];
   }
 
@@ -23,6 +23,7 @@ class ShippingRequest extends FormRequest
   {
     return [
       'shipping_status.required_if' => 'Pilih shipping_status pengiriman',
+      'shipping_status.in' => 'Pilih shipping_status yang tersedia',
       'resi.required_if' => 'Masukkan nomor resi',
     ];
   }

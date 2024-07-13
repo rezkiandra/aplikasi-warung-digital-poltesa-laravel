@@ -188,7 +188,6 @@ Route::middleware('auth', 'mustLogin', 'checkRole:Customer')->group(function () 
       Route::get('/settings', 'settings')->name('customer.settings');
       Route::post('store-biodata', 'store')->name('customer.store.biodata');
       Route::put('/update-biodata/{biodata}', 'update')->name('customer.update.biodata');
-      Route::get('/detail-product/{product}', 'product')->name('customer.detail.product');
       Route::put('/settings/edit-profile/{customer}', 'updateProfile')->name('customer.update.profile');
     });
 
@@ -211,6 +210,7 @@ Route::middleware('auth', 'mustLogin', 'checkRole:Customer')->group(function () 
     ->group(function () {
       Route::get('/home', 'index')->name('customer.home');
       Route::get('/products', 'products')->name('customer.products');
+      Route::get('/detail-product/{product}', 'product')->name('customer.detail.product');
       Route::get('/faq', 'faq')->name('customer.faq');
     });
 });

@@ -106,17 +106,17 @@
               <span class="timeline-point timeline-point-primary"></span>
               <div class="timeline-event">
                 <div class="timeline-header mb-1">
-                  @if ($order->order_type == 'ambil_sendiri')
+                  @if ($shipping->order->order_type == 'ambil sendiri')
                     <h6 class="mb-0">Pelanggan anda memilih tipe pesanan Ambil Sendiri</h6>
-                  @elseif($order->order_type == 'jasa_kirim')
+                  @elseif($shipping->order->order_type == 'jasa kirim')
                     <h6 class="mb-0">Pelanggan anda memilih tipe pesanan Jasa Kirim</h6>
                   @endif
-                  <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($order->created_at)) }}</small>
+                  <small class="text-muted">{{ date('d M Y, H:i:s', strtotime($shipping->order->created_at)) }}</small>
                 </div>
                 <p class="mt-1 mb-3">Pelanggan anda telah memilih tipe pesanan</p>
               </div>
             </li>
-            @if ($order->shipping)
+            @if ($shipping->order)
               <li class="timeline-item timeline-item-transparent border-primary">
                 <span class="timeline-point timeline-point-primary"></span>
                 <div class="timeline-event">

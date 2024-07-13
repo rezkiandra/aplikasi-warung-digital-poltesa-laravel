@@ -3,7 +3,7 @@
 @endphp
 
 <div class="fixed-top">
-  <nav class="layout-navbar shadow bg-white border">
+  <nav class="layout-navbar shadow-sm bg-white border">
     <div class="navbar navbar-expand-lg landing-navbar border-top-0 px-3 px-md-4 bg-white rounded">
       <div class="navbar-brand app-brand demo d-flex py-0 py-lg-2 me-lg-5 me-md-4 me-2">
         <button class="navbar-toggler border-0 px-0 me-lg-5 me-md-4 me-3 d-inline-block d-lg-none" type="button"
