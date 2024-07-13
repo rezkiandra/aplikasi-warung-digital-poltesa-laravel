@@ -12,22 +12,40 @@ class GuestController extends Controller
 {
   public function index()
   {
-    $topProducts = Order::join('products', 'orders.product_id', '=', 'products.id', 'left')->where('status', 'paid')->orderBy('quantity', 'desc')->orderBy('products.price', 'desc')->limit(4)->get('products.*', 'orders.*');
-    return view('pages.home', compact('topProducts'));
+    $topFoodProducts = Order::join('products', 'orders.product_id', '=', 'products.id', 'left')
+      ->join('product_categories', 'products.category_id', '=', 'product_categories.id', 'left')
+      ->where('product_categories.slug', 'makanan')
+      ->where('status', 'sudah bayar')
+      ->orderBy('quantity', 'desc')
+      ->orderBy('products.price', 'desc')
+      ->take(4)
+      ->get(['products.*', 'orders.*']);
+
+    return view('pages.home', compact('topFoodProducts'));
   }
 
   public function products(Request $request)
   {
-    if ($request->search) {
-      $query = $request->input('search');
-      $products = Products::where('name', 'LIKE', "%{$query}%")->get();
-      $totalProducts = $products->count();
-    } else {
-      $products = Products::orderBy('category_id', 'asc')->get();
-      $totalProducts = $products->count();
+    $query = $request->input('search');
+    $categorySlug = $request->input('category');
+
+    $products = Products::query();
+
+    if ($query) {
+      $products->where('name', 'LIKE', "%{$query}%");
     }
-    $category = ProductCategory::pluck('name', 'id')->toArray();
-    return view('pages.products', compact('products', 'totalProducts', 'category'));
+
+    if ($categorySlug) {
+      $category = ProductCategory::where('slug', $categorySlug)->first();
+      if ($category) {
+        $products->where('category_id', $category->id);
+      }
+    }
+
+    $products = $products->orderBy('category_id', 'asc')->get();
+    $totalProducts = $products->count();
+
+    return view('pages.products', compact('products', 'totalProducts'));
   }
 
   public function faq()

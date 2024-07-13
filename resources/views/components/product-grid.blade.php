@@ -7,7 +7,6 @@
           ->toArray();
   }
 @endphp
-
 @push('styles')
   <style>
     .card:hover {
@@ -20,7 +19,7 @@
     }
 
     img {
-      height: 400px;
+      height: 300px;
       width: 100%;
       background-position: center;
       background-size: cover;
@@ -37,7 +36,7 @@
 
     @media screen and (max-width: 1280px) {
       img {
-        height: 220px;
+        height: 250px;
         width: 100%;
         background-position: center;
         background-size: cover;
@@ -45,9 +44,8 @@
     }
   </style>
 @endpush
-
 @foreach ($datas as $data)
-  <div class="col-lg-3 col-md-4 col-6 pb-lg-3 pb-3" data-aos="fade-up" data-aos-duration="1000">
+  <div class="col-lg-2 col-md-4 col-6 pb-lg-3 pb-3" data-aos="fade-up" data-aos-duration="1000">
     <div class="card cursor-pointer"
       @if ($user_role == 1) onclick="window.location.href='{{ route('admin.detail.product', $data->slug) }}'" 
       @elseif ($user_role == 2) onclick="window.location.href='{{ route('seller.detail.product', $data->slug) }}'"
@@ -92,7 +90,7 @@
             Rp {{ number_format($data->price, 0, ',', '.') }}
           </small>
         </div>
-        <small class="d-none d-lg-flex d-md-flex align-items-center justify-content-between">
+        {{-- <small class="d-none d-lg-flex d-md-flex align-items-center justify-content-between">
           <span>
             <span class="d-lg-flex align-items-center gap-1">
               <i class="mdi mdi-star-half-full text-warning"></i>
@@ -103,7 +101,7 @@
           <span>
             Terjual {{ \App\Models\Order::where('product_id', $data->id)->where('status', 'paid')->sum('quantity') }}
           </span>
-        </small>
+        </small> --}}
       </div>
     </div>
   </div>

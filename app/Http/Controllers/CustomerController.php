@@ -134,16 +134,25 @@ class CustomerController extends Controller
   public function products(Request $request)
   {
     $query = $request->input('search');
+    $categorySlug = $request->input('category');
+
+    $products = Products::query();
+
     if ($query) {
-      $products = Products::where('name', 'LIKE', "%{$query}%")->get();
-    } else {
-      $products = Products::orderBy('category_id', 'asc')->get();
+      $products->where('name', 'LIKE', "%{$query}%");
     }
 
-    $totalProducts = $products->count();
-    $category = ProductCategory::pluck('name', 'id')->toArray();
+    if ($categorySlug) {
+      $category = ProductCategory::where('slug', $categorySlug)->first();
+      if ($category) {
+        $products->where('category_id', $category->id);
+      }
+    }
 
-    return view('customer.products', compact('products', 'totalProducts', 'category'));
+    $products = $products->orderBy('category_id', 'asc')->get();
+    $totalProducts = $products->count();
+
+    return view('pages.products', compact('products', 'totalProducts'));
   }
 
   public function faq()
