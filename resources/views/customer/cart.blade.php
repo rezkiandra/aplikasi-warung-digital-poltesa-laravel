@@ -1,16 +1,16 @@
 @extends('layouts.authenticated')
 @section('title', 'Keranjang')
 @section('content')
-  <h4 class="mb-1">Keranjang Produk</h4>
-  <p class="mb-3">Daftar produk yang ada di keranjang belanja anda</p>
+  <h4 class="mb-1">{{ 'Keranjang Produk' }}</h4>
+  <p class="mb-3">{{ 'Daftar produk yang ada di keranjang belanja anda' }}</p>
   <div class="col-lg-12 mb-4">
     @if (!$carts->isEmpty())
-      <h6>Keranjang produk saya ({{ $carts->count() }} item)</h6>
+      <h6>{{ 'Keranjang produk saya' }} ({{ $carts->count() }} {{ 'item' }})</h6>
       <ul class="list-group mb-4">
         @each('partials.cart-item', $carts, 'cart')
       </ul>
     @else
-      <p class="text-center">Tidak ada keranjang produk</p>
+      <p class="text-center">{{ 'Tidak ada keranjang produk' }}</p>
     @endif
   </div>
 @endsection
@@ -18,7 +18,7 @@
   <script>
     $(document).ready(function() {
       $('input[name="quantity"]').on('change', function() {
-        const index = $(this).closest('li').index(); // Ambil index item keranjang yang sedang diubah quantity-nya
+        const index = $(this).closest('li').index();
         const price = $(this).closest('li').data('price');
         const quantity = $(this).val();
         const totalPrice = price * quantity;
