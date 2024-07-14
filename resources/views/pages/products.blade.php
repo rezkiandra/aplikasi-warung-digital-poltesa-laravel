@@ -29,7 +29,6 @@
     </div>
   </section>
 @endsection
-
 @push('scripts')
   <script>
     const customerId = {{ auth()->user()->customer->id ?? '' }}

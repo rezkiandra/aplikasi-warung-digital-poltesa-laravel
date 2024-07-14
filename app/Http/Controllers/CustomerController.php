@@ -151,7 +151,7 @@ class CustomerController extends Controller
     $products = $products->orderBy('category_id', 'asc')->get();
     $totalProducts = $products->count();
 
-    return view('pages.products', compact('products', 'totalProducts'));
+    return view('customer.products', compact('products', 'totalProducts'));
   }
 
   public function faq()
@@ -162,11 +162,15 @@ class CustomerController extends Controller
   public function product(string $slug)
   {
     $product = Products::where('slug', $slug)->firstOrFail();
+    $wishlistUUID = $product->uuid;
+    $customer = Auth::check() ? Auth::user()->customer : null;
     $relatedProducts = Products::where('category_id', $product->category_id)
       ->where('id', '!=', $product->id)
       ->get();
 
-    return view('customer.detail-product', compact('product', 'relatedProducts'));
+    $relatedProductsUUID = $relatedProducts->pluck('uuid')->toArray();
+
+    return view('customer.detail-product', compact('product', 'relatedProducts', 'wishlistUUID', 'customer', 'relatedProductsUUID'));
   }
 
   public function biodata()

@@ -1,33 +1,17 @@
 @php
-  $customer = auth()->user()->customer ?? '';
-  if (Auth::check() && $customer) {
-      $wishlistUUID = \App\Models\Wishlist::where('customer_id', auth()->user()->customer->id)
-          ->pluck('uuid')
+  $customer = auth()->user()->customer ?? null;
+  $seller = auth()->user()->seller ?? null;
+
+  $wishlistUUID = [];
+  if (auth()->check() && $customer) {
+      $wishlistUUID = \App\Models\Wishlist::whereIn('product_id', $product->pluck('id'))
+          ->where('customer_id', $customer->id)
+          ->pluck('uuid', 'product_id')
           ->toArray();
   }
 
-  if (Auth::check() && Auth::user()->role_id == 1) {
-      $admin = auth()->user()->role_id == 1;
-  } else {
-      $admin = false;
-  }
-
-  $customer = auth()->user()->customer ?? '';
-  $seller = auth()->user()->seller ?? '';
-  $courier = [
-      'jne' => 'JNE',
-      'pos' => 'POS',
-      'tiki' => 'TIKI',
-  ];
+  $admin = auth()->check() && auth()->user()->role_id == 1;
 @endphp
-
-@push('styles')
-  <style>
-    .description {
-      line-height: 1.7;
-    }
-  </style>
-@endpush
 
 @auth
   @if ($customer && $customer->status == 'active')
@@ -45,6 +29,7 @@
   <x-alert :type="'warning'" :message="'Anda belum login. Silahkan login terlebih dahulu untuk menggunakan layanan!'" :icon="'alert-circle-outline'" />
 @endguest
 
+{{-- {{ dd($wishlistUUID) }} --}}
 <div class="d-lg-flex d-md-flex d-flex justify-content-between align-items-start pt-1 pt-lg-3">
   <div class="position-absolute">
     @if ($product->stock != 0)
@@ -193,12 +178,6 @@
           <dl class="row mb-0">
             <dt class="col-6 fw-normal text-heading">Sub Total</dt>
             <dd class="col-6 text-end" id="subtotal">Rp {{ number_format($product->price, 0, ',', '.') }}</dd>
-
-            {{-- <dt class="col-6 fw-normal text-heading">PPN 1% / {{ $product->unit }}</dt>
-            <dd class="col-6 text-end">
-              <i class="mdi mdi-truck-fast-outline me-1"></i>
-              Rp {{ number_format(($product->price / 100) * 1, 0, ',', '.') }}
-            </dd> --}}
           </dl>
 
           <hr class="mx-n3 my-2">
@@ -210,7 +189,7 @@
           <div class="d-grid gap-2">
             @if ($customer)
               @if ($customer->wishlist()->where('product_id', $product->id)->exists())
-                <form action="{{ route('wishlist.destroy', $wishlistUUID) }}" method="POST">
+                <form action="{{ route('wishlist.destroy', $wishlistUUID[$product->id]) }}" method="POST">
                   @csrf
                   @method('DELETE')
                   <x-submit-button :label="'Hapus Wishlist'" :type="'submit'" :class="'btn-outline-danger w-100 mb-2'" :icon="'heart'"
@@ -301,7 +280,6 @@
   @endif
 </div>
 
-
 @push('scripts')
   <script>
     const stock = {{ $product->stock }}
@@ -365,4 +343,12 @@
       $('#total').html('Rp ' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
     });
   </script>
+@endpush
+
+@push('styles')
+  <style>
+    .description {
+      line-height: 1.7;
+    }
+  </style>
 @endpush
