@@ -12,7 +12,7 @@ return [
 
   'snap_url' => 'https://app.sandbox.midtrans.com/snap/snap.js',
   'append_notif_url' => null,
-  'overrideNotifUrl' => null,
+  'override_notif_url' => null,
   'payment_idempotency_key' => null,
 
   'curl_options' => null,
